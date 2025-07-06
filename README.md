@@ -6,4 +6,4 @@ The classical Chinese game majiang (麻将) or «mahjong» is here being built a
 
 Game will eventually be playable at [Github pages](https://dougherty-dev.github.io/majiang/#board), check back in a few weeks.
 
-![Majiang board mockup](https://raw.githubusercontent.com/dougherty-dev/mvc/refs/heads/main/readme/majiang.avif)
+![Majiang board mockup](https://raw.githubusercontent.com/dougherty-dev/majiang/refs/heads/main/readme/majiang.avif)
