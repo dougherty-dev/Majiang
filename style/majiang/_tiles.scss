@@ -1,0 +1,62 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+@mixin media($res, $width: false) {
+	@if (not $width) {
+		$width: calc($res / 250) + vmin;
+	}
+
+	@media (width <=#{$res}px) or (height <=#{$res}px) {
+		width: $width;
+	}
+}
+
+.tile>img {
+	width: 3.6vmin;
+
+	@media only screen {
+		@include media(900);
+		@include media(850);
+		@include media(800);
+		@include media(750);
+		@include media(700);
+		@include media(650);
+		@include media(600);
+		@include media(400, 11px);
+	}
+}
+
+.r0>img {
+	box-shadow: 4px 4px 2px 0px $shadow;
+}
+
+.r90>img {
+	box-shadow: 4px -4px 2px 0px $shadow;
+}
+
+.r180 {
+	&>img {
+		box-shadow: 0 -4px 2px 0px $shadow;
+	}
+
+	&>img:first-child {
+		box-shadow: -4px -4px 2px 0px $shadow,
+			4px -4px 2px 0px $shadow;
+	}
+}
+
+.r270 {
+	&>img {
+		box-shadow: 0 4px 2px 0px $shadow;
+	}
+
+	&>img:first-child {
+		box-shadow: -4px 4px 2px 0px $shadow,
+			4px 4px 2px 0px $shadow;
+	}
+}
+
+.meld-end {
+	margin-right: 10px;
+}
+

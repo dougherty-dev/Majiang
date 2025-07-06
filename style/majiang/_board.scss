@@ -1,0 +1,38 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+.board {
+	overflow: hidden;
+
+	@media only screen and (width <= calc($breakpoint-mobile + 0.8rem)) {
+		padding: 0;
+	}
+}
+
+.board-grid {
+	position: relative;
+
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	grid-template-rows: 1fr 3fr 1fr;
+	grid-template-areas:
+		'points2	player3		points3'
+		'player2	control		player4'
+		'points1	player1		points4';
+	grid-gap: 0;
+
+	align-content: space-between;
+	justify-content: space-around;
+
+	background-color: $majiang-table;
+	color: $white;
+
+	$min: min(calc(96vh - max(8vmin, 120px)), calc(96vw - max(8vmin, 120px)));
+	width: $min;
+	height: $min;
+
+	min-width: $breakpoint-mobile;
+	min-height: $breakpoint-mobile;
+
+	margin: 0 auto;
+}

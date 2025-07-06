@@ -1,0 +1,77 @@
+@use '../abstracts' as *;
+
+@font-face {
+	font: {
+		family: neue;
+		style: normal;
+		weight: normal;
+	}
+
+	src: local('Helvetica Neue Regular'),
+	local('Helvetica Regular');
+	font-display: swap;
+}
+
+@font-face {
+	font: {
+		family: neue-italic;
+		style: italic;
+		weight: normal;
+	}
+
+	src: local('Helvetica Neue Italic'),
+	local('Helvetica Oblique');
+	font-display: swap;
+}
+
+@font-face {
+	font: {
+		family: neue-bold;
+		style: normal;
+		weight: bold;
+	}
+
+	src: local('Helvetica Neue Bold'),
+	local('Helvetica Bold');
+	font-display: swap;
+}
+
+@font-face {
+	font: {
+		family: neue-bolditalic;
+		style: italic;
+		weight: bold;
+	}
+
+	src: local('Helvetica Neue Bold Italic'),
+	local('Helvetica Bold Oblique');
+	font-display: swap;
+}
+
+body {
+	font-family: neue, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: neue-bold, sans-serif;
+}
+
+em,
+figcaption {
+	font-family: neue-italic, sans-serif;
+}
+
+strong,
+th {
+	font-family: neue-bold, sans-serif;
+}
+
+em strong,
+strong em {
+	font-family: neue-bolditalic, sans-serif;
+}

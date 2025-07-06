@@ -1,0 +1,92 @@
+@use '../abstracts' as *;
+@use '../abstracts/palettes' as *;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+html {
+	background-color: $background-color;
+	color: $foreground-color;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	hyphens: none;
+	font-family: neue, sans-serif;
+	font-size: max(2vmin, 1.2rem);
+}
+
+p {
+	text-wrap: balance;
+	line-height: 1.3;
+}
+main {
+	padding: 0.8rem;
+}
+
+h1 {
+	font-size: max(4vmin, 2rem);
+	color: $header-foreground-color;
+}
+
+h2 {
+	font-size: max(3vmin, 1.7rem);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $title-color;
+}
+
+p {
+	font-size: max(2vmin, 1.2rem);
+}
+
+ol,
+ul {
+	padding-left: 1.2rem;
+}
+
+a {
+	color: $foreground-color;
+}
+
+* a,
+* a:link,
+* a:visited,
+* a:hover {
+	color: inherit;
+	text-decoration: none;
+}
+
+img {
+	max-width: 100% !important;
+	max-height: 100%;
+	height: auto;
+
+	&:not([alt]) {
+		outline: $developer 4px dashed !important;
+	}
+}
+
+button {
+	display: block;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-color: $border-color;
+	margin: 1rem 0;
+}

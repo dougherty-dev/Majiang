@@ -1,0 +1,32 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/palettes' as *;
+
+.button {
+	color: $white;
+	background-color: $black;
+	text-decoration: none;
+	font-size: 1.1rem;
+	margin: 0.5rem 0 1rem;
+	padding: 0.2rem;
+	border-radius: 0.1rem;
+	font-family: neue-bold, sans-serif;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: $gray-65;
+}
+
+.button:active {
+	background-color: $gray-15;
+}
+
+.button:disabled,
+.button:disabled:hover,
+.button:disabled:active {
+	display: none;
+}
+
+.full-width-button {
+	width: 100%;
+}

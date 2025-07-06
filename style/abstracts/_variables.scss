@@ -1,0 +1,32 @@
+@use 'palettes' as *;
+
+:root {
+	scrollbar-width: none;
+}
+
+$background-color: $gray-95 !default;
+$foreground-color: $gray-05 !default;
+
+$header-background-color: $primary-5 !default;
+$header-foreground-color: $secondary-1 !default;
+
+$title-color: $header-foreground-color !default;
+
+$footer-background-color: $black !default;
+$footer-foreground-color: $white !default;
+$footer-active: $tertiary-1;
+
+$border-color: $gray-85 !default;
+$frame-color: $gray-85 !default;
+
+$border: 1px solid $border-color;
+$border-radius: 0.2rem;
+
+$img: 'img';
+
+$developer: $footer-active;
+
+$breakpoint-mobile: 325px;
+
+$majiang-table: $primary-3;
+$minsize: 10px;

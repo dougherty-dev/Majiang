@@ -1,0 +1,94 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+.grid-control {
+	grid-area: control;
+	aspect-ratio: 1/1;
+
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-template-areas:
+		'discard3	discard3	discard4'
+		'discard2	counter		discard4'
+		'discard2	discard1	discard1';
+	gap: 0.3rem;
+}
+
+@mixin control-player($p) {
+	grid-area: $p;
+	display: flex;
+	flex-flow: wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+	row-gap: 0.3rem;
+}
+
+.control-player1 {
+	@include control-player(discard1);
+}
+
+.control-player2 {
+	@include control-player(discard2);
+	transform: rotate(90deg) translate(25%, 50%);
+	width: 200%;
+	height: 50%;
+}
+
+.control-player3 {
+	@include control-player(discard3);
+	transform: rotate(180deg);
+}
+
+.control-player4 {
+	@include control-player(discard4);
+	transform: rotate(270deg) translate(-25%, -50%);
+	width: 200%;
+	height: 50%;
+}
+
+.control-counter {
+	grid-area: counter;
+
+	display: grid;
+	grid-template-columns: repeat(3, 33.33333%);
+	grid-template-rows: repeat(3, 33.33333%);
+	grid-template-areas:
+		'.			wind3		.'
+		'wind2		tiles		wind4'
+		'.			wind1		.';
+	align-items: center;
+	justify-content: center;
+	justify-items: center;
+	font-size: max(2.5vmin, $minsize);
+	color: $gray-10;
+	text-shadow: 1px 1px 2px $tertiary-3;
+}
+
+.control-wind1 {
+	grid-area: wind1;
+}
+
+.control-wind2 {
+	grid-area: wind2;
+	transform: rotate(90deg);
+}
+
+.control-wind3 {
+	grid-area: wind3;
+	transform: rotate(180deg);
+}
+
+.control-wind4 {
+	grid-area: wind4;
+	transform: rotate(270deg);
+}
+
+.control-tiles {
+	grid-area: tiles;
+}
+
+.wind {
+	width: max(3.5vmin, 11px);
+	filter: invert(43%) sepia(47%) saturate(699%) hue-rotate(356deg) brightness(97%) contrast(84%);
+}

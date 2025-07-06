@@ -1,0 +1,23 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+.left {
+	text-align: left;
+}
+
+.justify {
+	float: right;
+}
+
+.small {
+	font-size: max(1vmin, 0.8rem);
+	line-height: max(1.4vmin, 1rem);
+}

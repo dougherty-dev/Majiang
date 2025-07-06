@@ -1,0 +1,29 @@
+{
+  "name": "majiang",
+  "version": "1.0.0",
+  "description": "Majiang JS app for practising the game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Implement later\" && exit 0",
+    "start": "http-server .",
+    "posttest": "npm run eslint && npm run stylelint",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix",
+    "stylelint": "stylelint \"**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint --fix \"**/*.css\"",
+    "style": "sass base.scss style.css --no-source-map",
+    "style-min": "sass base.scss style.min.css  --no-source-map --style compressed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "eslint": "^9.30.0",
+    "sass": "^1.89.2",
+    "postcss": "^8.5.6",
+    "stylelint": "^16.21.0",
+    "stylelint-config-sass-guidelines": "^12.1.0",
+    "stylelint-config-standard": "^38.0.0"
+  }
+}

@@ -1,0 +1,57 @@
+@use '../abstracts' as *;
+@use '../abstracts/palettes' as *;
+
+navigation-outlet nav {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-evenly;
+
+	width: 100%;
+	line-height: 1rem;
+	padding: 0.2rem;
+
+	color: $title-color;
+
+	a,
+	a:link,
+	a:visited,
+	a:hover {
+		text-decoration: none;
+	}
+
+	.navtext {
+		display: inline;
+		color: $black;
+	}
+
+	.navicon {
+		display: none;
+		font-size: 2vmin;
+		text-align: center;
+	}
+
+
+	img {
+		padding: 0;
+		aspect-ratio: 1;
+		width: max(2vmin, 22px);
+	}
+
+	@media (max-width: $breakpoint-mobile) {
+		.navtext {
+			display: none;
+		}
+
+		.navicon {
+			display: inline;
+		}
+	}
+}
+
+.active {
+	filter: invert(41%) sepia(50%) saturate(447%) hue-rotate(108deg) brightness(98%) contrast(91%);
+}
+
+.inactive {
+	filter: invert(95%) sepia(48%) saturate(0%) hue-rotate(176deg) brightness(105%) contrast(106%);
+}

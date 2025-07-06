@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+footer {
+	position: sticky;
+	bottom: 0;
+	z-index: 2000;
+
+	height: max(5vmin, 50px);
+	width: 100%;
+
+	padding-top: 3px;
+
+	background-color: $footer-background-color;
+	color: $footer-foreground-color;
+}

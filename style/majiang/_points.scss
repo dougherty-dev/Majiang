@@ -1,0 +1,33 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+@mixin grid-points($p, $deg) {
+	grid-area: $p;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+	padding: 0.3em;
+	transform: rotate($deg);
+}
+
+.grid-points1 {
+	@include grid-points(points1, 0);
+}
+
+.grid-points2 {
+	@include grid-points(points2, 90deg);
+}
+
+.grid-points3 {
+	@include grid-points(points3, 180deg);
+}
+
+.grid-points4 {
+	@include grid-points(points4, 270deg);
+}
+
+.points {
+	font-size: max(4vmin, 2 * $minsize);
+	color: $gray-10;
+	opacity: 0.75;
+}
