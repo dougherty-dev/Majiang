@@ -18,7 +18,7 @@ export default class BoardView extends HTMLElement {
 					<div class="grid-player1">
 						<div class="player1-grid">
 							<div class="grid-p1-flowers tile r0">
-								<img src="img/tiles/huapai-sijunzi-2-lan.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/huapai-sjie-1-chun.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p1-melds tile r0">
@@ -30,16 +30,13 @@ export default class BoardView extends HTMLElement {
 								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/zipai-jianpai-2-fa.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/zipai-jianpai-2-fa.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/zipai-jianpai-2-fa.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-bingzi-2.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-bingzi-4.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-bingzi-8.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-bingzi-9.svg" alt="🀄︎" width="1" height="1">
 							</div>
 						</div>
 					</div>
@@ -51,15 +48,9 @@ export default class BoardView extends HTMLElement {
 						<div class="player2-grid">
 							<div class="grid-p2-flowers tile r90">
 								<img src="img/tiles/huapai-sijunzi-2-lan.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/huapai-sjie-4-dong.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p2-tiles tile r90">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
@@ -72,9 +63,9 @@ export default class BoardView extends HTMLElement {
 								<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1" class="meld-end">
-								<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-wanzi-9.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-wanzi-9.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/shupaizi-wanzi-9.svg" alt="🀄︎" width="1" height="1">
 							</div>
 						</div>
 					</div>
@@ -100,13 +91,10 @@ export default class BoardView extends HTMLElement {
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p3-melds tile r180">
-								<img src="img/tiles/shupaizi-bingzi-4.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/shupaizi-bingzi-5.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/shupaizi-bingzi-6.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p3-flowers tile r180">
-								<img src="img/tiles/huapai-sijunzi-2-lan.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/huapai-sjie-1-chun.svg" alt="🀄︎" width="1" height="1">
 							</div>
 						</div>
 					</div>
@@ -117,8 +105,8 @@ export default class BoardView extends HTMLElement {
 					<div class="grid-player4">
 						<div class="player4-grid">
 							<div class="grid-p4-flowers tile r270">
-								<img src="img/tiles/huapai-sijunzi-2-lan.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/huapai-sijunzi-4-zhu.svg" alt="🀄︎" width="1" height="1">
+								<img src="img/tiles/huapai-sjie-2-xia.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p4-melds tile r270">
 								<img src="img/tiles/shupaizi-bingzi-1.svg" alt="🀄︎" width="1" height="1">
@@ -126,9 +114,6 @@ export default class BoardView extends HTMLElement {
 								<img src="img/tiles/shupaizi-bingzi-3.svg" alt="🀄︎" width="1" height="1">
 							</div>
 							<div class="grid-p4-tiles tile r270">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 								<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
@@ -151,22 +136,22 @@ export default class BoardView extends HTMLElement {
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-bingzi-6.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-6.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-6.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
