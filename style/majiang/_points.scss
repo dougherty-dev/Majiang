@@ -6,8 +6,9 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-start;
-	padding: 0.3em;
+
 	transform: rotate($deg);
+	padding: 0.3em;
 }
 
 .grid-points1 {
@@ -27,7 +28,7 @@
 }
 
 .points {
-	font-size: max(4vmin, 2 * $minsize);
+	font-size: max(2vmin, 2 * $minsize);
 	color: $gray-10;
 	text-shadow: 1px 1px 2px $black;
 	opacity: 0.75;

@@ -20,24 +20,28 @@ body {
 	min-height: 100vh;
 	hyphens: none;
 	font-family: neue, sans-serif;
-	font-size: max(2vmin, 1.2rem);
+	font-size: max(1vmin, 1rem);
 }
 
+html, body
+{
+    font-size: 100%; /* equivalent to 16px */
+}
 p {
 	text-wrap: balance;
-	line-height: 1.3;
 }
 main {
 	padding: 0.8rem;
 }
 
 h1 {
-	font-size: max(4vmin, 2rem);
+	font-size: max(2.6vmin, 1.7rem);
 	color: $header-foreground-color;
 }
 
 h2 {
-	font-size: max(3vmin, 1.7rem);
+	font-size: max(2vmin, 1.4rem);
+	line-height: max(3vmin, 2rem);
 }
 
 h1,
@@ -50,7 +54,7 @@ h6 {
 }
 
 p {
-	font-size: max(2vmin, 1.2rem);
+	font-size: max(1vmin, 1.2rem);
 }
 
 ol,
