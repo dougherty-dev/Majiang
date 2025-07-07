@@ -1,29 +1,9 @@
 @use '../abstracts/palettes' as *;
 @use '../abstracts' as *;
 
-@mixin media($res, $width: false) {
-	@if (not $width) {
-		$width: calc($res / 250) + vmin;
-	}
-
-	@media (width <=#{$res}px) or (height <=#{$res}px) {
-		width: $width;
-	}
-}
-
 .tile>img {
-	width: 3.6vmin;
-
-	@media only screen {
-		@include media(900);
-		@include media(850);
-		@include media(800);
-		@include media(750);
-		@include media(700);
-		@include media(650);
-		@include media(600);
-		@include media(400, 11px);
-	}
+	height: max(4.2vmin, 18px);
+	width: auto;
 }
 
 .r0>img {

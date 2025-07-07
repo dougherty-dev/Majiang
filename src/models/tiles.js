@@ -67,8 +67,8 @@ const BEIMIAN = [
 ]
 
 const TILES = [
-	...HUAPAI,
-	...[...ZIPAI, ...BINGZI, ...TIAOZI, ...WANZI].flatMap(i => Array(4).fill(i))
+	...[...BINGZI, ...TIAOZI, ...WANZI, ...ZIPAI].flatMap(i => Array(4).fill(i)),
+	...HUAPAI
 ]
 
 export {BEIMIAN, HUAPAI, ZIPAI, BINGZI, TIAOZI, WANZI, TILES}
