@@ -10,10 +10,10 @@ export default class HomeView extends HTMLElement {
 	connectedCallback() {
 		this.innerHTML = `
 			<header>
-				<h2>Hem</h2>
+				<h2>Majiang</h2>
 			</header>
-			<main class="center">
-				<h3>Hem</h3>
+			<main class="home middle">
+				<button id="new-game">New game</button>
 			</main>
     `
 	}

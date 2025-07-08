@@ -2,7 +2,7 @@
 @use '../abstracts' as *;
 
 .tile>img {
-	height: max(4.2vmin, 18px);
+	height: max(4.2vmin, 1rem);
 	width: auto;
 }
 
@@ -37,6 +37,5 @@
 }
 
 .meld-end {
-	margin-right: 0.5rem;
+	margin-right: 1vmin;
 }
-

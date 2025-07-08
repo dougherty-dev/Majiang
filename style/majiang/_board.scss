@@ -27,7 +27,7 @@
 	background-color: $majiang-table;
 	color: $white;
 
-	$min: min(calc(96vh - max(8vmin, 120px)), calc(96vw - max(8vmin, 120px)));
+	$min: min(calc(96vh - max(8vmin, 6rem)), calc(96vw - max(8vmin, 6rem)));
 	width: $min;
 	height: $min;
 

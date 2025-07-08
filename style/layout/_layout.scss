@@ -21,3 +21,9 @@
 	font-size: max(0.8vmin, 1rem);
 	line-height: max(1.4vmin, 1rem);
 }
+
+.middle {
+	display: grid;
+	place-items: center;
+	height: 100vh;
+}

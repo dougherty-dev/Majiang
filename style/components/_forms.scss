@@ -1,32 +1,28 @@
 @use '../abstracts/variables' as *;
 @use '../abstracts/palettes' as *;
 
-.button {
+button {
 	color: $white;
-	background-color: $black;
+	background-color: $tertiary-4;
 	text-decoration: none;
-	font-size: 1.1rem;
-	margin: 0.5rem 0 1rem;
-	padding: 0.2rem;
-	border-radius: 0.1rem;
+	font-size: max(2vw, 1.4rem);
+	border: medium solid $black;
+	border-radius: 0.5rem;
+	padding: 1rem;
 	font-family: neue-bold, sans-serif;
 	cursor: pointer;
 }
 
-.button:hover {
+button:hover {
 	background-color: $gray-65;
 }
 
-.button:active {
+button:active {
 	background-color: $gray-15;
 }
 
-.button:disabled,
-.button:disabled:hover,
-.button:disabled:active {
+button:disabled,
+button:disabled:hover,
+button:disabled:active {
 	display: none;
-}
-
-.full-width-button {
-	width: 100%;
 }

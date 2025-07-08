@@ -1,0 +1,29 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+.home {
+	background-image: url('#{$img}/bg/majiang-750.avif');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 100vh;
+	background-color: $darken;
+    background-blend-mode: darken;
+}
+
+@mixin bgimage($w1, $w2) {
+	@media ((min-width: #{$w1}px) and (max-width: #{$w2}px)) or ((min-height: #{$w1}px) and (max-height: #{$w2}px)) {
+		.home {
+			background-image: url('#{$img}/bg/majiang-#{$w2}.avif');
+		}
+	}
+}
+
+@media only screen {
+	@include bgimage(325, 500);
+	@include bgimage(500, 750);
+	@include bgimage(750, 1000);
+	@include bgimage(1000, 1250);
+	@include bgimage(1250, 1500);
+	@include bgimage(1500, 100000);
+}
