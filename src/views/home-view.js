@@ -13,7 +13,7 @@ export default class HomeView extends HTMLElement {
 				<h2>Majiang</h2>
 			</header>
 			<main class="home middle">
-				<button id="new-game">New game</button>
+				<button class="new-game" id="new-game">New game</button>
 			</main>
     `
 	}

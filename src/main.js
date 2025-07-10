@@ -5,7 +5,7 @@
  * @module main
  */
 
-import majiang from './models/majiang.js'
+import Majiang from './models/majiang.js'
 
 import Router from './router.js'
 import Navigation from './navigation.js'
@@ -23,4 +23,5 @@ customElements.define('not-found-view', NotFoundView)
 customElements.define('board-view', BoardView)
 customElements.define('rules-view', RulesView)
 
-// majiang.playGame()
+const game = new Majiang()
+game.newGame()

@@ -15,17 +15,17 @@ export default class BoardView extends HTMLElement {
 			<main class="board">
 				<div class="board-grid">
 
-					<div class="grid-player1">
-						<div class="grid-p1-flowers tile r0">
+					<div class="grid-player1" id="player1">
+						<div class="grid-p1-flowers tile r0" id="flowers1">
 							<img src="img/tiles/huapai-sjie-1-chun.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="grid-p1-melds tile r0">
+						<div class="grid-p1-melds tile r0" id="melds1">
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="grid-p1-tiles tile r0">
+						<div class="grid-p1-tiles tile r0" id="tiles1">
 							<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/zipai-jianpai-1-zhong.svg" alt="🀄︎" width="1" height="1">
@@ -42,21 +42,12 @@ export default class BoardView extends HTMLElement {
 						<span class="points" id="points1">130</span>
 					</div>
 
-					<div class="grid-player2">
-						<div class="grid-p2-flowers tile r90">
+					<div class="grid-player2" id="player2">
+						<div class="grid-p2-flowers tile r90" id="flowers2">
 							<img src="img/tiles/huapai-sijunzi-2-lan.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/huapai-sjie-4-dong.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="grid-p2-tiles tile r90">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-						</div>
-						<div class="grid-p2-melds tile r90">
+						<div class="grid-p2-melds tile r90" id="melds2">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1" class="meld-end">
@@ -64,49 +55,58 @@ export default class BoardView extends HTMLElement {
 							<img src="img/tiles/shupaizi-wanzi-9.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-9.svg" alt="🀄︎" width="1" height="1">
 						</div>
+						<div class="grid-p2-tiles tile r90" id="tiles2">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+						</div>
 					</div>
 					<div class="grid-points2">
 						<span class="points" id="points2">-50</span>
 					</div>
 
-					<div class="grid-player3">
-						<div class="grid-p3-tiles tile r180">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
-						</div>
-						<div class="grid-p3-melds tile r180">
-						</div>
-						<div class="grid-p3-flowers tile r180">
+					<div class="grid-player3" id="player3">
+						<div class="grid-p3-flowers tile r180" id="flowers3">
 							<img src="img/tiles/huapai-sijunzi-3-ju.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/huapai-sjie-1-chun.svg" alt="🀄︎" width="1" height="1">
+						</div>
+						<div class="grid-p3-melds tile r180" id="melds3">
+						</div>
+						<div class="grid-p3-tiles tile r180" id="tiles3">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
+							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 						</div>
 					</div>
 					<div class="grid-points3">
 						<span class="points" id="points3">110</span>
 					</div>
 
-					<div class="grid-player4">
-						<div class="grid-p4-flowers tile r270">
+					<div class="grid-player4" id="player4">
+						<div class="grid-p4-flowers tile r270" id="flowers4">
 							<img src="img/tiles/huapai-sijunzi-4-zhu.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/huapai-sjie-2-xia.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="grid-p4-melds tile r270">
+						<div class="grid-p4-melds tile r270" id="melds4">
 							<img src="img/tiles/shupaizi-bingzi-1.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-bingzi-2.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-bingzi-3.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="grid-p4-tiles tile r270">
+						<div class="grid-p4-tiles tile r270" id="tiles4">
 							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/beimian.svg" alt="🀄︎" width="1" height="1">
@@ -196,7 +196,7 @@ export default class BoardView extends HTMLElement {
 							<div class="control-wind4">
 								<img class="wind" src="img/nan.svg" alt="🀄︎" width="1" height="1">
 							</div>
-							<div class="control-tiles">112</div>
+							<div class="control-tiles" id="tiles">112</div>
 						</div>
 					</div>
 				</div>

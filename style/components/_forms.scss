@@ -5,7 +5,7 @@ button {
 	color: $white;
 	background-color: $tertiary-4;
 	text-decoration: none;
-	font-size: max(2vw, 1.4rem);
+	font-size: max(1.4vw, 1.1rem);
 	border: medium solid $black;
 	border-radius: 0.5rem;
 	padding: 1rem;
@@ -25,4 +25,8 @@ button:disabled,
 button:disabled:hover,
 button:disabled:active {
 	display: none;
+}
+
+.new-game {
+	font-size: max(2vw, 1.4rem);
 }
