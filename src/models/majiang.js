@@ -6,9 +6,22 @@
  */
 
 import { BEIMIAN, HUAPAI, ZIPAI, BINGZI, TIAOZI, WANZI, TILES } from './tiles.js'
-import { getRandomInt } from './helpers.js'
+import { delay, getRandomInt } from './helpers.js'
 
-class Majiang  {
+class Player {
+	constructor() {
+		this.player = {
+			points: 0,
+			wind: null,
+			stack: [],
+			melds: [],
+			flowers: [],
+			discarded: []
+		}
+	}
+}
+
+class Majiang {
 	constructor() {
 		this.game = null
 	}
@@ -29,21 +42,49 @@ class Majiang  {
 				location.hash = 'board'
 				window.addEventListener('hashchange', async () => {
 					await this.initGame()
-					document.getElementById('tiles').textContent = this.game.tileCount
-					console.log(this.game.players)
-					for (const [key, player] of Object.entries(this.game.players)) {
-						document.getElementById('points' + key).innerHTML = player.points
-						document.getElementById('tiles' + key).innerHTML = ''
-						player.stack.forEach(tile => {
-							const img = this.createTile(tile[4], tile[5])
-							document.getElementById('tiles' + key).appendChild(img)
-						})
-
-						document.getElementById('flowers' + key).innerHTML = ''
-						document.getElementById('melds' + key).innerHTML = ''
-					}
+					await this.clearBoard()
+					await this.placeStacks()
+					await this.placeFlowers()
 				})
 			}
+		}
+	}
+
+	async placeStacks() {
+		for (const [key, player] of Object.entries(this.game.players)) {
+			this.placeStack(key, player)
+		}
+	}
+
+	placeStack(key, player) {
+		this.sortTiles(player.stack)
+		document.getElementById('tiles' + key).innerHTML = ''
+		player.stack.forEach(tile => {
+			const img = this.createTile(tile[4], tile[5])
+			document.getElementById('tiles' + key).appendChild(img)
+		})
+	}
+
+	async placeFlowers() {
+		for (const [key, player] of Object.entries(this.game.players)) {
+			for (const tile of player.flowers) {
+				const img = this.createTile(tile[4], tile[5])
+				document.getElementById('flowers' + key).appendChild(img)
+				// new Audio('snd/buhua.m4a').play()
+				// await delay(2000)
+			}
+		}
+	}
+
+	async clearBoard() {
+		document.getElementById('tiles').textContent = this.game.tileCount
+
+		for (const [key, player] of Object.entries(this.game.players)) {
+			document.getElementById('points' + key).innerHTML = player.points
+			document.getElementById('tiles' + key).innerHTML = ''
+			document.getElementById('flowers' + key).innerHTML = ''
+			document.getElementById('melds' + key).innerHTML = ''
+			document.getElementById('control-player' + key).innerHTML = ''
 		}
 	}
 
@@ -51,20 +92,11 @@ class Majiang  {
 		let tiles = TILES
 		tiles.sort(() => Math.random() - 0.5)
 
-		const player = {
-			points: 0,
-			wind: null,
-			stack: [],
-			melds: [],
-			flowers: [],
-			discarded: []
-		}
-
 		let players = {
-			1: JSON.parse(JSON.stringify(player)),
-			2: JSON.parse(JSON.stringify(player)),
-			3: JSON.parse(JSON.stringify(player)),
-			4: JSON.parse(JSON.stringify(player))
+			1: new Player().player,
+			2: new Player().player,
+			3: new Player().player,
+			4: new Player().player
 		}
 
 		this.game = {
@@ -77,12 +109,26 @@ class Majiang  {
 		}
 
 		for (let i = 1; i <= 13; i++) {
-			Object.values(players).forEach(player => {
-				player.stack.push(tiles.shift())
+			Object.values(this.game.players).forEach(player => {
+				let tile = tiles.shift()
+				while (HUAPAI.includes(tile)) {
+					player.flowers.push(tile)
+					tile = tiles.shift()
+				}
+				player.stack.push(tile)
 			});
 		}
 
-		this.game.tileCount = tiles.length
+		for (const player of Object.values(this.game.players)) {
+			this.sortTiles(player.stack)
+			this.sortTiles(player.flowers)
+		}
+
+		this.game.tileCount = this.game.tiles.length
+	}
+
+	sortTiles(tiles) {
+		tiles.sort((a, b) => a[1].localeCompare(b[1]))
 	}
 }
 

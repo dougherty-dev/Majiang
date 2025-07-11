@@ -23,6 +23,10 @@
 		box-shadow: -4px -4px 2px 0px $shadow,
 			4px -4px 2px 0px $shadow;
 	}
+
+	&>img:only-child {
+		box-shadow: -4px -4px 2px 0px $shadow;
+	}
 }
 
 .r270 {
@@ -33,6 +37,10 @@
 	&>img:first-child {
 		box-shadow: -4px 4px 2px 0px $shadow,
 			4px 4px 2px 0px $shadow;
+	}
+
+	&>img:only-child {
+		box-shadow: -4px 4px 2px 0px $shadow;
 	}
 }
 

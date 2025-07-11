@@ -124,7 +124,7 @@ export default class BoardView extends HTMLElement {
 					</div>
 
 					<div class="grid-control">
-						<div class="control-player1 tile r0">
+						<div class="control-player1 tile r0" id="control-player1">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
@@ -148,7 +148,7 @@ export default class BoardView extends HTMLElement {
 							<img src="img/tiles/shupaizi-wanzi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="control-player2 tile r90">
+						<div class="control-player2 tile r90" id="control-player2">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
@@ -162,7 +162,7 @@ export default class BoardView extends HTMLElement {
 							<img src="img/tiles/shupaizi-wanzi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-bingzi-6.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="control-player3 tile r180">
+						<div class="control-player3 tile r180" id="control-player3">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
@@ -170,7 +170,7 @@ export default class BoardView extends HTMLElement {
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-bingzi-6.svg" alt="🀄︎" width="1" height="1">
 						</div>
-						<div class="control-player4 tile r270">
+						<div class="control-player4 tile r270" id="control-player4">
 							<img src="img/tiles/shupaizi-tiaozi-4.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-5.svg" alt="🀄︎" width="1" height="1">
 							<img src="img/tiles/shupaizi-tiaozi-6.svg" alt="🀄︎" width="1" height="1">
