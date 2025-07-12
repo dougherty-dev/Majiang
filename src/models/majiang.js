@@ -28,8 +28,8 @@ class Majiang {
 
 	createTile(alt, src) {
 		const img = document.createElement('img')
-		img.height = 1
-		img.width = 1
+		img.width = 19
+		img.height = 26
 		img.alt = alt
 		img.src = 'img/tiles/' + src + '.svg'
 		return img
@@ -39,13 +39,13 @@ class Majiang {
 		const button = document.getElementById('new-game')
 		if (button) {
 			button.onclick = async () => {
-				location.hash = 'board'
+				location.hash = 'table'
 				window.addEventListener('hashchange', async () => {
 					await this.initGame()
 					await this.clearBoard()
 					await this.placeStacks()
 					await this.placeFlowers()
-				})
+				}, { once: true })
 			}
 		}
 	}
@@ -80,7 +80,7 @@ class Majiang {
 		document.getElementById('tiles').textContent = this.game.tileCount
 
 		for (const [key, player] of Object.entries(this.game.players)) {
-			document.getElementById('points' + key).innerHTML = player.points
+			document.getElementById('points' + key).textContent = player.points
 			document.getElementById('tiles' + key).innerHTML = ''
 			document.getElementById('flowers' + key).innerHTML = ''
 			document.getElementById('melds' + key).innerHTML = ''
@@ -119,9 +119,11 @@ class Majiang {
 			});
 		}
 
-		for (const player of Object.values(this.game.players)) {
+		for (const [key, player] of Object.entries(this.game.players)) {
 			this.sortTiles(player.stack)
 			this.sortTiles(player.flowers)
+			player.wind = ZIPAI[Math.abs(key - this.game.prevailingWind)]
+			console.log(player)
 		}
 
 		this.game.tileCount = this.game.tiles.length

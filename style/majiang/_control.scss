@@ -9,9 +9,9 @@
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	grid-template-areas:
-		'discard3	discard3	discard4'
-		'discard2	counter		discard4'
-		'discard2	discard1	discard1';
+		'discard3	discard3	discard2'
+		'discard4	counter		discard2'
+		'discard4	discard1	discard1';
 	gap: 0.3rem;
 }
 
@@ -29,7 +29,7 @@
 
 .control-player2 {
 	@include control-player(discard2);
-	transform: rotate(90deg) translate(25%, 50%);
+	transform: rotate(270deg) translate(25%, 50%);
 	width: 200%;
 	height: 50%;
 }
@@ -41,7 +41,7 @@
 
 .control-player4 {
 	@include control-player(discard4);
-	transform: rotate(270deg) translate(-25%, -50%);
+	transform: rotate(90deg) translate(-25%, -50%);
 	width: 200%;
 	height: 50%;
 }
@@ -54,7 +54,7 @@
 	grid-template-rows: repeat(3, 33.33333%);
 	grid-template-areas:
 		'.			wind3		.'
-		'wind2		tiles		wind4'
+		'wind4		tiles		wind2'
 		'.			wind1		.';
 	align-items: center;
 	justify-content: center;
@@ -71,7 +71,7 @@
 
 .control-wind2 {
 	grid-area: wind2;
-	transform: rotate(90deg);
+	transform: rotate(270deg);
 }
 
 .control-wind3 {
@@ -81,7 +81,7 @@
 
 .control-wind4 {
 	grid-area: wind4;
-	transform: rotate(270deg);
+	transform: rotate(90deg);
 }
 
 .control-tiles {

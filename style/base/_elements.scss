@@ -27,9 +27,11 @@ html, body
 {
     font-size: 100%; /* equivalent to 16px */
 }
+
 p {
 	text-wrap: balance;
 }
+
 main {
 	padding: 1vmin;
 }
@@ -43,6 +45,16 @@ h1 {
 h2 {
 	font-size: max(2vmin, 1.4rem);
 	line-height: max(3vmin, 2rem);
+}
+
+h3 {
+	font-size: max(1.8vmin, 1.3rem);
+	line-height: max(2.8vmin, 1.8rem);
+}
+
+h4 {
+	font-size: max(1.6vmin, 1.2rem);
+	line-height: max(2.6vmin, 1.6rem);
 }
 
 h1,

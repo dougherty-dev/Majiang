@@ -27,3 +27,18 @@
 	place-items: center;
 	height: 100vh;
 }
+
+.columns {
+	columns: auto 30rem;
+	column-gap: 2rem;
+	border-bottom: thin dotted $tertiary-3;
+	column-rule: thin dotted $tertiary-3;
+	padding: 1rem;
+
+	& p,
+	h2,
+	h3,
+	h4 {
+		padding-bottom: 1rem;
+	}
+}

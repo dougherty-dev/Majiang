@@ -16,7 +16,7 @@
 }
 
 .grid-points2 {
-	@include grid-points(points2, 90deg);
+	@include grid-points(points2, 270deg);
 }
 
 .grid-points3 {
@@ -24,7 +24,7 @@
 }
 
 .grid-points4 {
-	@include grid-points(points4, 270deg);
+	@include grid-points(points4, 90deg);
 }
 
 .points {

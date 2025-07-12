@@ -21,11 +21,11 @@ export default class Router extends HTMLElement {
 				icon: 'home.avif',
 				alt: 'Majiang home page'
 			},
-			'board': {
-				view: '<board-view></board-view>',
-				name: 'Board',
-				icon: 'board.avif',
-				alt: 'Majiang board'
+			'table': {
+				view: '<table-view></table-view>',
+				name: 'Table',
+				icon: 'table.avif',
+				alt: 'Majiang table'
 			},
 			'rules': {
 				view: '<rules-view></rules-view>',
