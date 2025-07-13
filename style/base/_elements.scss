@@ -25,7 +25,7 @@ body {
 
 html, body
 {
-    font-size: 100%; /* equivalent to 16px */
+    font-size: 100%;
 }
 
 main {
@@ -33,23 +33,23 @@ main {
 }
 
 h1 {
-	font-size: max(2.4vmin, 1.7rem);
+	font-size: max(2.2vmin, 1.7rem);
 	line-height: max(3.5vmin, 2.5rem);
 	color: $header-foreground-color;
 }
 
 h2 {
-	font-size: max(2vmin, 1.4rem);
+	font-size: max(1.9vmin, 1.4rem);
 	line-height: max(3vmin, 2rem);
 }
 
 h3 {
-	font-size: max(1.8vmin, 1.3rem);
+	font-size: max(1.7vmin, 1.3rem);
 	line-height: max(2.8vmin, 1.8rem);
 }
 
 h4 {
-	font-size: max(1.6vmin, 1.2rem);
+	font-size: max(1.5vmin, 1.2rem);
 	line-height: max(2.6vmin, 1.6rem);
 }
 

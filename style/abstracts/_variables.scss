@@ -1,9 +1,5 @@
 @use 'palettes' as *;
 
-:root {
-	scrollbar-width: none;
-}
-
 $background-color: $gray-95 !default;
 $foreground-color: $gray-05 !default;
 

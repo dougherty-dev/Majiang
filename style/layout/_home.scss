@@ -6,7 +6,7 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-	height: 100vh;
+	height: calc(100vh - max(10vmin, 100px));
 	background-color: $darken;
     background-blend-mode: darken;
 }
