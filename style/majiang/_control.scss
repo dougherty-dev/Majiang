@@ -18,7 +18,7 @@
 @mixin control-player($p) {
 	grid-area: $p;
 	display: flex;
-	flex-flow: wrap;
+	flex-flow: row wrap;
 	align-content: flex-start;
 	row-gap: 0.3rem;
 }

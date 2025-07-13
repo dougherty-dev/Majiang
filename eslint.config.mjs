@@ -14,10 +14,6 @@ export default [
 			'no-undef': 'error',
 			'quotes': ['error', 'single'],
 			'strict': 'warn',
-			'max-len': ['warn', {
-				code: 160,
-				comments: 80
-			}],
 			semi: ['error', 'never'],
 			'no-return-assign': ['error', 'except-parens'],
 			'space-before-function-paren': ['error', 'never']

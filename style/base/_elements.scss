@@ -28,10 +28,6 @@ html, body
     font-size: 100%; /* equivalent to 16px */
 }
 
-p {
-	text-wrap: balance;
-}
-
 main {
 	padding: 1vmin;
 }
@@ -66,13 +62,24 @@ h6 {
 	color: $title-color;
 }
 
-p {
+p,
+ol,
+ul {
 	font-size: max(1vmin, 1.2rem);
+	line-height: max(2.6vmin, 1.6rem);
+	hyphens: auto;
+	text-wrap: balance;
 }
 
 ol,
 ul {
 	padding-left: 1.2rem;
+}
+
+
+li {
+	break-inside: avoid;
+	margin-left: 1rem;
 }
 
 a {

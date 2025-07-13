@@ -11,7 +11,7 @@ export default class NotFoundView extends HTMLElement {
         <h2>404</h2>
       </header>
       <main class="center">
-        <div>Ingen sådan sida</div>
+        <div>Page not found</div>
       </main>
     `
 	}

@@ -38,9 +38,9 @@ class Majiang {
 	newGame() {
 		const button = document.getElementById('new-game')
 		if (button) {
-			button.onclick = async () => {
+			button.onclick = async() => {
 				location.hash = 'table'
-				window.addEventListener('hashchange', async () => {
+				window.addEventListener('hashchange', async() => {
 					await this.initGame()
 					await this.clearBoard()
 					await this.placeStacks()
@@ -116,7 +116,7 @@ class Majiang {
 					tile = tiles.shift()
 				}
 				player.stack.push(tile)
-			});
+			})
 		}
 
 		for (const [key, player] of Object.entries(this.game.players)) {

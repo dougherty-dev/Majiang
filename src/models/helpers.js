@@ -12,5 +12,5 @@ export function getRandomInt(min, max) {
 }
 
 export function delay(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms))
 }
