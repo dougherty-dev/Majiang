@@ -1,4 +1,4 @@
-# Gangdu majiang | 戆嘟麻将
+# Majiang | 麻将
 
 ## Javascript game
 

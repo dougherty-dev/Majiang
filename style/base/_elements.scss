@@ -51,12 +51,12 @@ h3 {
 h4 {
 	font-size: max(1.5vmin, 1.2rem);
 	line-height: max(2.6vmin, 1.6rem);
+	color: $tertiary-1;
 }
 
 h1,
 h2,
 h3,
-h4,
 h5,
 h6 {
 	color: $title-color;
@@ -68,7 +68,6 @@ ul {
 	font-size: max(1vmin, 1.2rem);
 	line-height: max(2.6vmin, 1.6rem);
 	hyphens: auto;
-	text-wrap: balance;
 }
 
 ol,

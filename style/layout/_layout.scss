@@ -45,3 +45,12 @@
 		padding-bottom: 1rem;
 	}
 }
+
+.fanzhong {
+	cursor: pointer;
+	color: $primary-1;
+
+	&::after {
+		content: ' 🔈'
+	}
+}
