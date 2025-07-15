@@ -12,7 +12,7 @@
 
 @mixin grid-player($p) {
 	display: grid;
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 33.3333%);
 	grid-template-areas: '#{$p}-flowers'
 	'#{$p}-melds'
 	'#{$p}-tiles';

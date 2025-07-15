@@ -6,21 +6,20 @@
 	aspect-ratio: 1/1;
 
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-columns: repeat(3, 33.33333%);
+	grid-template-rows: repeat(3, 33.33333%);
 	grid-template-areas:
 		'discard3	discard3	discard2'
 		'discard4	counter		discard2'
 		'discard4	discard1	discard1';
-	gap: 0.3rem;
 }
 
 @mixin control-player($p) {
 	grid-area: $p;
 	display: flex;
-	flex-flow: row wrap;
+	flex-wrap: wrap;
 	align-content: flex-start;
-	row-gap: 0.3rem;
+	padding: 0.1rem;
 }
 
 .control-player1 {
@@ -29,7 +28,7 @@
 
 .control-player2 {
 	@include control-player(discard2);
-	transform: rotate(270deg) translate(25%, 50%);
+	transform: translate(-25%, 50%) rotate(270deg);
 	width: 200%;
 	height: 50%;
 }
@@ -41,7 +40,7 @@
 
 .control-player4 {
 	@include control-player(discard4);
-	transform: rotate(90deg) translate(-25%, -50%);
+	transform: translate(-25%, 50%) rotate(90deg);
 	width: 200%;
 	height: 50%;
 }

@@ -13,8 +13,8 @@
 	position: relative;
 
 	display: grid;
-	grid-template-columns: 1fr 3fr 1fr;
-	grid-template-rows: 1fr 3fr 1fr;
+	grid-template-columns: 20% 60% 20%;
+	grid-template-rows: 20% 60% 20%;
 	grid-template-areas:
 		'points4	player3		points3'
 		'player4	control		player2'

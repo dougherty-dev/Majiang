@@ -16,8 +16,8 @@ export default class RulesView extends HTMLElement {
 				<h3 class="center">Majiang rules</h3>
 				<section class="columns">
 					<h4>Standard majiang</h4>
-					<p>Majiang (麻将) is a board game played by four players. Countless variations exist throughout China, Japan, Korea and the rest of the world, but there is also a standard set of rules for competitions (国标麻将竞赛规则, <em>Guoji majiang jingsai guize</em>). This implementation follows the standard rules, with some simplifications.</p>
-					<p>One such simplification is that there is no tile wall, due to limited screen estate. It doesn’t affect the game, but is a cosmetic limitation. Another is that the game can be won with any legitimate winning hand, while the standard rules prescribe at least 8 <em>fan</em> (番). This makes for a faster pace.</p>
+					<p>Majiang (麻将) is a board game played by four players. Countless variations exist throughout China, Japan, Korea and the rest of the world, but there is also a standard set of rules for competitions (国标麻将竞赛规则, <em>Guoji majiang jingsai guize</em>). This implementation follows the standard rules, with some cosmetic simplifications.</p>
+					<p>One such simplification is that there is no tile wall, due to limited screen estate. It doesn’t affect the game. There is also no time limit imposed on players.</p>
 				</section>
 				<section class="columns">
 					<h4>Tiles</h4>
@@ -73,7 +73,7 @@ export default class RulesView extends HTMLElement {
 						<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 						<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 					</p>
-					<p>Honors tiles plus suited ones and nines are collectively called terminal tiles (<em>yaojiupai</em>, 幺九牌).</p>
+					<p>Honors plus suited ones and nines are collectively called terminal tiles (<em>yaojiupai</em>, 幺九牌).</p>
 					<p><strong>Bonus tiles</strong> or more commonly <strong>flower tiles</strong> (<em>huapai</em>, 花牌) come in two categories with four of each: flowers and seasons. Flowers are plum (<em>mei</em>, 梅, 🀢), orchid (<em>lan</em>, 兰, 🀣), crysanthemum (<em>ju</em>, 菊, 🀥), and bamboo (<em>zhu</em>, 竹, 🀤).</p>
 					<p>Seasons are spring (<em>chun</em>, 春, 🀦), summer (<em>xia</em>, 下, 🀧), fall (<em>qiu</em>, 秋, 🀨), and winter (<em>dong</em>, 冬, 🀩). Flowers and seasons correspond one-to-one with winds, that is, plum and spring match east, and so forth, although this has no specific relevance in standard majiang.</p>
 					<p class="wrap">
@@ -92,10 +92,38 @@ export default class RulesView extends HTMLElement {
 					<h4>Games, rounds and hands</h4>
 					<p>Each game (<em>ju</em>, 局) consists of four rounds (<em>quan</em>, 圈) with at least four hands (<em>pan</em>, 盘) each. In actual games, dice (<em>shaizi</em>, 骰子) are used to determine wind and position for each player, but in this implementation the computer assigns a random number 1–4 to the human player, corresponding to the wind.</p>
 					<p>In physical games, a wall (<em>paiqiang</em>, 牌墙) of 4 x 18 x 2 tiles is built from which tiles are then dealt to the players in a complicated manner. Here, this procedure is reduced to the computer keeping a virtual wall of tiles, handing out tiles as needed.</p>
-					<p>Each round has a prevailing wind (<em>quanfeng</em>, 圈风), beginning with east. Each player has a seat wind (<em>menfeng</em>, 门风), also beginning with east. East is always the banker (<em>zhuangjia</em>, 庄家). Tiles are handed out to players in order south, west, north, and lastly east, with replacement of bonus tiles (<em>buhua</em>, 补花). Each player will build a hand (<em>shoupai</em>, 手牌) or door (<em>men</em>, 门) with thirteen tiles.</p>
-					<p>East then begins the game by receiving a new tile, possibly with bonus replacement. Unless winning instantly, east then discards a tile, placing it openly on the table. Unless another player can form a winning hand or <em>peng</em> the tile, south continues in the same fashion, then west, then north, after which a full rotation (<em>lun</em>, 轮) is completed.</p>
-					<p>The first hand continues until a player wins, or, if all tiles are used, there is a draw. If there is a draw (<em>huangpai</em>, 荒牌), or if east wins, the hand is replayed. If another player wins, a new hand is played, with winds shifted counter-clockwise: east becomes north, south becomes east, west becomes south, north becomes west.</p>
-					<p>When all players have been dealers, the first round is completed. Prevailing wind shifts to south, and the second round proceeds in the same manner. West is prevailing wind in the third round, north in the fourth and last.</p>
+					<p>Each round has a prevailing wind (<em>quanfeng</em>, 圈风), beginning with east, then shifting counter-clockwise each round. Each player has a seat wind (<em>menfeng</em>, 门风), also beginning with east, and rotating in a more complicated manner.</p>
+					<p>East is always the banker or dealer (<em>zhuangjia</em>, 庄家). Tiles are handed out to players (<em>pangjia</em>, 旁家) in order south, west, north, and lastly east, with replacement of bonus tiles (<em>buhua</em>, 补花). Each player will build a hand (<em>shoupai</em>, 手牌) or door (<em>men</em>, 门) with thirteen standing tiles (<em>lipai</em>, 立牌), all concealed.</p>
+					<p>East then begins the game by taking a new tile, possibly with bonus replacement. Unless winning instantly, east then discards a tile, placing it openly on the table. Unless another player can form a winning hand or make a meld, south continues in the same fashion, then west, then north, after which a full rotation (<em>lun</em>, 轮) is completed.</p>
+					<p>The first hand continues until a player wins, or, if all tiles are used, there is a draw (<em>huangpai</em>, 荒牌). If there is a draw, or if east wins, the hand is replayed. If another player wins, a new hand is played, with winds shifted. When all players have been dealers, the first round is completed.</p>
+				</section>
+				<section class="columns">
+					<h4>Winds</h4>
+					<p>East and west are initially as expected, while north and south are flipped. Winds are not compass directions, but a convention for the player positions. The seat winds are shifted in the following fashion after each round to accomodate for upper/left and lower/right positions of players. As a matter of convenience, the human player will always begin a game as north.</p>
+					<div class="winds">
+						<div class="wind1 east">东 E</div>
+						<div class="wind2 south">南 S</div>
+						<div class="wind3 west">西 W</div>
+						<div class="wind4 north">北 N</div>
+					</div>
+					<div class="winds">
+						<div class="wind1 south">南 S</div>
+						<div class="wind2 east">东 E</div>
+						<div class="wind3 north">北 N</div>
+						<div class="wind4 west">西 W</div>
+					</div>
+					<div class="winds">
+						<div class="wind1 west">西 W</div>
+						<div class="wind2 north">北 N</div>
+						<div class="wind3 south">南 S</div>
+						<div class="wind4 east">东 E</div>
+					</div>
+					<div class="winds">
+						<div class="wind1 north">北 N</div>
+						<div class="wind2 west">西 W</div>
+						<div class="wind3 east">东 E</div>
+						<div class="wind4 south">南 S</div>
+					</div>
 				</section>
 				<section class="columns">
 					<h4>Melds</h4>
@@ -146,8 +174,7 @@ export default class RulesView extends HTMLElement {
 				</section>
 				<section class="columns">
 					<h4>Winning</h4>
-					<p>A winning hand (<em>hupai</em>, 和牌) usually consists of a combination of shunzi, kezi, gangzi and a single pair (<em>duizi</em>, 对子, or <em>jiangpai</em>, 将牌), altogether 14–18 tiles. Points awarded to the winning hand depend on the combinations, and there are many special ones.</p>
-					<p>There is often a minimum amount of points needed to declare a winning hand, 8 in standard majiang, but in this implementation any legitimate combination will do. This is the most common option when playing with money, to speed up the pace of the game.</p>
+					<p>A winning hand (<em>hupai</em>, 和牌) usually consists of a combination of shunzi, kezi, gangzi and a single pair (<em>duizi</em>, 对子, or <em>jiangpai</em>, 将牌), altogether 14–18 tiles. Points awarded to the winning hand depend on the combinations, and there are many special ones. A winning hand must amount to at least 8 <em>fan</em> (番) in standard majiang, not counting bonus tiles.</p>
 					<p>The following basic types of winning hands exist, where 1111 (gangzi) can replace any 111 (kezi):</p>
 					<ul>
 						<li>11, 123, 123, 123, 123</li>
@@ -196,7 +223,7 @@ export default class RulesView extends HTMLElement {
 					<h4>88 fan:</h4>
 					<ol>
 						<li>
-							<p><strong>Big four winds</strong> (<em>Da si xi</em>, <span class="fanzhong" data-src="1">大四喜</span>, or <em>Si feng hui</em>, 四风会): contains kezi (gangzi) of all winds, plus an arbitrary pair.</p>
+							<p><strong>Big four winds</strong> (<em>Da si xi</em>, <span class="fanzhong" data-src="1">大四喜</span>): contains kezi (gangzi) of all winds, plus an arbitrary pair.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg" class="meld-end">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
@@ -425,7 +452,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>All honors</strong> (<em>Zi yise</em>, <span class="fanzhong" data-src="11">字一色</span>): kezi (gangzi) and a duizi of honors tiles.</p>
+							<p><strong>All honors</strong> (<em>Zi yi se</em>, <span class="fanzhong" data-src="11">字一色</span>): kezi (gangzi) and a duizi of honors tiles.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀀" src="img/tiles/zipai-fengpai-1-dong.svg">
 								<img width="30" height="41" alt="🀀" src="img/tiles/zipai-fengpai-1-dong.svg">
@@ -1163,7 +1190,7 @@ export default class RulesView extends HTMLElement {
 					<h4>6 fan:</h4>
 					<ol>
 						<li value="49">
-							<p><strong>Pengpenghu</strong> (<em>Pengpenghu</em>, <span class="fanzhong" data-src="49">碰碰和</span>): four kezi (gangzi) and a pair.</p>
+							<p><strong>All kezi</strong> (<em>Pengpeng hu</em>, <span class="fanzhong" data-src="49">碰碰和</span>): four kezi (gangzi) and a pair.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
@@ -1183,7 +1210,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Half flush</strong> (<em>Hun yise</em>, <span class="fanzhong" data-src="50">混一色</span>): tiles in one single suit and honors.</p>
+							<p><strong>Half flush</strong> (<em>Hun yi se</em>, <span class="fanzhong" data-src="50">混一色</span>): tiles in one single suit and honors.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀐" src="img/tiles/shuzipai-tiaozi-1.svg">
 								<img width="30" height="41" alt="🀑" src="img/tiles/shuzipai-tiaozi-2.svg">
@@ -1240,7 +1267,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Melded hand</strong> (<em>Quan qiuren</em>, <span class="fanzhong" data-src="53">全求人</span>): every set, including the last pair, completed by melding from discarded tiles. On the table:</p>
+							<p><strong>Melded hand</strong> (<em>Quan qiu ren</em>, <span class="fanzhong" data-src="53">全求人</span>): every set, including the last pair, completed by melding from discarded tiles. On the table:</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀞" src="img/tiles/shuzipai-bingzi-6.svg">
 								<img width="30" height="41" alt="🀟" src="img/tiles/shuzipai-bingzi-7.svg">
@@ -1305,7 +1332,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Fully concealed hand</strong> (<em>Bu qiuren</em>, <span class="fanzhong" data-src="56">不求人</span>): hand with no melds, must win by zimo.</p>
+							<p><strong>Fully concealed hand</strong> (<em>Bu qiu ren</em>, <span class="fanzhong" data-src="56">不求人</span>): hand with no melds, must win by zimo.</p>
 						</li>
 						<li>
 							<p><strong>Two melded gangs</strong> (<em>Shuang minggang</em>, <span class="fanzhong" data-src="57">双明杠</span>): two melded gangs. Angang plus minggang gives six points.</p>
@@ -1613,7 +1640,7 @@ export default class RulesView extends HTMLElement {
 							<p><strong>Single wait</strong> (<em>Dandiao jiang</em>, <span class="fanzhong" data-src="79">单调将</span>): waiting for winning tile to form a pair. Not valid if any other tile can form a winning hand. Not valid if combined with other waits.</p>
 						</li>
 						<li>
-							<p><strong>Self-draw</strong> (<em>Zimo</em>, <span class="fanzhong" data-src="80">自摸</span>): winning by tile drawn from wall.</p>
+							<p><strong>Self-drawn</strong> (<em>Zimo</em>, <span class="fanzhong" data-src="80">自摸</span>): winning by tile drawn from wall.</p>
 						</li>
 						<li>
 							<p><strong>Flower tiles</strong> (<em>Huapai</em>, <span class="fanzhong" data-src="81">花牌</span>): each bonus tile amounts to one fan when winning.</p>
