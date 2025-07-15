@@ -17,7 +17,7 @@ export default class RulesView extends HTMLElement {
 				<section class="columns">
 					<h4>Standard majiang</h4>
 					<p>Majiang (麻将) is a board game played by four players. Countless variations exist throughout China, Japan, Korea and the rest of the world, but there is also a standard set of rules for competitions (国标麻将竞赛规则, <em>Guoji majiang jingsai guize</em>). This implementation follows the standard rules, with some cosmetic simplifications.</p>
-					<p>One such simplification is that there is no tile wall, due to limited screen estate. It doesn’t affect the game. There is also no time limit imposed on players.</p>
+					<p>One such simplification is that there is no tile wall, due to limited screen estate. It doesn’t affect the game proper. As a consequence, there is no need for dice. There is also no time limits imposed on players.</p>
 				</section>
 				<section class="columns">
 					<h4>Tiles</h4>
@@ -240,7 +240,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀃" src="img/tiles/zipai-fengpai-4-bei.svg">
 								<img width="30" height="41" alt="🀃" src="img/tiles/zipai-fengpai-4-bei.svg">
 							</p>
-							<p>➕➖ 38 Big three winds; 49 Pengpenghu; 60 Prevalent wind; 61 Seat wind; 73 Terminal kezi.</p>
+							<p class="exclude">➖ Does not combine with: 38 Big three winds; 49 Pengpenghu; 60 Prevalent wind; 61 Seat wind; 73 Terminal kezi.</p>
 						</li>
 						<li>
 							<p><strong>Big three dragons</strong> (<em>Da san yuan</em>, <span class="fanzhong" data-src="2">大三元</span>): contains kezi (gangzi) of all three dragons</p>
@@ -260,6 +260,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 54 Two dragons; 59 Dragon kezi.</p>
 						</li>
 						<li>
 							<p><strong>All green</strong> (<em>Lü yise</em>, <span class="fanzhong" data-src="3">绿一色</span>): melds with tiaozi of values 2, 3, 4, 6, and 8, optionally plus fa.</p>
@@ -329,6 +330,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
 							</p>
+							<p class="exclude">➖ 22 Full flush; 73 Terminal kezi.</p>
 						</li>
 						<li>
 							<p><strong>Four gangs</strong> (<em>Si gang</em>, <span class="fanzhong" data-src="5">四杠</span>): four gangs of any kind.</p>
@@ -350,6 +352,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 							</p>
+							<p class="exclude">➖ 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Seven shifted pairs</strong> (<em>Lian qi dui</em>, <span class="fanzhong" data-src="6">连七对</span>): seven pairs of the same suit, each shifted up in value.</p>
@@ -369,6 +372,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀘" src="img/tiles/shuzipai-tiaozi-9.svg">
 								<img width="30" height="41" alt="🀘" src="img/tiles/shuzipai-tiaozi-9.svg">
 							</p>
+							<p class="exclude">➖ 22 Full flush; 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Thirteen orphans</strong> (<em>Shisan yao</em>, <span class="fanzhong" data-src="7">十三幺</span>): one each of ones, nines, and honors tiles plus a pair of the same kind.</p>
@@ -388,6 +392,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 52 All types; 79 Single wait.</p>
 						</li>
 					</ol>
 				</section>
@@ -412,6 +417,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
+							<p class="exclude">➖ 49 All kezi; 55 Outside hand; 73 Terminal kezi; 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Little four winds</strong> (<em>Xiao si xi</em>, <span class="fanzhong" data-src="9">小四喜</span>), contains three kezi (gangzi) and a pair of winds, and any additional meld.</p>
@@ -431,6 +437,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀃" src="img/tiles/zipai-fengpai-4-bei.svg">
 								<img width="30" height="41" alt="🀃" src="img/tiles/zipai-fengpai-4-bei.svg">
 							</p>
+							<p class="exclude">➖ 38 Big three winds; 73 Terminal kezi.</p>
 						</li>
 						<li>
 							<p><strong>Little three dragons</strong> (<em>Xiao san yuan</em>, <span class="fanzhong" data-src="10">小三元</span>): contains two kezi (gangzi) and a duizi of dragons, and any additional meld.</p>
@@ -450,6 +457,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 54 Two dragons; 59 Dragon kezi.</p>
 						</li>
 						<li>
 							<p><strong>All honors</strong> (<em>Zi yi se</em>, <span class="fanzhong" data-src="11">字一色</span>): kezi (gangzi) and a duizi of honors tiles.</p>
@@ -469,6 +477,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 49 All kezi; 55 Outside hand; 73 Terminal kezi.</p>
 						</li>
 						<li>
 							<p><strong>Four concealed kezi</strong> (<em>Si an ke</em>, <span class="fanzhong" data-src="12">四暗刻</span>): four kezi (gangzi), all concealed (no open melds).</p>
@@ -488,6 +497,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
 								<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
 							</p>
+							<p class="exclude">➖ 49 All kezi.</p>
 						</li>
 						<li>
 							<p><strong>Pure terminal shunzi</strong> (<em>Yi se shuang long hui</em>, <span class="fanzhong" data-src="13">一色双龙会</span>): suited terminal shunzi plus a duizi of fives in the same suit. But this is also a seven pairs with higher value, in another arrangement.</p>
@@ -523,6 +533,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
 								<img width="30" height="41" alt="🀡" src="img/tiles/shuzipai-bingzi-9.svg">
 							</p>
+							<p class="exclude">➖ 19 Seven pairs; 22 Full flush; 63 All shunzi; 69 Pure double shunzi; 72 Two terminal shunzi; 76 No honors.</p>
 						</li>
 					</ol>
 				</section>
@@ -547,6 +558,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀉" src="img/tiles/shuzipai-wanzi-3.svg">
 								<img width="30" height="41" alt="🀉" src="img/tiles/shuzipai-wanzi-3.svg">
 							</p>
+							<p class="exclude">➖ 24 Pure shifted kezi; 64 Tile hog; 69 Pure double shunzi.</p>
 						</li>
 						<li>
 							<p><strong>Four pure shifted kezi</strong> (<em>Yi se si jie gao</em>, <span class="fanzhong" data-src="15">一色四节高</span>): four suited kezi (gangzi) shifted upwards in value, and any additional pair.</p>
@@ -566,6 +578,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀂" src="img/tiles/zipai-fengpai-3-xi.svg">
 								<img width="30" height="41" alt="🀂" src="img/tiles/zipai-fengpai-3-xi.svg">
 							</p>
+							<p class="exclude">➖ 23 Pure triple shunzi; 49 All kezi.</p>
 						</li>
 					</ol>
 				</section>
@@ -589,6 +602,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
+							<p class="exclude">➖ 71 Short straight; 72 Two terminal shunzi.</p>
 						</li>
 						<li>
 							<p><strong>Three gangs</strong> (<em>San gang</em>, <span class="fanzhong" data-src="17">三杠</span>): three gangs.</p>
@@ -630,6 +644,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀁" src="img/tiles/zipai-fengpai-2-nan.svg">
 								<img width="30" height="41" alt="🀁" src="img/tiles/zipai-fengpai-2-nan.svg">
 							</p>
+							<p class="exclude">➖ 49 All kezi; 55 Outside hand; 73 Terminal kezi.</p>
 						</li>
 					</ol>
 				</section>
@@ -654,6 +669,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
 								<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
 							</p>
+							<p class="exclude">➖ 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Greater honors and knitted tiles</strong> (<em>Qi xing bu kao</em>, <span class="fanzhong" data-src="20">七星不靠</span>): one each of the seven honors, plus single suited tiles partially or fully covering the special shunzi 1-4-7, 2-5-8, and 3-6-9.</p>
@@ -673,6 +689,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 52 All types.</p>
 						</li>
 						<li>
 							<p><strong>All even kezi</strong> (<em>Quan shuang ke</em>, <span class="fanzhong" data-src="21">全双刻</span>): kezi (gangzi) and a duizi of even numbered suit tiles.</p>
@@ -693,6 +710,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 							</p>
+							<p class="exclude">➖ 49 All kezi; 68 All simples.</p>
 						</li>
 						<li>
 							<p><strong>Full flush</strong> (<em>Qing yi se</em>, <span class="fanzhong" data-src="22">清一色</span>): all tiles in the same suit.</p>
@@ -712,6 +730,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀘" src="img/tiles/shuzipai-tiaozi-9.svg">
 								<img width="30" height="41" alt="🀘" src="img/tiles/shuzipai-tiaozi-9.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Pure triple shunzi</strong> (<em>Yi se san tong shun</em>, <span class="fanzhong" data-src="23">一色三同顺</span>): three identical shunzi.</p>
@@ -731,6 +750,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀁" src="img/tiles/zipai-fengpai-2-nan.svg">
 								<img width="30" height="41" alt="🀁" src="img/tiles/zipai-fengpai-2-nan.svg">
 							</p>
+							<p class="exclude">➖ 24 Pure shifted kezi; 69 Pure double shunzi.</p>
 						</li>
 						<li>
 							<p><strong>Pure shifted kezi</strong> (<em>Yi se san jie gao</em>, <span class="fanzhong" data-src="24">一色三节高</span>): three consecutive kezi (gangzi) in the same suit.</p>
@@ -750,6 +770,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀂" src="img/tiles/zipai-fengpai-3-xi.svg">
 								<img width="30" height="41" alt="🀂" src="img/tiles/zipai-fengpai-3-xi.svg">
 							</p>
+							<p class="exclude">➖ 23 Pure triple shunzi.</p>
 						</li>
 						<li>
 							<p><strong>Upper tiles</strong> (<em>Quan da</em>, <span class="fanzhong" data-src="25">全大</span>): all tiles of values 7, 8, and 9.</p>
@@ -770,6 +791,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Middle tiles</strong> (<em>Quan zhong</em>, <span class="fanzhong" data-src="26">全中</span>): all tiles of values 4, 5, and 6.</p>
@@ -789,6 +811,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀌" src="img/tiles/shuzipai-wanzi-6.svg">
 								<img width="30" height="41" alt="🀌" src="img/tiles/shuzipai-wanzi-6.svg">
 							</p>
+							<p class="exclude">➖ 68 All simples.</p>
 						</li>
 						<li>
 							<p><strong>Lower tiles</strong> (<em>Quan xiao</em>, <span class="fanzhong" data-src="27">全小</span>): all tiles of values 1, 2, and 3.</p>
@@ -808,6 +831,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀉" src="img/tiles/shuzipai-wanzi-3.svg">
 								<img width="30" height="41" alt="🀉" src="img/tiles/shuzipai-wanzi-3.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 					</ol>
 				</section>
@@ -851,6 +875,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀋" src="img/tiles/shuzipai-wanzi-5.svg">
 								<img width="30" height="41" alt="🀋" src="img/tiles/shuzipai-wanzi-5.svg">
 							</p>
+							<p class="exclude">➖ 63 All shunzi, 70 Mixed double shunzi, 72 Two terminal shunzi, 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Pure shifted shunzi</strong> (<em>Yi se san bu gao</em>, <span class="fanzhong" data-src="30">一色三步高</span>): three suited shunzi shifted up either 1 or 2 in value, but not both.</p>
@@ -890,6 +915,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀋" src="img/tiles/shuzipai-wanzi-5.svg">
 								<img width="30" height="41" alt="🀋" src="img/tiles/shuzipai-wanzi-5.svg">
 							</p>
+							<p class="exclude">➖ 68 All simples.</p>
 						</li>
 						<li>
 							<p><strong>Triple kezi</strong> (<em>San tong ke</em>, <span class="fanzhong" data-src="32">三同刻</span>): three kezi (gangzi) of the same value.</p>
@@ -955,6 +981,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 52 All types.</p>
 						</li>
 						<li>
 							<p><strong>Knitted straight</strong> (<em>Zuhe long</em>, <span class="fanzhong" data-src="35">组合龙</span>): three special shunzi 1-4-7, 2-5-8, and 3-6-9 in different suits.</p>
@@ -993,6 +1020,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Lower four</strong> (<em>Xiao yu wu</em>, <span class="fanzhong" data-src="37">小于五</span>): all tiles valued 1–4.</p>
@@ -1028,6 +1056,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀊" src="img/tiles/shuzipai-wanzi-4.svg">
 								<img width="30" height="41" alt="🀊" src="img/tiles/shuzipai-wanzi-4.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
 							<p><strong>Big three winds</strong> (<em>San feng ke</em>, <span class="fanzhong" data-src="38">三风刻</span>): gangzi (kongzi) of three winds.</p>
@@ -1091,6 +1120,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 								<img width="30" height="41" alt="🀆" src="img/tiles/zipai-jianpai-3-bai.svg">
 							</p>
+							<p class="exclude">➖ 75 One voided suit.</p>
 						</li>
 						<li>
 							<p><strong>Mixed triple shunzi</strong> (<em>San se san tong shun</em>, <span class="fanzhong" data-src="41">三色三同顺</span>): three equal shunzi in each suit.</p>
@@ -1151,15 +1181,18 @@ export default class RulesView extends HTMLElement {
 						</li>
 						<li>
 							<p><strong>Last tile draw</strong> (<em>Miaoshou-huichun</em>, <span class="fanzhong" data-src="44">妙手回春</span>): zimohu on the last tile in the wall.</p>
+							<p class="exclude">➖ 80 Self-drawn.</p>
 						</li>
 						<li>
 							<p><strong>Last tile claim</strong> (<em>Haidi-laoyue</em>, <span class="fanzhong" data-src="45">海底捞月</span>): dianhu on the last (discarded) tile in the game.</p>
 						</li>
 						<li>
 							<p><strong>Out with replacement tile</strong> (<em>Gangshang kaihua</em>, <span class="fanzhong" data-src="46">杠上开花</span>): zimohu after taking the last tile when replacing for gang.</p>
+							<p class="exclude">➖ 80 Self-drawn.</p>
 						</li>
 						<li>
 							<p><strong>Robbing the gang</strong> (<em>Qiang gangpai</em>, <span class="fanzhong" data-src="47">抢杠和</span>): dianhu when taking a tile that a player uses to form a gangzi from a kezi.</p>
+							<p class="exclude">➖ 58 Last tile.</p>
 						</li>
 						<li>
 							<p><strong>Two concealed gangzi</strong> (<em>Shuang angang</em>, <span class="fanzhong" data-src="48">双暗杠</span>): having two concealed gangzi laid out. On the table:</p>
@@ -1286,6 +1319,7 @@ export default class RulesView extends HTMLElement {
 							<p class="wrap">
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 							</p>
+							<p class="exclude">➖ 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Two dragons kezi</strong> (<em>Shuang jianke</em>, <span class="fanzhong" data-src="54">双箭刻</span>): two kezi (gangzi) of dragon tiles.</p>
@@ -1306,6 +1340,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 								<img width="30" height="41" alt="🀅" src="img/tiles/zipai-jianpai-2-fa.svg">
 							</p>
+							<p class="exclude">➖ 59 Dragon kezi.</p>
 						</li>
 					</ol>
 				</section>
@@ -1375,9 +1410,10 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀌" src="img/tiles/shuzipai-wanzi-6.svg">
 								<img width="30" height="41" alt="🀍" src="img/tiles/shuzipai-wanzi-7.svg">
 							</p>
+							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
-							<p><strong>Tile hog</strong> (<em>Si gui yi</em>, <span class="fanzhong" data-src="64">四归一</span>): four consecutive values of suited tiles used, without making a gangzi.</p>
+							<p><strong>Tile hog</strong> (<em>Si gui yi</em>, <span class="fanzhong" data-src="64">四归一</span>): using all four suited tiles with the same single value, excluding gangzi.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -1608,6 +1644,7 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀎" src="img/tiles/shuzipai-wanzi-8.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
+							<p class="exclude">➖ 78 Closed wait, 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Closed wait</strong> (<em>Kanzhang</em>, <span class="fanzhong" data-src="78">坎张</span>): waiting to form a shunzi from the middle value. Not valid if any other tile can form a winning hand. Not valid if combined with other waits.</p>
@@ -1635,15 +1672,17 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀓" src="img/tiles/shuzipai-tiaozi-4.svg">
 								<img width="30" height="41" alt="🀕" src="img/tiles/shuzipai-tiaozi-6.svg">
 							</p>
+							<p class="exclude">➖ 77 Edge wait, 79 Single wait.</p>
 						</li>
 						<li>
 							<p><strong>Single wait</strong> (<em>Dandiao jiang</em>, <span class="fanzhong" data-src="79">单调将</span>): waiting for winning tile to form a pair. Not valid if any other tile can form a winning hand. Not valid if combined with other waits.</p>
+							<p class="exclude">➖ 77 Edge wait, 78 Closed wait.</p>
 						</li>
 						<li>
 							<p><strong>Self-drawn</strong> (<em>Zimo</em>, <span class="fanzhong" data-src="80">自摸</span>): winning by tile drawn from wall.</p>
 						</li>
 						<li>
-							<p><strong>Flower tiles</strong> (<em>Huapai</em>, <span class="fanzhong" data-src="81">花牌</span>): each bonus tile amounts to one fan when winning.</p>
+							<p><strong>Flower tiles</strong> (<em>Huapai</em>, <span class="fanzhong" data-src="81">花牌</span>): each bonus tile amounts to one fan when winning, counted after the hand is made.</p>
 						</li>
 					</ol>
 				</section>
