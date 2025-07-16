@@ -20,3 +20,9 @@
 	display: flex;
 	flex-flow: wrap;
 }
+
+.rotate {
+	transform: rotate(-90deg) scale(136.666667%) translateX(-20%);
+	width: 41px;
+	height: 30px;
+}

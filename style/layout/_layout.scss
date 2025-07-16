@@ -118,9 +118,13 @@
 	background-color: $black;
 }
 
-
 .exclude {
 	font-size: max(0.8vmin, 1rem);
 	line-height: max(1.4vmin, 1rem);
 	color: $gray-35;
+}
+
+.term {
+	font-variant: small-caps;
+	color: $secondary-1;
 }
