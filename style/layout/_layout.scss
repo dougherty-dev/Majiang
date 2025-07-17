@@ -30,8 +30,8 @@
 .columns {
 	columns: auto 30rem;
 	column-gap: 2rem;
-	border-bottom: thin dotted $tertiary-3;
-	column-rule: thin dotted $tertiary-3;
+	border-bottom: medium dotted $tertiary-3;
+	column-rule: medium dotted $tertiary-3;
 	padding: 1rem;
 
 	& p,
