@@ -36,8 +36,9 @@
 	grid-area: player1;
 
 	@include grid-player(p1);
-	align-content: flex-start;
-	height: 100%;
+	transform: rotate(270deg) translate(-33.3333%, -100%);
+	width: 300%;
+	height: 33.3333%;
 }
 
 /* grid for player 2 */
@@ -46,9 +47,8 @@
 	grid-area: player2;
 
 	@include grid-player(p2);
-	transform: rotate(270deg) translate(-33.3333%, -100%);
-	width: 300%;
-	height: 33.3333%;
+	transform: rotate(180deg);
+	height: 100%;
 }
 
 /* grid for player 3 */
@@ -57,8 +57,9 @@
 	grid-area: player3;
 
 	@include grid-player(p3);
-	transform: rotate(180deg);
-	height: 100%;
+	transform: rotate(90deg) translate(33.3333%, 100%);
+	width: 300%;
+	height: 33.3333%;
 }
 
 /* grid for player 4 */
@@ -67,7 +68,6 @@
 	grid-area: player4;
 
 	@include grid-player(p4);
-	transform: rotate(90deg) translate(33.3333%, 100%);
-	width: 300%;
-	height: 33.3333%;
+	align-content: flex-start;
+	height: 100%;
 }

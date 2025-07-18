@@ -11,20 +11,20 @@
 	padding: 0.3rem;
 }
 
+.grid-points4 {
+	@include grid-points(points4, 0);
+}
+
 .grid-points1 {
-	@include grid-points(points1, 0);
+	@include grid-points(points1, 270deg);
 }
 
 .grid-points2 {
-	@include grid-points(points2, 270deg);
+	@include grid-points(points2, 180deg);
 }
 
 .grid-points3 {
-	@include grid-points(points3, 180deg);
-}
-
-.grid-points4 {
-	@include grid-points(points4, 90deg);
+	@include grid-points(points3, 90deg);
 }
 
 .points {

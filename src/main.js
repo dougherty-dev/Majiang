@@ -23,5 +23,4 @@ customElements.define('not-found-view', NotFoundView)
 customElements.define('table-view', TableView)
 customElements.define('rules-view', RulesView)
 
-const game = new Majiang()
-game.newGame()
+new Majiang()

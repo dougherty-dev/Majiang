@@ -16,9 +16,9 @@
 	grid-template-columns: 20% 60% 20%;
 	grid-template-rows: 20% 60% 20%;
 	grid-template-areas:
-		'points4	player3		points3'
-		'player4	control		player2'
-		'points1	player1		points2';
+		'points3	player2		points2'
+		'player3	control		player1'
+		'points4	player4		points1';
 	grid-gap: 0;
 
 	align-content: space-between;

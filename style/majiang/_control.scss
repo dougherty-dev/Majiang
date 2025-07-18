@@ -22,23 +22,23 @@
 	padding: 0.1rem;
 }
 
-.control-player1 {
+.control-player4 {
 	@include control-player(discard1);
 }
 
-.control-player2 {
+.control-player1 {
 	@include control-player(discard2);
 	transform: translate(-25%, 50%) rotate(270deg);
 	width: 200%;
 	height: 50%;
 }
 
-.control-player3 {
+.control-player2 {
 	@include control-player(discard3);
 	transform: rotate(180deg);
 }
 
-.control-player4 {
+.control-player3 {
 	@include control-player(discard4);
 	transform: translate(-25%, 50%) rotate(90deg);
 	width: 200%;
@@ -52,9 +52,9 @@
 	grid-template-columns: repeat(3, 33.33333%);
 	grid-template-rows: repeat(3, 33.33333%);
 	grid-template-areas:
-		'.			wind3		.'
-		'wind4		tiles		wind2'
-		'.			wind1		.';
+		'wind2	drop2	wind1'
+		'drop3	tiles	drop1'
+		'wind3	drop4	wind4';
 	align-items: center;
 	justify-content: center;
 	justify-items: center;
@@ -66,21 +66,40 @@
 
 .control-wind1 {
 	grid-area: wind1;
+	transform: rotate(270deg);
 }
 
 .control-wind2 {
 	grid-area: wind2;
-	transform: rotate(270deg);
+	transform: rotate(180deg);
 }
 
 .control-wind3 {
 	grid-area: wind3;
-	transform: rotate(180deg);
+	transform: rotate(90deg);
 }
 
 .control-wind4 {
 	grid-area: wind4;
+}
+
+.control-drop1 {
+	grid-area: drop1;
+	transform: rotate(270deg);
+}
+
+.control-drop2 {
+	grid-area: drop2;
+	transform: rotate(180deg);
+}
+
+.control-drop3 {
+	grid-area: drop3;
 	transform: rotate(90deg);
+}
+
+.control-drop4 {
+	grid-area: drop4;
 }
 
 .control-tiles {
@@ -88,6 +107,10 @@
 }
 
 .wind {
-	width: max(3.5vmin, 2rem);
-	filter: invert(43%) sepia(47%) saturate(699%) hue-rotate(356deg) brightness(97%) contrast(84%);
+	width: max(4vmin, 1rem);
+	filter: drop-shadow(1px 1px 3px $white);
+}
+
+.prevailing {
+	filter: invert(1) drop-shadow(1px 1px 5px $black);
 }
