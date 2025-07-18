@@ -141,7 +141,7 @@ class Majiang {
 	}
 
 	async clearBoard() {
-		for (const key of Object.keys(this.game.players)) {
+		for (const key of [1, 2, 3, 4]) {
 			document.getElementById('tiles' + key).innerHTML = ''
 			document.getElementById('flowers' + key).innerHTML = ''
 			document.getElementById('melds' + key).innerHTML = ''
