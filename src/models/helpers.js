@@ -31,3 +31,25 @@ export function shuffle(array) {
 
 	return array
 }
+
+export function hiliteHelper(table, event, fn) {
+	table.addEventListener(event, async(e) => {
+		const target = e.target
+
+		if (target.nodeName === 'IMG' && target.classList.contains('t')) {
+			const src = target.getAttribute('src')
+			const images = document.querySelectorAll(`img[src='${src}']`)
+
+			for (const image of images) {
+				switch (fn) {
+				case 'add':
+					image.classList.add('hilite')
+					break
+				case 'remove':
+					image.classList.remove('hilite')
+					break
+				}
+			}
+		}
+	})
+}

@@ -12,7 +12,7 @@ export default class BoardView extends HTMLElement {
 			<header>
 				<h2>麻将桌</h2>
 			</header>
-			<main class="table">
+			<main class="table" id="majiang-table">
 				<div class="table-grid">
 					<!-- east -->
 					<div class="grid-player1" id="player1">

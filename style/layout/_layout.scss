@@ -44,6 +44,10 @@
 	ul {
 		padding-bottom: 1rem;
 	}
+
+	&:nth-child(2n+1) {
+		background-color: $gray-93;
+	}
 }
 
 .fanzhong {
@@ -127,4 +131,9 @@
 .term {
 	font-variant: small-caps;
 	color: $secondary-1;
+}
+
+.hilite {
+	filter: drop-shadow(2px 2px 3px $tertiary-3) drop-shadow(-2px -2px 3px $tertiary-3);
+	transform: scale(1.1);
 }

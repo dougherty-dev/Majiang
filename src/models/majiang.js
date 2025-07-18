@@ -6,7 +6,7 @@
  */
 
 import { HUAPAI, TILES } from './tiles.js'
-import { shuffle, delay } from './helpers.js'
+import { shuffle, delay, hiliteHelper } from './helpers.js'
 
 class Player {
 	constructor() {
@@ -28,26 +28,15 @@ class Majiang {
 		this.newGame()
 
 		window.addEventListener('hashchange', () => {
-			if (location.hash === '#table') {
-				this.layoutGame()
-			}
+			this.hashLocator()
 		})
 
-		if (location.hash === '#table') {
-			this.layoutGame()
-		}
+		this.hashLocator()
 	}
 
-	fetchGame() {
-		this.game = null
-		const game = localStorage.getItem('game')
-		if (game) {
-			try {
-				this.game = JSON.parse(game)
-			} catch (e) {
-				console.log(e)
-				this.game = null
-			}
+	hashLocator() {
+		if (location.hash === '#table') {
+			this.layoutGame()
 		}
 	}
 
@@ -55,11 +44,13 @@ class Majiang {
 		if (!this.game) {
 			return
 		}
-		this.placeStacks()
-		this.placeFlowers()
-		this.placePoints()
-		this.placeTileCount()
+
+		this.displayStacks()
+		this.displayFlowers()
+		this.displayPoints()
+		this.displayTileCount()
 		this.prevailingWind()
+		this.hiliteTiles()
 	}
 
 	prevailingWind() {
@@ -71,13 +62,13 @@ class Majiang {
 		}
 	}
 
-	placePoints() {
+	displayPoints() {
 		for (const [key, player] of Object.entries(this.game.players)) {
 			document.getElementById('points' + key).textContent = player.points
 		}
 	}
 
-	placeTileCount() {
+	displayTileCount() {
 		document.getElementById('tiles').textContent = this.game.tileCount
 	}
 
@@ -86,6 +77,7 @@ class Majiang {
 		img.width = 19
 		img.height = 26
 		img.alt = alt
+		img.classList.add('t')
 		img.src = 'img/tiles/' + src + '.svg'
 		return img
 	}
@@ -104,14 +96,20 @@ class Majiang {
 		}
 	}
 
-	async placeStacks() {
+	hiliteTiles() {
+		const table = document.getElementById('majiang-table')
+
+		hiliteHelper(table, 'mouseover', 'add')
+		hiliteHelper(table, 'mouseout', 'remove')
+	}
+
+	async displayStacks() {
 		for (const [key, player] of Object.entries(this.game.players)) {
-			this.placeStack(key, player)
+			this.displayStack(key, player)
 		}
 	}
 
-	placeStack(key, player) {
-		this.sortTiles(player.stack)
+	displayStack(key, player) {
 		this.removeItem('tiles', key)
 		player.stack.forEach(tile => {
 			const img = this.createTile(tile[4], tile[5])
@@ -123,7 +121,7 @@ class Majiang {
 		document.getElementById(item + key).innerHTML = ''
 	}
 
-	async placeFlowers() {
+	async displayFlowers() {
 		for (const [key, player] of Object.entries(this.game.players)) {
 			this.removeItem('flowers', key)
 			for (const tile of player.flowers) {
@@ -133,9 +131,10 @@ class Majiang {
 		}
 	}
 
-	async placeFlower(key, tile) {
+	async displayFlower(key, tile) {
 		const img = this.createTile(tile[4], tile[5])
 		document.getElementById('flowers' + key).appendChild(img)
+
 		new Audio('snd/buhua.m4a').play()
 		await delay(1500)
 	}
@@ -170,7 +169,7 @@ class Majiang {
 
 		for (let i = 1; i <= 13; i++) {
 			Object.values(this.game.players).forEach(player => {
-				let tile = tiles.shift()
+				let tile = this.game.tiles.shift()
 				player.stack.push(tile)
 			})
 		}
@@ -179,31 +178,64 @@ class Majiang {
 			this.sortTiles(player.stack)
 			player.wind = key
 		}
-		this.placeStacks()
-
-		let newStack
-		for (const [key, player] of Object.entries(this.game.players)) {
-			newStack = []
-			for (let tile of player.stack) {
-				while (HUAPAI.includes(tile)) {
-					player.flowers.push(tile)
-					await this.placeFlower(key, tile)
-					tile = tiles.shift()
-				}
-				newStack.push(tile)
-			}
-			player.stack = Object.assign([], newStack)
-			this.sortTiles(player.stack)
-			this.sortTiles(player.flowers)
-			this.placeStack(key, player)
-		}
 
 		this.game.tileCount = this.game.tiles.length
+		this.displayStacks()
+
+		await this.replaceFlowers()
+
 		this.saveGame()
+	}
+
+	async replaceFlowers() {
+		let tileCopy
+
+		for (const [key, player] of Object.entries(this.game.players)) {
+			for (let [index, tile] of Object.entries(player.stack)) {
+				while (HUAPAI.includes(tile)) {
+					tileCopy = tile
+					player.flowers.push(tile)
+
+					tile = this.takeTile()
+					if (tile) {
+						player.stack.splice(index, 1, tile)
+						this.displayStack(key, player)
+						await this.displayFlower(key, tileCopy)
+					}
+				}
+			}
+
+			this.sortTiles(player.stack)
+			this.displayStack(key, player)
+		}
+	}
+
+	takeTile() {
+		if (this.game.tiles.length) {
+			const tile = this.game.tiles.shift()
+			this.game.tileCount = this.game.tiles.length
+			this.displayTileCount()
+			return tile
+		}
+
+		return false
 	}
 
 	sortTiles(tiles) {
 		tiles.sort((a, b) => a[1].localeCompare(b[1]))
+	}
+
+	fetchGame() {
+		this.game = null
+		const game = localStorage.getItem('game')
+		if (game) {
+			try {
+				this.game = JSON.parse(game)
+			} catch (e) {
+				console.log(e)
+				this.game = null
+			}
+		}
 	}
 
 	saveGame() {
