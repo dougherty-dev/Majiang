@@ -5,7 +5,7 @@
  * @module tiles
  */
 
-const HUAPAI = [
+export const HUAPAI = [
 	[1, 'hua1', 'chun', '春', '🀦', 'huapai-sjie-1-chun'],
 	[2, 'hua2', 'xia', '夏', '🀧', 'huapai-sjie-2-xia'],
 	[3, 'hua3', 'qiu', '秋', '🀨', 'huapai-sjie-3-qiu'],
@@ -16,7 +16,7 @@ const HUAPAI = [
 	[4, 'hua8', 'zhu', '竹', '🀤', 'huapai-sijunzi-4-zhu']
 ]
 
-const ZIPAI = [
+export const ZIPAI = [
 	[1, 'zi1', 'dong', '东', '🀀', 'zipai-fengpai-1-dong'],
 	[2, 'zi2', 'nan', '南', '🀁', 'zipai-fengpai-2-nan'],
 	[3, 'zi3', 'xi', '西', '🀂', 'zipai-fengpai-3-xi'],
@@ -26,7 +26,7 @@ const ZIPAI = [
 	[3, 'zi7', 'bai', '白', '🀆', 'zipai-jianpai-3-bai'],
 ]
 
-const BINGZI = [
+export const BINGZI = [
 	[1, 'bing1', 'bingzi 1', '饼子一', '🀙', 'shuzipai-bingzi-1'],
 	[2, 'bing2', 'bingzi 2', '饼子二', '🀚', 'shuzipai-bingzi-2'],
 	[3, 'bing3', 'bingzi 3', '饼子三', '🀛', 'shuzipai-bingzi-3'],
@@ -38,7 +38,7 @@ const BINGZI = [
 	[9, 'bing9', 'bingzi 9', '饼子九', '🀡', 'shuzipai-bingzi-9']
 ]
 
-const TIAOZI = [
+export const TIAOZI = [
 	[1, 'tiao1', 'tiaozi 1', '条子一', '🀐', 'shuzipai-tiaozi-1'],
 	[2, 'tiao2', 'tiaozi 2', '条子二', '🀑', 'shuzipai-tiaozi-2'],
 	[3, 'tiao3', 'tiaozi 3', '条子三', '🀒', 'shuzipai-tiaozi-3'],
@@ -50,7 +50,7 @@ const TIAOZI = [
 	[9, 'tiao8', 'tiaozi 9', '条子九', '🀘', 'shuzipai-tiaozi-9']
 ]
 
-const WANZI = [
+export const WANZI = [
 	[1, 'wan1', 'wanzi 1', '万子一', '🀇', 'shuzipai-wanzi-1'],
 	[2, 'wan2', 'wanzi 2', '万子二', '🀈', 'shuzipai-wanzi-2'],
 	[3, 'wan3', 'wanzi 3', '万子三', '🀉', 'shuzipai-wanzi-3'],
@@ -62,13 +62,18 @@ const WANZI = [
 	[9, 'wan9', 'wanzi 9', '万子九', '🀏', 'shuzipai-wanzi-9']
 ]
 
-const BEIMIAN = [
+export const BEIMIAN = [
 	[null,'beimian', 'beimian', '背面', '🀫', 'beimian']
 ]
 
-const TILES = [
+export const TILES = [
 	...[...BINGZI, ...TIAOZI, ...WANZI, ...ZIPAI].flatMap(i => Array(4).fill(i)),
 	...HUAPAI
 ]
 
-export {BEIMIAN, HUAPAI, ZIPAI, BINGZI, TIAOZI, WANZI, TILES}
+export const WINDS = {
+	1: ['dong', '东'],
+	2: ['nan', '南'],
+	3: ['xi', '西'],
+	4: ['bei', '北']
+}

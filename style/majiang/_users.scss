@@ -1,0 +1,58 @@
+@use '../abstracts/palettes' as *;
+@use '../abstracts' as *;
+
+@mixin grid-u($p, $align) {
+	grid-area: $p;
+
+	display: flex;
+	flex-flow: wrap;
+	align-content: flex-end;
+	justify-content: $align;
+}
+
+@mixin grid-user($p, $deg) {
+	grid-area: $p;
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	grid-template-areas:
+		'#{$p}-points #{$p}-seatwind';
+
+	.grid-#{$p}-points {
+		@include grid-u(#{$p}-points, flex-start);
+	}
+
+	.grid-#{$p}-seatwind {
+		@include grid-u(#{$p}-seatwind, flex-end);
+	}
+
+	transform: rotate($deg);
+	padding: 0.3rem;
+}
+
+.grid-user1 {
+	@include grid-user(user1, 270deg);
+}
+
+.grid-user2 {
+	@include grid-user(user2, 180deg);
+}
+
+.grid-user3 {
+	@include grid-user(user3, 90deg);
+}
+
+.grid-user4 {
+	@include grid-user(user4, 0);
+}
+
+.points {
+	font-size: max(2vmin, 2 * $minsize);
+	color: $gray-10;
+	text-shadow: 1px 1px 2px $black;
+	opacity: 0.75;
+}
+
+.seatwind {
+	width: max(4vmin, 1.5em);
+	filter: invert(35%) sepia(83%) saturate(441%) hue-rotate(295deg) brightness(91%) contrast(95%);
+}

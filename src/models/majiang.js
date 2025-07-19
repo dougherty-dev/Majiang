@@ -5,8 +5,8 @@
  * @class Majiang
  */
 
-import { HUAPAI, TILES } from './tiles.js'
-import { shuffle, delay, hiliteHelper } from './helpers.js'
+import { HUAPAI, TILES, WINDS } from './tiles.js'
+import { shuffle, delay, getRandomInt, hiliteHelper } from './helpers.js'
 
 class Player {
 	constructor() {
@@ -45,18 +45,19 @@ class Majiang {
 			return
 		}
 
+		this.prevailingWind()
+		this.displaySeatWinds()
 		this.displayStacks()
 		this.displayFlowers()
 		this.displayPoints()
 		this.displayTileCount()
-		this.prevailingWind()
 		this.hiliteTiles()
 	}
 
 	prevailingWind() {
-		for (const [key, player] of Object.entries(this.game.players)) {
+		for (const key of [1, 2, 3, 4]) {
 			document.getElementById('prevailing' + key).classList.remove('prevailing')
-			if (this.game.prevailingWind == player.wind) {
+			if (this.game.prevailingWind == key) {
 				document.getElementById('prevailing' + key).classList.add('prevailing')
 			}
 		}
@@ -139,6 +140,21 @@ class Majiang {
 		await delay(1500)
 	}
 
+	displaySeatWinds() {
+		for (const [key, player] of Object.entries(this.game.players)) {
+			document.getElementById('seat' + key).innerHTML = ''
+
+			const img = document.createElement('img')
+			img.width = 17
+			img.height = 20
+			img.alt = WINDS[player.wind][1]
+			img.classList.add('seatwind')
+			img.src = 'img/' + WINDS[player.wind][0] + '.svg'
+
+			document.getElementById('seat' + key).appendChild(img)
+		}
+	}
+
 	async clearBoard() {
 		for (const key of [1, 2, 3, 4]) {
 			document.getElementById('tiles' + key).innerHTML = ''
@@ -167,16 +183,17 @@ class Majiang {
 			players: players,
 		}
 
-		for (let i = 1; i <= 13; i++) {
-			Object.values(this.game.players).forEach(player => {
+		this.prevailingWind()
+		this.determineSeatWinds()
+		this.displaySeatWinds()
+
+		for (const player of Object.values(this.game.players)) {
+			for (let i = 1; i <= 13; i++) {
 				let tile = this.game.tiles.shift()
 				player.stack.push(tile)
-			})
-		}
+			}
 
-		for (const [key, player] of Object.entries(this.game.players)) {
 			this.sortTiles(player.stack)
-			player.wind = key
 		}
 
 		this.game.tileCount = this.game.tiles.length
@@ -185,6 +202,52 @@ class Majiang {
 		await this.replaceFlowers()
 
 		this.saveGame()
+	}
+
+	findEast() {
+		return (() => {
+			switch (this.game.round) {
+			case 1:
+				return getRandomInt(1, 4)
+			default:
+				return this.game.players.findIndex(obj => { return obj.wind === 1 })
+			}
+		})()
+	}
+
+	determineSeatWinds() {
+		const e = this.findEast()
+		function mod4(n) {
+			let mod = (e + n - 1) % 4
+			if (mod === 0) mod = 4
+			return mod
+		}
+
+		let s
+		let w
+		let n
+		const p = this.game.players
+
+		switch (this.game.round) {
+		case 1:
+			for (const [key, player] of Object.entries(p)) {
+				let a = mod4(parseInt(key))
+				player.wind = a
+			}
+			break
+		case 2:
+			;[s, w, n] = [mod4(1), mod4(2), mod4(3)]
+			;[p[e].wind, p[s].wind, p[w].wind, p[n].wind] = [p[s].wind, p[e].wind, p[n].wind, p[w].wind]
+			break
+		case 3:
+			;[n, w, s] = [mod4(1), mod4(2), mod4(3)]
+			;[p[e].wind, p[s].wind, p[w].wind, p[n].wind] = [p[w].wind, p[n].wind, p[s].wind, p[e].wind]
+			break
+		case 4:
+			;[w, n, s] = [mod4(1), mod4(2), mod4(3)]
+			;[p[e].wind, p[s].wind, p[w].wind, p[n].wind] = [p[s].wind, p[e].wind, p[n].wind, p[w].wind]
+			break
+		}
 	}
 
 	async replaceFlowers() {

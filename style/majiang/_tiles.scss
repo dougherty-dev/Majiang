@@ -21,3 +21,8 @@
 	flex-flow: wrap;
 	align-items: flex-end;
 }
+
+.hilite {
+	filter: drop-shadow(2px 2px 3px $tertiary-3) drop-shadow(-2px -2px 3px $tertiary-3);
+	transform: scale(1.1);
+}
