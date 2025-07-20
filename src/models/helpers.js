@@ -58,6 +58,5 @@ export function hiliteHelper(table, event, fn) {
 }
 
 export function mod4(east, number) {
-	let mod = (east + number - 1) % 4
-	return mod === 0 ? 4 : mod
+	return Math.abs(4 + number - east) % 4 + 1
 }

@@ -14,6 +14,7 @@ class Player {
 			wind: null,
 			tingpai: false,
 			discarded: false,
+			turn: false,
 			door: [],
 			melds: [],
 			flowers: [],
@@ -32,18 +33,24 @@ export default class Players {
 		}
 	}
 
+	currentPlayer() {
+		for (const [key, player] of Object.entries(this.players)) {
+			if (player.turn) { return key }
+		}
+	}
+
 	findEast(round) {
 		return (() => {
 			switch (round) {
 			case 1:
 				return getRandomInt(1, 4)
 			default:
-				return this.players.findIndex(obj => { return obj.wind === 1 })
+				return Object.entries(this.players).findIndex(obj => { return obj.wind === 1 })
 			}
 		})()
 	}
 
-	determineSeatWinds(round) {
+	async determineSeatWinds(round) {
 		const players = this.players
 		const east = this.findEast(round)
 
@@ -53,6 +60,7 @@ export default class Players {
 		case 1:
 			for (const [key, player] of Object.entries(players)) {
 				player.wind = mod4(east, parseInt(key))
+				player.turn = east == key
 			}
 			break
 		case 2:

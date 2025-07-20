@@ -83,6 +83,7 @@ export default class Majiang {
 		this.display.displayPrevailingWind(this.game.prevailingWind)
 		this.players.determineSeatWinds(this.game.round)
 		this.display.displaySeatWinds(this.game.players, this.game.prevailingWind)
+		this.game.currentPlayer = this.players.currentPlayer()
 
 		for (const player of Object.values(this.game.players)) {
 			for (let i = 1; i <= 13; i++) {
@@ -97,7 +98,6 @@ export default class Majiang {
 		this.display.displayStacks(this.game.players)
 
 		await this.replaceFlowers()
-
 		this.gameio.saveGame(this.game)
 	}
 
