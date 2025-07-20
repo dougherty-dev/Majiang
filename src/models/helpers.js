@@ -33,7 +33,10 @@ export function shuffle(array) {
 }
 
 export function hiliteHelper(table, event, fn) {
-	table.addEventListener(event, async(e) => {
+	table.removeEventListener(event, hilite)
+	table.addEventListener(event, hilite)
+		
+	async function hilite(e) {
 		const target = e.target
 
 		if (target.nodeName === 'IMG' && target.classList.contains('t')) {
@@ -51,5 +54,10 @@ export function hiliteHelper(table, event, fn) {
 				}
 			}
 		}
-	})
+	}
+}
+
+export function mod4(east, number) {
+	let mod = (east + number - 1) % 4
+	return mod === 0 ? 4 : mod
 }

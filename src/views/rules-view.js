@@ -97,7 +97,7 @@ export default class RulesView extends HTMLElement {
 				</section>
 				<section class="columns">
 					<h4>Games, rounds and hands</h4>
-					<p>Each <span class="term">game</span> (<em>ju</em>, 局) consists of four <span class="term">rounds</span> (<em>quan</em>, 圈) with at least four <span class="term">hands</span> (<em>pan</em>, 盘) each. In actual games, <span class="term">dice</span> (<em>shaizi</em>, 骰子) are used to determine wind and position for each player, but in this implementation the the human player is seated in the north position, starting with the north seat wind.</p>
+					<p>Each <span class="term">game</span> (<em>ju</em>, 局) consists of four <span class="term">rounds</span> (<em>quan</em>, 圈) with at least four <span class="term">hands</span> (<em>pan</em>, 盘) each. In actual games, <span class="term">dice</span> (<em>shaizi</em>, 骰子) are used to determine wind and position for each player, but in this implementation seat winds are assigned randomly.</p>
 					<p>In physical games, a <span class="term">wall</span> (<em>paiqiang</em>, 牌墙) of 4 x 18 x 2 tiles is built from which tiles are then dealt to the players in a complicated manner to maximize randomization. Here, this procedure is reduced to the computer program keeping a virtual wall of tiles, handing out tiles as needed.</p>
 					<p>Each round has a <span class="term">prevailing wind</span> (<em>quanfeng</em>, 圈风), beginning with east, then shifting to south, west, and finally north. Each player has a <span class="term">seat wind</span> (<em>menfeng</em>, 门风), also beginning with east, and rotating after each hand in a more complicated manner; see next section. The physical wind positions are stationary, and are as follows:</p>
 					<div class="winds">
@@ -109,11 +109,11 @@ export default class RulesView extends HTMLElement {
 					<p>The human player is seated at north in this implementation, but in competitions the physical seating order is determined by drawing lots. Players do not move around, but are continuously assigned a seat wind after each hand. Melds with wind tiles can give extra points when the seat wind corresponds to the prevailing wind.</p>
 					<p>East is always the <span class="term">banker</span> (<em>zhuangjia</em>, 庄家). Tiles are first picked by east, then by <span class="term">other players</span> (<em>pangjia</em>, 旁家) in counter-clockwise physical order south, west, and north, possibly with <span class="term">replacement</span> of bonus tiles (<em>buhua</em>, 补花). Each player will build a <span class="term">hand</span> (<em>shou</em>, 手) or <span class="term">door</span> (<em>men</em>, 门) with thirteen <span class="term">standing tiles</span> (<em>lipai</em>, 立牌), all concealed.</p>
 					<p>East then begins the game by taking a new tile, possibly with bonus replacement. Unless winning instantly or making a concealed gang, east then discards a tile, placing it openly on the table. Unless another player can form a winning hand or make a meld from the discarded tile, south continues in the same fashion, then west, then north, after which a full <span class="term">rotation</span> (<em>lun</em>, 轮) is completed.</p>
-					<p>The first hand continues in the same fashion until a player wins, or, if all tiles are used, there is a <span class="term">draw</span> (<em>huangpai</em>, 荒牌). If there is a draw, or if east wins, the hand is replayed with the same winds. If another player wins, a new hand is played, with seat winds shifted. When all players have been east, the first round is completed.</p>
+					<p>The first hand continues in the same fashion until a player wins, or, if all tiles are used, there is a <span class="term">draw</span> (<em>huangpai</em>, 荒牌). If there is a draw, or if east wins, the hand is replayed with the same seat winds. If another player wins, a new hand is played, with seat winds shifted counter-clockwise. When all players have been east, the first round is completed.</p>
 				</section>
 				<section class="columns">
 					<h4>Seat winds</h4>
-					<p>The seat winds (the designations, not the physical positions) are shifted in the following fashion after each hand to accomodate for upper/left and lower/right positions of players. As a matter of convenience, the human player is initially assigned north, to match the physical position.</p>
+					<p>The seat winds (the designations, not the physical positions) are shifted in the following fashion after each round to accomodate for upper/left and lower/right positions of players. The initial seat wind is assigned randomly, then rotated according to the following scheme:</p>
 					<p><em>Round 2, 4</em><br>
 					W ↔︎ N | E ↔︎ S</p>
 					<p><em>Round 3</em><br>
@@ -142,6 +142,7 @@ export default class RulesView extends HTMLElement {
 						<div class="wind3 east">东 E</div>
 						<div class="wind4 south">南 S</div>
 					</div>
+					<p>Note: within rounds, seat winds are shifted counter-clockwise after each hand.</p>
 				</section>
 				<section class="columns">
 					<h4>Melds</h4>
