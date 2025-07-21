@@ -32,31 +32,54 @@ export function shuffle(array) {
 	return array
 }
 
-export function hiliteHelper(table, event, fn) {
-	table.removeEventListener(event, hilite)
-	table.addEventListener(event, hilite)
-		
-	async function hilite(e) {
-		const target = e.target
+export function hiliteToggle(target) {
+	toggle(target, 'mouseover')
+	toggle(target, 'mouseout')
 
-		if (target.nodeName === 'IMG' && target.classList.contains('t')) {
-			const src = target.getAttribute('src')
-			const images = document.querySelectorAll(`img[src='${src}']`)
+	function toggle(target, event) {
+		target.addEventListener(event, hilite)
 
-			for (const image of images) {
-				switch (fn) {
-				case 'add':
-					image.classList.add('hilite')
-					break
-				case 'remove':
-					image.classList.remove('hilite')
-					break
+		async function hilite(e) {
+			const target = e.target
+
+			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
+				const src = target.getAttribute('src')
+				const images = document.querySelectorAll(`img[src='${src}']`)
+
+				for (const image of images) {
+					image.classList.toggle('hilite')
 				}
 			}
 		}
 	}
 }
 
-export function mod4(east, number) {
+export function zoomToggle(target) {
+	toggle(target, 'mouseover')
+	toggle(target, 'mouseout')
+
+	function toggle(target, event) {
+		target.addEventListener(event, zoom)
+
+		async function zoom(e) {
+			const target = e.target
+
+			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
+				target.classList.toggle('pick')
+			}
+		}
+	}
+}
+
+export function rot4(east, number) {
 	return Math.abs(4 + number - east) % 4 + 1
+}
+
+export function modIncrease(number) {
+	let res = Math.abs(number + 1) % 4
+	return (res === 4) ? 1 : res
+}
+
+export function sortTiles(tiles) {
+	tiles.sort((a, b) => a[1].localeCompare(b[1]))
 }

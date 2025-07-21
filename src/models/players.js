@@ -5,8 +5,6 @@
  * @class Players
  */
 
-import { getRandomInt, mod4 } from './helpers.js'
-
 class Player {
 	constructor() {
 		this.player = {
@@ -26,58 +24,10 @@ class Player {
 export default class Players {
 	constructor() {
 		this.players = {
-			1: new Player().player,
-			2: new Player().player,
-			3: new Player().player,
-			4: new Player().player
-		}
-	}
-
-	currentPlayer() {
-		for (const [key, player] of Object.entries(this.players)) {
-			if (player.turn) { return key }
-		}
-	}
-
-	findEast(round) {
-		return (() => {
-			switch (round) {
-			case 1:
-				return getRandomInt(1, 4)
-			default:
-				return Object.entries(this.players).findIndex(obj => { return obj.wind === 1 })
-			}
-		})()
-	}
-
-	async determineSeatWinds(round) {
-		const players = this.players
-		const east = this.findEast(round)
-
-		let south, west, north
-
-		switch (round) {
-		case 1:
-			for (const [key, player] of Object.entries(players)) {
-				player.wind = mod4(east, parseInt(key))
-				player.turn = east == key
-			}
-			break
-		case 2:
-			;[south, west, north] = [mod4(east, 1), mod4(east, 2), mod4(east, 3)]
-			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-				[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
-			break
-		case 3:
-			;[north, west, south] = [mod4(east, 1), mod4(east, 2), mod4(east, 3)]
-			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-				[players[west].wind, players[north].wind, players[south].wind, players[east].wind]
-			break
-		case 4:
-			;[west, north, south] = [mod4(east, 1), mod4(east, 2), mod4(east, 3)]
-			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-				[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
-			break
+			1: new Player().player,	// east
+			2: new Player().player,	// south
+			3: new Player().player,	// west
+			4: new Player().player	// north
 		}
 	}
 }

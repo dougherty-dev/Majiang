@@ -6,7 +6,7 @@
  */
 
 import { WINDS } from './tiles.js'
-import { delay, hiliteHelper } from './helpers.js'
+import { delay, hiliteToggle } from './helpers.js'
 
 const playerArray = [1, 2, 3, 4]
 
@@ -49,13 +49,16 @@ export default class Display {
 		document.getElementById('tiles').textContent = tileCount
 	}
 
-	createTile(alt, src) {
+	createTile(alt, src, index = false) {
 		const img = document.createElement('img')
 		img.width = 19
 		img.height = 26
 		img.alt = alt
 		img.classList.add('t')
 		img.src = 'img/tiles/' + src + '.svg'
+		if (index) {
+			img.dataset.order = index
+		}
 		return img
 	}
 
@@ -63,8 +66,7 @@ export default class Display {
 		const table = document.getElementById('majiang-table')
 		if (!table) { return }
 
-		hiliteHelper(table, 'mouseover', 'add')
-		hiliteHelper(table, 'mouseout', 'remove')
+		hiliteToggle(table)
 	}
 
 	displayStacks(players) {
@@ -75,10 +77,15 @@ export default class Display {
 
 	displayStack(key, player) {
 		this.removeItem('tiles', key)
-		player.door.forEach(tile => {
-			const img = this.createTile(tile[4], tile[5])
+		for (const [index, tile] of Object.entries(player.door)) {
+			const img = this.createTile(tile[4], tile[5], index)
 			document.getElementById('tiles' + key).appendChild(img)
-		})
+		}
+	}
+
+	displayDiscarded(key, tile) {
+		const img = this.createTile(tile[4], tile[5])
+		document.getElementById('control-drop' + key).appendChild(img)
 	}
 
 	removeItem(item, key) {

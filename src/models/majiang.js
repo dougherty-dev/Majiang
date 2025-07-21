@@ -7,7 +7,7 @@
 
 import { VERSION } from '../config.js'
 import { HUAPAI, TILES } from './tiles.js'
-import { shuffle } from './helpers.js'
+import { delay, shuffle, sortTiles, zoomToggle, modIncrease, getRandomInt, rot4 } from './helpers.js'
 import Players from './players.js'
 import Display from './display.js'
 import GameIO from './gameio.js'
@@ -32,7 +32,8 @@ export default class Majiang {
 	}
 
 	async hashLocator() {
-		if (location.hash === '#table') {
+		const cleanHash = location.hash.replace('#', '')
+		if (cleanHash === 'table') {
 			await this.layoutGame()
 		}
 	}
@@ -63,6 +64,7 @@ export default class Majiang {
 		this.display.displayPoints(this.game.players)
 		this.display.displayTileCount(this.game.tileCount)
 		this.display.hiliteTiles()
+		this.play()
 	}
 
 	async initGame() {
@@ -81,9 +83,9 @@ export default class Majiang {
 		}
 
 		this.display.displayPrevailingWind(this.game.prevailingWind)
-		this.players.determineSeatWinds(this.game.round)
+		this.determineSeatWinds(this.game.round)
 		this.display.displaySeatWinds(this.game.players, this.game.prevailingWind)
-		this.game.currentPlayer = this.players.currentPlayer()
+		this.game.currentPlayer = this.currentPlayer()
 
 		for (const player of Object.values(this.game.players)) {
 			for (let i = 1; i <= 13; i++) {
@@ -91,7 +93,7 @@ export default class Majiang {
 				player.door.push(tile)
 			}
 
-			this.sortTiles(player.door)
+			sortTiles(player.door)
 		}
 
 		this.game.tileCount = this.game.tiles.length
@@ -119,8 +121,21 @@ export default class Majiang {
 				}
 			}
 
-			this.sortTiles(player.door)
+			sortTiles(player.door)
 			this.display.displayStack(key, player)
+		}
+		this.display.hiliteTiles()
+	}
+
+	currentPlayer() {
+		for (const [key, player] of Object.entries(this.game.players)) {
+			if (player.turn) { return parseInt(key) }
+		}
+	}
+
+	currentDiscarded() {
+		for (const [key, player] of Object.entries(this.game.players)) {
+			if (player.discarded) { return parseInt(key) }
 		}
 	}
 
@@ -135,7 +150,113 @@ export default class Majiang {
 		return false
 	}
 
-	sortTiles(tiles) {
-		tiles.sort((a, b) => a[1].localeCompare(b[1]))
+	humanPlayer() {
+		return this.game.currentPlayer === 4
+	}
+
+	async play() {
+		if (this.currentDiscarded()) {
+			await this.checkActions()
+		} else {
+			this.newTile()
+		}
+	}
+
+	newTile() {
+		const currentPlayer = this.game.currentPlayer
+		const player = this.game.players[currentPlayer]
+		const tile = this.takeTile()
+
+		player.door.push(tile)
+		this.display.displayStack(currentPlayer, player)
+		new Audio('snd/clack.m4a').play()
+
+		const door = document.getElementById('tiles' + currentPlayer)
+		door.lastChild.classList.add('new-tile')
+		delay(1000)
+
+		if (this.humanPlayer()) {
+			zoomToggle(door)
+
+			door.addEventListener('click', (e) => {
+				const index = e.target.dataset.order
+				const chosen = player.door[index]
+
+				player.door.splice(index, 1)
+
+				this.display.displayDiscarded(currentPlayer, chosen)
+				this.game.players[this.game.currentPlayer].discarded = true
+
+				door.innerHTML = ''
+				door.replaceWith(door.cloneNode(true))
+
+				this.display.displayStack(currentPlayer, player)
+				new Audio('snd/clack.m4a').play()
+				delay(1000)
+
+				player.turn = false
+				this.game.currentPlayer = modIncrease(this.game.currentPlayer)
+				this.game.players[this.game.currentPlayer].turn = true
+
+				console.log(this.game, this.currentDiscarded(), this.currentPlayer())
+			}, { once: true })
+		} else {
+			this.display.displayDiscarded(currentPlayer, tile)
+
+			new Audio('snd/clack.m4a').play()
+			delay(1000)
+			this.game.players[this.game.currentPlayer].discarded = true
+			// player.door.splice(-1, 1)
+			// this.display.displayStack(currentPlayer, player)
+			player.floor.push(tile)
+		}
+	}
+
+	async checkActions() {
+		console.log('checkActions')
+		// this.game.active = false
+	}
+
+	findEast(round) {
+		return (() => {
+			switch (round) {
+			case 1:
+				return getRandomInt(1, 4)
+			default:
+				return Object.entries(this.game.players).findIndex(obj => { return obj.wind === 1 })
+			}
+		})()
+	}
+
+	async determineSeatWinds(round) {
+		const players = this.game.players
+		const east = this.findEast(round)
+
+		let south, west, north
+
+		switch (round) {
+		case 1:
+			for (let [key, player] of Object.entries(players)) {
+				key = parseInt(key)
+				player.wind = rot4(east, key)
+				player.turn = east === key
+			}
+			break
+		case 2:
+			;[south, west, north] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
+			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
+				[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
+			break
+		case 3:
+			;[north, west, south] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
+			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
+				[players[west].wind, players[north].wind, players[south].wind, players[east].wind]
+			break
+		case 4:
+			;[west, north, south] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
+			;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
+				[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
+			break
+		}
 	}
 }

@@ -28,13 +28,7 @@ export default class Navigation extends HTMLElement {
 
 	resolveRoute() {
 		const cleanHash = location.hash.replace('#', '')
-
 		this.currentRoute = cleanHash
-
-		if (cleanHash.includes('/')) {
-			const splitHash = cleanHash.split('/')
-			this.currentRoute = splitHash[0]
-		}
 
 		this.render()
 	}

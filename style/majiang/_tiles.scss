@@ -24,5 +24,22 @@
 
 .hilite {
 	filter: drop-shadow(2px 2px 3px $tertiary-3) drop-shadow(-2px -2px 3px $tertiary-3);
-	transform: scale(1.1);
+}
+
+.pick {
+	transform-origin: bottom;
+	transform: scale(2);
+	display: flex;
+	align-self: flex-start;
+}
+
+.new-tile {
+	margin-left: 1vmin;
+	animation: come-down 0.5s ease-in;
+	transition: transform;
+}
+
+@keyframes come-down {
+	0% { transform: translateY(-4rem) scale(5); }
+	100% { transform: translateY(0) scale(1); }
 }
