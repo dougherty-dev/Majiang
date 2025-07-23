@@ -8,7 +8,7 @@ navigation-outlet nav {
 
 	width: 100%;
 	line-height: 1rem;
-	padding: 0.2rem;
+	padding: 0.3rem;
 
 	color: $title-color;
 
@@ -26,15 +26,13 @@ navigation-outlet nav {
 
 	.navicon {
 		display: none;
-		font-size: 2vmin;
 		text-align: center;
 	}
 
 
 	img {
 		padding: 0;
-		aspect-ratio: 1;
-		width: max(2vmin, 22px);
+		width: max(2vmin, 20px);
 	}
 
 	@media (max-width: $breakpoint-mobile) {

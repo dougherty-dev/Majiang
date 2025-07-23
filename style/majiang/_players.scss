@@ -15,14 +15,14 @@
 	grid-template-rows: repeat(3, 33.3333%);
 	grid-template-areas: '#{$p}-flowers'
 	'#{$p}-melds'
-	'#{$p}-tiles';
+	'#{$p}-door';
 
 	.grid-#{$p}-flowers {
 		@include grid-p(#{$p}-flowers, flex-start);
 	}
 
-	.grid-#{$p}-tiles {
-		@include grid-p(#{$p}-tiles, center);
+	.grid-#{$p}-door {
+		@include grid-p(#{$p}-door, center);
 	}
 
 	.grid-#{$p}-melds {

@@ -7,7 +7,7 @@
 
 import { VERSION } from '../config.js'
 import { HUAPAI, TILES } from './tiles.js'
-import { delay, shuffle, sortTiles, zoomToggle, modIncrease, getRandomInt, rot4 } from './helpers.js'
+import { shuffle, sortTiles, zoomToggle, modIncrease, getRandomInt, rot4, sound } from './helpers.js'
 import Players from './players.js'
 import Display from './display.js'
 import GameIO from './gameio.js'
@@ -18,6 +18,7 @@ export default class Majiang {
 		this.display = new Display()
 		this.gameio = new GameIO()
 
+		this.playing = false
 		this.game = this.gameio.fetchGame()
 		this.newGameListen()
 		this.hashListen()
@@ -57,9 +58,15 @@ export default class Majiang {
 			return
 		}
 
+		const button = document.createElement('button')
+		button.setAttribute('id', 'btn')
+		button.style.visibility = 'hidden'
+		document.body.appendChild(button)
+		button.click()
+
 		this.display.displayPrevailingWind(this.game.prevailingWind)
 		this.display.displaySeatWinds(this.game.players, this.game.prevailingWind)
-		this.display.displayStacks(this.game.players)
+		this.display.displayDoors(this.game.players)
 		this.display.displayFlowers(this.game.players)
 		this.display.displayPoints(this.game.players)
 		this.display.displayTileCount(this.game.tileCount)
@@ -97,7 +104,7 @@ export default class Majiang {
 		}
 
 		this.game.tileCount = this.game.tiles.length
-		this.display.displayStacks(this.game.players)
+		this.display.displayDoors(this.game.players)
 
 		await this.replaceFlowers()
 		this.gameio.saveGame(this.game)
@@ -115,14 +122,14 @@ export default class Majiang {
 					tile = this.takeTile()
 					if (tile) {
 						player.door.splice(index, 1, tile)
-						this.display.displayStack(key, player)
+						this.display.displayDoor(key, player)
 						await this.display.displayFlower(key, tileCopy)
 					}
 				}
 			}
 
 			sortTiles(player.door)
-			this.display.displayStack(key, player)
+			this.display.displayDoor(key, player)
 		}
 		this.display.hiliteTiles()
 	}
@@ -155,10 +162,15 @@ export default class Majiang {
 	}
 
 	async play() {
+		if (this.playing) { return }
+		this.playing = true
+
+		this.observeDrop()
+		this.observeNewTile()
 		if (this.currentDiscarded()) {
 			await this.checkActions()
 		} else {
-			this.newTile()
+			this.newTile2()
 		}
 	}
 
@@ -168,12 +180,10 @@ export default class Majiang {
 		const tile = this.takeTile()
 
 		player.door.push(tile)
-		this.display.displayStack(currentPlayer, player)
-		new Audio('snd/clack.m4a').play()
+		this.display.displayDoor(currentPlayer, player)
 
-		const door = document.getElementById('tiles' + currentPlayer)
+		const door = document.getElementById('door' + currentPlayer)
 		door.lastChild.classList.add('new-tile')
-		delay(1000)
 
 		if (this.humanPlayer()) {
 			zoomToggle(door)
@@ -190,9 +200,8 @@ export default class Majiang {
 				door.innerHTML = ''
 				door.replaceWith(door.cloneNode(true))
 
-				this.display.displayStack(currentPlayer, player)
-				new Audio('snd/clack.m4a').play()
-				delay(1000)
+				this.display.displayDoor(currentPlayer, player)
+				sound('snd/clack.m4a')
 
 				player.turn = false
 				this.game.currentPlayer = modIncrease(this.game.currentPlayer)
@@ -202,13 +211,109 @@ export default class Majiang {
 			}, { once: true })
 		} else {
 			this.display.displayDiscarded(currentPlayer, tile)
-
-			new Audio('snd/clack.m4a').play()
-			delay(1000)
+			sound('snd/clack.m4a')
 			this.game.players[this.game.currentPlayer].discarded = true
-			// player.door.splice(-1, 1)
-			// this.display.displayStack(currentPlayer, player)
 			player.floor.push(tile)
+		}
+	}
+
+	newTile2() {
+		const currentPlayer = this.game.currentPlayer
+		const player = this.game.players[currentPlayer]
+		const tile = this.takeTile()
+
+		player.door.push(tile)
+		this.display.displayDoor(currentPlayer, player)
+
+		const door = document.getElementById('door' + currentPlayer)
+		door.lastChild.classList.add('new-tile')
+
+		this.display.displayDiscarded(currentPlayer, tile)
+		sound('snd/clack.m4a')
+
+		this.game.players[this.game.currentPlayer].discarded = true
+		player.floor.push(tile)
+	}
+
+	observeNewTile() {
+		const options = { childList: true }
+
+		for (const key of [1, 2, 3, 4]) {
+			let door = document.getElementById('door' + key)
+			// eslint-disable-next-line no-unused-vars
+			let callback = async(mutationList, observer) => {
+				// player has a new tile?
+				if (!door.lastChild || !door.lastChild.classList.contains('new-tile')) { return }
+
+				const currentPlayer = this.game.currentPlayer
+				const player = this.game.players[currentPlayer]
+
+				player.door.splice(-1, 1)
+				const chosen = player.door.at(-1)
+				if (chosen !== undefined) {
+					this.display.displayDiscarded(currentPlayer, chosen)
+					this.game.players[this.game.currentPlayer].discarded = true
+					sound('snd/clack.m4a')
+				}
+				// this.display.displayDoor(key, this.game.players[key])
+				// this.game.players[this.game.currentPlayer].discarded = true
+				// setTimeout(() => {
+				// 	this.display.removeItem('control-drop', key)
+				// 	this.display.displayDoor(key, this.game.players[key])
+				// 	this.game.players[key].floor.push(tile)
+				// 	this.display.displayFloor(key, tile)
+				// }, 2000)
+			}
+
+			const observer = new MutationObserver(callback)
+			observer.observe(door, options)
+		}
+	}
+
+	// act on tile being dropped into control center
+	observeDrop() {
+		const options = { childList: true }
+
+		for (const key of [1, 2, 3, 4]) {
+			let drop = document.getElementById('control-drop' + key)
+
+			// eslint-disable-next-line no-unused-vars
+			let callback = async(mutationList, observer) => {
+				if (!drop.firstChild) { return } // no tile
+
+				// remove dropped tile from door
+				let tile = this.game.players[key].door.splice(-1, 1)[0]
+				if (tile === undefined) { return }
+
+				// update door, change status to finally discarded
+				this.display.displayDoor(key, this.game.players[key])
+				this.game.players[this.game.currentPlayer].discarded = true
+
+				setTimeout(() => {
+					// remove tile from drop zone
+					this.display.removeItem('control-drop', key)
+
+					// put tile on floor
+					this.game.players[key].floor.push(tile)
+					let cut = this.game.players[key].floor.length % 6 === 0
+					this.display.displayFloor(key, tile, cut)
+
+					// rotate player
+					this.game.players[this.game.currentPlayer].turn = false
+					this.game.currentPlayer = modIncrease(this.game.currentPlayer)
+					this.game.players[this.game.currentPlayer].turn = true
+
+					// take a new tile for next player
+					tile = this.takeTile()
+					this.game.players[this.game.currentPlayer].door.push(tile)
+
+					// update display of door with new tile, trigger observeNewTile
+					this.display.addToDoor(key, tile)
+				}, 1000)
+			}
+
+			const observer = new MutationObserver(callback)
+			observer.observe(drop, options)
 		}
 	}
 

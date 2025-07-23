@@ -32,6 +32,17 @@ export function shuffle(array) {
 	return array
 }
 
+export function sound(src) {
+	const promise = new Audio(src).play()
+	if (promise !== undefined) {
+		// eslint-disable-next-line no-unused-vars
+		promise.then(_ => {
+		// eslint-disable-next-line no-unused-vars
+		}).catch(error => {
+		})
+	}
+}
+
 export function hiliteToggle(target) {
 	toggle(target, 'mouseover')
 	toggle(target, 'mouseout')
@@ -76,8 +87,7 @@ export function rot4(east, number) {
 }
 
 export function modIncrease(number) {
-	let res = Math.abs(number + 1) % 4
-	return (res === 4) ? 1 : res
+	return Math.abs(number) % 4 + 1
 }
 
 export function sortTiles(tiles) {

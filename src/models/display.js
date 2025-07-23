@@ -6,7 +6,7 @@
  */
 
 import { WINDS } from './tiles.js'
-import { delay, hiliteToggle } from './helpers.js'
+import { delay, hiliteToggle, sound } from './helpers.js'
 
 const playerArray = [1, 2, 3, 4]
 
@@ -69,23 +69,39 @@ export default class Display {
 		hiliteToggle(table)
 	}
 
-	displayStacks(players) {
+	displayDoors(players) {
 		for (const [key, player] of Object.entries(players)) {
-			this.displayStack(key, player)
+			this.displayDoor(key, player)
 		}
 	}
 
-	displayStack(key, player) {
-		this.removeItem('tiles', key)
+	async displayDoor(key, player) {
+		this.removeItem('door', key)
 		for (const [index, tile] of Object.entries(player.door)) {
 			const img = this.createTile(tile[4], tile[5], index)
-			document.getElementById('tiles' + key).appendChild(img)
+			document.getElementById('door' + key).appendChild(img)
 		}
+	}
+
+	addToDoor(key, tile) {
+		const img = this.createTile(tile[4], tile[5], 100)
+		img.classList.add('new-tile')
+		document.getElementById('door' + key).appendChild(img)
 	}
 
 	displayDiscarded(key, tile) {
 		const img = this.createTile(tile[4], tile[5])
 		document.getElementById('control-drop' + key).appendChild(img)
+	}
+
+	async displayFloor(key, tile, cut = false) {
+		if (cut) {
+			const br = document.createElement('span')
+			br.classList.add('break')
+			document.getElementById('control-player' + key).appendChild(br)
+		}
+		const img = this.createTile(tile[4], tile[5])
+		document.getElementById('control-player' + key).appendChild(img)
 	}
 
 	removeItem(item, key) {
@@ -106,16 +122,17 @@ export default class Display {
 		const img = this.createTile(tile[4], tile[5])
 		document.getElementById('flowers' + key).appendChild(img)
 
-		new Audio('snd/buhua.m4a').play()
+		sound('snd/buhua.m4a')
 		await delay(1500)
 	}
 
 	async clearBoard() {
 		for (const key of playerArray) {
-			document.getElementById('tiles' + key).innerHTML = ''
+			document.getElementById('door' + key).innerHTML = ''
 			document.getElementById('flowers' + key).innerHTML = ''
 			document.getElementById('melds' + key).innerHTML = ''
 			document.getElementById('control-player' + key).innerHTML = ''
+			document.getElementById('control-drop' + key).innerHTML = ''
 		}
 	}
 }
