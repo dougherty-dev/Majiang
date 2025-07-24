@@ -6,6 +6,8 @@
  * @property {Function} connectedCallback Render view.
  */
 
+import { sound } from '../models//helpers.js'
+
 export default class RulesView extends HTMLElement {
 	connectedCallback() {
 		this.innerHTML = `
@@ -1713,7 +1715,7 @@ export default class RulesView extends HTMLElement {
 			const target = e.target
 			if (target && target.classList.contains('fanzhong')) {
 				const src = target.getAttribute('data-src')
-				new Audio(`snd/fanzhong/${src}.m4a`).play()
+				sound(`snd/fanzhong/${src}.m4a`)
 			}
 		})
 	}

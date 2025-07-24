@@ -39,6 +39,11 @@
 	transition: transform;
 }
 
+.flower {
+	animation: come-down 0.5s ease-in;
+	transition: transform;
+}
+
 @keyframes come-down {
 	0% { transform: translateY(-4rem) scale(5); }
 	100% { transform: translateY(0) scale(1); }

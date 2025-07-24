@@ -95,13 +95,16 @@ export default class Display {
 	}
 
 	async displayFloor(key, tile, cut = false) {
+		const control = document.getElementById('control-player' + key)
+
+		const img = this.createTile(tile[4], tile[5])
+		control.appendChild(img)
+
 		if (cut) {
 			const br = document.createElement('span')
 			br.classList.add('break')
-			document.getElementById('control-player' + key).appendChild(br)
+			control.appendChild(br)
 		}
-		const img = this.createTile(tile[4], tile[5])
-		document.getElementById('control-player' + key).appendChild(img)
 	}
 
 	removeItem(item, key) {
@@ -121,6 +124,7 @@ export default class Display {
 	async displayFlower(key, tile) {
 		const img = this.createTile(tile[4], tile[5])
 		document.getElementById('flowers' + key).appendChild(img)
+		img.classList.add('flower')
 
 		sound('snd/buhua.m4a')
 		await delay(1500)

@@ -22,7 +22,7 @@
 	}
 
 	.grid-#{$p}-door {
-		@include grid-p(#{$p}-door, center);
+		@include grid-p(#{$p}-door, flex-start);
 	}
 
 	.grid-#{$p}-melds {

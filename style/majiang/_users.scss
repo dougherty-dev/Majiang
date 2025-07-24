@@ -22,7 +22,7 @@
 	}
 
 	.grid-#{$p}-seatwind {
-		@include grid-u(#{$p}-seatwind, flex-end);
+		@include grid-u(#{$p}-seatwind, center);
 	}
 
 	transform: rotate($deg);
