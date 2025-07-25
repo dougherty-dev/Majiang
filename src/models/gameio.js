@@ -28,7 +28,7 @@ export default class GameIO {
 		return game
 	}
 
-	saveGame(game) {
+	async saveGame(game) {
 		localStorage.setItem('game', JSON.stringify(game))
 	}
 }

@@ -19,8 +19,7 @@ export default class Majiang {
 		this.gameio = new GameIO()
 
 		this.playing = false
-		this.game = this.gameio.fetchGame()
-		this.newGameListen()
+		this.newGame = false
 		this.hashListen()
 	}
 
@@ -33,9 +32,16 @@ export default class Majiang {
 	}
 
 	async hashLocator() {
+		this.newGameListen()
+
 		const cleanHash = location.hash.replace('#', '')
 		if (cleanHash === 'table') {
-			await this.layoutGame()
+			if (!this.newGame) {
+				this.game = this.gameio.fetchGame()
+				this.layoutGame()
+			} else {
+				this.newGame = false
+			}
 		}
 	}
 
@@ -44,24 +50,25 @@ export default class Majiang {
 		if (!button) { return }
 
 		button.onclick = async() => {
+			this.game = null
+			this.newGame = true
 			location.hash = 'table'
 			window.addEventListener('hashchange', async() => {
 				await this.display.clearBoard()
 				await this.initGame()
 				await this.layoutGame()
-			}, { once: true })
+			}, { once: true})
 		}
 	}
 
 	async layoutGame() {
-		if (!this.game) {
-			return
-		}
-
+		if (!this.game) { return }
+		this.display.clearBoard()
 		this.display.displayPrevailingWind(this.game.prevailingWind)
 		this.display.displaySeatWinds(this.game.players, this.game.prevailingWind)
 		this.display.displayDoors(this.game.players)
 		this.display.displayFlowers(this.game.players)
+		this.display.displayFloors(this.game.players)
 		this.display.displayPoints(this.game.players)
 		this.display.displayTileCount(this.game.tileCount)
 		this.display.hiliteTiles()
@@ -80,7 +87,7 @@ export default class Majiang {
 			currentPlayer: null,
 			tiles: shuffle(tiles),
 			tileCount: tiles.length,
-			players: this.players.players,
+			players: new Players().players,
 		}
 
 		this.display.displayPrevailingWind(this.game.prevailingWind)
@@ -90,7 +97,7 @@ export default class Majiang {
 
 		for (const player of Object.values(this.game.players)) {
 			for (let i = 1; i <= 13; i++) {
-				let tile = this.game.tiles.shift()
+				const tile = this.game.tiles.shift()
 				player.door.push(tile)
 			}
 
@@ -101,7 +108,7 @@ export default class Majiang {
 		this.display.displayDoors(this.game.players)
 
 		await this.replaceFlowers()
-		this.gameio.saveGame(this.game)
+		await this.gameio.saveGame(this.game)
 	}
 
 	async replaceFlowers() {
@@ -155,16 +162,9 @@ export default class Majiang {
 	}
 
 	async play() {
-		if (this.playing) { return }
-		this.playing = true
-
 		this.observeDrop()
 		this.observeNewTile()
-		if (this.currentDiscarded()) {
-			await this.checkActions()
-		} else {
-			this.newTile()
-		}
+		this.newTile()
 	}
 
 	newTileold() {
@@ -231,6 +231,14 @@ export default class Majiang {
 			}
 
 			const observer = new MutationObserver(callback)
+
+			window.addEventListener('hashchange', async() => {
+				const cleanHash = location.hash.replace('#', '')
+				if (cleanHash !== 'table') {
+					observer.disconnect()
+				}
+			})
+
 			observer.observe(door, options)
 		}
 	}
@@ -260,21 +268,30 @@ export default class Majiang {
 
 					// put tile on floor
 					this.game.players[this.game.currentPlayer].floor.push(tile)
-					let cut = (this.game.players[this.game.currentPlayer].floor.length === 0) ?
-						false : (this.game.players[this.game.currentPlayer].floor.length % 6 === 0)
-					this.display.displayFloor(this.game.currentPlayer, tile, cut)
+					let index = this.game.players[this.game.currentPlayer].floor.length - 1
+					this.display.displayFloor(this.game.currentPlayer, tile, index)
 
 					// rotate player
 					this.game.players[this.game.currentPlayer].turn = false
 					this.game.currentPlayer = modIncrease(this.game.currentPlayer)
 					this.game.players[this.game.currentPlayer].turn = true
 
+					// save game state for resumption
+					await this.gameio.saveGame(this.game)
 					// take a new tile for next player, trigger observeNewTile
 					this.newTile()
 				}, 1000)
 			}
 
 			const observer = new MutationObserver(callback)
+
+			window.addEventListener('hashchange', async() => {
+				const cleanHash = location.hash.replace('#', '')
+				if (cleanHash !== 'table') {
+					observer.disconnect()
+				}
+			})
+
 			observer.observe(drop, options)
 		}
 	}
@@ -284,7 +301,7 @@ export default class Majiang {
 		let tileCopy
 
 		if (tile) {
-			while (HUAPAI.includes(tile)) {
+			while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
 				tileCopy = tile
 				this.game.players[this.game.currentPlayer].flowers.push(tile)
 

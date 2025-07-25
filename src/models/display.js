@@ -13,16 +13,22 @@ const playerArray = [1, 2, 3, 4]
 export default class Display {
 	displayPrevailingWind(prevailingWind) {
 		for (const key of playerArray) {
-			document.getElementById('prevailing' + key).classList.remove('prevailing')
+			const prevailing = document.getElementById('prevailing' + key)
+			if (!prevailing) { return }
+
+			prevailing.classList.remove('prevailing')
 			if (prevailingWind == key) {
-				document.getElementById('prevailing' + key).classList.add('prevailing')
+				prevailing.classList.add('prevailing')
 			}
 		}
 	}
 
 	displaySeatWinds(players, prevailingWind) {
 		for (const [key, player] of Object.entries(players)) {
-			document.getElementById('seat' + key).innerHTML = ''
+			const seat = document.getElementById('seat' + key)
+			if (!seat) { return }
+
+			seat.innerHTML = ''
 
 			const img = document.createElement('img')
 			img.width = 17
@@ -31,22 +37,28 @@ export default class Display {
 			img.classList.add('wind')
 			img.src = 'img/' + WINDS[player.wind][0] + '.svg'
 
-			document.getElementById('seat' + key).appendChild(img)
-			document.getElementById('seat' + key).classList.remove('prevailing')
+			seat.appendChild(img)
+			seat.classList.remove('prevailing')
 			if (prevailingWind == player.wind) {
-				document.getElementById('seat' + key).classList.add('prevailing')
+				seat.classList.add('prevailing')
 			}
 		}
 	}
 
 	displayPoints(players) {
 		for (const [key, player] of Object.entries(players)) {
-			document.getElementById('points' + key).textContent = player.points
+			const points = document.getElementById('points' + key)
+			if (!points) { return }
+
+			points.textContent = player.points
 		}
 	}
 
 	displayTileCount(tileCount) {
-		document.getElementById('tiles').textContent = tileCount
+		const elem = document.getElementById('tiles')
+		if (!elem) { return }
+
+		elem.textContent = tileCount
 	}
 
 	createTile(alt, src, index = false) {
@@ -76,67 +88,105 @@ export default class Display {
 	}
 
 	async displayDoor(key, player) {
+		const door = document.getElementById('door' + key)
+		if (!door) { return }
+
 		this.removeItem('door', key)
 		for (const [index, tile] of Object.entries(player.door)) {
 			const img = this.createTile(tile[4], tile[5], index)
-			document.getElementById('door' + key).appendChild(img)
+			door.appendChild(img)
 		}
 	}
 
 	addToDoor(key, tile) {
+		const door = document.getElementById('door' + key)
+		if (!door) { return }
+
 		const img = this.createTile(tile[4], tile[5], 100)
 		img.classList.add('new-tile')
-		document.getElementById('door' + key).appendChild(img)
+		door.appendChild(img)
 	}
 
 	displayDiscarded(key, tile) {
-		const img = this.createTile(tile[4], tile[5])
-		document.getElementById('control-drop' + key).appendChild(img)
-	}
-
-	async displayFloor(key, tile, cut = false) {
-		const control = document.getElementById('control-player' + key)
+		const control = document.getElementById('control-drop' + key)
+		if (!control) { return }
 
 		const img = this.createTile(tile[4], tile[5])
 		control.appendChild(img)
+	}
 
+	displayFloors(players) {
+		for (const [key, player] of Object.entries(players)) {
+			for (const [index, tile] of Object.entries(player.floor)) {
+				this.displayFloor(key, tile, index)
+			}
+		}
+	}
+
+	async displayFloor(key, tile, index) {
+		const control = document.getElementById('control-player' + key)
+		if (!control) { return }
+
+		let cut = (index == 0) ? false : (index % 6 == 0)
 		if (cut) {
 			const br = document.createElement('span')
 			br.classList.add('break')
 			control.appendChild(br)
 		}
+
+		const img = this.createTile(tile[4], tile[5])
+		control.appendChild(img)
+
 	}
 
 	removeItem(item, key) {
-		document.getElementById(item + key).innerHTML = ''
+		const elem = document.getElementById(item + key)
+		if (!elem) { return }
+
+		elem.innerHTML = ''
 	}
 
 	displayFlowers(players) {
 		for (const [key, player] of Object.entries(players)) {
 			this.removeItem('flowers', key)
 			for (const tile of player.flowers) {
+				const flowers = document.getElementById('flowers' + key)
+				if (!flowers) { return }
+
 				const img = this.createTile(tile[4], tile[5])
-				document.getElementById('flowers' + key).appendChild(img)
+				flowers.appendChild(img)
 			}
 		}
 	}
 
 	async displayFlower(key, tile) {
+		const flowers = document.getElementById('flowers' + key)
+		if (!flowers) { return }
+
 		const img = this.createTile(tile[4], tile[5])
-		document.getElementById('flowers' + key).appendChild(img)
+		flowers.appendChild(img)
 		img.classList.add('flower')
 
 		sound('snd/buhua.m4a')
 		await delay(1500)
 	}
 
+	killObserver(target, key) {
+		const elem = document.getElementById(target + key)
+		if (!elem) { return }
+
+		elem.innerHTML = ''
+		elem.replaceWith(elem.cloneNode(true))
+	}
+
 	async clearBoard() {
 		for (const key of playerArray) {
-			document.getElementById('door' + key).innerHTML = ''
-			document.getElementById('flowers' + key).innerHTML = ''
-			document.getElementById('melds' + key).innerHTML = ''
-			document.getElementById('control-player' + key).innerHTML = ''
-			document.getElementById('control-drop' + key).innerHTML = ''
+			this.killObserver('door', key)
+			this.killObserver('control-drop', key)
+			this.removeItem('flowers', key)
+			this.removeItem('melds', key)
+			this.removeItem('control-player', key)
+			this.removeItem('control-drop', key)
 		}
 	}
 }

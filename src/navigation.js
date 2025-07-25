@@ -46,7 +46,8 @@ export default class Navigation extends HTMLElement {
 			}
 
 			active = path === this.currentRoute ? 'active' : 'inactive'
-			hash = path === '' ? '' : '#'
+			// hash = path === '' ? '' : '#'
+			hash = '#'
 
 			navigationLinks += `
 				<span class="${active} center">
