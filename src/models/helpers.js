@@ -104,5 +104,5 @@ export function modIncrease(number) {
 }
 
 export function sortTiles(tiles) {
-	tiles.sort((a, b) => a[1].localeCompare(b[1]))
+	tiles.sort((a, b) => a[2].localeCompare(b[2]))
 }

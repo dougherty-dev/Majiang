@@ -6,7 +6,7 @@
  */
 
 import { VERSION } from '../config.js'
-import { HUAPAI, TILES } from './tiles.js'
+import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES } from './tiles.js'
 import { shuffle, sortTiles, zoomToggle, modIncrease, getRandomInt, rot4, sound } from './helpers.js'
 import Players from './players.js'
 import Display from './display.js'
@@ -171,7 +171,7 @@ export default class Majiang {
 	observeNewTile() {
 		const options = { childList: true }
 
-		for (const key of [1, 2, 3]) {
+		for (const key of AIPLAYERS) {
 			let door = document.getElementById('door' + key)
 			// eslint-disable-next-line no-unused-vars
 			let callback = async(mutationList, observer) => {
@@ -207,7 +207,7 @@ export default class Majiang {
 	async observeDrop() {
 		const options = { childList: true }
 
-		for (const key of [1, 2, 3, 4]) {
+		for (const key of ALLPLAYERS) {
 			let drop = document.getElementById('control-drop' + key)
 
 			// eslint-disable-next-line no-unused-vars
@@ -290,7 +290,7 @@ export default class Majiang {
 		zoomToggle(door)
 
 		door.addEventListener('click', (e) => {
-			const index = e.target.dataset.order
+			const index = Array.from(door.children).findIndex(elem => elem.id === e.target.getAttribute('id'))
 			const chosen = this.game.players[this.game.currentPlayer].door[index]
 			this.game.players[this.game.currentPlayer].drop = chosen
 			this.game.players[this.game.currentPlayer].door.splice(index, 1)
@@ -303,11 +303,6 @@ export default class Majiang {
 			this.display.displayDoor(this.game.currentPlayer, this.game.players[this.game.currentPlayer])
 
 		}, { once: true })
-	}
-
-	async checkActions() {
-		console.log('checkActions')
-		// this.game.active = false
 	}
 
 	findEast(round) {

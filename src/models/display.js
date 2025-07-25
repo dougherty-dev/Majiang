@@ -5,14 +5,12 @@
  * @class Display
  */
 
-import { WINDS } from './tiles.js'
+import { ALLPLAYERS, WINDS } from './tiles.js'
 import { delay, hiliteToggle, sound } from './helpers.js'
-
-const playerArray = [1, 2, 3, 4]
 
 export default class Display {
 	displayPrevailingWind(prevailingWind) {
-		for (const key of playerArray) {
+		for (const key of ALLPLAYERS) {
 			const prevailing = document.getElementById('prevailing' + key)
 			if (!prevailing) { return }
 
@@ -61,16 +59,14 @@ export default class Display {
 		elem.textContent = tileCount
 	}
 
-	createTile(alt, src, index = false) {
+	createTile(tile) {
 		const img = document.createElement('img')
+		img.setAttribute('id', `t${tile[0]}`)
 		img.width = 19
 		img.height = 26
-		img.alt = alt
+		img.alt = tile[5]
 		img.classList.add('t')
-		img.src = 'img/tiles/' + src + '.svg'
-		if (index) {
-			img.dataset.order = index
-		}
+		img.src = 'img/tiles/' + tile[6] + '.svg'
 		return img
 	}
 
@@ -92,17 +88,17 @@ export default class Display {
 		if (!door) { return }
 
 		this.removeItem('door', key)
-		for (const [index, tile] of Object.entries(player.door)) {
-			const img = this.createTile(tile[4], tile[5], index)
+		for (const tile of player.door) {
+			const img = this.createTile(tile)
 			door.appendChild(img)
 		}
 	}
 
-	addToDoor(key, tile, order) {
+	addToDoor(key, tile) {
 		const door = document.getElementById('door' + key)
 		if (!door) { return }
 
-		const img = this.createTile(tile[4], tile[5], order)
+		const img = this.createTile(tile)
 		img.classList.add('new-tile')
 		door.appendChild(img)
 	}
@@ -111,7 +107,7 @@ export default class Display {
 		const control = document.getElementById('control-drop' + key)
 		if (!control) { return }
 
-		const img = this.createTile(tile[4], tile[5])
+		const img = this.createTile(tile)
 		control.appendChild(img)
 	}
 
@@ -134,7 +130,7 @@ export default class Display {
 			control.appendChild(br)
 		}
 
-		const img = this.createTile(tile[4], tile[5])
+		const img = this.createTile(tile)
 		control.appendChild(img)
 
 	}
@@ -146,7 +142,7 @@ export default class Display {
 				const flowers = document.getElementById('flowers' + key)
 				if (!flowers) { return }
 
-				const img = this.createTile(tile[4], tile[5])
+				const img = this.createTile(tile)
 				flowers.appendChild(img)
 			}
 		}
@@ -156,7 +152,7 @@ export default class Display {
 		const flowers = document.getElementById('flowers' + key)
 		if (!flowers) { return }
 
-		const img = this.createTile(tile[4], tile[5])
+		const img = this.createTile(tile)
 		flowers.appendChild(img)
 		img.classList.add('flower')
 
@@ -180,7 +176,7 @@ export default class Display {
 	}
 
 	async clearBoard() {
-		for (const key of playerArray) {
+		for (const key of ALLPLAYERS) {
 			this.killNode('door', key)
 			this.killNode('control-drop', key)
 			this.removeItem('flowers', key)

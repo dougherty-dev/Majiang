@@ -15,7 +15,7 @@ export default class GameIO {
 		if (storedGame) {
 			try {
 				game = JSON.parse(storedGame)
-				if (game.version != VERSION) {
+				if (game && game.version != VERSION) {
 					localStorage.removeItem('game')
 					game = null
 				}
