@@ -46,6 +46,7 @@ export function sound(src) {
 export function hiliteToggle(target) {
 	toggle(target, 'mouseover')
 	toggle(target, 'mouseout')
+	toggle(target, 'click')
 
 	function toggle(target, event) {
 		target.addEventListener(event, hilite)
@@ -57,11 +58,15 @@ export function hiliteToggle(target) {
 				const src = target.getAttribute('src')
 				const images = document.querySelectorAll(`img[src='${src}']`)
 
+				if (event === 'mouseover') {
+					for (const image of images) {
+						image.classList.add('hilite')
+					}
+					return
+				}
+
 				for (const image of images) {
-					image.classList.toggle('hilite')
-					setTimeout(() => {
-						image.classList.remove('hilite')
-					}, 5000)
+					image.classList.remove('hilite')
 				}
 			}
 		}
@@ -79,7 +84,12 @@ export function zoomToggle(target) {
 			const target = e.target
 
 			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
-				target.classList.toggle('pick')
+				if (event === 'mouseover') {
+					target.classList.add('pick')
+					return
+				}
+
+				target.classList.remove('pick')
 			}
 		}
 	}

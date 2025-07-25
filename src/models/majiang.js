@@ -278,12 +278,12 @@ export default class Majiang {
 			this.display.addToDoor(this.game.currentPlayer, tile, order)
 
 			if (this.humanPlayer()) {
-				this.humanTile(tile)
+				this.humanTile()
 			}
 		}
 	}
 
-	humanTile(tile) {
+	humanTile() {
 		const door = document.getElementById('door' + this.game.currentPlayer)
 		door.lastChild.classList.add('new-tile')
 

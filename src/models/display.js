@@ -171,7 +171,7 @@ export default class Display {
 		elem.innerHTML = ''
 	}
 
-	killObserver(target, key) {
+	killNode(target, key) {
 		const elem = document.getElementById(target + key)
 		if (!elem) { return }
 
@@ -181,8 +181,8 @@ export default class Display {
 
 	async clearBoard() {
 		for (const key of playerArray) {
-			this.killObserver('door', key)
-			this.killObserver('control-drop', key)
+			this.killNode('door', key)
+			this.killNode('control-drop', key)
 			this.removeItem('flowers', key)
 			this.removeItem('melds', key)
 			this.removeItem('control-player', key)
