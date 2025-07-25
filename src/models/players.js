@@ -16,7 +16,8 @@ class Player {
 			door: [],
 			melds: [],
 			flowers: [],
-			floor: []
+			floor: [],
+			drop: null
 		}
 	}
 }

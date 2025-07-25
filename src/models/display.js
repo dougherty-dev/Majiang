@@ -98,11 +98,11 @@ export default class Display {
 		}
 	}
 
-	addToDoor(key, tile) {
+	addToDoor(key, tile, order) {
 		const door = document.getElementById('door' + key)
 		if (!door) { return }
 
-		const img = this.createTile(tile[4], tile[5], 100)
+		const img = this.createTile(tile[4], tile[5], order)
 		img.classList.add('new-tile')
 		door.appendChild(img)
 	}
@@ -139,13 +139,6 @@ export default class Display {
 
 	}
 
-	removeItem(item, key) {
-		const elem = document.getElementById(item + key)
-		if (!elem) { return }
-
-		elem.innerHTML = ''
-	}
-
 	displayFlowers(players) {
 		for (const [key, player] of Object.entries(players)) {
 			this.removeItem('flowers', key)
@@ -169,6 +162,13 @@ export default class Display {
 
 		sound('snd/buhua.m4a')
 		await delay(1500)
+	}
+
+	removeItem(item, key) {
+		const elem = document.getElementById(item + key)
+		if (!elem) { return }
+
+		elem.innerHTML = ''
 	}
 
 	killObserver(target, key) {

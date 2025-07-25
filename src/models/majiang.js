@@ -51,6 +51,7 @@ export default class Majiang {
 
 		button.onclick = async() => {
 			this.game = null
+			await this.gameio.saveGame(this.game)
 			this.newGame = true
 			location.hash = 'table'
 			window.addEventListener('hashchange', async() => {
@@ -167,53 +168,10 @@ export default class Majiang {
 		this.newTile()
 	}
 
-	newTileold() {
-		const currentPlayer = this.game.currentPlayer
-		const player = this.game.players[currentPlayer]
-		const tile = this.takeTile()
-
-		player.door.push(tile)
-		this.display.displayDoor(currentPlayer, player)
-
-		const door = document.getElementById('door' + currentPlayer)
-		door.lastChild.classList.add('new-tile')
-
-		if (this.humanPlayer()) {
-			zoomToggle(door)
-
-			door.addEventListener('click', (e) => {
-				const index = e.target.dataset.order
-				const chosen = player.door[index]
-
-				player.door.splice(index, 1)
-
-				this.display.displayDiscarded(currentPlayer, chosen)
-				this.game.players[this.game.currentPlayer].discarded = true
-
-				door.innerHTML = ''
-				door.replaceWith(door.cloneNode(true))
-
-				this.display.displayDoor(currentPlayer, player)
-				sound('snd/clack.m4a')
-
-				player.turn = false
-				this.game.currentPlayer = modIncrease(this.game.currentPlayer)
-				this.game.players[this.game.currentPlayer].turn = true
-
-				console.log(this.game, this.currentDiscarded(), this.currentPlayer())
-			}, { once: true })
-		} else {
-			this.display.displayDiscarded(currentPlayer, tile)
-			sound('snd/clack.m4a')
-			this.game.players[this.game.currentPlayer].discarded = true
-			player.floor.push(tile)
-		}
-	}
-
 	observeNewTile() {
 		const options = { childList: true }
 
-		for (const key of [1, 2, 3, 4]) {
+		for (const key of [1, 2, 3]) {
 			let door = document.getElementById('door' + key)
 			// eslint-disable-next-line no-unused-vars
 			let callback = async(mutationList, observer) => {
@@ -225,6 +183,8 @@ export default class Majiang {
 					if (chosen !== undefined) {
 						this.display.displayDiscarded(this.game.currentPlayer, chosen)
 						this.game.players[this.game.currentPlayer].discarded = true
+						this.game.players[this.game.currentPlayer].drop = chosen
+						this.game.players[this.game.currentPlayer].door.splice(-1, 1)
 						sound('snd/clack.m4a')
 					}
 				}, 1000)
@@ -255,7 +215,7 @@ export default class Majiang {
 				if (!drop.firstChild) { return } // no tile
 
 				// remove dropped tile from door
-				let tile = this.game.players[key].door.splice(-1, 1)[0]
+				let tile = this.game.players[key].drop
 				if (tile === undefined) { return }
 
 				// update door, change status to finally discarded
@@ -314,8 +274,35 @@ export default class Majiang {
 
 		if (tile) {
 			this.game.players[this.game.currentPlayer].door.push(tile)
-			this.display.addToDoor(this.game.currentPlayer, tile)
+			const order = this.game.players[this.game.currentPlayer].door.length - 1
+			this.display.addToDoor(this.game.currentPlayer, tile, order)
+
+			if (this.humanPlayer()) {
+				this.humanTile(tile)
+			}
 		}
+	}
+
+	humanTile(tile) {
+		const door = document.getElementById('door' + this.game.currentPlayer)
+		door.lastChild.classList.add('new-tile')
+
+		zoomToggle(door)
+
+		door.addEventListener('click', (e) => {
+			const index = e.target.dataset.order
+			const chosen = this.game.players[this.game.currentPlayer].door[index]
+			this.game.players[this.game.currentPlayer].drop = chosen
+			this.game.players[this.game.currentPlayer].door.splice(index, 1)
+
+			this.display.displayDiscarded(this.game.currentPlayer, chosen)
+			this.game.players[this.game.currentPlayer].discarded = true
+			sound('snd/clack.m4a')
+
+			sortTiles(this.game.players[this.game.currentPlayer].door)
+			this.display.displayDoor(this.game.currentPlayer, this.game.players[this.game.currentPlayer])
+
+		}, { once: true })
 	}
 
 	async checkActions() {

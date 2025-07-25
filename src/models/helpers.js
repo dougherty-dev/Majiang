@@ -59,6 +59,9 @@ export function hiliteToggle(target) {
 
 				for (const image of images) {
 					image.classList.toggle('hilite')
+					setTimeout(() => {
+						image.classList.remove('hilite')
+					}, 5000)
 				}
 			}
 		}
