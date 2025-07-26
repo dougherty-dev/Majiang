@@ -68,12 +68,12 @@ export default class Majiang {
 		this.display.displayPrevailingWind(this.game.prevailingWind)
 		this.display.displaySeatWinds(this.game.players, this.game.prevailingWind)
 		this.display.displayDoors(this.game.players)
+		this.enableDrag()
 		this.display.displayFlowers(this.game.players)
 		this.display.displayFloors(this.game.players)
 		this.display.displayPoints(this.game.players)
 		this.display.displayTileCount(this.game.tileCount)
 		this.display.hiliteTiles()
-		this.enableDrag()
 		this.play()
 	}
 
@@ -311,19 +311,19 @@ export default class Majiang {
 		const humanPlayer = 4
 		const door = document.getElementById('door' + humanPlayer)
 
-		let item = null;
+		let item = null
 
 		door.addEventListener('dragstart', (e) => {
 			item = e.target
 			e.target.classList.add('dragstart')
 			door.lastChild.classList.remove('new-tile')
 			this.game.sorted = true
-		});
+		})
 
 		door.addEventListener('dragend', (e) => {
-			e.target.classList.remove('dragover', 'dragstart')
+			e.target.classList.remove('dragstart')
 			item = null
-		});
+		})
 
 		let dx = 0
 		door.addEventListener('dragover', (e) => {
@@ -338,16 +338,16 @@ export default class Majiang {
 				e.target.classList.remove('dragright')
 			}
 			dx = x
-		});
+		})
 
 		door.addEventListener('dragleave', (e) => {
 			e.preventDefault()
-			e.target.classList.remove('dragover', 'dragright', 'dragleft')
-		});
+			e.target.classList.remove('dragright', 'dragleft')
+		})
 
 		door.addEventListener('drop', (e) => {
-			e.preventDefault();
-			e.target.classList.remove('dragover', 'dragright', 'dragleft')
+			e.preventDefault()
+			e.target.classList.remove('dragright', 'dragleft')
 
 			if (e.target && e.target !== item && e.target.classList.contains('t')) {
 				const draggedIndex = [...door.children].indexOf(item)
@@ -370,6 +370,13 @@ export default class Majiang {
 			this.game.players[humanPlayer].door = datasets.map(
 				order => this.game.players[humanPlayer].door.find(item => item[0] === order)
 			)
+		})
+
+		const sort = document.getElementById('sort')
+		sort.addEventListener('click', () => {
+			this.game.sorted = false
+			sortTiles(this.game.players[humanPlayer].door, this.game.sorted)
+			this.display.displayDoor(humanPlayer, this.game.players[humanPlayer])
 		})
 	}
 

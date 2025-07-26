@@ -114,3 +114,12 @@
 .prevailing {
 	filter: invert(1) drop-shadow(1px 1px 5px $black);
 }
+
+.sort {
+	position: absolute;
+	bottom: max(5vmin, 2rem);
+	right: max(2vmin, 0.5rem);
+
+	width: max(3vmin, 1rem);
+	filter: invert(100);
+}
