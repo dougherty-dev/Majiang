@@ -73,6 +73,7 @@ export default class Majiang {
 		this.display.displayPoints(this.game.players)
 		this.display.displayTileCount(this.game.tileCount)
 		this.display.hiliteTiles()
+		this.enableDrag()
 		this.play()
 	}
 
@@ -88,6 +89,7 @@ export default class Majiang {
 			currentPlayer: null,
 			tiles: shuffle(tiles),
 			tileCount: tiles.length,
+			sorted: false,
 			players: new Players().players,
 		}
 
@@ -102,7 +104,7 @@ export default class Majiang {
 				player.door.push(tile)
 			}
 
-			sortTiles(player.door)
+			sortTiles(player.door, this.game.sorted)
 		}
 
 		this.game.tileCount = this.game.tiles.length
@@ -130,7 +132,7 @@ export default class Majiang {
 				}
 			}
 
-			sortTiles(player.door)
+			sortTiles(player.door, this.game.sorted)
 			this.display.displayDoor(key, player)
 		}
 	}
@@ -290,7 +292,7 @@ export default class Majiang {
 		zoomToggle(door)
 
 		door.addEventListener('click', (e) => {
-			const index = Array.from(door.children).findIndex(elem => elem.id === e.target.getAttribute('id'))
+			const index = Array.from(door.children).findIndex(elem => elem.dataset.id === e.target.dataset.id)
 			const chosen = this.game.players[this.game.currentPlayer].door[index]
 			this.game.players[this.game.currentPlayer].drop = chosen
 			this.game.players[this.game.currentPlayer].door.splice(index, 1)
@@ -299,10 +301,76 @@ export default class Majiang {
 			this.game.players[this.game.currentPlayer].discarded = true
 			sound('snd/clack.m4a')
 
-			sortTiles(this.game.players[this.game.currentPlayer].door)
+			sortTiles(this.game.players[this.game.currentPlayer].door, this.game.sorted)
 			this.display.displayDoor(this.game.currentPlayer, this.game.players[this.game.currentPlayer])
 
 		}, { once: true })
+	}
+
+	enableDrag() {
+		const humanPlayer = 4
+		const door = document.getElementById('door' + humanPlayer)
+
+		let item = null;
+
+		door.addEventListener('dragstart', (e) => {
+			item = e.target
+			e.target.classList.add('dragstart')
+			door.lastChild.classList.remove('new-tile')
+			this.game.sorted = true
+		});
+
+		door.addEventListener('dragend', (e) => {
+			e.target.classList.remove('dragover', 'dragstart')
+			item = null
+		});
+
+		let dx = 0
+		door.addEventListener('dragover', (e) => {
+			e.preventDefault()
+
+			const x = e.clientX
+			if (x > dx) {
+				e.target.classList.add('dragright')
+				e.target.classList.remove('dragleft')
+			} else if (x < dx) {
+				e.target.classList.add('dragleft')
+				e.target.classList.remove('dragright')
+			}
+			dx = x
+		});
+
+		door.addEventListener('dragleave', (e) => {
+			e.preventDefault()
+			e.target.classList.remove('dragover', 'dragright', 'dragleft')
+		});
+
+		door.addEventListener('drop', (e) => {
+			e.preventDefault();
+			e.target.classList.remove('dragover', 'dragright', 'dragleft')
+
+			if (e.target && e.target !== item && e.target.classList.contains('t')) {
+				const draggedIndex = [...door.children].indexOf(item)
+				const targetIndex = [...door.children].indexOf(e.target)
+
+				if (draggedIndex < targetIndex) {
+					door.insertBefore(item, e.target.nextSibling)
+				} else {
+					door.insertBefore(item, e.target)
+				}
+			}
+
+			const datasets = []
+			const items = Array.from(door.children)
+
+			items.forEach(item => {
+				datasets.push(parseInt(item.dataset.id))
+			})
+
+			this.game.players[humanPlayer].door = datasets.map(
+				order => this.game.players[humanPlayer].door.find(item => item[0] === order)
+			)
+		})
 	}
 
 	findEast(round) {

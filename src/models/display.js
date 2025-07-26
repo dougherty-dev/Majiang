@@ -60,13 +60,17 @@ export default class Display {
 	}
 
 	createTile(tile) {
+		if (!tile) { return }
 		const img = document.createElement('img')
-		img.setAttribute('id', `t${tile[0]}`)
+
 		img.width = 19
 		img.height = 26
-		img.alt = tile[5]
+
 		img.classList.add('t')
+		img.dataset.id = tile[0]
+		img.alt = tile[5]
 		img.src = 'img/tiles/' + tile[6] + '.svg'
+
 		return img
 	}
 

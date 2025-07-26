@@ -48,3 +48,20 @@
 	0% { transform: translateY(-4rem) scale(5); }
 	100% { transform: translateY(0) scale(1); }
 }
+
+.dragover {
+	opacity: 0.5;
+	padding-left: 3vmin;
+}
+
+.dragleft {
+	padding-left: 3vmin;
+}
+
+.dragright {
+	padding-right: 3vmin;
+}
+
+.dragstart {
+	opacity: 0.2;
+}

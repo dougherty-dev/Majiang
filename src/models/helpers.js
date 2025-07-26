@@ -103,6 +103,8 @@ export function modIncrease(number) {
 	return Math.abs(number) % 4 + 1
 }
 
-export function sortTiles(tiles) {
-	tiles.sort((a, b) => a[2].localeCompare(b[2]))
+export function sortTiles(tiles, ignore = false) {
+	if (!ignore) {
+		tiles.sort((a, b) => a[2].localeCompare(b[2]))
+	}
 }
