@@ -88,3 +88,18 @@ export const WINDS = {
 	3: ['xi', '西'],
 	4: ['bei', '北']
 }
+
+export function createTile(tile) {
+	if (!tile) return
+	const img = document.createElement('img')
+
+	img.width = 19
+	img.height = 26
+
+	img.classList.add('t')
+	img.dataset.id = tile[0]
+	img.alt = tile[5]
+	img.src = 'img/tiles/' + tile[6] + '.svg'
+
+	return img
+}

@@ -6,7 +6,7 @@
  * @property {Function} connectedCallback Render view.
  */
 
-import { sound } from '../models//helpers.js'
+import { sound } from '../components/helpers.js'
 
 export default class RulesView extends HTMLElement {
 	connectedCallback() {

@@ -56,7 +56,7 @@ export default class BoardView extends HTMLElement {
 					<div class="grid-user4">
 						<div class="grid-user4-points points" id="points4"></div>
 						<div class="grid-user4-seatwind" id="seat4"></div>
-						<img id="sort" class="sort" src="img/sort.svg" alt="↕" width="30" height="30">
+						<img id="sort" class="sort" src="img/sort.svg" alt="↕" title="Order tiles" width="30" height="30">
 					</div>
 
 					<div class="grid-control">
