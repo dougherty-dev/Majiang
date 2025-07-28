@@ -6,10 +6,11 @@
  */
 
 import { VERSION } from '../config.js'
-import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES, humanTile } from './tiles.js'
+import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES } from './tiles.js'
+import { humanTileHandling } from '../components/tiles.js'
 import { delay, shuffle, sortTiles, modIncrease, sound } from '../components/helpers.js'
 import { displayAddToDoor, displayClearBoard, displayDiscarded, displayDoor, displayDoors,
-	displayFloor, displayFloors, displayFlower,displayFlowers, displayHiliteTiles, displayPoints,
+	displayFloor, displayFloors, displayFlower,displayFlowers, displayMelds, displayHiliteTiles, displayPoints,
 	displayPrevailingWind, displayRemoveItem, displaySeatWinds, displayTileCount } from '../components/display.js'
 import { determineSeatWinds } from '../components/winds.js'
 import { enableDrag } from '../components/drag.js'
@@ -75,6 +76,7 @@ export default class Majiang {
 		displaySeatWinds(this.game.players, this.game.prevailingWind)
 		displayDoors(this.game.players)
 		enableDrag(this.game)
+		displayMelds(this.game.players)
 		displayFlowers(this.game.players)
 		displayFloors(this.game.players)
 		displayPoints(this.game.players)
@@ -305,7 +307,7 @@ export default class Majiang {
 				if (!door) return
 
 				door.lastChild.classList.add('new-tile')
-				humanTile(this.game, door)
+				humanTileHandling(this.game, door)
 			}
 		}
 	}

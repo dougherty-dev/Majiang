@@ -5,9 +5,6 @@
  * @module tiles
  */
 
-import { displayDiscarded, displayDoor, displayZoomToggle } from '../components/display.js'
-import { sortTiles, sound } from '../components/helpers.js'
-
 export const ALLPLAYERS = [1, 2, 3, 4]
 export const AIPLAYERS = [1, 2, 3]
 export const SHUZIPAI = ['b', 't', 'w']
@@ -92,54 +89,4 @@ export const WINDS = {
 	2: ['nan', '南'],
 	3: ['xi', '西'],
 	4: ['bei', '北']
-}
-
-export function createTile(tile, ext = '') {
-	if (!tile) return
-	const img = document.createElement('img')
-
-	switch (ext) {
-	case '':
-		img.width = 19
-		img.height = 26
-		img.classList.add('t')
-		break
-	case '-o':
-		img.width = 26
-		img.height = 19
-		img.classList.add('to')
-		break
-	case '-d':
-		img.width = 26
-		img.height = 38
-		img.classList.add('td')
-		break
-	}
-
-	img.dataset.id = tile[0]
-	img.alt = tile[5]
-	img.src = 'img/tiles/' + tile[6] + ext + '.svg'
-
-	return img
-}
-
-export function	humanTile(game, door) {
-	if (!door) return
-
-	displayZoomToggle(door)
-
-	door.addEventListener('click', (e) => {
-		const index = Array.from(door.children).findIndex(elem => elem.dataset.id === e.target.dataset.id)
-		const chosen = game.players[game.currentPlayer].door[index]
-		game.players[game.currentPlayer].drop = chosen
-		game.players[game.currentPlayer].door.splice(index, 1)
-
-		displayDiscarded(game.currentPlayer, chosen)
-		game.players[game.currentPlayer].discarded = true
-		sound('snd/clack.m4a')
-
-		sortTiles(game.players[game.currentPlayer].door, game.sorted)
-		displayDoor(game.currentPlayer, game.players[game.currentPlayer])
-
-	}, { once: true })
 }

@@ -2,11 +2,12 @@
 
 /**
  * @author Niklas Dougherty
- * @description Display functions
+ * @module display
  */
 
 import { createElement } from './elements.js'
-import { ALLPLAYERS, WINDS, createTile } from '../models/tiles.js'
+import { ALLPLAYERS, WINDS } from '../models/tiles.js'
+import { createTile } from '../components/tiles.js'
 import { delay, sound } from './helpers.js'
 
 function hiliteToggle(target) {

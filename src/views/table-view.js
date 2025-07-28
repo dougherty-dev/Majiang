@@ -17,7 +17,7 @@ export default class BoardView extends HTMLElement {
 					<!-- east -->
 					<div class="grid-player1" id="player1">
 						<div class="grid-p1-flowers tile" id="flowers1"></div>
-						<div class="grid-p1-melds tile" id="melds1"></div>
+						<div class="grid-p1-melds" id="melds1"></div>
 						<div class="grid-p1-door tile" id="door1"></div>
 					</div>
 					<div class="grid-user1">
@@ -28,7 +28,7 @@ export default class BoardView extends HTMLElement {
 					<!-- south -->
 					<div class="grid-player2" id="player2">
 						<div class="grid-p2-flowers tile" id="flowers2"></div>
-						<div class="grid-p2-melds tile" id="melds2"></div>
+						<div class="grid-p2-melds" id="melds2"></div>
 						<div class="grid-p2-door tile" id="door2"></div>
 					</div>
 					<div class="grid-user2">
@@ -39,7 +39,7 @@ export default class BoardView extends HTMLElement {
 					<!-- west -->
 					<div class="grid-player3" id="player3">
 						<div class="grid-p3-flowers tile" id="flowers3"></div>
-						<div class="grid-p3-melds tile" id="melds3"></div>
+						<div class="grid-p3-melds" id="melds3"></div>
 						<div class="grid-p3-door tile" id="door3"></div>
 					</div>
 					<div class="grid-user3">
@@ -50,7 +50,7 @@ export default class BoardView extends HTMLElement {
 					<!-- north, human player -->
 					<div class="grid-player4" id="player4">
 						<div class="grid-p4-flowers tile" id="flowers4"></div>
-						<div class="grid-p4-melds tile" id="melds4"></div>
+						<div class="grid-p4-melds" id="melds4"></div>
 						<div class="grid-p4-door tile" id="door4"></div>
 					</div>
 					<div class="grid-user4">
