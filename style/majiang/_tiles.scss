@@ -1,9 +1,21 @@
 @use '../abstracts/palettes' as *;
 @use '../abstracts' as *;
 
-.tile>img {
+.tile>img.t {
 	height: max(4.2vmin, 1rem);
 	width: auto;
+}
+
+.tile>img.to {
+	height: max(3.0692vmin, 0.7308rem);
+	width: auto;
+	align-self: flex-end;
+}
+
+.tile>img.td {
+	height: max(6.1385vmin, 1.4615rem);
+	width: auto;
+	align-self: flex-end;
 }
 
 .break {
@@ -14,6 +26,10 @@
 
 .meld-end {
 	margin-right: 1vmin;
+}
+
+.meld-divider {
+	width: 5px;
 }
 
 .wrap {

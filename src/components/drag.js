@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @function drag
+ * @module drag
  */
 
 import { sortTiles } from './helpers.js'
@@ -79,5 +79,40 @@ export function enableDrag(game) {
 		game.sorted = false
 		sortTiles(game.players[humanPlayer].door, game.sorted)
 		displayDoor(humanPlayer, game.players[humanPlayer])
+	})
+}
+
+export function modalDrag(overlay, contents) {
+	let dragging = false
+	let offsetX, offsetY
+
+	contents.addEventListener('mousedown', (e) => {
+		dragging = true
+		offsetX = e.clientX - contents.getBoundingClientRect().left
+		offsetY = e.clientY - contents.getBoundingClientRect().top
+	})
+
+	overlay.addEventListener('mousemove', (e) => {
+		if (!dragging) return
+		contents.style.left = (e.clientX - offsetX) + 'px'
+		contents.style.top = (e.clientY - offsetY) + 'px'
+	})
+
+	overlay.addEventListener('mouseup', () => {
+		dragging = false
+	})
+
+	window.addEventListener('resize', () => {
+		const newLeft = window.innerWidth - contents.offsetWidth - 30
+		const newTop = window.innerHeight - contents.offsetHeight - 60
+
+		if (!dragging) {
+			contents.style.left = newLeft + 'px'
+			contents.style.top = newTop + 'px'
+		}
+	})
+
+	window.addEventListener('hashchange', () => {
+		overlay.remove()
 	})
 }

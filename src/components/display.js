@@ -5,6 +5,7 @@
  * @description Display functions
  */
 
+import { createElement } from './elements.js'
 import { ALLPLAYERS, WINDS, createTile } from '../models/tiles.js'
 import { delay, sound } from './helpers.js'
 
@@ -131,6 +132,33 @@ export async function displayDoor(key, player) {
 	for (const tile of player.door) {
 		const img = createTile(tile)
 		door.appendChild(img)
+	}
+}
+
+export function displayMelds(players) {
+	for (const [key, player] of Object.entries(players)) {
+		displayMeld(key, player)
+	}
+}
+
+export async function displayMeld(key, player) {
+	const melds = document.getElementById('melds' + key)
+	if (!melds) return
+
+	displayRemoveItem('melds', key)
+	for (const meld of player.melds) {
+		if (meld.type === 'chi') {
+			const span = createElement('span', ['meld-divider'])
+			const div = createElement('div', ['tile'])
+
+			for (const [key, tile] of Object.entries(meld.meld)) {
+				const ext = (key === '0') ? '-o' : ''
+				const img = createTile(tile, ext)
+				div.appendChild(img)
+			}
+
+			melds.prepend(div, span)
+		}
 	}
 }
 

@@ -6,13 +6,14 @@
  */
 
 import { VERSION } from '../config.js'
-import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES, createTile } from './tiles.js'
+import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES, humanTile } from './tiles.js'
 import { delay, shuffle, sortTiles, modIncrease, sound } from '../components/helpers.js'
 import { displayAddToDoor, displayClearBoard, displayDiscarded, displayDoor, displayDoors,
 	displayFloor, displayFloors, displayFlower,displayFlowers, displayHiliteTiles, displayPoints,
-	displayPrevailingWind, displayRemoveItem, displaySeatWinds, displayTileCount, displayZoomToggle } from '../components/display.js'
+	displayPrevailingWind, displayRemoveItem, displaySeatWinds, displayTileCount } from '../components/display.js'
 import { determineSeatWinds } from '../components/winds.js'
 import { enableDrag } from '../components/drag.js'
+import { checkChi } from './meld-chi.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
 
 import Players from './players.js'
@@ -180,6 +181,7 @@ export default class Majiang {
 
 		for (const key of AIPLAYERS) {
 			let door = document.getElementById('door' + key)
+			if (!door) return
 
 			let callback = async(mutationList, observer) => { // eslint-disable-line
 				// player has a new tile?
@@ -206,7 +208,11 @@ export default class Majiang {
 				}
 			})
 
-			observer.observe(door, options)
+			try {
+				observer.observe(door, options)
+			} catch (error) {
+				console.log(error)
+			}
 		}
 	}
 
@@ -216,6 +222,7 @@ export default class Majiang {
 
 		for (const key of ALLPLAYERS) {
 			let drop = document.getElementById('control-drop' + key)
+			if (!drop) return
 
 			let callback = async(mutationList, observer) => { // eslint-disable-line
 				if (!drop.firstChild) return // no tile
@@ -228,8 +235,12 @@ export default class Majiang {
 				displayDoor(this.game.currentPlayer, this.game.players[this.game.currentPlayer])
 				this.game.players[this.game.currentPlayer].discarded = true
 
-				// perform action on tile?
-				// await this.checkChi(tile)
+				// melds
+				if (await checkChi(this.game, tile)) {
+					return
+				}
+
+				// no melds
 				await delay(1000)
 
 				// remove tile from drop zone
@@ -260,89 +271,12 @@ export default class Majiang {
 				}
 			})
 
-			observer.observe(drop, options)
-		}
-	}
-
-	async checkChi(tile) {
-		const nextPlayer = modIncrease(this.game.currentPlayer)
-
-		let type = tile[3].split(' ')
-		let value = tile[1]
-
-		if (!['bingzi', 'tiaozi', 'wanzi'].includes(type[0])) {
-			await delay(1000)
-			return
-		}
-
-		let patterns = []
-		switch (value) {
-		case 1:
-			patterns.push([2, 3])
-			break
-		case 2:
-			patterns.push([1, 3], [3, 4])
-			break
-		case 8:
-			patterns.push([6, 7], [7, 9])
-			break
-		case 9:
-			patterns.push([7, 8])
-			break
-		default:
-			patterns.push([value - 2, value - 1], [value - 1, value + 1], [value + 1, value + 2])
-		}
-
-		let door = []
-		for (const paizi of this.game.players[nextPlayer].door) {
-			if (paizi[3].startsWith(type[0])) {
-				door.push(parseInt(paizi[3].split(' ')[1]))
+			try {
+				observer.observe(drop, options)
+			} catch (error) {
+				console.log(error)
 			}
 		}
-
-		let set = [...new Set(door)].sort()
-
-		let melds = []
-		for (const pattern of patterns) {
-			if (pattern.every(value => set.includes(value))) {
-				melds.push(pattern)
-			}
-		}
-
-		let meldTiles = []
-		let chi
-		let index
-		let hand = Array.from(this.game.players[nextPlayer].door)
-		for (let meld of melds) {
-			chi = [tile]
-			for (const paizi of meld) {
-				index = hand.findIndex(elem => elem[1] === paizi && elem[3].startsWith(type[0]))
-				chi.push(hand[index])
-			}
-
-			sortTiles(chi)
-			meldTiles.push(chi)
-		}
-		console.log('meldTiles: ', meldTiles)
-
-		if (nextPlayer === 4) {
-			let img
-			let span
-			const div = document.createElement('div')
-			div.classList.add('meld')
-			for (const meldSet of meldTiles) {
-				span = document.createElement('span')
-				for (const paizi of meldSet) {
-					img = createTile(paizi)
-					span.appendChild(img)
-				}
-				div.appendChild(span)
-			}
-			document.body.appendChild(div)
-		}
-
-
-		await delay(1000)
 	}
 
 	async newTile() {
@@ -367,32 +301,12 @@ export default class Majiang {
 			displayAddToDoor(this.game.currentPlayer, tile, order)
 
 			if (this.humanPlayer()) {
-				this.humanTile()
+				const door = document.getElementById('door' + this.game.currentPlayer)
+				if (!door) return
+
+				door.lastChild.classList.add('new-tile')
+				humanTile(this.game, door)
 			}
 		}
-	}
-
-	humanTile() {
-		const door = document.getElementById('door' + this.game.currentPlayer)
-		if (!door) return
-
-		door.lastChild.classList.add('new-tile')
-
-		displayZoomToggle(door)
-
-		door.addEventListener('click', (e) => {
-			const index = Array.from(door.children).findIndex(elem => elem.dataset.id === e.target.dataset.id)
-			const chosen = this.game.players[this.game.currentPlayer].door[index]
-			this.game.players[this.game.currentPlayer].drop = chosen
-			this.game.players[this.game.currentPlayer].door.splice(index, 1)
-
-			displayDiscarded(this.game.currentPlayer, chosen)
-			this.game.players[this.game.currentPlayer].discarded = true
-			sound('snd/clack.m4a')
-
-			sortTiles(this.game.players[this.game.currentPlayer].door, this.game.sorted)
-			displayDoor(this.game.currentPlayer, this.game.players[this.game.currentPlayer])
-
-		}, { once: true })
 	}
 }

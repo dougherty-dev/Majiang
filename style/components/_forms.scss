@@ -5,10 +5,11 @@ button {
 	color: $white;
 	background-color: $tertiary-4;
 	text-decoration: none;
-	font-size: max(1.4vw, 1.1rem);
+	font-size: max(1.4vmin, 1.1rem);
 	border: medium solid $black;
 	border-radius: 0.5rem;
-	padding: 1rem;
+	padding: 0.5rem;
+	margin: max(2vmin, 1.4rem);
 	font-family: neue-bold, sans-serif;
 	cursor: pointer;
 }
