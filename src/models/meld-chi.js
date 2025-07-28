@@ -7,8 +7,8 @@
 
 import { SHUZIPAI } from './tiles.js'
 import { createTile, humanTileHandling } from '../components/tiles.js'
-import { sortTiles, modIncrease, sound } from '../components/helpers.js'
-import { displayDoor, displayMeld, displayRemoveItem } from '../components/display.js'
+import { delay, sortTiles, modIncrease, sound } from '../components/helpers.js'
+import { displayDiscarded, displayDoor, displayMeld, displayRemoveItem } from '../components/display.js'
 import { modalDrag } from '../components/drag.js'
 import { createElement } from '../components/elements.js'
 
@@ -19,7 +19,7 @@ export async function checkChi(game, tile) {
 	const type = tile[7]
 	const value = tile[1]
 
-	if (!SHUZIPAI.includes(type)) return
+	if (!SHUZIPAI.includes(type)) return false
 
 	let patterns = []
 	switch (value) {
@@ -41,8 +41,8 @@ export async function checkChi(game, tile) {
 
 	let door = []
 	for (const paizi of game.players[nextPlayer].door) {
-		if (paizi[3].startsWith(type)) {
-			door.push(parseInt(paizi[3].split(' ')[1]))
+		if (paizi[7] === type) {
+			door.push(parseInt(paizi[1]))
 		}
 	}
 
@@ -55,15 +55,13 @@ export async function checkChi(game, tile) {
 		}
 	}
 
-	let meldTiles = []
-	let chiSet
-	let index
 	const hand = Array.from(game.players[nextPlayer].door)
 
+	let meldTiles = []
 	for (let meld of melds) {
-		chiSet = [tile]
+		let chiSet = [tile]
 		for (const paizi of meld) {
-			index = hand.findIndex(elem => elem[1] === paizi && elem[3].startsWith(type))
+			let index = hand.findIndex(elem => elem[1] === paizi && elem[3].startsWith(type))
 			chiSet.push(hand[index])
 		}
 
@@ -72,17 +70,60 @@ export async function checkChi(game, tile) {
 	}
 
 	if (meldTiles.length && nextPlayer === 4) {
-		return await humanChiHandling(game, meldTiles)
+		return await humanChiHandling(game, meldTiles, nextPlayer)
 	}
 
-	return await AIChiHandling(game, meldTiles)
+	if (meldTiles.length) {
+		return await AIChiHandling(game, meldTiles, nextPlayer)
+	}
 }
 
-async function AIChiHandling(game, meldTiles) {
+async function chi(game, meldSet, nextPlayer) {
+	game.players[nextPlayer].melds.push({
+		type: 'chi',
+		from: game.currentPlayer,
+		meld: meldSet
+	})
 
+	displayMeld(nextPlayer, game.players[nextPlayer])
+
+	for (const paizi of meldSet) {
+		const index = game.players[nextPlayer].door.findIndex(elem => elem[0] === paizi[0])
+		if (index > -1) {
+			game.players[nextPlayer].door.splice(index, 1)
+		}
+	}
+
+	displayDoor(nextPlayer, game.players[nextPlayer])
+	displayRemoveItem('control-drop', game.currentPlayer)
+	sound('snd/chi.m4a')
+
+	// rotate player
+	game.players[game.currentPlayer].turn = false
+	game.currentPlayer = modIncrease(game.currentPlayer)
+	game.players[game.currentPlayer].turn = true
 }
 
-async function humanChiHandling(game, meldTiles) {
+async function AIChiHandling(game, meldTiles, nextPlayer) {
+	// Bots will just eat for now
+	const meldSet = meldTiles[0]
+	await delay(1000)
+	chi(game, meldSet, nextPlayer)
+	await delay(1000)
+
+	const chosen = game.players[game.currentPlayer].door.at(-1)
+	if (chosen !== undefined) {
+		displayDiscarded(game.currentPlayer, chosen)
+		game.players[game.currentPlayer].discarded = true
+		game.players[game.currentPlayer].drop = chosen
+		game.players[game.currentPlayer].door.splice(-1, 1)
+		sound('snd/clack.m4a')
+	}
+
+	return true
+}
+
+async function humanChiHandling(game, meldTiles, nextPlayer) {
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])
 
@@ -99,35 +140,14 @@ async function humanChiHandling(game, meldTiles) {
 		}
 
 		paragraph.addEventListener('click', async() => {
-			game.players[4].melds.push({
-				type: 'chi',
-				from: game.currentPlayer,
-				meld: meldSet
-			})
-
-			displayMeld(4, game.players[4])
-
-			for (const paizi of meldSet) {
-				const index = game.players[4].door.findIndex(elem => elem[0] === paizi[0])
-				if (index > -1) {
-					game.players[4].door.splice(index, 1)
-				}
-			}
-
-			displayDoor(4, game.players[4])
-			displayRemoveItem('control-drop', game.currentPlayer)
-			sound('snd/chi.m4a')
-
-			// rotate player
-			game.players[game.currentPlayer].turn = false
-			game.currentPlayer = modIncrease(game.currentPlayer)
-			game.players[game.currentPlayer].turn = true
+			chi(game, meldSet, nextPlayer)
 
 			document.body.removeChild(meldOverlay)
 			const door = document.getElementById('door' + game.currentPlayer)
 			if (!door) return
 
 			humanTileHandling(game, door)
+			return true
 		}, {once: true})
 
 		meldContents.appendChild(paragraph)
