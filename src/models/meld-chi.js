@@ -79,14 +79,6 @@ export async function checkChi(game, tile) {
 }
 
 async function chi(game, meldSet, nextPlayer) {
-	game.players[nextPlayer].melds.push({
-		type: 'chi',
-		from: game.currentPlayer,
-		meld: meldSet
-	})
-
-	displayMeld(nextPlayer, game.players[nextPlayer])
-
 	for (const paizi of meldSet) {
 		const index = game.players[nextPlayer].door.findIndex(elem => elem[0] === paizi[0])
 		if (index > -1) {
@@ -98,6 +90,14 @@ async function chi(game, meldSet, nextPlayer) {
 	displayRemoveItem('control-drop', game.currentPlayer)
 	sound('snd/chi.m4a')
 
+	game.players[nextPlayer].melds.push({
+		type: 'chi',
+		key: 0,
+		meld: meldSet
+	})
+
+	displayMeld(nextPlayer, game.players[nextPlayer])
+
 	// rotate player
 	game.players[game.currentPlayer].turn = false
 	game.currentPlayer = modIncrease(game.currentPlayer)
@@ -105,7 +105,7 @@ async function chi(game, meldSet, nextPlayer) {
 }
 
 async function AIChiHandling(game, meldTiles, nextPlayer) {
-	// Bots will just eat for now
+	// bots will just eat for now
 	const meldSet = meldTiles[0]
 	await delay(1000)
 	chi(game, meldSet, nextPlayer)
@@ -127,9 +127,9 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])
 
-	const h1 = createElement('h1', '', '吃 Chi')
 	const button = createElement('button', '', '❌')
-	meldContents.append(h1, button)
+	const h1 = createElement('h1', '', '吃 Chi')
+	meldContents.append(button, h1)
 
 	for (const meldSet of meldTiles) {
 		const paragraph = createElement('p', ['meld-set'])

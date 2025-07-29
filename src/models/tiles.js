@@ -58,24 +58,24 @@ const WANZI = quadruple([
 ], 72)
 
 const ZIPAI = quadruple([
-	[1, 'zi1', 'dong', '东', '🀀', 'zipai-fengpai-1-dong', 'z'],
-	[2, 'zi2', 'nan', '南', '🀁', 'zipai-fengpai-2-nan', 'z'],
-	[3, 'zi3', 'xi', '西', '🀂', 'zipai-fengpai-3-xi', 'z'],
-	[4, 'zi4', 'bei', '北', '🀃', 'zipai-fengpai-4-bei', 'z'],
-	[1, 'zi5', 'zhong', '中', '🀄︎', 'zipai-jianpai-1-zhong', 'z'],
-	[2, 'zi6', 'fa', '发', '🀅', 'zipai-jianpai-2-fa', 'z'],
-	[3, 'zi7', 'bai', '白', '🀆', 'zipai-jianpai-3-bai', 'z'],
+	[1, 'zi1', 'dong', '东', '🀀', 'zipai-fengpai-1-dong', 'f'],
+	[2, 'zi2', 'nan', '南', '🀁', 'zipai-fengpai-2-nan', 'f'],
+	[3, 'zi3', 'xi', '西', '🀂', 'zipai-fengpai-3-xi', 'f'],
+	[4, 'zi4', 'bei', '北', '🀃', 'zipai-fengpai-4-bei', 'f'],
+	[1, 'zi5', 'zhong', '中', '🀄︎', 'zipai-jianpai-1-zhong', 'j'],
+	[2, 'zi6', 'fa', '发', '🀅', 'zipai-jianpai-2-fa', 'j'],
+	[3, 'zi7', 'bai', '白', '🀆', 'zipai-jianpai-3-bai', 'j'],
 ], 108)
 
 export const HUAPAI = [
-	[137, 1, 'hua1', 'chun', '春', '🀦', 'huapai-sjie-1-chun', 'h'],
-	[138, 2, 'hua2', 'xia', '夏', '🀧', 'huapai-sjie-2-xia', 'h'],
-	[139, 3, 'hua3', 'qiu', '秋', '🀨', 'huapai-sjie-3-qiu', 'h'],
-	[140, 4, 'hua4', 'dong', '冬', '🀩', 'huapai-sjie-4-dong', 'h'],
-	[141, 1, 'hua5', 'mei', '梅', '🀢', 'huapai-sijunzi-1-mei', 'h'],
-	[142, 2, 'hua6', 'lan', '兰', '🀣', 'huapai-sijunzi-2-lan', 'h'],
-	[143, 3, 'hua7', 'ju', '菊', '🀥', 'huapai-sijunzi-3-ju', 'h'],
-	[144, 4, 'hua8', 'zhu', '竹', '🀤', 'huapai-sijunzi-4-zhu', 'h']
+	[137, 1, 'hua1', 'chun', '春', '🀦', 'huapai-sijie-1-chun', 'sijie'],
+	[138, 2, 'hua2', 'xia', '夏', '🀧', 'huapai-sijie-2-xia', 'sijie'],
+	[139, 3, 'hua3', 'qiu', '秋', '🀨', 'huapai-sijie-3-qiu', 'sijie'],
+	[140, 4, 'hua4', 'dong', '冬', '🀩', 'huapai-sijie-4-dong', 'sijie'],
+	[141, 1, 'hua5', 'mei', '梅', '🀢', 'huapai-sijunzi-1-mei', 'sijunzi'],
+	[142, 2, 'hua6', 'lan', '兰', '🀣', 'huapai-sijunzi-2-lan', 'sijunzi'],
+	[143, 3, 'hua7', 'ju', '菊', '🀥', 'huapai-sijunzi-3-ju', 'sijunzi'],
+	[144, 4, 'hua8', 'zhu', '竹', '🀤', 'huapai-sijunzi-4-zhu', 'sijunzi']
 ]
 
 export const BEIMIAN = [

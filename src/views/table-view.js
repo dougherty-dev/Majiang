@@ -67,16 +67,16 @@ export default class BoardView extends HTMLElement {
 
 						<div class="control-counter">
 							<div class="control-wind1">
-								<img id="prevailing1" class="wind" src="img/dong.svg" alt="🀄︎" width="1" height="1">
+								<img id="prevailing1" class="wind" src="img/dong.svg" alt="东" width="1" height="1">
 							</div>
 							<div class="control-wind2">
-								<img id="prevailing2" class="wind" src="img/nan.svg" alt="🀄︎" width="1" height="1">
+								<img id="prevailing2" class="wind" src="img/nan.svg" alt="南" width="1" height="1">
 							</div>
 							<div class="control-wind3">
-								<img id="prevailing3" class="wind" src="img/xi.svg" alt="🀄︎" width="1" height="1">
+								<img id="prevailing3" class="wind" src="img/xi.svg" alt="西" width="1" height="1">
 							</div>
 							<div class="control-wind4">
-								<img id="prevailing4" class="wind" src="img/bei.svg" alt="🀄︎" width="1" height="1">
+								<img id="prevailing4" class="wind" src="img/bei.svg" alt="北" width="1" height="1">
 							</div>
 
 							<div class="control-drop1 tile" id="control-drop1"></div>

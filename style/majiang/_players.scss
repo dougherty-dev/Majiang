@@ -6,16 +6,17 @@
 
 	display: flex;
 	flex-flow: wrap;
-	align-content: flex-start;
+	align-content: flex-end;
 	justify-content: $align;
 }
 
 @mixin grid-player($p) {
 	display: grid;
-	grid-template-rows: repeat(3, 33.3333%);
+	grid-template-rows: 25% 50% 25%;
 	grid-template-areas: '#{$p}-flowers'
 	'#{$p}-melds'
 	'#{$p}-door';
+	padding-bottom: 0.5vmin;
 
 	.grid-#{$p}-flowers {
 		@include grid-p(#{$p}-flowers, flex-start);

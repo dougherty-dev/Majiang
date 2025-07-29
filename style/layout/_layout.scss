@@ -76,5 +76,6 @@
 	background-color: $tertiary-2;
 	border: $border;
 	padding: 0.5vmin 0.5vmin 0;
-	margin: 0.5vmin;
+	margin: 0.5vmin auto;
+	width: fit-content;
 }

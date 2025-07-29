@@ -14,6 +14,7 @@ import { displayAddToDoor, displayClearBoard, displayDiscarded, displayDoor, dis
 	displayPrevailingWind, displayRemoveItem, displaySeatWinds, displayTileCount } from '../components/display.js'
 import { determineSeatWinds } from '../components/winds.js'
 import { enableDrag } from '../components/drag.js'
+import { checkPeng } from './meld-peng.js'
 import { checkChi } from './meld-chi.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
 
@@ -238,9 +239,15 @@ export default class Majiang {
 				this.game.players[this.game.currentPlayer].discarded = true
 
 				// melds
-				if (await checkChi(this.game, tile)) {
+				switch (await checkPeng(this.game, tile)) {
+				case 'gang':
+					this.newTile()
+					return
+				case 'peng':
 					return
 				}
+
+				if (await checkChi(this.game, tile)) return
 
 				// no melds
 				await delay(1000)

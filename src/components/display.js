@@ -21,9 +21,9 @@ function hiliteToggle(target) {
 		async function hilite(e) {
 			const target = e.target
 
-			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
-				const src = target.getAttribute('src')
-				const images = document.querySelectorAll(`img[src='${src}']`)
+			if (target.nodeName === 'IMG' && target.classList.contains('mt')) {
+				const alt = target.getAttribute('alt')
+				const images = document.querySelectorAll(`img[alt='${alt}']`)
 
 				if (event === 'mouseover') {
 					for (const image of images) {
@@ -148,18 +148,26 @@ export async function displayMeld(key, player) {
 
 	displayRemoveItem('melds', key)
 	for (const meld of player.melds) {
-		if (meld.type === 'chi') {
-			const span = createElement('span', ['meld-divider'])
-			const div = createElement('div', ['tile'])
+		const span = createElement('span', ['meld-divider'])
+		const div = createElement('div', ['melds', 'tile'])
 
-			for (const [key, tile] of Object.entries(meld.meld)) {
-				const ext = (key === '0') ? '-o' : ''
-				const img = createTile(tile, ext)
-				div.appendChild(img)
+		let ext
+		for (const [key, tile] of Object.entries(meld.meld)) {
+			switch (meld.type) {
+			case 'chi':
+			case 'peng':
+				ext = (key == meld.key) ? '-o' : ''
+				break
+			case 'gang':
+				ext = (key == meld.key) ? '-d' : ''
+				break
 			}
 
-			melds.prepend(div, span)
+			const img = createTile(tile, ext)
+			div.appendChild(img)
 		}
+
+		melds.prepend(div, span)
 	}
 }
 

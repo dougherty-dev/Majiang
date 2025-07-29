@@ -30,6 +30,7 @@ export function createTile(tile, ext = '') {
 		break
 	}
 
+	img.classList.add('mt')
 	img.dataset.id = tile[0]
 	img.alt = tile[5]
 	img.src = 'img/tiles/' + tile[6] + ext + '.svg'
@@ -42,7 +43,7 @@ export function	humanTileHandling(game, door) {
 
 	displayZoomToggle(door)
 
-	door.addEventListener('click', function callback(e) {
+	door.addEventListener('dblclick', function callback(e) {
 		// Listener on door, but click on tile in door
 		if (!e.target.matches('.t')) return
 
@@ -64,6 +65,6 @@ export function	humanTileHandling(game, door) {
 		displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 
 		// Self-destruct. Because of initial return condition, we can't have once: true
-		e.currentTarget.removeEventListener('click', callback)
+		e.currentTarget.removeEventListener('dblclick', callback)
 	})
 }
