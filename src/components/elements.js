@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module elements
+ * @module components/elements
  * @property {Function} createElement Create a DOM element.
  */
 

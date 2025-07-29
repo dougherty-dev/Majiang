@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module winds
+ * @module components/display/winds
  */
 
 import { ALLPLAYERS, WINDS } from '../../models/tiles.js'

@@ -2,10 +2,10 @@
 
 /**
  * @author Niklas Dougherty
- * @module tiles
+ * @module components/tiles
  */
 
-import { displayDiscarded } from './display/discarded.js'
+import { displayDiscarded } from './display/tiles.js'
 import { displayDoor } from './display/door.js'
 import { sortTiles, sound } from './helpers.js'
 

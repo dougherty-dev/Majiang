@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module tiles
+ * @module models/tiles
  */
 
 export const ALLPLAYERS = [1, 2, 3, 4]

@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module flowers
+ * @module components/display/flowers
  */
 
 import { createTile } from '../tiles.js'
@@ -31,5 +31,5 @@ export async function  displayFlower(key, tile) {
 	img.classList.add('flower')
 
 	sound('snd/buhua.m4a')
-	await delay(1500)
+	await delay(1000)
 }

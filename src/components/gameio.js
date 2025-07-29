@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module Game IO functions
+ * @module components/game
  */
 
 import { VERSION } from '../config.js'

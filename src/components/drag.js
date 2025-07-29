@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module drag
+ * @module components/drag
  */
 
 import { sortTiles } from './helpers.js'

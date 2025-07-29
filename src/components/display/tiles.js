@@ -2,13 +2,15 @@
 
 /**
  * @author Niklas Dougherty
- * @module display
+ * @module components/display/tiles
  */
+
+import { createTile } from '../../components/tiles.js'
 
 function hiliteToggle(target) {
 	toggle(target, 'mouseover')
 	toggle(target, 'mouseout')
-	toggle(target, 'click')
+	toggle(target, 'dblclick')
 
 	function toggle(target, event) {
 		target.addEventListener(event, hilite)
@@ -47,4 +49,13 @@ export function displayTileCount(tileCount) {
 	if (!elem) return
 
 	elem.textContent = tileCount
+}
+
+export function displayDiscarded(key, tile) {
+	const control = document.getElementById('control-drop' + key)
+	if (!control) return
+
+	const img = createTile(tile)
+	if (!img) return
+	control.appendChild(img)
 }

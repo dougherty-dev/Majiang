@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @class Majiang
+ * @class models/Majiang
  */
 
 import { VERSION } from '../config.js'
@@ -11,10 +11,9 @@ import { humanTileHandling } from '../components/tiles.js'
 import { delay, shuffle, sortTiles, modIncrease, sound } from '../components/helpers.js'
 import { displayClearBoard, displayPoints, displayRemoveItem } from '../components/display/display.js'
 import { displayAddToDoor, displayDoor, displayDoors } from '../components/display/door.js'
-import { displayDiscarded } from '../components/display/discarded.js'
 import { displayFloor, displayFloors } from '../components/display/floor.js'
 import { displayFlower, displayFlowers } from '../components/display/flowers.js'
-import { displayHiliteTiles, displayTileCount } from '../components/display/tiles.js'
+import { displayHiliteTiles, displayTileCount, displayDiscarded } from '../components/display/tiles.js'
 import { displayPrevailingWind, displaySeatWinds } from '../components/display/winds.js'
 import { displayMelds } from '../components/display/melds.js'
 import { determineSeatWinds } from '../components/winds.js'

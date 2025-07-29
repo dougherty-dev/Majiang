@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module door
+ * @module components/display/door
  */
 
 import { createTile } from '../../components/tiles.js'

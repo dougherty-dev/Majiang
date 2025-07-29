@@ -2,12 +2,12 @@
 
 /**
  * @author Niklas Dougherty
- * @module peng
+ * @module components/melds/peng
  */
 
 import { createTile, humanTileHandling } from '../tiles.js'
 import { delay, sound } from '../helpers.js'
-import { displayDiscarded } from '../display/discarded.js'
+import { displayDiscarded } from '../display/tiles.js'
 import { displayDoor } from '../display/door.js'
 import { displayMeld } from '../display/melds.js'
 import { displayRemoveItem } from '../display/display.js'

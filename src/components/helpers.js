@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module helpers
+ * @module components/helpers
  */
 
 export function delay(ms) {

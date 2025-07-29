@@ -1,6 +1,6 @@
 /**
  * @author nido24
- * @module not-found-view
+ * @module views/not-found-view
  * @property {Function} connectedCallback Render view.
  */
 

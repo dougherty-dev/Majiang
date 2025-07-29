@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module melds
+ * @module components/display/melds
  */
 
 import { createElement } from '../elements.js'

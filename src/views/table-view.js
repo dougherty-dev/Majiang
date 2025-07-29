@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module table-view
+ * @module views/table-view
  * @property {Function} connectedCallback Render view.
  */
 

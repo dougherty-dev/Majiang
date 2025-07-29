@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @class Players
+ * @class models/Players
  */
 
 class Player {

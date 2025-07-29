@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module rules-view
+ * @module views/rules-view
  * @property {Function} connectedCallback Render view.
  */
 

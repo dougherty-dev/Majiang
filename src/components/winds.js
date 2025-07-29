@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module Determine seat winds.
+ * @module components/wind
  */
 
 import { getRandomInt, rot4 } from './helpers.js'

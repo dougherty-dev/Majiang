@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module display
+ * @module components/display/display
  */
 
 import { ALLPLAYERS } from '../../models/tiles.js'
