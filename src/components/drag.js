@@ -6,7 +6,7 @@
  */
 
 import { sortTiles } from './helpers.js'
-import { displayDoor } from './display.js'
+import { displayDoor } from './display/door.js'
 
 export function enableDrag(game) {
 	const humanPlayer = 4

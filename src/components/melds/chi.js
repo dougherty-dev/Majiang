@@ -2,15 +2,18 @@
 
 /**
  * @author Niklas Dougherty
- * @module meld-chi
+ * @module chi
  */
 
-import { SHUZIPAI } from './tiles.js'
-import { createTile, humanTileHandling } from '../components/tiles.js'
-import { delay, sortTiles, modIncrease, sound } from '../components/helpers.js'
-import { displayDiscarded, displayDoor, displayMeld, displayRemoveItem } from '../components/display.js'
-import { modalDrag } from '../components/drag.js'
-import { createElement } from '../components/elements.js'
+import { SHUZIPAI } from '../../models/tiles.js'
+import { createTile, humanTileHandling } from '../tiles.js'
+import { delay, sortTiles, modIncrease, sound } from '../helpers.js'
+import { displayDiscarded } from '../display/discarded.js'
+import { displayDoor } from '../display/door.js'
+import { displayMeld } from '../display/melds.js'
+import { displayRemoveItem } from '../display/display.js'
+import { modalDrag } from '../drag.js'
+import { createElement } from '../elements.js'
 
 export async function checkChi(game, tile) {
 	const nextPlayer = modIncrease(game.currentPlayer)

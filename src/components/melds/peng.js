@@ -2,14 +2,17 @@
 
 /**
  * @author Niklas Dougherty
- * @module meld-chi
+ * @module peng
  */
 
-import { createTile, humanTileHandling } from '../components/tiles.js'
-import { delay, sound } from '../components/helpers.js'
-import { displayDiscarded, displayDoor, displayMeld, displayRemoveItem } from '../components/display.js'
-import { modalDrag } from '../components/drag.js'
-import { createElement } from '../components/elements.js'
+import { createTile, humanTileHandling } from '../tiles.js'
+import { delay, sound } from '../helpers.js'
+import { displayDiscarded } from '../display/discarded.js'
+import { displayDoor } from '../display/door.js'
+import { displayMeld } from '../display/melds.js'
+import { displayRemoveItem } from '../display/display.js'
+import { modalDrag } from '../drag.js'
+import { createElement } from '../elements.js'
 
 export async function checkPeng(game, discarded) {
 	const type = discarded[7]
@@ -124,7 +127,7 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 
 		const paragraph = createElement('p', ['meld-set'])
 		for (const paizi of meldSet) {
-			let img = createTile(paizi)
+			const img = createTile(paizi)
 			img.classList.add('meld')
 			paragraph.appendChild(img)
 		}
@@ -141,6 +144,7 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 			} else {
 				// remove modal and get new tile
 				button.click()
+				await delay(1000)
 			}
 		}, {once: true})
 

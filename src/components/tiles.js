@@ -5,7 +5,8 @@
  * @module tiles
  */
 
-import { displayDiscarded, displayDoor, displayZoomToggle } from './display.js'
+import { displayDiscarded } from './display/discarded.js'
+import { displayDoor } from './display/door.js'
 import { sortTiles, sound } from './helpers.js'
 
 export function createTile(tile, ext = '') {
@@ -38,6 +39,27 @@ export function createTile(tile, ext = '') {
 	return img
 }
 
+function displayZoomToggle(target) {
+	toggle(target, 'mouseover')
+	toggle(target, 'mouseout')
+
+	function toggle(target, event) {
+		target.addEventListener(event, zoom)
+
+		async function zoom(e) {
+			const target = e.target
+
+			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
+				if (event === 'mouseover') {
+					target.classList.add('pick')
+					return
+				}
+
+				target.classList.remove('pick')
+			}
+		}
+	}
+}
 export function	humanTileHandling(game, door) {
 	if (!door) return
 
