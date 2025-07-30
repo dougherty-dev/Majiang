@@ -202,6 +202,11 @@ export default class Majiang {
 
 				await delay(1000)
 
+				if (await checkJiagang(this.game)) {
+					await this.newTile()
+					return
+				}
+
 				if (await checkAngang(this.game)) {
 					await this.newTile()
 					return
@@ -209,11 +214,6 @@ export default class Majiang {
 
 				const chosen = this.game.players[this.game.currentPlayer].door.at(-1)
 				if (chosen === undefined) return
-
-				if (await checkJiagang(this.game, chosen)) {
-					await this.newTile()
-					return
-				}
 
 				displayDiscarded(this.game.currentPlayer, chosen)
 				this.game.players[this.game.currentPlayer].discarded = true
@@ -321,7 +321,7 @@ export default class Majiang {
 		displayAddToDoor(this.game.currentPlayer, tile, order)
 
 		if (this.humanPlayer()) {
-			if (await checkJiagang(this.game, tile)) {
+			if (await checkJiagang(this.game)) {
 				await this.newTile()
 				return
 			}

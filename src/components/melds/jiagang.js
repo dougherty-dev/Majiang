@@ -12,21 +12,33 @@ import { displayMeld } from '../display/melds.js'
 import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
 
-export async function checkJiagang(game, discarded) {
-	const type = discarded[7]
-	const value = discarded[1]
-
-	let peng = -1
+export async function checkJiagang(game) {
+	let pengs = []
 	for (const [key, meld] of Object.entries(game.players[game.currentPlayer].melds)) {
 		if (meld.type === 'peng') {
-			if (meld.meld[0][7] === type && meld.meld[0][1] === value) {
-				peng = key
+			pengs.push({
+				key: key,
+				meld: meld.meld
+			})
+		}
+	}
+
+	if (pengs.length === 0) return false
+
+	const door = Object.assign([], game.players[game.currentPlayer].door)
+	door.sort()
+
+	let peng = -1
+	for (const tile of door) {
+		for (const meld of pengs) {
+			if (tile[7] === meld.meld[0][7] && tile[1] === meld.meld[0][1]) {
+				peng = meld.key
 				break
 			}
 		}
 	}
 
-	if (peng < 0) return false
+	if (peng < 0) return
 
 	if (game.currentPlayer === 4) {
 		return await humanJiagangHandling(game, peng)
@@ -66,6 +78,7 @@ async function humanJiagangHandling(game, peng) {
 	meldContents.appendChild(h1)
 
 	const paragraph = createElement('p', ['meld-set'])
+
 	const paizi = game.players[game.currentPlayer].melds[peng].meld[0]
 	const img = createTile(paizi)
 	img.classList.add('meld')
