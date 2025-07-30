@@ -18,6 +18,7 @@ import { displayPrevailingWind, displaySeatWinds } from '../components/display/w
 import { displayMelds } from '../components/display/melds.js'
 import { determineSeatWinds } from '../components/winds.js'
 import { enableDrag } from '../components/drag.js'
+import { checkAngang } from '../components/melds/angang.js'
 import { checkJiagang } from '../components/melds/jiagang.js'
 import { checkPeng } from '../components/melds/peng.js'
 import { checkChi } from '../components/melds/chi.js'
@@ -29,7 +30,6 @@ export default class Majiang {
 	constructor() {
 		this.game = null
 		this.newGame = false
-		this.playing = false
 		this.hashListen()
 	}
 
@@ -44,8 +44,7 @@ export default class Majiang {
 	async hashLocator() {
 		this.newGameListen()
 
-		const cleanHash = location.hash.replace('#', '')
-		if (cleanHash === 'table') {
+		if (location.hash === '#table') {
 			if (!this.newGame) {
 				this.game = fetchGame()
 				this.layoutGame()
@@ -62,7 +61,6 @@ export default class Majiang {
 		button.onclick = async() => {
 			this.newGame = true
 			this.game = null
-			this.playing = true
 			await saveGame(this.game)
 
 			window.addEventListener('hashchange', async() => {
@@ -77,6 +75,7 @@ export default class Majiang {
 
 	async layoutGame() {
 		if (!this.game) return
+
 		displayClearBoard()
 		displayPrevailingWind(this.game.prevailingWind)
 		displaySeatWinds(this.game.players, this.game.prevailingWind)
@@ -88,6 +87,7 @@ export default class Majiang {
 		displayPoints(this.game.players)
 		displayTileCount(this.game.tileCount)
 		displayHiliteTiles()
+
 		this.play()
 	}
 
@@ -201,6 +201,11 @@ export default class Majiang {
 				if (!door.lastChild || !door.lastChild.classList.contains('new-tile')) return
 
 				await delay(1000)
+
+				if (await checkAngang(this.game)) {
+					await this.newTile()
+					return
+				}
 
 				const chosen = this.game.players[this.game.currentPlayer].door.at(-1)
 				if (chosen === undefined) return
@@ -317,6 +322,11 @@ export default class Majiang {
 
 		if (this.humanPlayer()) {
 			if (await checkJiagang(this.game, tile)) {
+				await this.newTile()
+				return
+			}
+
+			if (await checkAngang(this.game)) {
 				await this.newTile()
 				return
 			}

@@ -31,26 +31,6 @@ export function shuffle(tiles) {
 	return tiles
 }
 
-/**
- * @description Counters iOS audio permission bug.
- */
-function unlockAudio() {
-	const promise = new Audio('snd/null.m4a').play()
-
-	if (promise !== undefined) {
-		promise.then(() => {
-			sound.pause()
-			sound.currentTime = 0
-		}).catch((error) => {}) // eslint-disable-line
-	}
-
-	document.body.removeEventListener('click', unlockAudio)
-	document.body.removeEventListener('touchstart', unlockAudio)
-}
-
-document.body.addEventListener('click', unlockAudio)
-document.body.addEventListener('touchstart', unlockAudio)
-
 export function sound(src) {
 	const promise = new Audio(src).play()
 	if (promise !== undefined) {

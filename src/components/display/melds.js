@@ -34,6 +34,9 @@ export async function displayMeld(key, player) {
 			case 'gang':
 				ext = (key == meld.key) ? '-d' : ''
 				break
+			case 'angang':
+				ext = ''
+				break
 			}
 
 			const img = createTile(tile, ext)

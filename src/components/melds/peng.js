@@ -58,9 +58,9 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 		}
 	}
 
+	sound(`snd/${meldType}.m4a`)
 	displayDoor(pengPlayer, game.players[pengPlayer])
 	displayRemoveItem('control-drop', game.currentPlayer)
-	sound(`snd/${meldType}.m4a`)
 
 	if (meldSet.length === 4) {
 		meldSet.splice(-1, 1)

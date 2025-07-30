@@ -89,9 +89,9 @@ async function chi(game, meldSet, nextPlayer) {
 		}
 	}
 
+	sound('snd/chi.m4a')
 	displayDoor(nextPlayer, game.players[nextPlayer])
 	displayRemoveItem('control-drop', game.currentPlayer)
-	sound('snd/chi.m4a')
 
 	game.players[nextPlayer].melds.push({
 		type: 'chi',

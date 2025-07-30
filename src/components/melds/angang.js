@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module components/melds/jiagang
+ * @module components/melds/angang
  */
 
 import { createTile } from '../tiles.js'
@@ -12,49 +12,70 @@ import { displayMeld } from '../display/melds.js'
 import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
 
-export async function checkJiagang(game, discarded) {
-	const type = discarded[7]
-	const value = discarded[1]
+export async function checkAngang(game) {
+	const door = Object.assign([], game.players[game.currentPlayer].door)
+	door.sort()
 
-	let peng = -1
-	for (const [key, meld] of Object.entries(game.players[game.currentPlayer].melds)) {
-		if (meld.type === 'peng') {
-			if (meld.meld[0][7] === type && meld.meld[0][1] === value) {
-				peng = key
+	let occurence = 0
+	let meldSet = []
+	let type = door[0][7]
+	let value = door[0][1]
+
+	for (const tile of door) {
+		if (tile[7] === type && tile[1] === value) {
+			occurence++
+			meldSet.push(tile)
+			if (occurence === 4) {
 				break
 			}
+		} else {
+			type = tile[7]
+			value = tile[1]
+			occurence = 1
+			meldSet = [tile]
 		}
 	}
 
-	if (peng < 0) return false
+	if (occurence < 4) return false
 
 	if (game.currentPlayer === 4) {
-		return await humanJiagangHandling(game, peng)
+		return await humanAngangHandling(game, meldSet)
 	}
 
-	return await AIJiagangHandling(game, peng)
+	return await AIAngangHandling(game, meldSet)
 }
 
-async function jiagang(game, peng) {
+async function angang(game, meldSet) {
+	for (const paizi of meldSet) {
+		const index = game.players[game.currentPlayer].door.findIndex(elem => elem[0] === paizi[0])
+		if (index > -1) {
+			game.players[game.currentPlayer].door.splice(index, 1)
+		}
+	}
+
 	sound('snd/gang.m4a')
-	game.players[game.currentPlayer].door.splice(-1, 1)
 	displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 
-	game.players[game.currentPlayer].melds[peng].type = 'gang'
+	game.players[game.currentPlayer].melds.push({
+		type: 'angang',
+		key: -1,
+		meld: meldSet
+	})
+
 	displayMeld(game.currentPlayer, game.players[game.currentPlayer])
 }
 
-async function AIJiagangHandling(game, peng) {
-	// bots will just jiagang for now
+async function AIAngangHandling(game, meldSet) {
+	// bots will just angang for now
 	await delay(1000)
-	await jiagang(game, peng)
+	await angang(game, meldSet)
 	await delay(1000)
 
 	return true
 }
 
-async function humanJiagangHandling(game, peng) {
-	let isJiagang = false
+async function humanAngangHandling(game, meldSet) {
+	let isAngang = false
 
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])
@@ -66,17 +87,15 @@ async function humanJiagangHandling(game, peng) {
 	meldContents.appendChild(h1)
 
 	const paragraph = createElement('p', ['meld-set'])
-	const paizi = game.players[game.currentPlayer].melds[peng].meld[0]
-	const img = createTile(paizi)
-	img.classList.add('meld')
-
-	for (let index = 0; index < 4; index++) {
-		paragraph.appendChild(img.cloneNode(true))
+	for (const paizi of meldSet) {
+		const img = createTile(paizi)
+		img.classList.add('meld')
+		paragraph.appendChild(img)
 	}
 
 	paragraph.addEventListener('click', async() => {
-		jiagang(game, peng)
-		isJiagang = true
+		angang(game, meldSet)
+		isAngang = true
 
 		const door = document.getElementById('door' + game.currentPlayer)
 		if (!door) return
@@ -99,5 +118,5 @@ async function humanJiagangHandling(game, peng) {
 		}, { once: true })
 	})
 
-	return isJiagang
+	return isAngang
 }

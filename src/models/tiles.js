@@ -42,7 +42,7 @@ const TIAOZI = quadruple([
 	[6, 'tiao6', 'tiaozi 6', '条子六', '🀕', 'shuzipai-tiaozi-6', 't'],
 	[7, 'tiao7', 'tiaozi 7', '条子七', '🀖', 'shuzipai-tiaozi-7', 't'],
 	[8, 'tiao8', 'tiaozi 8', '条子八', '🀗', 'shuzipai-tiaozi-8', 't'],
-	[9, 'tiao8', 'tiaozi 9', '条子九', '🀘', 'shuzipai-tiaozi-9', 't']
+	[9, 'tiao9', 'tiaozi 9', '条子九', '🀘', 'shuzipai-tiaozi-9', 't']
 ], 36)
 
 const WANZI = quadruple([
