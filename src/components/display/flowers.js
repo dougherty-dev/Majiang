@@ -31,5 +31,5 @@ export async function  displayFlower(key, tile) {
 	img.classList.add('flower')
 
 	sound('snd/buhua.m4a')
-	await delay(1000)
+	await delay(1500)
 }

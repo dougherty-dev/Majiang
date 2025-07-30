@@ -85,10 +85,10 @@ export default class RulesView extends HTMLElement {
 					<p><span class="term">Bonus tiles</span> or more commonly <span class="term">flower tiles</span> (<em>huapai</em>, 花牌) come in two categories with four of each: flowers and seasons. <span class="term">Flowers</span> are <span class="term">plum</span> (<em>mei</em>, 梅, 🀢), <span class="term">orchid</span> (<em>lan</em>, 兰, 🀣), <span class="term">crysanthemum</span> (<em>ju</em>, 菊, 🀥), and <span class="term">bamboo</span> (<em>zhu</em>, 竹, 🀤).</p>
 					<p><span class="term">Seasons</span> are <span class="term">spring</span> (<em>chun</em>, 春, 🀦), <span class="term">summer</span> (<em>xia</em>, 夏, 🀧), <span class="term">fall</span> (<em>qiu</em>, 秋, 🀨), and <span class="term">winter</span> (<em>dong</em>, 冬, 🀩). Flowers and seasons correspond one-to-one with winds, that is, plum and spring match east, and so forth, although this has no specific relevance in standard Majiang.</p>
 					<p class="wrap">
-						<img width="30" height="41" alt="🀦" src="img/tiles/huapai-sjie-1-chun.svg">
-						<img width="30" height="41" alt="🀧" src="img/tiles/huapai-sjie-2-xia.svg">
-						<img width="30" height="41" alt="🀨" src="img/tiles/huapai-sjie-3-qiu.svg">
-						<img width="30" height="41" alt="🀩" src="img/tiles/huapai-sjie-4-dong.svg">
+						<img width="30" height="41" alt="🀦" src="img/tiles/huapai-sijie-1-chun.svg">
+						<img width="30" height="41" alt="🀧" src="img/tiles/huapai-sijie-2-xia.svg">
+						<img width="30" height="41" alt="🀨" src="img/tiles/huapai-sijie-3-qiu.svg">
+						<img width="30" height="41" alt="🀩" src="img/tiles/huapai-sijie-4-dong.svg">
 						<img width="30" height="41" alt="🀢" src="img/tiles/huapai-sijunzi-1-mei.svg">
 						<img width="30" height="41" alt="🀣" src="img/tiles/huapai-sijunzi-2-lan.svg">
 						<img width="30" height="41" alt="🀥" src="img/tiles/huapai-sijunzi-3-ju.svg">

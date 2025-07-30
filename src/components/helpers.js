@@ -10,7 +10,7 @@ export function delay(ms) {
 }
 
 export function getRandomInt(min, max) {
-	return min + (max- min + 1) * crypto.getRandomValues(new Uint32Array(1))[0]/2**32|0
+	return min + (max - min + 1) * crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32 | 0
 }
 
 export function shuffle(tiles) {
@@ -31,10 +31,30 @@ export function shuffle(tiles) {
 	return tiles
 }
 
+/**
+ * @description Counters iOS audio permission bug.
+ */
+function unlockAudio() {
+	const promise = new Audio('snd/null.m4a').play()
+
+	if (promise !== undefined) {
+		promise.then(() => {
+			sound.pause()
+			sound.currentTime = 0
+		}).catch((error) => {}) // eslint-disable-line
+	}
+
+	document.body.removeEventListener('click', unlockAudio)
+	document.body.removeEventListener('touchstart', unlockAudio)
+}
+
+document.body.addEventListener('click', unlockAudio)
+document.body.addEventListener('touchstart', unlockAudio)
+
 export function sound(src) {
 	const promise = new Audio(src).play()
 	if (promise !== undefined) {
-		promise.then(_ => {}).catch(error => {console.log(error)}) // eslint-disable-line
+		promise.then(() => {}).catch((error) => {}) // eslint-disable-line
 	}
 }
 

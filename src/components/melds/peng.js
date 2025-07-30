@@ -144,7 +144,6 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 			} else {
 				// remove modal and get new tile
 				button.click()
-				await delay(1000)
 			}
 		}, {once: true})
 

@@ -60,6 +60,7 @@ function displayZoomToggle(target) {
 		}
 	}
 }
+
 export function	humanTileHandling(game, door) {
 	if (!door) return
 

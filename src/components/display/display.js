@@ -38,6 +38,8 @@ export async function  displayClearBoard() {
 		displayRemoveItem('flowers', key)
 		displayRemoveItem('melds', key)
 		displayRemoveItem('control-player', key)
-		displayRemoveItem('control-drop', key)
 	}
+
+	const table = document.getElementById('majiang-table')
+	if (table) table.replaceWith(table.cloneNode(true))
 }

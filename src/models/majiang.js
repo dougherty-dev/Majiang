@@ -18,6 +18,7 @@ import { displayPrevailingWind, displaySeatWinds } from '../components/display/w
 import { displayMelds } from '../components/display/melds.js'
 import { determineSeatWinds } from '../components/winds.js'
 import { enableDrag } from '../components/drag.js'
+import { checkJiagang } from '../components/melds/jiagang.js'
 import { checkPeng } from '../components/melds/peng.js'
 import { checkChi } from '../components/melds/chi.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
@@ -27,9 +28,8 @@ import Players from './players.js'
 export default class Majiang {
 	constructor() {
 		this.game = null
-
-		this.playing = false
 		this.newGame = false
+		this.playing = false
 		this.hashListen()
 	}
 
@@ -60,17 +60,18 @@ export default class Majiang {
 		if (!button) return
 
 		button.onclick = async() => {
-			this.game = null
-			await saveGame(this.game)
-
 			this.newGame = true
-			location.hash = 'table'
+			this.game = null
+			this.playing = true
+			await saveGame(this.game)
 
 			window.addEventListener('hashchange', async() => {
 				await displayClearBoard()
 				await this.initGame()
 				await this.layoutGame()
-			}, { once: true})
+			}, { once: true })
+
+			location.hash = 'table'
 		}
 	}
 
@@ -129,10 +130,15 @@ export default class Majiang {
 
 	async replaceFlowers() {
 		let tileCopy
+		let playing = true
+
+		window.addEventListener('hashchange', () => { playing = false }, { once: true })
 
 		for await (const [key, player] of Object.entries(this.game.players)) {
 			for (let [index, tile] of Object.entries(player.door)) {
 				while (HUAPAI.includes(tile)) {
+					if (!playing) return
+
 					tileCopy = tile
 					player.flowers.push(tile)
 
@@ -197,23 +203,23 @@ export default class Majiang {
 				await delay(1000)
 
 				const chosen = this.game.players[this.game.currentPlayer].door.at(-1)
-				if (chosen !== undefined) {
-					displayDiscarded(this.game.currentPlayer, chosen)
-					this.game.players[this.game.currentPlayer].discarded = true
-					this.game.players[this.game.currentPlayer].drop = chosen
-					this.game.players[this.game.currentPlayer].door.splice(-1, 1)
-					sound('snd/clack.m4a')
+				if (chosen === undefined) return
+
+				if (await checkJiagang(this.game, chosen)) {
+					await this.newTile()
+					return
 				}
+
+				displayDiscarded(this.game.currentPlayer, chosen)
+				this.game.players[this.game.currentPlayer].discarded = true
+				this.game.players[this.game.currentPlayer].drop = chosen
+				this.game.players[this.game.currentPlayer].door.splice(-1, 1)
+				sound('snd/clack.m4a')
 			}
 
 			const observer = new MutationObserver(callback)
 
-			window.addEventListener('hashchange', async() => {
-				const cleanHash = location.hash.replace('#', '')
-				if (cleanHash !== 'table') {
-					observer.disconnect()
-				}
-			})
+			window.addEventListener('hashchange', () => { observer.disconnect() })
 
 			try {
 				observer.observe(door, options)
@@ -277,12 +283,7 @@ export default class Majiang {
 
 			const observer = new MutationObserver(callback)
 
-			window.addEventListener('hashchange', async() => {
-				const cleanHash = location.hash.replace('#', '')
-				if (cleanHash !== 'table') {
-					observer.disconnect()
-				}
-			})
+			window.addEventListener('hashchange', () => { observer.disconnect() })
 
 			try {
 				observer.observe(drop, options)
@@ -296,30 +297,36 @@ export default class Majiang {
 		let tile = this.takeTile()
 		let tileCopy
 
-		if (tile) {
-			while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
-				tileCopy = tile
-				this.game.players[this.game.currentPlayer].flowers.push(tile)
+		if (!tile) return
 
-				tile = this.takeTile()
-				if (tile) {
-					await displayFlower(this.game.currentPlayer, tileCopy)
-				}
+		while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
+			tileCopy = tile
+			this.game.players[this.game.currentPlayer].flowers.push(tile)
+
+			tile = this.takeTile()
+			if (tile) {
+				await displayFlower(this.game.currentPlayer, tileCopy)
 			}
 		}
 
-		if (tile) {
-			this.game.players[this.game.currentPlayer].door.push(tile)
-			const order = this.game.players[this.game.currentPlayer].door.length - 1
-			displayAddToDoor(this.game.currentPlayer, tile, order)
+		if (!tile) return
 
-			if (this.humanPlayer()) {
-				const door = document.getElementById('door' + this.game.currentPlayer)
-				if (!door) return
+		this.game.players[this.game.currentPlayer].door.push(tile)
+		const order = this.game.players[this.game.currentPlayer].door.length - 1
+		displayAddToDoor(this.game.currentPlayer, tile, order)
 
-				door.lastChild.classList.add('new-tile')
-				humanTileHandling(this.game, door)
+		if (this.humanPlayer()) {
+			if (await checkJiagang(this.game, tile)) {
+				await this.newTile()
+				return
 			}
+
+			const door = document.getElementById('door' + this.game.currentPlayer)
+			if (!door) return
+
+			door.lastChild.classList.add('new-tile')
+
+			humanTileHandling(this.game, door)
 		}
 	}
 }

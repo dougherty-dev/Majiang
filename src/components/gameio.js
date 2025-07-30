@@ -7,13 +7,29 @@
 
 import { VERSION } from '../config.js'
 
+function jsonToBase64(jsonObject) {
+	const jsonString = JSON.stringify(jsonObject)
+	const encoder = new TextEncoder()
+	const utf8Bytes = encoder.encode(jsonString)
+	const binaryString = String.fromCharCode(...utf8Bytes)
+	return btoa(binaryString)
+}
+
+function base64ToJson(base64String) {
+	const binaryString = atob(base64String)
+	const utf8Bytes = Uint8Array.from(binaryString, char => char.charCodeAt(0))
+	const decoder = new TextDecoder()
+	const jsonString = decoder.decode(utf8Bytes)
+	return JSON.parse(jsonString)
+}
+
 export function fetchGame() {
 	let game = null
 	const storedGame = localStorage.getItem('game')
 
 	if (storedGame) {
 		try {
-			game = JSON.parse(storedGame)
+			game = base64ToJson(storedGame)
 			if (game && game.version != VERSION) {
 				localStorage.removeItem('game')
 				game = null
@@ -28,5 +44,5 @@ export function fetchGame() {
 }
 
 export async function saveGame(game) {
-	localStorage.setItem('game', JSON.stringify(game))
+	localStorage.setItem('game', jsonToBase64(game))
 }
