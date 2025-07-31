@@ -24,22 +24,23 @@ export async function displayMeld(key, player) {
 		const span = createElement('span', ['meld-divider'])
 		const div = createElement('div', ['melds', 'tile'])
 
-		let ext
-		for (const [key, tile] of Object.entries(meld.meld)) {
+		let ext, hidden
+		for (const [index, tile] of Object.entries(meld.meld)) {
 			switch (meld.type) {
 			case 'chi':
 			case 'peng':
-				ext = (key == meld.key) ? '-o' : ''
+				ext = (index == meld.key) ? '-o' : ''
 				break
 			case 'gang':
-				ext = (key == meld.key) ? '-d' : ''
+				ext = (index == meld.key) ? '-d' : ''
 				break
 			case 'angang':
 				ext = ''
+				hidden = key != 4 || (key == 4 && (index == 1 || index == 2) )
 				break
 			}
 
-			const img = createTile(tile, ext)
+			const img = createTile(tile, ext, hidden)
 			div.appendChild(img)
 		}
 

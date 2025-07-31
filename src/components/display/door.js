@@ -20,7 +20,7 @@ export async function displayDoor(key, player) {
 
 	displayRemoveItem('door', key)
 	for (const tile of player.door) {
-		const img = createTile(tile)
+		const img = createTile(tile, '', key != 4)
 		door.appendChild(img)
 	}
 }
@@ -29,7 +29,7 @@ export function displayAddToDoor(key, tile) {
 	const door = document.getElementById('door' + key)
 	if (!door) return
 
-	const img = createTile(tile)
+	const img = createTile(tile, '', key != 4)
 	img.classList.add('new-tile', 'tile-divider')
 	door.appendChild(img)
 }

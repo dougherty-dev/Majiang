@@ -102,6 +102,8 @@ async function AIPengHandling(game, meldSet, pengPlayer) {
 }
 
 async function humanPengHandling(game, meldSet, pengPlayer) {
+	let isPeng = false
+
 	let pengSet = meldSet
 	let gangSet = []
 
@@ -139,10 +141,12 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 			if (!door) return
 
 			if (meldType === 'peng') {
+				isPeng = 'peng'
 				humanTileHandling(game, door)
 				document.body.removeChild(meldOverlay)
 			} else {
 				// remove modal and get new tile
+				isPeng = 'gang'
 				button.click()
 			}
 		}, {once: true})
@@ -162,5 +166,5 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 		}, { once: true })
 	})
 
-	return 'gang'
+	return isPeng
 }

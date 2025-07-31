@@ -9,7 +9,7 @@ import { displayDiscarded } from './display/tiles.js'
 import { displayDoor } from './display/door.js'
 import { sortTiles, sound } from './helpers.js'
 
-export function createTile(tile, ext = '') {
+export function createTile(tile, ext = '', hidden = false) {
 	if (!tile) return
 	const img = document.createElement('img')
 
@@ -29,6 +29,12 @@ export function createTile(tile, ext = '') {
 		img.height = 38
 		img.classList.add('td')
 		break
+	}
+
+	if (hidden) {
+		img.alt = 'tile'
+		img.src = 'img/tiles/beimian' + ext + '.svg'
+		return img
 	}
 
 	img.classList.add('mt')

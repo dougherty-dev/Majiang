@@ -317,8 +317,7 @@ export default class Majiang {
 		if (!tile) return
 
 		this.game.players[this.game.currentPlayer].door.push(tile)
-		const order = this.game.players[this.game.currentPlayer].door.length - 1
-		displayAddToDoor(this.game.currentPlayer, tile, order)
+		displayAddToDoor(this.game.currentPlayer, tile)
 
 		if (this.humanPlayer()) {
 			if (await checkJiagang(this.game)) {
@@ -333,8 +332,6 @@ export default class Majiang {
 
 			const door = document.getElementById('door' + this.game.currentPlayer)
 			if (!door) return
-
-			door.lastChild.classList.add('new-tile', 'tile-divider')
 
 			humanTileHandling(this.game, door)
 		}
