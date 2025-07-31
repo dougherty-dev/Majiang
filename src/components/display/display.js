@@ -40,6 +40,6 @@ export async function  displayClearBoard() {
 		displayRemoveItem('control-player', key)
 	}
 
-	const table = document.getElementById('majiang-table')
-	if (table) table.replaceWith(table.cloneNode(true))
+	const board = document.getElementById('majiang-board')
+	if (board) board.replaceWith(board.cloneNode(true))
 }

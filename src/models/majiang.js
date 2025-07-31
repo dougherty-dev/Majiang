@@ -44,7 +44,7 @@ export default class Majiang {
 	async hashLocator() {
 		this.newGameListen()
 
-		if (location.hash === '#table') {
+		if (location.hash === '#board') {
 			if (!this.newGame) {
 				this.game = fetchGame()
 				this.layoutGame()
@@ -69,7 +69,7 @@ export default class Majiang {
 				await this.layoutGame()
 			}, { once: true })
 
-			location.hash = 'table'
+			location.hash = 'board'
 		}
 	}
 

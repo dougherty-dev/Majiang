@@ -110,7 +110,7 @@ export default class RulesView extends HTMLElement {
 					</div>
 					<p>The human player is seated at north in this implementation, but in competitions the physical seating order is determined by drawing lots. Players do not move around, but are continuously assigned a seat wind after each hand. Melds with wind tiles can give extra points when the seat wind corresponds to the prevailing wind.</p>
 					<p>East is always the <span class="term">banker</span> (<em>zhuangjia</em>, 庄家). Tiles are first picked by east, then by <span class="term">other players</span> (<em>pangjia</em>, 旁家) in counter-clockwise physical order south, west, and north, possibly with <span class="term">replacement</span> of bonus tiles (<em>buhua</em>, 补花). Each player will build a <span class="term">hand</span> (<em>shou</em>, 手) or <span class="term">door</span> (<em>men</em>, 门) with thirteen <span class="term">standing tiles</span> (<em>lipai</em>, 立牌), all concealed.</p>
-					<p>East then begins the game by taking a new tile, possibly with bonus replacement. Unless winning instantly or making a concealed gang, east then discards a tile, placing it openly on the table. Unless another player can form a winning hand or make a meld from the discarded tile, south continues in the same fashion, then west, then north, after which a full <span class="term">rotation</span> (<em>lun</em>, 轮) is completed.</p>
+					<p>East then begins the game by taking a new tile, possibly with bonus replacement. Unless winning instantly or making a concealed gang, east then discards a tile, placing it openly on the board. Unless another player can form a winning hand or make a meld from the discarded tile, south continues in the same fashion, then west, then north, after which a full <span class="term">rotation</span> (<em>lun</em>, 轮) is completed.</p>
 					<p>The first hand continues in the same fashion until a player wins, or, if all tiles are used, there is a <span class="term">draw</span> (<em>huangpai</em>, 荒牌). If there is a draw, or if east wins, the hand is replayed with the same seat winds. If another player wins, a new hand is played, with seat winds shifted counter-clockwise. When all players have been east, the first round is completed.</p>
 				</section>
 				<section class="columns">
@@ -149,7 +149,7 @@ export default class RulesView extends HTMLElement {
 				<section class="columns">
 					<h4>Melds</h4>
 					<p>Each player continually draws and discards a tile, possibly with bonus tile replacement, unless there is some other action. One such is defined by <span class="term">melds</span> (<em>baipai</em>, 摆牌), of which there are three kinds: <em>chi</em>, <em>peng</em> and <em>gang</em>.</p>
-					<p><em>Chi</em> (吃, «eat») is when the next player in turn can pick up the just discarded tile to form a <span class="term">sequence</span> of three tiles (<em>shunzi</em>, 顺子), which are then placed openly on the table. Chi is the verb, <span class="term">shunzi</span> is the result of the action.</p>
+					<p><em>Chi</em> (吃, «eat») is when the next player in turn can pick up the just discarded tile to form a <span class="term">sequence</span> of three tiles (<em>shunzi</em>, 顺子), which are then placed openly on the board. Chi is the verb, <span class="term">shunzi</span> is the result of the action.</p>
 					<p class="wrap">
 						<img width="41" height="30" alt="🀟" src="img/tiles/shuzipai-bingzi-7-o.svg">
 						<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
@@ -171,8 +171,8 @@ export default class RulesView extends HTMLElement {
 						<img width="30" height="41" alt="🀃" src="img/tiles/zipai-fengpai-4-bei.svg">
 						<img width="41" height="30" alt="🀃" src="img/tiles/zipai-fengpai-4-bei-o.svg">
 					</p>
-					<p><em>Gang</em> (杠, «make a bar») is similar to peng, but with four identical tiles forming a <span class="term">bar</span> (<em>gangzi</em>, 杠子), and is then called an <span class="term">open gang</span> (<em>minggang</em>, 明杠). A gang can also be formed by drawing a tile, complementing a peng on hand. It is then called a <span class="term">concealed gang</span> (<em>angang</em>, 暗杠), and the tiles are placed on the table with the backside up.</p>
-					<p>Likewise, a kezi that is placed on the table after a peng can be <span class="term">completed</span> (<em>jiagang</em>, 加杠) to a gangzi by drawing the fourth tile from the wall. When a gang is formed, the player must pick a new tile from the wall.</p>
+					<p><em>Gang</em> (杠, «make a bar») is similar to peng, but with four identical tiles forming a <span class="term">bar</span> (<em>gangzi</em>, 杠子), and is then called an <span class="term">open gang</span> (<em>minggang</em>, 明杠). A gang can also be formed by drawing a tile, complementing a peng on hand. It is then called a <span class="term">concealed gang</span> (<em>angang</em>, 暗杠), and the tiles are placed on the board with the backside up.</p>
+					<p>Likewise, a kezi that is placed on the board after a peng can be <span class="term">completed</span> (<em>jiagang</em>, 加杠) to a gangzi by drawing the fourth tile from the wall. When a gang is formed, the player must pick a new tile from the wall.</p>
 					<p>A gang has priority over a peng, and a peng over a chi. A player may not make a gang immediately after making a chi or peng, that is, announcing a concealed gang in the same turn. However, making a consecutive gang after taking a tile is allowed. Gang is the verb, <span class="term">gangzi</span> is the result of the action. A taken tile is rotated 90&nbsp;° and indicating position whence it came.</p>
 					<p class="wrap">
 						<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
@@ -1211,7 +1211,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 58 Last tile.</p>
 						</li>
 						<li>
-							<p><strong>Two concealed gangzi</strong> (<em>Shuang angang</em>, <span class="fanzhong" data-src="48">双暗杠</span>): having two concealed gangzi laid out. On the table:</p>
+							<p><strong>Two concealed gangzi</strong> (<em>Shuang angang</em>, <span class="fanzhong" data-src="48">双暗杠</span>): having two concealed gangzi laid out. On the board:</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -1316,7 +1316,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Melded hand</strong> (<em>Quan qiu ren</em>, <span class="fanzhong" data-src="53">全求人</span>): every set, including the last pair, completed by melding from discarded tiles. On the table:</p>
+							<p><strong>Melded hand</strong> (<em>Quan qiu ren</em>, <span class="fanzhong" data-src="53">全求人</span>): every set, including the last pair, completed by melding from discarded tiles. On the board:</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀞" src="img/tiles/shuzipai-bingzi-6.svg">
 								<img width="30" height="41" alt="🀟" src="img/tiles/shuzipai-bingzi-7.svg">
@@ -1406,7 +1406,7 @@ export default class RulesView extends HTMLElement {
 							<p><strong>Seat wind</strong> (<em>Menfengke</em>, <span class="fanzhong" data-src="61">门风刻</span>): kezi (gangzi) of wind tile corresponding to the seat wind.</p>
 						</li>
 						<li>
-							<p><strong>Concealed hand</strong> (<em>Menqian qing</em>, <span class="fanzhong" data-src="62">门前清</span>): all tiles are concelaed, on table or on hand, winning by a discarded tile.</p>
+							<p><strong>Concealed hand</strong> (<em>Menqian qing</em>, <span class="fanzhong" data-src="62">门前清</span>): all tiles are concelaed, on board or on hand, winning by a discarded tile.</p>
 						</li>
 						<li>
 							<p><strong>All shunzi</strong> (<em>Pinghu</em>, <span class="fanzhong" data-src="63">平和</span>): four shunzi and a suited pair.</p>
@@ -1486,7 +1486,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Concealed gang</strong> (<em>Angang</em>, <span class="fanzhong" data-src="67">暗杠</span>): self-drawn gang concealed on table.</p>
+							<p><strong>Concealed gang</strong> (<em>Angang</em>, <span class="fanzhong" data-src="67">暗杠</span>): self-drawn gang concealed on board.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀫" src="img/tiles/beimian.svg">
 								<img width="30" height="41" alt="🀫" src="img/tiles/beimian.svg">

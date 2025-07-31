@@ -12,7 +12,7 @@ import Navigation from './navigation.js'
 
 import HomeView from './views/home-view.js'
 import NotFoundView from './views/not-found-view.js'
-import TableView from './views/table-view.js'
+import BoardView from './views/board-view.js'
 import RulesView from './views/rules-view.js'
 
 customElements.define('router-outlet', Router)
@@ -20,7 +20,7 @@ customElements.define('navigation-outlet', Navigation)
 
 customElements.define('home-view', HomeView)
 customElements.define('not-found-view', NotFoundView)
-customElements.define('table-view', TableView)
+customElements.define('board-view', BoardView)
 customElements.define('rules-view', RulesView)
 
 new Majiang()

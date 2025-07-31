@@ -18,19 +18,19 @@ export default class Router extends HTMLElement {
 			'': {
 				view: '<home-view></home-view>',
 				name: 'Home',
-				icon: 'home.avif',
+				icon: 'home.svg',
 				alt: 'Majiang home page'
 			},
-			'table': {
-				view: '<table-view></table-view>',
-				name: 'Table',
-				icon: 'table.avif',
-				alt: 'Majiang table'
+			'board': {
+				view: '<board-view></board-view>',
+				name: 'Board',
+				icon: 'board.svg',
+				alt: 'Majiang board'
 			},
 			'rules': {
 				view: '<rules-view></rules-view>',
 				name: 'Rules',
-				icon: 'rules.avif',
+				icon: 'rules.svg',
 				alt: 'Majiang rules'
 			},
 		}

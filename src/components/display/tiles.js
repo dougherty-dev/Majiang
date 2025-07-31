@@ -38,10 +38,10 @@ function hiliteToggle(target) {
 }
 
 export function displayHiliteTiles() {
-	const table = document.getElementById('majiang-table')
-	if (!table) return
+	const board = document.getElementById('majiang-board')
+	if (!board) return
 
-	hiliteToggle(table)
+	hiliteToggle(board)
 }
 
 export function displayTileCount(tileCount) {

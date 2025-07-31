@@ -25,6 +25,8 @@
 		@include grid-u(#{$p}-seatwind, center);
 	}
 
+	background: url('img/#{$p}.svg') no-repeat 40% 100% / 40%;
+
 	transform: rotate($deg);
 	padding: 0.3rem;
 }

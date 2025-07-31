@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module views/table-view
+ * @module views/board-view
  * @property {Function} connectedCallback Render view.
  */
 
@@ -12,8 +12,8 @@ export default class BoardView extends HTMLElement {
 			<header>
 				<h2>麻将桌</h2>
 			</header>
-			<main class="table" id="majiang-table">
-				<div class="table-grid">
+			<main class="board" id="majiang-board">
+				<div class="board-grid">
 					<!-- east -->
 					<div class="grid-player1" id="player1">
 						<div class="grid-p1-flowers tile" id="flowers1"></div>

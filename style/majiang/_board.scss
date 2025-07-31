@@ -1,7 +1,7 @@
 @use '../abstracts/palettes' as *;
 @use '../abstracts' as *;
 
-.table {
+.board {
 	overflow: hidden;
 
 	@media only screen and (width <= calc($breakpoint-mobile + 0.8rem)) {
@@ -9,7 +9,7 @@
 	}
 }
 
-.table-grid {
+.board-grid {
 	position: relative;
 
 	display: grid;
@@ -24,7 +24,7 @@
 	align-content: space-between;
 	justify-content: space-around;
 
-	background-color: $majiang-table;
+	background-color: $majiang-board;
 	color: $white;
 
 	$min: min(calc(96vh - max(8vmin, 6rem)), calc(96vw - max(8vmin, 6rem)));
