@@ -22,6 +22,7 @@ import { checkAngang } from '../components/melds/angang.js'
 import { checkJiagang } from '../components/melds/jiagang.js'
 import { checkPeng } from '../components/melds/peng.js'
 import { checkChi } from '../components/melds/chi.js'
+import { checkZimo } from '../components/hu/hu.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
 
 import Players from './players.js'
@@ -198,11 +199,16 @@ export default class Majiang {
 
 			let callback = async(mutationList, observer) => { // eslint-disable-line
 				// player has a new tile?
-				if (!door.lastChild || !door.lastChild.classList.contains('new-tile')) return
 
-				await delay(1000)
+				if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
+
+				if (await checkZimo(this.game)) {
+					// hu procedure
+					return
+				}
 
 				if (await checkJiagang(this.game)) {
+					// also check qianggang
 					await this.newTile()
 					return
 				}
@@ -211,6 +217,8 @@ export default class Majiang {
 					await this.newTile()
 					return
 				}
+
+				await delay(1000)
 
 				const chosen = this.game.players[this.game.currentPlayer].door.at(-1)
 				if (chosen === undefined) return
@@ -256,6 +264,7 @@ export default class Majiang {
 				// melds
 				switch (await checkPeng(this.game, tile)) {
 				case 'gang':
+					// check qianggang
 					this.newTile()
 					return
 				case 'peng':
@@ -320,7 +329,13 @@ export default class Majiang {
 		displayAddToDoor(this.game.currentPlayer, tile)
 
 		if (this.humanPlayer()) {
+			if (await checkZimo(this.game)) {
+				// hu procedure
+				return
+			}
+
 			if (await checkJiagang(this.game)) {
+				// also check qianggang
 				await this.newTile()
 				return
 			}

@@ -6,7 +6,7 @@
  */
 
 import { createTile } from '../tiles.js'
-import { delay, sound } from '../helpers.js'
+import { delay, sortTiles, sound } from '../helpers.js'
 import { displayDoor } from '../display/door.js'
 import { displayMeld } from '../display/melds.js'
 import { modalDrag } from '../drag.js'
@@ -14,7 +14,7 @@ import { createElement } from '../elements.js'
 
 export async function checkAngang(game) {
 	const door = Object.assign([], game.players[game.currentPlayer].door)
-	door.sort()
+	sortTiles(door)
 
 	let occurence = 0
 	let meldSet = []
