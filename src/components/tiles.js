@@ -51,6 +51,7 @@ function displayZoomToggle(target) {
 
 			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
 				if (event === 'mouseover') {
+					target.classList.remove('new-tile')
 					target.classList.add('pick')
 					return
 				}

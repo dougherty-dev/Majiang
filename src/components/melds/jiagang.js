@@ -29,10 +29,12 @@ export async function checkJiagang(game) {
 	door.sort()
 
 	let peng = -1
-	for (const tile of door) {
+	let tile
+	for (const paizi of door) {
 		for (const meld of pengs) {
-			if (tile[7] === meld.meld[0][7] && tile[1] === meld.meld[0][1]) {
+			if (paizi[7] === meld.meld[0][7] && paizi[1] === meld.meld[0][1]) {
 				peng = meld.key
+				tile = paizi
 				break
 			}
 		}
@@ -41,31 +43,38 @@ export async function checkJiagang(game) {
 	if (peng < 0) return
 
 	if (game.currentPlayer === 4) {
-		return await humanJiagangHandling(game, peng)
+		return await humanJiagangHandling(game, peng, tile)
 	}
 
-	return await AIJiagangHandling(game, peng)
+	return await AIJiagangHandling(game, peng, tile)
 }
 
-async function jiagang(game, peng) {
+async function jiagang(game, peng, tile) {
+	const index = game.players[game.currentPlayer].door.findIndex(
+		elem => elem[1] === tile[1] && elem[7] === tile[7]
+	)
+
+	if (index > -1) {
+		game.players[game.currentPlayer].door.splice(index, 1)
+	}
+
 	sound('snd/gang.m4a')
-	game.players[game.currentPlayer].door.splice(-1, 1)
 	displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 
 	game.players[game.currentPlayer].melds[peng].type = 'gang'
 	displayMeld(game.currentPlayer, game.players[game.currentPlayer])
 }
 
-async function AIJiagangHandling(game, peng) {
+async function AIJiagangHandling(game, peng, tile) {
 	// bots will just jiagang for now
 	await delay(1000)
-	await jiagang(game, peng)
+	await jiagang(game, peng, tile)
 	await delay(1000)
 
 	return true
 }
 
-async function humanJiagangHandling(game, peng) {
+async function humanJiagangHandling(game, peng, tile) {
 	let isJiagang = false
 
 	const meldOverlay = createElement('div', ['meld-overlay'])
@@ -88,7 +97,7 @@ async function humanJiagangHandling(game, peng) {
 	}
 
 	paragraph.addEventListener('click', async() => {
-		jiagang(game, peng)
+		jiagang(game, peng, tile)
 		isJiagang = true
 
 		const door = document.getElementById('door' + game.currentPlayer)

@@ -30,6 +30,6 @@ export function displayAddToDoor(key, tile) {
 	if (!door) return
 
 	const img = createTile(tile)
-	img.classList.add('new-tile')
+	img.classList.add('new-tile', 'tile-divider')
 	door.appendChild(img)
 }

@@ -72,13 +72,13 @@ export async function checkChi(game, tile) {
 		meldTiles.push(chiSet)
 	}
 
-	if (meldTiles.length && nextPlayer === 4) {
+	if (meldTiles.length === 0) return false
+
+	if (nextPlayer === 4) {
 		return await humanChiHandling(game, meldTiles, nextPlayer)
 	}
 
-	if (meldTiles.length) {
-		return await AIChiHandling(game, meldTiles, nextPlayer)
-	}
+	return await AIChiHandling(game, meldTiles, nextPlayer)
 }
 
 async function chi(game, meldSet, nextPlayer) {

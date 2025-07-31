@@ -334,7 +334,7 @@ export default class Majiang {
 			const door = document.getElementById('door' + this.game.currentPlayer)
 			if (!door) return
 
-			door.lastChild.classList.add('new-tile')
+			door.lastChild.classList.add('new-tile', 'tile-divider')
 
 			humanTileHandling(this.game, door)
 		}
