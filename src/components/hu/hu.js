@@ -171,7 +171,7 @@ export async function checkZimo(game) {
 			if (!checkTriple(5, rest.match(kezi), rest.match(shunzi), struct)) return false
 			break
 		case type.length === 6:
-			if (!checkDoubleTriple(6, triple, straight, straightx2, shiftedStraightx2, struct)) return false
+			if (!checkDoubleTriple(6, type, triple, straight, straightx2, shiftedStraightx2, struct)) return false
 			break
 		case type.length === 8:
 			if (!pair) return false
