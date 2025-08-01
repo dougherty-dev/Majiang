@@ -22,7 +22,7 @@ import { checkAngang } from '../components/melds/angang.js'
 import { checkJiagang } from '../components/melds/jiagang.js'
 import { checkPeng } from '../components/melds/peng.js'
 import { checkChi } from '../components/melds/chi.js'
-import { checkZimo } from '../components/hu/hu.js'
+import { checkZimo } from '../components/hu/zimo.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
 
 import Players from './players.js'
@@ -204,6 +204,7 @@ export default class Majiang {
 
 				if (await checkZimo(this.game)) {
 					// hu procedure
+					sound('snd/hule.m4a')
 					return
 				}
 
@@ -330,6 +331,7 @@ export default class Majiang {
 
 		if (this.humanPlayer()) {
 			if (await checkZimo(this.game)) {
+				sound('snd/hule.m4a')
 				// hu procedure
 				return
 			}

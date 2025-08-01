@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module components/hu/hu
+ * @module components/hu/zimo
  */
 
 import { DUIZI, KEZI, SHUNZI } from './patterns.js'

@@ -49,8 +49,33 @@
 	font-display: swap;
 }
 
+@font-face {
+	font: {
+		family: chinese;
+		style: normal;
+		weight: normal;
+	}
+
+	src: url('font/NotoSansSC-Regular-subset.woff2');
+	unicode-range: U+4E00-9FFF;
+	font-display: swap;
+}
+
+@font-face {
+	font: {
+		family: majiang;
+		style: normal;
+		weight: normal;
+	}
+
+	src: url('font/NotoSansSymbols2-Regular-subset.woff2');
+	size-adjust: 120%;
+	unicode-range: U+1F000-1F02F;
+	font-display: swap;
+}
+
 body {
-	font-family: neue, sans-serif;
+	font-family: neue, chinese, majiang, sans-serif;
 }
 
 h1,
@@ -59,22 +84,22 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: neue-bold, sans-serif;
+	font-family: neue-bold, chinese, majiang, sans-serif;
 }
 
 em,
 figcaption {
-	font-family: neue-italic, sans-serif;
+	font-family: neue-italic, chinese, majiang, sans-serif;
 	color: $secondary-1;
 }
 
 strong,
 th {
-	font-family: neue-bold, sans-serif;
+	font-family: neue-bold, chinese, majiang, sans-serif;
 	color: $secondary-1;
 }
 
 em strong,
 strong em {
-	font-family: neue-bolditalic, sans-serif;
+	font-family: neue-bolditalic, chinese, majiang, sans-serif;
 }
