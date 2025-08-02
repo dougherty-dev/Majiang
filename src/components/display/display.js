@@ -6,6 +6,7 @@
  */
 
 import { ALLPLAYERS } from '../../models/tiles.js'
+import { MAJIANGAVATAR } from '../../config.js'
 
 export function displayPoints(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -42,4 +43,11 @@ export async function  displayClearBoard() {
 
 	const board = document.getElementById('majiang-board')
 	if (board) board.replaceWith(board.cloneNode(true))
+}
+
+export async function displaySetAvatar() {
+	const avatar = localStorage.getItem(MAJIANGAVATAR)
+	if (avatar) {
+		document.getElementById('grid-user4').style.backgroundImage = 'url(' + `img/avatar/${avatar}.svg` + ')'
+	}
 }

@@ -7,6 +7,8 @@
 
 import { VERSION } from '../config.js'
 
+const MAJIANGGAME = 'Majiang_game'
+
 function jsonToBase64(jsonObject) {
 	const jsonString = JSON.stringify(jsonObject)
 	const encoder = new TextEncoder()
@@ -25,13 +27,13 @@ function base64ToJson(base64String) {
 
 export function fetchGame() {
 	let game = null
-	const storedGame = localStorage.getItem('game')
+	const storedGame = localStorage.getItem(MAJIANGGAME)
 
 	if (storedGame) {
 		try {
 			game = base64ToJson(storedGame)
 			if (game && game.version != VERSION) {
-				localStorage.removeItem('game')
+				localStorage.removeItem(MAJIANGGAME)
 				game = null
 			}
 		} catch (e) {
@@ -44,5 +46,5 @@ export function fetchGame() {
 }
 
 export async function saveGame(game) {
-	localStorage.setItem('game', jsonToBase64(game))
+	localStorage.setItem(MAJIANGGAME, jsonToBase64(game))
 }

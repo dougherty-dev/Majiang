@@ -9,7 +9,7 @@ import { VERSION } from '../config.js'
 import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES } from './tiles.js'
 import { humanTileHandling } from '../components/tiles.js'
 import { delay, shuffle, sortTiles, modIncrease, sound } from '../components/helpers.js'
-import { displayClearBoard, displayPoints, displayRemoveItem } from '../components/display/display.js'
+import { displaySetAvatar, displayClearBoard, displayPoints, displayRemoveItem } from '../components/display/display.js'
 import { displayAddToDoor, displayDoor, displayDoors } from '../components/display/door.js'
 import { displayFloor, displayFloors } from '../components/display/floor.js'
 import { displayFlower, displayFlowers } from '../components/display/flowers.js'
@@ -66,6 +66,7 @@ export default class Majiang {
 
 			window.addEventListener('hashchange', async() => {
 				await displayClearBoard()
+				displaySetAvatar()
 				await this.initGame()
 				await this.layoutGame()
 			}, { once: true })
@@ -78,6 +79,7 @@ export default class Majiang {
 		if (!this.game) return
 
 		displayClearBoard()
+		displaySetAvatar()
 		displayPrevailingWind(this.game.prevailingWind)
 		displaySeatWinds(this.game.players, this.game.prevailingWind)
 		displayDoors(this.game.players)
