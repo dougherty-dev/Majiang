@@ -10,7 +10,7 @@ export default class BoardView extends HTMLElement {
 	connectedCallback() {
 		this.innerHTML = `
 			<header>
-				<h2>麻将桌</h2>
+				<h2>麻将: <span id="header-display"></span></h2>
 			</header>
 			<main class="board" id="majiang-board">
 				<div class="board-grid">
@@ -55,7 +55,7 @@ export default class BoardView extends HTMLElement {
 					</div>
 					<div class="grid-user4" id="grid-user4">
 						<div class="grid-user4-points points" id="points4"></div>
-						<div class="grid-user4-seatwind" id="seat4"></div>
+						<div class="grid-user4-seatwind" id="seat4" title="Change avatar"></div>
 						<img id="sort" class="sort" src="img/sort.svg" alt="↕" title="Order tiles" width="30" height="30">
 					</div>
 

@@ -5,12 +5,9 @@
  * @module components/hu/pair
  */
 
-export function checkPair(length, pair, struct) {
-	console.log(length + ': ', pair , (pair))
-	if (!pair) {
-		console.log(length + ': not pair')
-		return false
-	}
+export function checkPair(pair, struct) {
+	if (!pair) return false
+
 	struct.pairs++
 	return true
 }

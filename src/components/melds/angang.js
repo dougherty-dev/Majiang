@@ -76,6 +76,7 @@ async function AIAngangHandling(game, meldSet) {
 
 async function humanAngangHandling(game, meldSet) {
 	let isAngang = false
+	const board = document.getElementById('majiang-board')
 
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])
@@ -97,10 +98,6 @@ async function humanAngangHandling(game, meldSet) {
 		angang(game, meldSet)
 		isAngang = true
 
-		const door = document.getElementById('door' + game.currentPlayer)
-		if (!door) return
-
-		// remove modal and get new tile
 		button.click()
 	}, {once: true})
 
@@ -109,14 +106,12 @@ async function humanAngangHandling(game, meldSet) {
 	modalDrag(meldOverlay, meldContents)
 
 	meldOverlay.appendChild(meldContents)
-	document.body.appendChild(meldOverlay)
+	board.appendChild(meldOverlay)
 
 	await new Promise(resolve => {
-		button.addEventListener('click', () => {
-			document.body.removeChild(meldOverlay)
-			resolve()
-		}, { once: true })
+		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
+	board.removeChild(meldOverlay)
 	return isAngang
 }

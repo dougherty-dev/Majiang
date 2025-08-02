@@ -127,6 +127,8 @@ async function AIChiHandling(game, meldTiles, nextPlayer) {
 }
 
 async function humanChiHandling(game, meldTiles, nextPlayer) {
+	const board = document.getElementById('majiang-board')
+
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])
 
@@ -145,7 +147,7 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 		paragraph.addEventListener('click', async() => {
 			chi(game, meldSet, nextPlayer)
 
-			document.body.removeChild(meldOverlay)
+			board.removeChild(meldOverlay)
 			const door = document.getElementById('door' + game.currentPlayer)
 			if (!door) return
 
@@ -159,11 +161,11 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 	modalDrag(meldOverlay, meldContents)
 
 	meldOverlay.appendChild(meldContents)
-	document.body.appendChild(meldOverlay)
+	board.appendChild(meldOverlay)
 
 	await new Promise(resolve => {
 		button.addEventListener('click', () => {
-			document.body.removeChild(meldOverlay)
+			board.removeChild(meldOverlay)
 			resolve()
 		}, { once: true })
 	})

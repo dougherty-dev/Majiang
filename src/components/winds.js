@@ -5,30 +5,17 @@
  * @module components/wind
  */
 
-import { getRandomInt, rot4 } from './helpers.js'
-
-function findEast(players, round) {
-	return (() => {
-		switch (round) {
-		case 1:
-			return getRandomInt(1, 4)
-		default:
-			return Object.entries(players).findIndex(obj => { return obj.wind === 1 })
-		}
-	})()
-}
+import { modIncrease, rot4 } from './helpers.js'
 
 export async function determineSeatWinds(players, round) {
-	const east = findEast(players, round)
+	const east = Object.values(players).findIndex(obj => obj.wind === 1)
 
 	let south, west, north
 
 	switch (round) {
 	case 1:
-		for (let [key, player] of Object.entries(players)) {
-			key = parseInt(key)
-			player.wind = rot4(east, key)
-			player.turn = east === key
+		for (const key of Object.keys(players)) {
+			players[key].wind = modIncrease(players[key].wind + 2)
 		}
 		break
 	case 2:

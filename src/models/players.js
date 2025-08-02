@@ -5,6 +5,8 @@
  * @class models/Players
  */
 
+import Hu from './hu.js'
+
 class Player {
 	constructor() {
 		this.player = {
@@ -17,7 +19,8 @@ class Player {
 			melds: [],
 			flowers: [],
 			floor: [],
-			drop: null
+			drop: null,
+			hu: new Hu().hu
 		}
 	}
 }

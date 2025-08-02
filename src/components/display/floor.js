@@ -29,3 +29,8 @@ export async function  displayFloor(key, tile, index) {
 	const img = createTile(tile)
 	control.appendChild(img)
 }
+
+export function displayRound(round, hand) {
+	const span = document.getElementById('header-display')
+	span.textContent = `R ${round} | H ${hand}`
+}

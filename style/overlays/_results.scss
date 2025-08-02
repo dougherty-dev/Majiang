@@ -1,7 +1,7 @@
 @use '../abstracts/palettes' as *;
 @use '../abstracts' as *;
 
-.avatar-overlay {
+.results-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,33 +14,29 @@
 	z-index: 100;
 }
 
-.avatar-contents {
+.results-contents {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 
-	width: fit-content;
+	width: 80%;
 	height: fit-content;
 
 	padding: 1rem;
 	text-align: center;
-
-	&>p img {
-		cursor: pointer;
-	}
 
 	background-color: $overlay;
 
 	z-index: 110;
 }
 
-.avatar {
-	height: max(8vmin, 3rem);
+.results {
+	height: max(6vmin, 2rem);
 	width: fit-content;
 }
 
-.avatar-set {
+.results-set {
 	background-color: $tertiary-2;
 	padding: 0.5vmin 0.5vmin 0;
 	margin: 0.5vmin auto;

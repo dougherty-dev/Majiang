@@ -103,6 +103,7 @@ async function AIPengHandling(game, meldSet, pengPlayer) {
 
 async function humanPengHandling(game, meldSet, pengPlayer) {
 	let isPeng = false
+	const board = document.getElementById('majiang-board')
 
 	let pengSet = meldSet
 	let gangSet = []
@@ -143,9 +144,8 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 			if (meldType === 'peng') {
 				isPeng = 'peng'
 				humanTileHandling(game, door)
-				document.body.removeChild(meldOverlay)
+				board.removeChild(meldOverlay)
 			} else {
-				// remove modal and get new tile
 				isPeng = 'gang'
 				button.click()
 			}
@@ -157,14 +157,12 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 	modalDrag(meldOverlay, meldContents)
 
 	meldOverlay.appendChild(meldContents)
-	document.body.appendChild(meldOverlay)
+	board.appendChild(meldOverlay)
 
 	await new Promise(resolve => {
-		button.addEventListener('click', () => {
-			document.body.removeChild(meldOverlay)
-			resolve()
-		}, { once: true })
+		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
+	board.removeChild(meldOverlay)
 	return isPeng
 }
