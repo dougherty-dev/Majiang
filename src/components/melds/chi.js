@@ -27,25 +27,25 @@ export async function checkChi(game, tile) {
 	let patterns = []
 	switch (value) {
 	case 1:
-		patterns.push([2, 3])
+		patterns.push(['2', '3'])
 		break
 	case 2:
-		patterns.push([1, 3], [3, 4])
+		patterns.push(['1', '3'], ['3', '4'])
 		break
 	case 8:
-		patterns.push([6, 7], [7, 9])
+		patterns.push(['6', '7'], ['7', '9'])
 		break
 	case 9:
-		patterns.push([7, 8])
+		patterns.push(['7', '8'])
 		break
 	default:
-		patterns.push([value - 2, value - 1], [value - 1, value + 1], [value + 1, value + 2])
+		patterns.push([`${value - 2}`, `${value - 1}`], [`${value - 1}`, `${value + 1}`], [`${value + 1}`, `${value + 2}`])
 	}
 
 	let door = []
 	for (const paizi of game.players[nextPlayer].door) {
 		if (paizi[7] === type) {
-			door.push(parseInt(paizi[1]))
+			door.push(paizi[1])
 		}
 	}
 

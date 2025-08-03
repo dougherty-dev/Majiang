@@ -62,12 +62,12 @@ export default class Majiang {
 		const button = document.getElementById('new-game')
 		if (!button) return
 
-		button.onclick = async () => {
+		button.onclick = async() => {
 			this.newGame = true
 			this.game = null
 			await saveGame(this.game)
 
-			window.addEventListener('hashchange', async () => {
+			window.addEventListener('hashchange', async() => {
 				await displayClearBoard()
 				displaySetAvatar()
 				await this.initGame()
@@ -240,15 +240,15 @@ export default class Majiang {
 
 				// melds
 				switch (await checkPeng(this.game, tile)) {
-					case 'gang':
-						// if (await checkQianggang(this.game)) {
-						// 	await this.hu()
-						// 	return
-						// }
-						this.newTile()
-						return
-					case 'peng':
-						return
+				case 'gang':
+					// if (await checkQianggang(this.game)) {
+					// 	await this.hu()
+					// 	return
+					// }
+					this.newTile()
+					return
+				case 'peng':
+					return
 				}
 
 				if (await checkChi(this.game, tile)) return
@@ -391,7 +391,7 @@ export default class Majiang {
 			huOverlay.appendChild(huContents)
 			board.appendChild(huOverlay)
 
-			ok.addEventListener('click', async () => {
+			ok.addEventListener('click', async() => {
 				sound('snd/hule.m4a')
 				board.removeChild(huOverlay)
 				this.displayResults(this.game, key, door)
@@ -448,7 +448,7 @@ export default class Majiang {
 		board.appendChild(resultsOverlay)
 
 		await new Promise(resolve => {
-			ok.addEventListener('click', async () => { resolve() }, { once: true })
+			ok.addEventListener('click', async() => { resolve() }, { once: true })
 		})
 
 		board.removeChild(resultsOverlay)
@@ -552,7 +552,7 @@ export default class Majiang {
 		board.appendChild(resultsOverlay)
 
 		await new Promise(resolve => {
-			ok.addEventListener('click', async () => { resolve() }, { once: true })
+			ok.addEventListener('click', async() => { resolve() }, { once: true })
 		})
 
 		board.removeChild(resultsOverlay)

@@ -7,22 +7,36 @@
 
 import { SHUNZI } from './patterns.js'
 
-export function checkDoubleMeld(type, triple, straight, straightx2, shiftedStraightx2, struct) {
+export function checkDoubleMeld(
+	type,
+	triple,
+	straight,
+	straightx2,
+	shiftedStraightx2,
+	struct
+) {
 	let rest
+
+	// two kezi
 	if (triple && triple.length === 2) {
 		struct.melds += 2
 		return true
 	}
 
-	if ((straightx2 || shiftedStraightx2) || (straight && straight.length === 2)) {
+	// shifted straight or two straights
+	if (
+		(straightx2 || shiftedStraightx2) ||
+		(straight && straight.length === 2)
+	) {
 		struct.melds += 2
 		return true
 	}
 
+	// just one triple
 	if (triple) {
 		// consider the case 144456 => (444, 456), false
 		rest = type.replace(triple[0], '')
-		// break out KEZI, then check remainder for SHUNZI
+		// break out kezi, then check remainder for shunzi
 		if (rest.match(SHUNZI)) {
 			struct.melds += 2
 			return true

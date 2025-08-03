@@ -5,10 +5,9 @@
  * @module components/hu/patterns
  */
 
-export const SUITED = ['b', 't', 'w']
-
-export const DUIZI = /(\d)\1{1}/g
-export const KEZI = /(\d)\1{2}/g
+// abcd for character tiles, only duizi and kezi for those
+export const DUIZI = /([0-9abcXYZ])\1{1}/g
+export const KEZI = /([0-9abcXYZ])\1{2}/g
 
 export const SHUNZI = /(123|234|345|456|567|678|789)/g
 
