@@ -38,6 +38,10 @@ export function displaySeatWinds(players, prevailingWind) {
 		if (prevailingWind == player.wind) {
 			seat.classList.add('prevailing')
 		}
+
+		if (1 == player.wind) {
+			seat.lastChild.classList.add('banker')
+		}
 	}
 
 	document.getElementById('seatwind4').addEventListener('click', avatar)

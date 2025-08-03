@@ -10,7 +10,7 @@ export default class BoardView extends HTMLElement {
 	connectedCallback() {
 		this.innerHTML = `
 			<header>
-				<h2>麻将: <span id="header-display"></span></h2>
+				<h2>麻将 <span id="header-display"></span></h2>
 			</header>
 			<main class="board" id="majiang-board">
 				<div class="board-grid">

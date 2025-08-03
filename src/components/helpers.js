@@ -39,7 +39,7 @@ export function sound(src) {
 }
 
 export function rot4(east, number) {
-	return Math.abs(4 + number - east) % 4 + 1
+	return modIncrease(4 + number - east)
 }
 
 export function modIncrease(number) {
@@ -50,4 +50,8 @@ export function sortTiles(tiles, ignore = false) {
 	if (!ignore) {
 		tiles.sort((a, b) => a[2].localeCompare(b[2]))
 	}
+}
+
+export function zhuangjiaBanker(players) {
+	return Object.values(players).findIndex(obj => obj.wind === 1) + 1
 }

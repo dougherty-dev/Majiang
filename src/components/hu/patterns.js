@@ -5,6 +5,8 @@
  * @module components/hu/patterns
  */
 
+export const SUITED = ['b', 't', 'w']
+
 export const DUIZI = /(\d)\1{1}/g
 export const KEZI = /(\d)\1{2}/g
 

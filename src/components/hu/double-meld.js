@@ -7,7 +7,7 @@
 
 import { SHUNZI } from './patterns.js'
 
-export function checkDoubleMeld(length, type, triple, straight, straightx2, shiftedStraightx2, struct) {
+export function checkDoubleMeld(type, triple, straight, straightx2, shiftedStraightx2, struct) {
 	let rest
 	if (triple && triple.length === 2) {
 		struct.melds += 2

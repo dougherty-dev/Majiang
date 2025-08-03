@@ -7,7 +7,7 @@
 
 import { VERSION } from '../config.js'
 import { ALLPLAYERS, AIPLAYERS, HUAPAI, TILES } from './tiles.js'
-import { getRandomInt } from '../components/helpers.js'
+import { getRandomInt, zhuangjiaBanker } from '../components/helpers.js'
 import { createTile, humanTileHandling } from '../components/tiles.js'
 import { delay, shuffle, sortTiles, modIncrease, sound } from '../components/helpers.js'
 import { displaySetAvatar, displayClearBoard, displayPoints, displayRemoveItem } from '../components/display/display.js'
@@ -62,12 +62,12 @@ export default class Majiang {
 		const button = document.getElementById('new-game')
 		if (!button) return
 
-		button.onclick = async() => {
+		button.onclick = async () => {
 			this.newGame = true
 			this.game = null
 			await saveGame(this.game)
 
-			window.addEventListener('hashchange', async() => {
+			window.addEventListener('hashchange', async () => {
 				await displayClearBoard()
 				displaySetAvatar()
 				await this.initGame()
@@ -82,7 +82,7 @@ export default class Majiang {
 		if (!this.game) return
 
 		displayClearBoard()
-		displayRound(this.game.round, this.game.hand)
+		displayRound(this.game.round, this.game.rotation, this.game.hand)
 		displaySetAvatar()
 		displayPrevailingWind(this.game.prevailingWind)
 		displaySeatWinds(this.game.players, this.game.prevailingWind)
@@ -103,22 +103,20 @@ export default class Majiang {
 			version: VERSION,
 			active: true,
 			round: 1,
+			rotation: 1,
 			hand: 0,
 			prevailingWind: 1,
+			windShifter: getRandomInt(1, 4),
 			currentPlayer: null,
 			tiles: null,
 			tileCount: null,
 			sorted: false,
+			draw: false,
+			winner: false,
 			players: new Players().players
 		}
 
-		this.game.players[1].wind = getRandomInt(1, 4)
-		for (const index of [2, 3, 4]) {
-			this.game.players[index].wind = modIncrease(this.game.players[index - 1].wind)
-		}
-
-		this.game.currentPlayer = this.currentPlayer()
-
+		await determineSeatWinds(this.game)
 		await this.newRound()
 	}
 
@@ -148,10 +146,6 @@ export default class Majiang {
 			sortTiles(player.door, this.game.sorted)
 			displayDoor(key, player)
 		}
-	}
-
-	currentPlayer() {
-		return Object.values(this.game.players).findIndex(obj => obj.wind === 1) + 1
 	}
 
 	currentDiscarded() {
@@ -188,7 +182,7 @@ export default class Majiang {
 			let door = document.getElementById('door' + key)
 			if (!door) return
 
-			let callback = async(mutationList, observer) => { // eslint-disable-line
+			let callback = async (mutationList, observer) => { // eslint-disable-line
 				// player has a new tile?
 
 				if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
@@ -220,14 +214,14 @@ export default class Majiang {
 	}
 
 	// act on tile being dropped into control center
-	async observeDrop() {
+	observeDrop() {
 		const options = { childList: true }
 
 		for (const key of ALLPLAYERS) {
 			let drop = document.getElementById('control-drop' + key)
 			if (!drop) return
 
-			let callback = async(mutationList, observer) => { // eslint-disable-line
+			let callback = async (mutationList, observer) => { // eslint-disable-line
 				if (!drop.firstChild) return // no tile
 
 				// remove dropped tile from door
@@ -246,18 +240,23 @@ export default class Majiang {
 
 				// melds
 				switch (await checkPeng(this.game, tile)) {
-				case 'gang':
-					// if (await checkQianggang(this.game)) {
-					// 	await this.hu()
-					// 	return
-					// }
-					this.newTile()
-					return
-				case 'peng':
-					return
+					case 'gang':
+						// if (await checkQianggang(this.game)) {
+						// 	await this.hu()
+						// 	return
+						// }
+						this.newTile()
+						return
+					case 'peng':
+						return
 				}
 
 				if (await checkChi(this.game, tile)) return
+
+				if (this.game.tileCount === 0) {
+					await this.draw()
+					return
+				}
 
 				// no melds
 				await delay(1000)
@@ -271,9 +270,7 @@ export default class Majiang {
 				displayFloor(this.game.currentPlayer, tile, index)
 
 				// rotate player
-				this.game.players[this.game.currentPlayer].turn = false
 				this.game.currentPlayer = modIncrease(this.game.currentPlayer)
-				this.game.players[this.game.currentPlayer].turn = true
 
 				// save game state for resumption
 				await saveGame(this.game)
@@ -347,7 +344,14 @@ export default class Majiang {
 		return false
 	}
 
+	async draw() {
+		this.game.draw = true
+		this.displayResults(this.game, 0, [])
+	}
+
 	async hu(key) {
+		this.game.winner = key
+
 		let door = Object.assign([], this.game.players[key].door)
 		for (const set of this.game.players[key].melds) {
 			for (const tile of set.meld) {
@@ -379,12 +383,7 @@ export default class Majiang {
 				paragraph.appendChild(img)
 			}
 
-			if (this.game.players[4].hu.dianhu) {
-				const tile = this.game.players[this.game.currentPlayer].drop
-				const img = createTile(tile)
-				img.classList.add('tile-divider', 'hu')
-				paragraph.appendChild(img)
-			}
+			paragraph.lastChild.classList.add('tile-divider', 'hu')
 
 			const ok = createElement('button', '', 'Win')
 			huContents.append(paragraph, ok)
@@ -392,11 +391,11 @@ export default class Majiang {
 			huOverlay.appendChild(huContents)
 			board.appendChild(huOverlay)
 
-			ok.addEventListener('click', async() => {
+			ok.addEventListener('click', async () => {
 				sound('snd/hule.m4a')
 				board.removeChild(huOverlay)
 				this.displayResults(this.game, key, door)
-			}, {once: true})
+			}, { once: true })
 
 			await new Promise(resolve => {
 				button.addEventListener('click', () => {
@@ -423,35 +422,44 @@ export default class Majiang {
 		const h1 = createElement('h1', '', 'Results')
 		resultsContents.appendChild(h1)
 
-		const h2 = createElement('h2', '', `Player ${key} won the round`)
+		const msg = this.game.draw ? 'Draw' : `Player ${key} won the round`
+
+		const h2 = createElement('h2', '', msg)
 		resultsContents.appendChild(h2)
 
-		const paragraph = createElement('p', ['results-set'])
 
-		sortTiles(door)
-		for (const tile of door) {
-			const img = createTile(tile)
-			img.classList.add('results')
-			paragraph.appendChild(img)
+		if (door.length) {
+			const paragraph = createElement('p', ['results-set'])
+
+			sortTiles(door)
+			for (const tile of door) {
+				const img = createTile(tile)
+				img.classList.add('results')
+				paragraph.appendChild(img)
+			}
+
+			resultsContents.appendChild(paragraph)
 		}
 
 		const ok = createElement('button', '', 'OK')
-		resultsContents.append(paragraph, ok)
+		resultsContents.appendChild(ok)
 
 		resultsOverlay.appendChild(resultsContents)
 		board.appendChild(resultsOverlay)
 
 		await new Promise(resolve => {
-			ok.addEventListener('click', async() => { resolve() }, {once: true})
+			ok.addEventListener('click', async () => { resolve() }, { once: true })
 		})
 
 		board.removeChild(resultsOverlay)
 
 		const players = ALLPLAYERS.filter(item => item !== key)
 
-		game.players[key].points += 8
-		for (const index of players) {
-			game.players[index].points -= 8
+		if (this.game.winner) {
+			game.players[key].points += 24
+			for (const index of players) {
+				game.players[index].points -= 8
+			}
 		}
 
 		for (const index of ALLPLAYERS) {
@@ -463,36 +471,46 @@ export default class Majiang {
 			game.players[index].discarded = null
 			game.players[index].tingpai = null
 		}
+
 		await displayClearBoard()
-		displayRound(this.game.round, this.game.hand)
-		await this.newRound()
-		await this.layoutGame()
+		displayRound(this.game.round, this.game.rotation, this.game.hand)
+		if (await this.newRound()) {
+			await this.layoutGame()
+		}
 	}
 
 	async newRound() {
 		this.game.tiles = shuffle(Object.assign([], TILES))
 
 		this.game.hand++
-		if (this.game.hand > 4) {
-			this.game.hand = 1
+
+		if (this.game.winner && this.game.players[this.game.winner].wind !== 1) {
+			this.game.rotation++
+		}
+
+		if (this.game.rotation > 4) {
 			this.game.round++
+			this.game.rotation = 1
+			this.game.hand = 1
 			this.game.prevailingWind++
 		}
 
 		if (this.game.round > 4) {
-			// handle game over
+			await this.gameOver()
+			return false
 		}
 
-		this.game.tileCount = this.game.tiles.length
+		if (this.game.winner && this.game.players[this.game.winner].wind !== 1) {
+			await determineSeatWinds(this.game)
+		}
 
-		// for (const index of ALLPLAYERS) {
-		// 	this.game.players[index].wind = modIncrease(this.game.players[index].wind + 3)
-		// }
-
-		displayPrevailingWind(this.game.prevailingWind)
-		determineSeatWinds(this.game.players, this.game.round)
 		displaySeatWinds(this.game.players, this.game.prevailingWind)
-		this.game.currentPlayer = this.currentPlayer()
+		displayPrevailingWind(this.game.prevailingWind)
+
+		this.game.currentPlayer = zhuangjiaBanker(this.game.players)
+		this.game.tileCount = this.game.tiles.length
+		this.game.winner = null
+		this.game.draw = null
 
 		for (const player of Object.values(this.game.players)) {
 			for (let i = 1; i <= 13; i++) {
@@ -508,5 +526,35 @@ export default class Majiang {
 
 		await this.replaceFlowers()
 		await saveGame(this.game)
+
+		return true
+	}
+
+	async gameOver() {
+		const board = document.getElementById('majiang-board')
+
+		const resultsOverlay = createElement('div', ['results-overlay'])
+		const resultsContents = createElement('div', ['results-contents'])
+
+		const h1 = createElement('h1', '', 'Game over')
+		resultsContents.appendChild(h1)
+
+		const winners = Object.values(this.game.players).map(obj => obj.points)
+		const winner = winners.indexOf(Math.max(...winners)) + 1
+
+		const h2 = createElement('h2', '', `Player ${winner} won the game`)
+		resultsContents.appendChild(h2)
+
+		const ok = createElement('button', '', 'OK')
+		resultsContents.appendChild(ok)
+
+		resultsOverlay.appendChild(resultsContents)
+		board.appendChild(resultsOverlay)
+
+		await new Promise(resolve => {
+			ok.addEventListener('click', async () => { resolve() }, { once: true })
+		})
+
+		board.removeChild(resultsOverlay)
 	}
 }

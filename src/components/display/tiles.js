@@ -25,6 +25,9 @@ function hiliteToggle(target) {
 				if (event === 'mouseover') {
 					for (const image of images) {
 						image.classList.add('hilite')
+						setTimeout(() => {
+							image.classList.remove('hilite')
+						}, 10000)
 					}
 					return
 				}

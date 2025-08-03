@@ -9,7 +9,7 @@ import { KEZI, SHUNZI } from './patterns.js'
 import { SHUNZIX2, SHIFTEDX2 } from './patterns.js'
 import { checkDoubleMeld } from './double-meld.js'
 
-export function checkTripleMeld(length, type, triple, straight, straightx3, shiftedStraightax3, shiftedStraightbx3, struct) {
+export function checkTripleMeld(type, triple, straight, straightx3, shiftedStraightax3, shiftedStraightbx3, struct) {
 	let rest
 	if (triple && triple.length === 3) {
 		struct.melds += 3
@@ -36,12 +36,17 @@ export function checkTripleMeld(length, type, triple, straight, straightx3, shif
 			struct.melds += 3
 			return true
 		}
+
+		if (straight && straight.length === 2) {
+			struct.melds += 3
+			return true
+		}
 	}
 
 	if (straight && straight.length === 1) {
 		for (const set of straight) {
 			rest = type.replace(set, '')
-			if (checkDoubleMeld(9, rest, rest.match(KEZI), rest.match(SHUNZI), rest.match(SHUNZIX2), rest.match(SHIFTEDX2), struct)) {
+			if (checkDoubleMeld(rest, rest.match(KEZI), rest.match(SHUNZI), rest.match(SHUNZIX2), rest.match(SHIFTEDX2), struct)) {
 				struct.melds += 1
 				return true
 			}

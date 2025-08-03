@@ -5,7 +5,7 @@
  * @module components/hu/quadruple-meld
  */
 
-export function checkQuadrupelMeld(length, triple, straight, straightx4, shiftedStraightax4, shiftedStraightbx4, shiftedStraightcx4, struct) {
+export function checkQuadrupelMeld(triple, straight, straightx4, shiftedStraightax4, shiftedStraightbx4, shiftedStraightcx4, struct) {
 	if (triple && triple.length === 4) {
 		struct.melds += 4
 		return true

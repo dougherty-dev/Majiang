@@ -2,36 +2,46 @@
 
 /**
  * @author Niklas Dougherty
- * @module components/wind
+ * @module components/winds
  */
 
-import { modIncrease, rot4 } from './helpers.js'
+import { modIncrease } from './helpers.js'
 
-export async function determineSeatWinds(players, round) {
-	const east = Object.values(players).findIndex(obj => obj.wind === 1)
+const E = 1
+const S = 2
+const W = 3
+const N = 4
 
-	let south, west, north
+const SEATWINDS = [
+	[
+		[E, S, W, N],
+		[N, E, S, W],
+		[W, N, E, S],
+		[S, W, N, E]
+	],
+	[
+		[S, E, N, W],
+		[W, S, E, N],
+		[N, W, S, E],
+		[E, N, W, S]
+	],
+	[
+		[N, W, E, S],
+		[S, N, W, E],
+		[E, S, N, W],
+		[W, E, S, N]
+	],
+	[
+		[W, N, S, E],
+		[E, W, N, S],
+		[S, E, W, N],
+		[N, S, E, W]
+	]
+]
 
-	switch (round) {
-	case 1:
-		for (const key of Object.keys(players)) {
-			players[key].wind = modIncrease(players[key].wind + 2)
-		}
-		break
-	case 2:
-		;[south, west, north] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
-		;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-			[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
-		break
-	case 3:
-		;[north, west, south] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
-		;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-			[players[west].wind, players[north].wind, players[south].wind, players[east].wind]
-		break
-	case 4:
-		;[west, north, south] = [rot4(east, 1), rot4(east, 2), rot4(east, 3)]
-		;[players[east].wind, players[south].wind, players[west].wind, players[north].wind] =
-			[players[south].wind, players[east].wind, players[north].wind, players[west].wind]
-		break
+export async function determineSeatWinds(game) {
+	for (const [key, players] of Object.entries(game.players)) {
+		const wind = SEATWINDS[game.round - 1][game.rotation - 1][key - 1]
+		players.wind = modIncrease(wind + game.windShifter)
 	}
 }

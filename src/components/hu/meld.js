@@ -5,11 +5,13 @@
  * @module components/hu/meld
  */
 
-export function checkMeld(length, triple, straight, struct) {
-	if (!triple && !straight) {
-		return false
+import { SUITED } from './patterns.js'
+
+export function checkMeld(type, triple, straight, struct) {
+	if (triple || (straight && !SUITED.includes(type))) {
+		struct.melds++
+		return true
 	}
 
-	struct.melds++
-	return true
+	return false
 }

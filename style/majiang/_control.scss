@@ -115,6 +115,10 @@
 	filter: invert(1) drop-shadow(1px 1px 5px $black);
 }
 
+.banker {
+	filter: drop-shadow(2px 2px 4px $white) drop-shadow(-2px -2px 4px $tertiary-1);
+}
+
 .sort {
 	position: absolute;
 	bottom: max(5vmin, 2rem);

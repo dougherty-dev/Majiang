@@ -30,7 +30,7 @@ export async function  displayFloor(key, tile, index) {
 	control.appendChild(img)
 }
 
-export function displayRound(round, hand) {
+export function displayRound(round, rotation, hand) {
 	const span = document.getElementById('header-display')
-	span.textContent = `R ${round} | H ${hand}`
+	span.textContent = `R${round} | r${rotation} | H${hand}`
 }
