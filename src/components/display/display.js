@@ -7,6 +7,13 @@
 
 import { ALLPLAYERS } from '../../models/tiles.js'
 import { MAJIANGAVATAR } from '../../config.js'
+import { displayFloors, displayRound } from './floor.js'
+import { displayHiliteTiles, displayTileCount } from './tiles.js'
+import { displayMelds } from './melds.js'
+import { enableDrag } from '../../components/drag.js'
+import { displayPrevailingWind, displaySeatWinds } from './winds.js'
+import { displayDoors } from './door.js'
+import { displayFlowers } from './flowers.js'
 
 export function displayPoints(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -48,6 +55,25 @@ export async function  displayClearBoard() {
 export async function displaySetAvatar() {
 	const avatar = localStorage.getItem(MAJIANGAVATAR)
 	if (avatar) {
-		document.getElementById('grid-user4').style.backgroundImage = 'url(' + `img/avatar/${avatar}.svg` + ')'
+		document.getElementById('grid-user4').style.backgroundImage =
+			'url(' + `img/avatar/${avatar}.svg` + ')'
 	}
+}
+
+export async function layoutGame(game) {
+	if (!game) return
+
+	displayClearBoard()
+	displayRound(game.round, game.rotation, game.hand)
+	displaySetAvatar()
+	displayPrevailingWind(game.prevailingWind)
+	displaySeatWinds(game.players, game.prevailingWind)
+	displayDoors(game.players)
+	enableDrag(game)
+	displayMelds(game.players)
+	displayFlowers(game.players)
+	displayFloors(game.players)
+	displayPoints(game.players)
+	displayTileCount(game.tiles.length)
+	displayHiliteTiles()
 }

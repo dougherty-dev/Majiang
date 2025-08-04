@@ -5,7 +5,7 @@
  * @module components/melds/peng
  */
 
-import { createTile, humanTileHandling } from '../tiles.js'
+import { createTile, handleTiles } from '../tiles.js'
 import { delay, sound } from '../helpers.js'
 import { displayDiscarded } from '../display/tiles.js'
 import { displayDoor } from '../display/door.js'
@@ -143,7 +143,7 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 
 			if (meldType === 'peng') {
 				isPeng = 'peng'
-				humanTileHandling(game, door)
+				handleTiles(game, door)
 				board.removeChild(meldOverlay)
 			} else {
 				isPeng = 'gang'

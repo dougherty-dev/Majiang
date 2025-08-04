@@ -8,7 +8,6 @@
 export const ALLPLAYERS = [1, 2, 3, 4]
 export const AIPLAYERS = [1, 2, 3]
 export const SHUZIPAI = ['b', 't', 'w']
-export const PAIZI = ['z', 't', 'w', 'z']
 
 function quadruple(set, start) {
 	let newSet = []

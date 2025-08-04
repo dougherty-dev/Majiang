@@ -6,7 +6,7 @@
  */
 
 import { SHUZIPAI } from '../../models/tiles.js'
-import { createTile, humanTileHandling } from '../tiles.js'
+import { createTile, handleTiles } from '../tiles.js'
 import { delay, sortTiles, modIncrease, sound } from '../helpers.js'
 import { displayDiscarded } from '../display/tiles.js'
 import { displayDoor } from '../display/door.js'
@@ -20,7 +20,7 @@ export async function checkChi(game, tile) {
 	if (game.players[nextPlayer].door.length < 4) return false
 
 	const type = tile[7]
-	const value = tile[1]
+	const value = parseInt(tile[1])
 
 	if (!SHUZIPAI.includes(type)) return false
 
@@ -151,7 +151,7 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 			const door = document.getElementById('door' + game.currentPlayer)
 			if (!door) return
 
-			humanTileHandling(game, door)
+			handleTiles(game, door)
 			return true
 		}, {once: true})
 

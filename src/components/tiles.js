@@ -5,9 +5,12 @@
  * @module components/tiles
  */
 
-import { displayDiscarded } from './display/tiles.js'
-import { displayDoor } from './display/door.js'
+import { HUAPAI } from '../models/tiles.js'
+import { displayTileCount, displayDiscarded } from './display/tiles.js'
+import { displayDoor, displayAddToDoor } from './display/door.js'
+import { displayFlower } from './display/flowers.js'
 import { sortTiles, sound } from './helpers.js'
+import { newTileChecks } from './checks.js'
 
 export function createTile(tile, ext = '', hidden = false) {
 	if (!tile) return
@@ -45,30 +48,99 @@ export function createTile(tile, ext = '', hidden = false) {
 	return img
 }
 
+export async function takeTile(tiles) {
+	if (tiles) {
+		const tile = tiles.shift()
+		displayTileCount(tiles.length)
+		return tile
+	}
+
+	return false
+}
+
+export async function newTile(game) {
+	let tile = await takeTile(game.tiles)
+	let tileCopy
+
+	if (!tile) return
+
+	while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
+		tileCopy = tile
+		game.players[game.currentPlayer].flowers.push(tile)
+
+		tile = await takeTile(game.tiles)
+		if (tile) {
+			await displayFlower(game.currentPlayer, tileCopy)
+		}
+	}
+
+	if (!tile) return
+
+	game.players[game.currentPlayer].door.push(tile)
+	displayAddToDoor(game.currentPlayer, tile)
+
+	if (game.currentPlayer === 4) {
+		if (await newTileChecks(game, game.currentPlayer)) return
+
+		const door = document.getElementById('door' + game.currentPlayer)
+		if (!door) return
+
+		handleTiles(game, door)
+	}
+}
+
+export async function replaceFlowers(game) {
+	let tileCopy
+	let playing = true
+
+	window.addEventListener('hashchange', () => { playing = false }, { once: true })
+
+	for await (const [key, player] of Object.entries(game.players)) {
+		for (let [index, tile] of Object.entries(player.door)) {
+			while (HUAPAI.includes(tile)) {
+				if (!playing) return
+
+				tileCopy = tile
+				player.flowers.push(tile)
+
+				tile = await takeTile(game.tiles)
+				if (tile) {
+					player.door.splice(index, 1, tile)
+					displayDoor(key, player)
+					await displayFlower(key, tileCopy)
+				}
+			}
+		}
+
+		sortTiles(player.door, game.sorted)
+		displayDoor(key, player)
+	}
+}
+
+async function zoom(e) {
+	const target = e.target
+
+	if (target.nodeName === 'IMG' && target.classList.contains('t')) {
+		if (event === 'mouseover') {
+			target.classList.remove('new-tile')
+			target.classList.add('pick')
+			return
+		}
+
+		target.classList.remove('pick')
+	}
+}
+
 function displayZoomToggle(target) {
 	toggle(target, 'mouseover')
 	toggle(target, 'mouseout')
 
 	function toggle(target, event) {
 		target.addEventListener(event, zoom)
-
-		async function zoom(e) {
-			const target = e.target
-
-			if (target.nodeName === 'IMG' && target.classList.contains('t')) {
-				if (event === 'mouseover') {
-					target.classList.remove('new-tile')
-					target.classList.add('pick')
-					return
-				}
-
-				target.classList.remove('pick')
-			}
-		}
 	}
 }
 
-export function	humanTileHandling(game, door) {
+export function	handleTiles(game, door) {
 	if (!door) return
 
 	displayZoomToggle(door)

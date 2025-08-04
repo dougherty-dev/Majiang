@@ -5,7 +5,7 @@
  * @module components/winds
  */
 
-import { modIncrease } from './helpers.js'
+import { modIncrease } from '../components/helpers.js'
 
 const E = 1
 const S = 2

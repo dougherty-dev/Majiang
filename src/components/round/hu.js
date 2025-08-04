@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+
+/**
+ * @author Niklas Dougherty
+ * @module components/round/results
+ */
+
+import { createElement } from '../elements.js'
+import { sound } from '../helpers.js'
+import { createTile } from '../tiles.js'
+import { displayResults } from './results.js'
+
+export async function draw(game) {
+	game.draw = true
+	displayResults(game, 0, [])
+}
+
+export async function hu(game, key) {
+	game.winner = key
+
+	let door = Object.assign([], game.players[key].door)
+	for (const set of game.players[key].melds) {
+		for (const tile of set.meld) {
+			door.push(tile)
+		}
+	}
+
+	if (game.players[key].hu.dianhu) {
+		const tile = game.players[game.currentPlayer].drop
+		door.push(tile)
+	}
+
+	if (key == 4) {
+		const board = document.getElementById('majiang-board')
+		const huOverlay = createElement('div', ['hu-overlay'])
+		const huContents = createElement('div', ['hu-contents'])
+
+		const button = createElement('button', '', '❌')
+		huContents.appendChild(button)
+
+		const h1 = createElement('h1', '', '和了 Hule!')
+		huContents.appendChild(h1)
+
+		const paragraph = createElement('p', ['hu-set'])
+
+		for (const tile of door) {
+			const img = createTile(tile)
+			img.classList.add('hu')
+			paragraph.appendChild(img)
+		}
+
+		paragraph.lastChild.classList.add('tile-divider', 'hu')
+
+		const ok = createElement('button', '', 'Win')
+		huContents.append(paragraph, ok)
+
+		huOverlay.appendChild(huContents)
+		board.appendChild(huOverlay)
+
+		ok.addEventListener('click', async() => {
+			sound('snd/hule.m4a')
+			board.removeChild(huOverlay)
+			displayResults(game, key, door)
+		}, { once: true })
+
+		await new Promise(resolve => {
+			button.addEventListener('click', () => {
+				board.removeChild(huOverlay)
+				resolve()
+			}, { once: true })
+		})
+
+		return
+	}
+
+	if (key != 4) {
+		sound('snd/hule.m4a')
+		displayResults(game, key, door)
+	}
+}
