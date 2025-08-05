@@ -7,9 +7,14 @@
 
 import { AIPLAYERS } from '../../models/tiles.js'
 import { newTileChecks } from '../checks.js'
-import { delay, sound } from '../helpers.js'
-import { displayDiscarded } from '../display/tiles.js'
+import { delay } from '../helpers.js'
+import { botDiscard } from '../bot/discard.js'
 
+/**
+ * 
+ * @param {Object} game
+ * @description MutationObserver for new tile.
+ */
 export function observeNewTile(game) {
 	const options = { childList: true }
 
@@ -19,21 +24,12 @@ export function observeNewTile(game) {
 
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			// player has a new tile?
-
 			if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
 
 			if (await newTileChecks(game, key)) return
-
 			await delay(1000)
 
-			const chosen = game.players[game.currentPlayer].door.at(-1)
-			if (chosen === undefined) return
-
-			displayDiscarded(game.currentPlayer, chosen)
-			game.players[game.currentPlayer].discarded = true
-			game.players[game.currentPlayer].drop = chosen
-			game.players[game.currentPlayer].door.splice(-1, 1)
-			sound('snd/clack.m4a')
+			await botDiscard(game)
 		}
 
 		const observer = new MutationObserver(callback)
@@ -47,4 +43,3 @@ export function observeNewTile(game) {
 		}
 	}
 }
-

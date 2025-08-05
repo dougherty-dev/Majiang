@@ -7,12 +7,12 @@
 
 import { createTile, handleTiles } from '../tiles.js'
 import { delay, sound } from '../helpers.js'
-import { displayDiscarded } from '../display/tiles.js'
 import { displayDoor } from '../display/door.js'
 import { displayMeld } from '../display/melds.js'
 import { displayRemoveItem } from '../display/display.js'
 import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
+import { botDiscard } from '../bot/discard.js'
 
 export async function checkPeng(game, discarded) {
 	const type = discarded[7]
@@ -88,14 +88,7 @@ async function AIPengHandling(game, meldSet, pengPlayer) {
 	await delay(1000)
 
 	if (meldType === 'peng') {
-		const chosen = game.players[game.currentPlayer].door.at(-1)
-		if (chosen !== undefined) {
-			displayDiscarded(game.currentPlayer, chosen)
-			game.players[game.currentPlayer].discarded = true
-			game.players[game.currentPlayer].drop = chosen
-			game.players[game.currentPlayer].door.splice(-1, 1)
-			sound('snd/clack.m4a')
-		}
+		await botDiscard(game)
 	}
 
 	return meldType

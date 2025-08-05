@@ -5,10 +5,15 @@
  * @module components/hu/patterns
  */
 
+export const TYPES = {b: '', t: '', w: '', f: '', j: ''}
+export const ZITYPE = ['f', 'j']
+export const SHUZITYPE = ['b', 't', 'w']
+
 // abcd for character tiles, only duizi and kezi for those
 export const DUIZI = /([0-9abcd])\1{1}/g
 export const KEZI = /([0-9abcd])\1{2}/g
 
+export const HALFSHUNZI = /(12|23|34|45|56|67|78|89)/g
 export const SHUNZI = /(123|234|345|456|567|678|789)/g
 
 export const SHUNZIX2 =  /(112233|223344|334455|445566|556677|667788|778899)/g

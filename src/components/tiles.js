@@ -117,11 +117,11 @@ export async function replaceFlowers(game) {
 	}
 }
 
-async function zoom(e) {
+function zoom(e) {
 	const target = e.target
 
 	if (target.nodeName === 'IMG' && target.classList.contains('t')) {
-		if (event === 'mouseover') {
+		if (e.type === 'mouseover') {
 			target.classList.remove('new-tile')
 			target.classList.add('pick')
 			return

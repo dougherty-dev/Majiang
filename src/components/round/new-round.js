@@ -5,18 +5,17 @@
  * @module components/round/new-round
  */
 
-import { displayPrevailingWind, displaySeatWinds } from '../display/winds.js'
-import { shuffle, sortTiles, zhuangjiaBanker } from '../helpers.js'
-import { replaceFlowers } from '../tiles.js'
 import { TILES } from '../../models/tiles.js'
-import { displayDoors } from '../display/door.js'
 import { determineSeatWinds } from '../../models/winds.js'
+import { shuffle, sortTiles, zhuangjiaBanker } from '../helpers.js'
 import { saveGame } from '../gameio.js'
+import { replaceFlowers } from '../tiles.js'
+import { displayPrevailingWind, displaySeatWinds } from '../display/winds.js'
+import { displayDoors } from '../display/door.js'
 import { gameOver } from './game-over.js'
 
 export async function newRound(game) {
 	game.tiles = shuffle(Object.assign([], TILES))
-
 	game.hand++
 
 	if (game.winner && game.players[game.winner].wind !== 1) {

@@ -9,7 +9,7 @@ import { createElement } from '../elements.js'
 import { ALLPLAYERS } from '../../models/tiles.js'
 import { newRound } from './new-round.js'
 import { sortTiles } from '../helpers.js'
-import { displayClearBoard, layoutGame } from '../display/display.js'
+import { displayClearBoard } from '../display/display.js'
 import { displayRound } from '../display/floor.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
@@ -77,7 +77,6 @@ export async function displayResults(game, key, door) {
 	displayRound(game.round, game.rotation, game.hand)
 
 	if (await newRound(game)) {
-		await layoutGame(game)
 		play(game)
 	}
 }

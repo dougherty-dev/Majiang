@@ -8,12 +8,12 @@
 import { SHUZIPAI } from '../../models/tiles.js'
 import { createTile, handleTiles } from '../tiles.js'
 import { delay, sortTiles, modIncrease, sound } from '../helpers.js'
-import { displayDiscarded } from '../display/tiles.js'
 import { displayDoor } from '../display/door.js'
 import { displayMeld } from '../display/melds.js'
 import { displayRemoveItem } from '../display/display.js'
 import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
+import { botDiscard } from '../bot/discard.js'
 
 export async function checkChi(game, tile) {
 	const nextPlayer = modIncrease(game.currentPlayer)
@@ -113,15 +113,7 @@ async function AIChiHandling(game, meldTiles, nextPlayer) {
 	await delay(1000)
 	chi(game, meldSet, nextPlayer)
 	await delay(1000)
-
-	const chosen = game.players[game.currentPlayer].door.at(-1)
-	if (chosen !== undefined) {
-		displayDiscarded(game.currentPlayer, chosen)
-		game.players[game.currentPlayer].discarded = true
-		game.players[game.currentPlayer].drop = chosen
-		game.players[game.currentPlayer].door.splice(-1, 1)
-		sound('snd/clack.m4a')
-	}
+	await botDiscard(game)
 
 	return true
 }

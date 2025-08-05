@@ -5,7 +5,7 @@
  * @module components/hu/hu
  */
 
-import { DUIZI, KEZI, SHUNZI } from './patterns.js'
+import { TYPES, DUIZI, KEZI, SHUNZI } from './patterns.js'
 import { SHUNZIX2, SHIFTEDX2 } from './patterns.js'
 import { SHUNZIX3, SHIFTEDAX3, SHIFTEDBX3 } from './patterns.js'
 import { SHUNZIX4, SHIFTEDAX4, SHIFTEDBX4, SHIFTEDCX4 } from './patterns.js'
@@ -20,7 +20,7 @@ export async function checkHu(player, door) {
 	player.hu = new Hu().hu
 	player.hu.melds = player.melds.length
 
-	const types = { b: '', t: '', w: '', f: '', j: ''}
+	const types = Object.assign([], TYPES)
 
 	for (const tile of door) {
 		types[tile[7]] += tile[1]

@@ -32,5 +32,7 @@ export async function  displayFloor(key, tile, index) {
 
 export function displayRound(round, rotation, hand) {
 	const span = document.getElementById('header-display')
+	if (!span) return
+
 	span.textContent = `R${round} | r${rotation} | H${hand}`
 }

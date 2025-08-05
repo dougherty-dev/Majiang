@@ -9,7 +9,6 @@ import { VERSION } from '../config.js'
 import { determineSeatWinds } from './winds.js'
 import { getRandomInt } from '../components/helpers.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
-import { layoutGame } from '../components/display/display.js'
 import { newRound } from '../components/round/new-round.js'
 import { play } from '../components/play.js'
 
@@ -33,16 +32,15 @@ export default class Majiang {
 	async hashLocator() {
 		this.newGameListen()
 
-		if (location.hash === '#board') {
-			if (this.newGame) {
-				this.newGame = false
-			} else {
-				this.game = fetchGame()
-				if (this.game) {
-					layoutGame(this.game)
-					play(this.game)
-				}
-			}
+		if (location.hash !== '#board') return
+
+		switch (this.newGame) {
+		case true:
+			this.newGame = false
+			break
+		default:
+			this.game = fetchGame()
+			play(this.game)
 		}
 	}
 
@@ -82,7 +80,6 @@ export default class Majiang {
 
 		await determineSeatWinds(this.game)
 		await newRound(this.game)
-		await layoutGame(this.game)
 
 		play(this.game)
 	}

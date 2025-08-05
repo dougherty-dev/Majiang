@@ -9,14 +9,16 @@ import { ALLPLAYERS } from '../../models/tiles.js'
 import { displayDoor } from '../display/door.js'
 import { displayRemoveItem } from '../display/display.js'
 import { displayFloor } from '../display/floor.js'
-import { checkDianhu } from '../hu/dianhu.js'
-import { checkPeng } from '../melds/peng.js'
-import { checkChi } from '../melds/chi.js'
 import { delay, modIncrease } from '../helpers.js'
 import { saveGame } from '../gameio.js'
 import { newTile } from '../tiles.js'
-import { draw, hu } from '../round/hu.js'
+import { dropTileChecks } from '../checks.js'
 
+/**
+ * 
+ * @param {Object} game
+ * @description MutationObserver for discarded tile.
+ */
 export function observeDrop(game) {
 	const options = { childList: true }
 
@@ -35,33 +37,7 @@ export function observeDrop(game) {
 			displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 			game.players[game.currentPlayer].discarded = true
 
-			const res = await checkDianhu(game, tile, key)
-			if (res) {
-				await hu(game, res)
-				return
-			}
-
-			// melds
-			switch (await checkPeng(game, tile)) {
-			case 'gang':
-				// if (await checkQianggang(game)) {
-				// 	await hu()
-				// 	return
-				// }
-				newTile(game)
-				return
-			case 'peng':
-				return
-			}
-
-			if (await checkChi(game, tile)) return
-
-			if (game.tiles.length === 0) {
-				await draw(game)
-				return
-			}
-
-			// no melds
+			if (await dropTileChecks(game, tile, key)) return
 			await delay(1000)
 
 			// remove tile from drop zone
