@@ -56,6 +56,11 @@ async function jiagang(game, peng, tile) {
 
 	if (index > -1) {
 		game.players[game.currentPlayer].door.splice(index, 1)
+		for (const meld of game.players[game.currentPlayer].melds) {
+			if (meld.meld[0][1] === tile[1] && meld.meld[0][7] === tile[7]) {
+				meld.meld.push(tile)
+			}
+		}
 	}
 
 	sound('snd/gang.m4a')

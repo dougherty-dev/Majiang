@@ -5,6 +5,7 @@
  * @module components/round/results
  */
 
+import { MAJIANGAVATAR } from '../../config.js'
 import { createElement } from '../elements.js'
 import { ALLPLAYERS } from '../../models/tiles.js'
 import { newRound } from './new-round.js'
@@ -23,10 +24,25 @@ export async function displayResults(game, key, door) {
 	const h1 = createElement('h1', '', 'Results')
 	resultsContents.appendChild(h1)
 
-	const msg = game.draw ? 'Draw' : `Player ${key} won the round`
+	const player = key == 4 ? 'You' : `Player ${key}`
+	const msg = game.draw ? 'Draw' : `${player} won the round`
+
+	let icon = `user${key}`
+	if (key == 4) {
+		const avatar = localStorage.getItem(MAJIANGAVATAR)
+		if (avatar) {
+			icon = `avatar/${avatar}`
+		}
+	}
+
+	const image = createElement('img', ['profile'])
+	image.height = 50
+	image.width = 50
+	image.alt = `Player ${key}`
+	image.src = `img/${icon}.svg`
 
 	const h2 = createElement('h2', '', msg)
-	resultsContents.appendChild(h2)
+	resultsContents.append(image, h2)
 
 	if (door.length) {
 		const paragraph = createElement('p', ['results-set'])

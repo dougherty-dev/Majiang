@@ -26,6 +26,7 @@ export async function displayMeld(key, player, reveal = false) {
 
 		let ext
 		let hidden = false
+		let skip
 		for (const [index, tile] of Object.entries(meld.meld)) {
 			switch (meld.type) {
 			case 'chi':
@@ -43,8 +44,12 @@ export async function displayMeld(key, player, reveal = false) {
 				break
 			}
 
-			const img = createTile(tile, ext, hidden)
-			div.appendChild(img)
+			// skip one inner tile
+			skip = (meld.key == 2 && index == 1) || (meld.key != 2 && index == 2)
+			if (!(meld.type === 'gang' && skip)) {
+				const img = createTile(tile, ext, hidden)
+				div.appendChild(img)
+			}
 		}
 
 		melds.prepend(div, span)

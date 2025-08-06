@@ -20,12 +20,14 @@ export async function draw(game) {
 export async function hu(game, key) {
 	game.winner = key
 
-	let door = Object.assign([], game.players[key].door)
+	let door = []
 	for (const set of game.players[key].melds) {
 		for (const tile of set.meld) {
 			door.push(tile)
 		}
 	}
+
+	door = [...door, ...game.players[key].door]
 
 	if (game.players[key].hu.dianhu) {
 		const tile = game.players[game.currentPlayer].drop

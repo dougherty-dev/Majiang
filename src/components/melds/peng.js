@@ -62,10 +62,6 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 	displayDoor(pengPlayer, game.players[pengPlayer])
 	displayRemoveItem('control-drop', game.currentPlayer)
 
-	if (meldSet.length === 4) {
-		meldSet.splice(-1, 1)
-	}
-
 	game.players[pengPlayer].melds.push({
 		type: meldType,
 		key: Math.abs((4 + pengPlayer - game.currentPlayer) % 4 - 1),
@@ -98,12 +94,11 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 	let isPeng = false
 	const board = document.getElementById('majiang-board')
 
-	let pengSet = meldSet
+	let pengSet = Object.assign([], meldSet)
 	let gangSet = []
 
 	if (meldSet.length === 4) {
-		gangSet = meldSet
-		pengSet = Object.assign([], gangSet)
+		gangSet = Object.assign([], meldSet)
 		pengSet.splice(-1, 1)
 	}
 
@@ -113,8 +108,8 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 	const button = createElement('button', '', '❌')
 	meldContents.appendChild(button)
 
-	for (let [key, meldSet] of Object.entries([pengSet, gangSet])) {
-		if (key == 1 && meldSet.length < 4) break
+	for (let [key, set] of Object.entries([pengSet, gangSet])) {
+		if (key == 1 && set.length < 4) break
 
 		const meldText = (key == 0) ? '碰 Peng' : '杠 Gang'
 		const meldType = (key == 0) ? 'peng' : 'gang'
@@ -122,14 +117,14 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 		meldContents.appendChild(h1)
 
 		const paragraph = createElement('p', ['meld-set'])
-		for (const paizi of meldSet) {
+		for (const paizi of set) {
 			const img = createTile(paizi)
 			img.classList.add('meld')
 			paragraph.appendChild(img)
 		}
 
 		paragraph.addEventListener('click', async() => {
-			peng(game, meldSet, meldType, pengPlayer)
+			peng(game, set, meldType, pengPlayer)
 
 			const door = document.getElementById('door' + game.currentPlayer)
 			if (!door) return
