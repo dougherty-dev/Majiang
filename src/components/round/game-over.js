@@ -5,7 +5,9 @@
  * @module components/round/game-over
  */
 
+import { MAJIANGAVATAR } from '../../config.js'
 import { createElement } from '../elements.js'
+import { newGame } from './new-game.js'
 
 export async function gameOver(game) {
 	const board = document.getElementById('majiang-board')
@@ -19,8 +21,25 @@ export async function gameOver(game) {
 	const winners = Object.values(game.players).map(obj => obj.points)
 	const winner = winners.indexOf(Math.max(...winners)) + 1
 
-	const h2 = createElement('h2', '', `Player ${winner} won the game`)
-	resultsContents.appendChild(h2)
+	const player = winner == 4 ? 'You' : `Player ${winner}`
+	const msg = `${player} won the game`
+
+	let icon = `user${winner}`
+	if (winner == 4) {
+		const avatar = localStorage.getItem(MAJIANGAVATAR)
+		if (avatar) {
+			icon = `avatar/${avatar}`
+		}
+	}
+
+	const image = createElement('img', ['profile'])
+	image.height = 50
+	image.width = 50
+	image.alt = `Player ${winner}`
+	image.src = `img/${icon}.svg`
+
+	const h2 = createElement('h2', '', msg)
+	resultsContents.append(image, h2)
 
 	const ok = createElement('button', '', 'OK')
 	resultsContents.appendChild(ok)
@@ -33,4 +52,5 @@ export async function gameOver(game) {
 	})
 
 	board.removeChild(resultsOverlay)
+	newGame()
 }

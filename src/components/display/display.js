@@ -54,8 +54,9 @@ export async function  displayClearBoard() {
 
 export async function displaySetAvatar() {
 	const avatar = localStorage.getItem(MAJIANGAVATAR)
-	if (avatar) {
-		document.getElementById('grid-user4').style.backgroundImage =
+	const user = document.getElementById('grid-user4')
+	if (avatar && user) {
+		user.style.backgroundImage =
 			'url(' + `img/avatar/${avatar}.svg` + ')'
 	}
 }

@@ -5,14 +5,9 @@
  * @class models/Majiang
  */
 
-import { VERSION } from '../config.js'
-import { randInt } from '../components/helpers.js'
-import { determineSeatWinds } from './winds.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
-import { newRound } from '../components/round/new-round.js'
+import { initGame } from '../components/round/init-game.js'
 import { play } from '../components/play.js'
-
-import Players from './players.js'
 
 export default class Majiang {
 	constructor() {
@@ -54,33 +49,10 @@ export default class Majiang {
 			await saveGame(this.game)
 
 			window.addEventListener('hashchange', async() => {
-				await this.initGame()
+				await initGame()
 			}, { once: true })
 
 			location.hash = 'board'
 		}
-	}
-
-	async initGame() {
-		this.game = {
-			version: VERSION,
-			active: true,
-			round: 1,
-			rotation: 1,
-			hand: 0,
-			prevailingWind: 1,
-			windShifter: randInt(1, 4),
-			currentPlayer: null,
-			tiles: null,
-			sorted: false,
-			draw: false,
-			winner: false,
-			players: new Players().players
-		}
-
-		await determineSeatWinds(this.game)
-		await newRound(this.game)
-
-		play(this.game)
 	}
 }
