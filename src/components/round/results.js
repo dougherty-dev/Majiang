@@ -28,7 +28,6 @@ export async function displayResults(game, key, door) {
 	const h2 = createElement('h2', '', msg)
 	resultsContents.appendChild(h2)
 
-
 	if (door.length) {
 		const paragraph = createElement('p', ['results-set'])
 

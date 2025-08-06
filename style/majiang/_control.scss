@@ -58,7 +58,7 @@
 	align-items: center;
 	justify-content: center;
 	justify-items: center;
-	font-size: max(2vmin, $minsize);
+	font-size: max(1.5vmin, 2 * $minsize);
 	color: $gray-10;
 	border: $border;
 	text-shadow: 1px 1px 2px $tertiary-3;

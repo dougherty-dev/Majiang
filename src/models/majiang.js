@@ -6,8 +6,8 @@
  */
 
 import { VERSION } from '../config.js'
+import { randInt } from '../components/helpers.js'
 import { determineSeatWinds } from './winds.js'
-import { getRandomInt } from '../components/helpers.js'
 import { fetchGame, saveGame } from '../components/gameio.js'
 import { newRound } from '../components/round/new-round.js'
 import { play } from '../components/play.js'
@@ -69,7 +69,7 @@ export default class Majiang {
 			rotation: 1,
 			hand: 0,
 			prevailingWind: 1,
-			windShifter: getRandomInt(1, 4),
+			windShifter: randInt(1, 4),
 			currentPlayer: null,
 			tiles: null,
 			sorted: false,

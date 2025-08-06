@@ -33,3 +33,16 @@ export function displayAddToDoor(key, tile) {
 	img.classList.add('new-tile', 'tile-divider')
 	door.appendChild(img)
 }
+
+export function revealDoors(players) {
+	for (const [key, player] of Object.entries(players)) {
+		const door = document.getElementById('door' + key)
+		if (!door) return
+
+		displayRemoveItem('door', key)
+		for (const tile of player.door) {
+			const img = createTile(tile, '')
+			door.appendChild(img)
+		}
+	}
+}

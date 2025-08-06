@@ -5,6 +5,8 @@
  * @module components/round/results
  */
 
+import { revealDoors } from '../display/door.js'
+import { revealMelds } from '../display/melds.js'
 import { createElement } from '../elements.js'
 import { sound } from '../helpers.js'
 import { createTile } from '../tiles.js'
@@ -29,6 +31,9 @@ export async function hu(game, key) {
 		const tile = game.players[game.currentPlayer].drop
 		door.push(tile)
 	}
+
+	revealDoors(game.players)
+	revealMelds(game.players)
 
 	if (key == 4) {
 		const board = document.getElementById('majiang-board')

@@ -9,7 +9,7 @@ export function delay(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export function getRandomInt(min, max) {
+export function randInt(min, max) {
 	return min + (max - min + 1) * crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32 | 0
 }
 

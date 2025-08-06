@@ -6,10 +6,8 @@
  */
 
 export const TYPES = {b: '', t: '', w: '', f: '', j: ''}
-export const ZITYPE = ['f', 'j']
-export const SHUZITYPE = ['b', 't', 'w']
 
-// abcd for character tiles, only duizi and kezi for those
+// abcd for character tiles, only duizi and kezi
 export const DUIZI = /([0-9abcd])\1{1}/g
 export const KEZI = /([0-9abcd])\1{2}/g
 

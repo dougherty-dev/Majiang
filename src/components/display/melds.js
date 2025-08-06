@@ -15,7 +15,7 @@ export function displayMelds(players) {
 	}
 }
 
-export async function displayMeld(key, player) {
+export async function displayMeld(key, player, reveal = false) {
 	const melds = document.getElementById('melds' + key)
 	if (!melds) return
 
@@ -24,7 +24,8 @@ export async function displayMeld(key, player) {
 		const span = createElement('span', ['meld-divider'])
 		const div = createElement('div', ['melds', 'tile'])
 
-		let ext, hidden
+		let ext
+		let hidden = false
 		for (const [index, tile] of Object.entries(meld.meld)) {
 			switch (meld.type) {
 			case 'chi':
@@ -36,7 +37,9 @@ export async function displayMeld(key, player) {
 				break
 			case 'angang':
 				ext = ''
-				hidden = key != 4 || (key == 4 && (index == 1 || index == 2) )
+				if (!reveal) {
+					hidden = key != 4 || (key == 4 && (index == 1 || index == 2) )
+				}
 				break
 			}
 
@@ -45,5 +48,11 @@ export async function displayMeld(key, player) {
 		}
 
 		melds.prepend(div, span)
+	}
+}
+
+export function revealMelds(players) {
+	for (const [key, player] of Object.entries(players)) {
+		displayMeld(key, player, true)
 	}
 }
