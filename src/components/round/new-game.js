@@ -6,7 +6,7 @@
  */
 
 import { createElement } from '../elements.js'
-import { initGame } from './init-game.js'
+import { initGame } from '../init-game.js'
 
 export async function newGame() {
 	const board = document.getElementById('majiang-board')

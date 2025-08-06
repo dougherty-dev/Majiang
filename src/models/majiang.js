@@ -6,13 +6,12 @@
  */
 
 import { fetchGame, saveGame } from '../components/gameio.js'
-import { initGame } from '../components/round/init-game.js'
+import { newGame } from '../components/round/new-game.js'
 import { play } from '../components/play.js'
 
 export default class Majiang {
 	constructor() {
 		this.game = null
-		this.newGame = false
 		this.hashListen()
 	}
 
@@ -25,33 +24,25 @@ export default class Majiang {
 	}
 
 	async hashLocator() {
-		this.newGameListen()
+		this.playListen()
 
 		if (location.hash !== '#board') return
 
-		switch (this.newGame) {
-		case true:
-			this.newGame = false
-			break
-		default:
-			this.game = fetchGame()
+		this.game = fetchGame()
+		if (this.game) {
 			play(this.game)
+		} else {
+			this.game = null
+			await saveGame(this.game)
+			await newGame()
 		}
 	}
 
-	newGameListen() {
-		const button = document.getElementById('new-game')
+	playListen() {
+		const button = document.getElementById('play')
 		if (!button) return
 
-		button.onclick = async() => {
-			this.newGame = true
-			this.game = null
-			await saveGame(this.game)
-
-			window.addEventListener('hashchange', async() => {
-				await initGame()
-			}, { once: true })
-
+		button.onclick = () => {
 			location.hash = 'board'
 		}
 	}

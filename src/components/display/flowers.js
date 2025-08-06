@@ -22,7 +22,7 @@ export function displayFlowers(players) {
 	}
 }
 
-export async function  displayFlower(key, tile) {
+export async function  displayFlower(key, tile, interactive = true) {
 	const flowers = document.getElementById('flowers' + key)
 	if (!flowers) return
 
@@ -30,6 +30,8 @@ export async function  displayFlower(key, tile) {
 	flowers.appendChild(img)
 	img.classList.add('flower')
 
-	sound('snd/buhua.m4a')
-	await delay(1500)
+	if (interactive) {
+		sound('snd/buhua.m4a')
+		await delay(1500)
+	}
 }

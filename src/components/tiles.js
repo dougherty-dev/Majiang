@@ -107,7 +107,7 @@ export async function replaceFlowers(game) {
 				if (tile) {
 					player.door.splice(index, 1, tile)
 					displayDoor(key, player)
-					await displayFlower(key, tileCopy)
+					await displayFlower(key, tileCopy, false)
 				}
 			}
 		}

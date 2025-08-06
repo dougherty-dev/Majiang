@@ -10,12 +10,23 @@ import { createElement } from '../elements.js'
 import { ALLPLAYERS } from '../../models/tiles.js'
 import { newRound } from './new-round.js'
 import { sortTiles } from '../helpers.js'
-import { displayClearBoard } from '../display/display.js'
+import { displayClearBoard, displayPoints } from '../display/display.js'
 import { displayRound } from '../display/floor.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
 
 export async function displayResults(game, key, door) {
+	const players = ALLPLAYERS.filter(item => item !== key)
+
+	if (game.winner) {
+		game.players[key].points += 24
+		for (const index of players) {
+			game.players[index].points -= 8
+		}
+	}
+
+	displayPoints(game.players)
+
 	const board = document.getElementById('majiang-board')
 
 	const resultsOverlay = createElement('div', ['results-overlay'])
@@ -68,15 +79,6 @@ export async function displayResults(game, key, door) {
 	})
 
 	board.removeChild(resultsOverlay)
-
-	const players = ALLPLAYERS.filter(item => item !== key)
-
-	if (game.winner) {
-		game.players[key].points += 24
-		for (const index of players) {
-			game.players[index].points -= 8
-		}
-	}
 
 	for (const index of ALLPLAYERS) {
 		game.players[index].door = []
