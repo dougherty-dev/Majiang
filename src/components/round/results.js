@@ -9,24 +9,15 @@ import { MAJIANGAVATAR } from '../../config.js'
 import { createElement } from '../elements.js'
 import { ALLPLAYERS } from '../../models/tiles.js'
 import { newRound } from './new-round.js'
-import { sortTiles } from '../helpers.js'
-import { displayClearBoard, displayPoints } from '../display/display.js'
+import { delay, sortTiles, sound } from '../helpers.js'
 import { displayRound } from '../display/floor.js'
+import { displayPoints } from '../display/display.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
 
+import Points from '../../models/points.js'
+
 export async function displayResults(game, key, door) {
-	const players = ALLPLAYERS.filter(item => item !== key)
-
-	if (game.winner) {
-		game.players[key].points += 24
-		for (const index of players) {
-			game.players[index].points -= 8
-		}
-	}
-
-	displayPoints(game.players)
-
 	const board = document.getElementById('majiang-board')
 
 	const resultsOverlay = createElement('div', ['results-overlay'])
@@ -68,11 +59,33 @@ export async function displayResults(game, key, door) {
 		resultsContents.appendChild(paragraph)
 	}
 
-	const ok = createElement('button', '', 'OK')
-	resultsContents.appendChild(ok)
-
 	resultsOverlay.appendChild(resultsContents)
 	board.appendChild(resultsOverlay)
+
+	if (game.winner) {
+		const points = new Points(game, key, door)
+		await points.fanPoints()
+		const score = Object.entries(points.fanzhong).filter(arr => arr[1][4] > 0)
+
+		await delay(1200)
+		for (const point of Object.values(score)) {
+			const fan = createElement('p', ['fan'])
+			fan.textContent = `${point[1][0]} ${point[1][1]} | ${point[1][2]}: ${point[1][4]} p`
+			resultsContents.appendChild(fan)
+			sound(`snd/fanzhong/${point[0]}.m4a`)
+			await delay(1200)
+		}
+
+		const fan = createElement('p', ['fan'])
+		fan.textContent = `Sum: ${points.points} p`
+		resultsContents.appendChild(fan)
+
+		points.sumPoints(game, key)
+		displayPoints(game.players)
+	}
+
+	const ok = createElement('button', '', 'OK')
+	resultsContents.appendChild(ok)
 
 	await new Promise(resolve => {
 		ok.addEventListener('click', async() => { resolve() }, { once: true })
@@ -90,7 +103,6 @@ export async function displayResults(game, key, door) {
 		game.players[index].tingpai = null
 	}
 
-	await displayClearBoard()
 	displayRound(game.round, game.rotation, game.hand)
 
 	if (await newRound(game)) {

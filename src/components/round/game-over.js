@@ -7,7 +7,6 @@
 
 import { MAJIANGAVATAR } from '../../config.js'
 import { createElement } from '../elements.js'
-import { saveGame } from '../gameio.js'
 import { newGame } from './new-game.js'
 
 export async function gameOver(game) {
@@ -53,8 +52,5 @@ export async function gameOver(game) {
 	})
 
 	board.removeChild(resultsOverlay)
-
-	game = null
-	saveGame(game)
 	newGame()
 }

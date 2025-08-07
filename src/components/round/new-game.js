@@ -6,19 +6,20 @@
  */
 
 import { createElement } from '../elements.js'
+import { saveGame } from '../gameio.js'
 import { initGame } from '../init-game.js'
 
 export async function newGame() {
-	const board = document.getElementById('majiang-board')
+	const control = document.getElementById('control-counter')
 
 	const newGameOverlay = createElement('div', ['new-game-overlay'])
 	const newGameContents = createElement('div', ['new-game-contents'])
 
-	const button = createElement('button', ['new-game'], 'New game', 'new-game')
+	const button = createElement('button', ['new-game'], 'New game')
 	newGameContents.appendChild(button)
 
 	newGameOverlay.appendChild(newGameContents)
-	board.appendChild(newGameOverlay)
+	control.appendChild(newGameOverlay)
 
 
 	await new Promise(resolve => {
@@ -27,6 +28,7 @@ export async function newGame() {
 		}, { once: true })
 	})
 
-	board.removeChild(newGameOverlay)
+	control.removeChild(newGameOverlay)
+	await saveGame(null)
 	await initGame()
 }

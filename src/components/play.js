@@ -13,9 +13,9 @@ import { layoutGame } from './display/display.js'
 /**
  * 
  * @param {Object} game
- * @description The game engine.
+ * @description The V7 game engine.
  * 
- * Define two MutationObservers pingponging each other.
+ * Define two MutationObservers pingponging each other (or 4 + 3 instances).
  * Draw a tile, and the game is on.
  */
 export async function play(game) {

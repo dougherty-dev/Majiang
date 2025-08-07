@@ -10,7 +10,6 @@ import { randInt } from './helpers.js'
 import { determineSeatWinds } from '../models/winds.js'
 import { newRound } from '../components/round/new-round.js'
 import { play } from './play.js'
-import { saveGame } from './gameio.js'
 
 import Players from '../models/players.js'
 
@@ -33,13 +32,6 @@ export async function initGame(game) {
 
 	await determineSeatWinds(game)
 	await newRound(game)
-
-	document.addEventListener('keydown', (event) => {
-		if (event.key === 'Escape') {
-			saveGame(null)
-			location.hash = '#'
-		}
-	})
 
 	play(game)
 }

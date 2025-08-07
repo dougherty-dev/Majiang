@@ -65,7 +65,7 @@ export default class BoardView extends HTMLElement {
 						<div class="control-player3 tile" id="control-player3"></div>
 						<div class="control-player4 tile" id="control-player4"></div>
 
-						<div class="control-counter">
+						<div class="control-counter" id="control-counter">
 							<div class="control-wind1">
 								<img id="prevailing1" class="wind" src="img/dong.svg" alt="东" width="1" height="1">
 							</div>

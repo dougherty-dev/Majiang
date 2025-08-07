@@ -37,6 +37,13 @@ export async function hu(game, key) {
 	revealDoors(game.players)
 	revealMelds(game.players)
 
+	if (key != 4) {
+		sound('snd/hule.m4a')
+		displayResults(game, key, door)
+
+		return
+	}
+
 	if (key == 4) {
 		const board = document.getElementById('majiang-board')
 		const huOverlay = createElement('div', ['hu-overlay'])
@@ -76,12 +83,5 @@ export async function hu(game, key) {
 				resolve()
 			}, { once: true })
 		})
-
-		return
-	}
-
-	if (key != 4) {
-		sound('snd/hule.m4a')
-		displayResults(game, key, door)
 	}
 }
