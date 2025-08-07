@@ -20,6 +20,24 @@ export async function checkHu(player, door) {
 	player.hu = new Hu().hu
 	player.hu.melds = player.melds.length
 
+	for (const meld of player.melds) {
+		const m = meld.meld
+		const set = [m[0][7], m[0][1] + m[1][1] + m[2][1]]
+
+		switch (meld.type) {
+		case 'peng':
+			player.hu.kezi.push(set)
+			break
+		case 'gang':
+		case 'angang':
+			player.hu.gangzi.push([m[0][7], m[0][1] + m[1][1] + m[2][1] + m[3][1]])
+			break
+		case 'chi':
+			player.hu.shunzi.push(set)
+			break
+		}
+	}
+
 	const types = Object.assign([], TYPES)
 
 	for (const tile of door) {
@@ -35,7 +53,7 @@ export async function checkHu(player, door) {
 
 	if (pairs === 7) return true
 
-	for (const type of Object.values(types)) {
+	for (const [key, type] of Object.entries(types)) {
 		const pair = type.match(DUIZI) // 2
 
 		const triple = type.match(KEZI) // 3
@@ -63,32 +81,18 @@ export async function checkHu(player, door) {
 			// check special hands first, though
 			return
 		case type.length === 2:
-			if (!checkPair(
-				pair,
-				player.hu)
-			) return false
+			if (!checkPair(key, pair, player.hu)) return false
 			break
 		case type.length === 3:
-			if (!checkMeld(
-				triple,
-				straight,
-				player.hu)
-			) return false
+			if (!checkMeld(key, triple, straight, player.hu)) return false
 			break
 		case type.length === 5:
-			if (!checkPair(
-				pair,
-				player.hu)
-			) return false
+			if (!checkPair(key, pair, player.hu)) return false
 
 			found = false
 			for (const set of pair) {
 				rest = type.replace(set, '')
-				if (checkMeld(
-					rest.match(KEZI),
-					rest.match(SHUNZI),
-					player.hu)
-				) {
+				if (checkMeld(key, rest.match(KEZI), rest.match(SHUNZI), player.hu)) {
 					found = true
 					break
 				}
@@ -97,14 +101,10 @@ export async function checkHu(player, door) {
 			if (!found) return false
 			break
 		case type.length === 6:
-			if (!checkDoubleMeld(
-				type,
-				triple,
-				straight,
-				straightx2,
-				shiftedStraightx2,
-				player.hu)
-			) return false
+			if (!checkDoubleMeld(key, type, triple, straight,
+				straightx2, shiftedStraightx2, player.hu)) {
+				return false
+			}
 			break
 		case type.length === 8:
 			if (!pair) return false
@@ -112,14 +112,8 @@ export async function checkHu(player, door) {
 			found = false
 			for (const set of pair) {
 				rest = type.replace(set, '')
-				if (checkDoubleMeld(
-					rest,
-					rest.match(KEZI),
-					rest.match(SHUNZI),
-					rest.match(SHUNZIX2),
-					rest.match(SHIFTEDX2),
-					player.hu)
-				) {
+				if (checkDoubleMeld(key, rest, rest.match(KEZI), rest.match(SHUNZI),
+					rest.match(SHUNZIX2), rest.match(SHIFTEDX2), player.hu)) {
 					found = true
 					player.hu.pairs++
 					break
@@ -129,15 +123,8 @@ export async function checkHu(player, door) {
 			if (!found) return false
 			break
 		case type.length === 9:
-			if (!checkTripleMeld(
-				type,
-				triple,
-				straight,
-				straightx3,
-				shiftedStraightax3,
-				shiftedStraightbx3,
-				player.hu)
-			) return false
+			if (!checkTripleMeld(key, type, triple, straight, straightx3,
+				shiftedStraightax3, shiftedStraightbx3, player.hu)) return false
 			break
 		case type.length === 11:
 			if (!pair) return false
@@ -146,15 +133,8 @@ export async function checkHu(player, door) {
 			for (const set of pair) {
 				rest = type.replace(set, '')
 
-				if (!checkTripleMeld(
-					rest,
-					rest.match(KEZI),
-					rest.match(SHUNZI),
-					rest.match(SHUNZIX3),
-					rest.match(SHIFTEDAX3),
-					rest.match(SHIFTEDBX3),
-					player.hu)
-				) {
+				if (!checkTripleMeld(key, rest, rest.match(KEZI), rest.match(SHUNZI),
+					rest.match(SHUNZIX3), rest.match(SHIFTEDAX3), rest.match(SHIFTEDBX3), player.hu)) {
 					found = true
 					player.hu.pairs++
 					break
@@ -164,16 +144,8 @@ export async function checkHu(player, door) {
 			if (!found) return false
 			break
 		case type.length === 12:
-			if (!checkQuadrupelMeld(
-				type,
-				triple,
-				straight,
-				straightx4,
-				shiftedStraightax4,
-				shiftedStraightbx4,
-				shiftedStraightcx4,
-				player.hu)
-			) return false
+			if (!checkQuadrupelMeld(key, type, triple, straight, straightx4,
+				shiftedStraightax4, shiftedStraightbx4, shiftedStraightcx4, player.hu)) return false
 			break
 		case type.length === 14:
 			if (!pair) return false
@@ -182,16 +154,9 @@ export async function checkHu(player, door) {
 			for (const set of pair) {
 				rest = type.replace(set, '')
 
-				if (!checkQuadrupelMeld(
-					rest,
-					rest.match(KEZI),
-					rest.match(SHUNZI),
-					rest.match(SHUNZIX4),
-					rest.match(SHIFTEDAX4),
-					rest.match(SHIFTEDBX4),
-					rest.match(SHIFTEDCX4),
-					player.hu)
-				) {
+				if (!checkQuadrupelMeld(key, rest, rest.match(KEZI), rest.match(SHUNZI),
+					rest.match(SHUNZIX4), rest.match(SHIFTEDAX4), rest.match(SHIFTEDBX4),
+					rest.match(SHIFTEDCX4), player.hu)) {
 					found = true
 					player.hu.pairs++
 					break
@@ -204,7 +169,7 @@ export async function checkHu(player, door) {
 			break
 		}
 	}
-
+console.log(player.hu)
 	if (player.hu.pairs === 1 && player.hu.melds === 4) {
 		return true
 	}

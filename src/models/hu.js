@@ -12,9 +12,10 @@ export default class Hu {
 			melds: null,
 			zimo: false,
 			dianhu: false,
-			shunzi: 0,
-			kezi: 0,
-			gangzi: 0
+			duizi: [],
+			shunzi: [],
+			kezi: [],
+			gangzi: []
 		}
 	}
 }

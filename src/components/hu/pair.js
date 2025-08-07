@@ -5,9 +5,10 @@
  * @module components/hu/pair
  */
 
-export function checkPair(pair, struct) {
+export function checkPair(key, pair, struct) {
 	if (!pair) return false
 
 	struct.pairs++
+	struct.duizi.push([key, pair[0]])
 	return true
 }

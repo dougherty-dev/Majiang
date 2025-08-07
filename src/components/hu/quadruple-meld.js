@@ -11,6 +11,7 @@ import { SHUNZIX3, SHIFTEDAX3, SHIFTEDBX3 } from './patterns.js'
 import { checkTripleMeld } from './triple-meld.js'
 
 export function checkQuadrupelMeld(
+	key,
 	type,
 	triple,
 	straight,
