@@ -5,8 +5,7 @@
  * @module components/display/display
  */
 
-import { ALLPLAYERS } from '../../models/tiles.js'
-import { MAJIANGAVATAR } from '../../config.js'
+import { ALLPLAYERS, MAJIANGAVATAR } from '../../models/constants.js'
 import { displayFloors, displayRound } from './floor.js'
 import { displayHiliteTiles, displayTileCount } from './tiles.js'
 import { displayMelds } from './melds.js'

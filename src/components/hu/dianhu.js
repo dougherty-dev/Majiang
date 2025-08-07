@@ -5,7 +5,7 @@
  * @module components/hu/dianhu
  */
 
-import { ALLPLAYERS } from '../../models/tiles.js'
+import { ALLPLAYERS } from '../../models/constants.js'
 import { sortTiles } from '../helpers.js'
 import { checkHu } from './hu.js'
 

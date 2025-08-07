@@ -5,7 +5,7 @@
  * @module components/observers/observe-new-tile
  */
 
-import { ALLPLAYERS } from '../../models/tiles.js'
+import { ALLPLAYERS } from '../../models/constants.js'
 import { displayDoor } from '../display/door.js'
 import { displayRemoveItem } from '../display/display.js'
 import { displayFloor } from '../display/floor.js'

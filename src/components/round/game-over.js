@@ -5,7 +5,7 @@
  * @module components/round/game-over
  */
 
-import { MAJIANGAVATAR } from '../../config.js'
+import { MAJIANGAVATAR } from '../../models/constants.js'
 import { createElement } from '../elements.js'
 import { newGame } from './new-game.js'
 

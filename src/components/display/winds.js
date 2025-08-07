@@ -5,7 +5,8 @@
  * @module components/display/winds
  */
 
-import { ALLPLAYERS, WINDS } from '../../models/tiles.js'
+import { ALLPLAYERS } from '../../models/constants.js'
+import { WINDS } from '../../models/tiles.js'
 import { createElement } from '../elements.js'
 
 export function displayPrevailingWind(prevailingWind) {

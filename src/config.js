@@ -5,5 +5,4 @@
  * @module config
  */
 
-export const VERSION = '0.4.3'
-export const MAJIANGAVATAR = 'Majiang_avatar'
+export const VERSION = '0.5.1'

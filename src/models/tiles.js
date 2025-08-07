@@ -5,8 +5,8 @@
  * @module models/tiles
  */
 
-export const ALLPLAYERS = [1, 2, 3, 4]
-export const AIPLAYERS = [1, 2, 3]
+import { ALLPLAYERS } from './constants.js'
+
 export const SHUZIPAI = ['b', 't', 'w']
 
 function quadruple(set, start) {

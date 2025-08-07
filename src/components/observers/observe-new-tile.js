@@ -5,7 +5,7 @@
  * @module components/observers/observe-new-tile
  */
 
-import { AIPLAYERS } from '../../models/tiles.js'
+import { AIPLAYERS } from '../../models/constants.js'
 import { newTileChecks } from '../checks.js'
 import { delay } from '../helpers.js'
 import { botDiscard } from '../bot/discard.js'

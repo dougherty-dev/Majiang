@@ -5,9 +5,8 @@
  * @module components/round/results
  */
 
-import { MAJIANGAVATAR } from '../../config.js'
+import { ALLPLAYERS, HUMANPLAYER, MAJIANGAVATAR } from '../../models/constants.js'
 import { createElement } from '../elements.js'
-import { ALLPLAYERS } from '../../models/tiles.js'
 import { newRound } from './new-round.js'
 import { delay, sortTiles, sound } from '../helpers.js'
 import { displayRound } from '../display/floor.js'
@@ -26,11 +25,11 @@ export async function displayResults(game, key, door) {
 	const h1 = createElement('h1', '', 'Results')
 	resultsContents.appendChild(h1)
 
-	const player = key == 4 ? 'You' : `Player ${key}`
+	const player = key == HUMANPLAYER ? 'You' : `Player ${key}`
 	const msg = game.draw ? 'Draw' : `${player} won the round`
 
 	let icon = `user${key}`
-	if (key == 4) {
+	if (key == HUMANPLAYER) {
 		const avatar = localStorage.getItem(MAJIANGAVATAR)
 		if (avatar) {
 			icon = `avatar/${avatar}`

@@ -8,6 +8,7 @@
 import { createElement } from '../elements.js'
 import { createTile } from '../../components/tiles.js'
 import { displayRemoveItem } from './display.js'
+import { HUMANPLAYER } from '../../models/constants.js'
 
 export function displayMelds(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -39,7 +40,7 @@ export async function displayMeld(key, player, reveal = false) {
 			case 'angang':
 				ext = ''
 				if (!reveal) {
-					hidden = key != 4 || (key == 4 && (index == 1 || index == 2) )
+					hidden = key != HUMANPLAYER || (key == HUMANPLAYER && (index == 1 || index == 2) )
 				}
 				break
 			}
