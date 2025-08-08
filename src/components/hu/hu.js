@@ -80,7 +80,7 @@ export async function checkHu(player, door) {
 			break
 		}
 	}
-console.log(player.hu)
+	console.log(player.hu)
 	if (player.hu.pairs === 1 && player.hu.melds === 4) {
 		return true
 	}

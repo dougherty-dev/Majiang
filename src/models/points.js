@@ -10,6 +10,8 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
+import { fz1DaSiXi } from './fanzhong/fanzhong88.js'
 
 export default class Points {
 	constructor(game, key, door) {
@@ -27,11 +29,13 @@ export default class Points {
 
 		this.points = 0
 		this.fanzhong = {
-			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0],
-			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0],
-			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0],
-			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0],
-			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0],
+			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
+			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
+			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],
+			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0, []],
+			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
+			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],
+			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0, []],
 		}
 	}
 
@@ -57,9 +61,18 @@ export default class Points {
 	}
 
 	async fanPoints() {
+		let exclude = []
 		for await (const key of Object.keys(this.fanzhong)) {
-			this.fanzhong[key][4] = await this.fanzhong[key][3](this.struct)
-			this.points += this.fanzhong[key][4]
+			const fz = this.fanzhong[key]
+			const points = await fz[3](this.struct)
+
+			if (points && !exclude.includes(key)) {
+				fz[4] = points
+				this.points += points
+				if (fz[5].length) {
+					exclude = [...exclude, ...fz[5]]
+				}
+			}
 		}
 	}
 }

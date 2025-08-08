@@ -5,8 +5,6 @@
  * @module components/round/results
  */
 
-import { revealDoors } from '../display/door.js'
-import { revealMelds } from '../display/melds.js'
 import { createElement } from '../elements.js'
 import { sound } from '../helpers.js'
 import { createTile } from '../tiles.js'
