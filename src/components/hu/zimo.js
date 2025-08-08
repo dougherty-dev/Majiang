@@ -14,7 +14,7 @@ export async function checkZimo(game) {
 	const door = Object.assign([], player.door)
 	sortTiles(door)
 
-	if (await checkHu(player, door, game.currentPlayer)) {
+	if (await checkHu(player, door)) {
 		player.hu.zimo = true
 		game.winner = game.currentPlayer
 		return true

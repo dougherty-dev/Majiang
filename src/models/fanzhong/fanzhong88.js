@@ -7,7 +7,7 @@
 
 const FZ64 = 64
 
-// Big four winds (Da si xi, 大四喜)
+// 1. Big four winds (Da si xi, 大四喜)
 export async function fz1DaSiXi(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
 

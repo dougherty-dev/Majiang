@@ -9,7 +9,7 @@ import { SHUZIPAI } from '../tiles.js'
 
 const FZ24 = 24
 
-// Full flush (Qing yi se, 清一色):
+// 22. Full flush (Qing yi se, 清一色):
 export async function fz22QingYiSe(struct) {
 	const melds = Object.assign([],
 		[
