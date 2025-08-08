@@ -18,8 +18,6 @@ export async function draw(game) {
 }
 
 export async function hu(game, key) {
-	game.winner = key
-
 	let door = []
 	for (const set of game.players[key].melds) {
 		for (const tile of set.meld) {
@@ -33,9 +31,6 @@ export async function hu(game, key) {
 		const tile = game.players[game.currentPlayer].drop
 		door.push(tile)
 	}
-
-	revealDoors(game.players)
-	revealMelds(game.players)
 
 	if (key != 4) {
 		sound('snd/hule.m4a')
@@ -74,7 +69,7 @@ export async function hu(game, key) {
 		ok.addEventListener('click', async() => {
 			sound('snd/hule.m4a')
 			board.removeChild(huOverlay)
-			displayResults(game, key, door)
+			await displayResults(game, key, door)
 		}, { once: true })
 
 		await new Promise(resolve => {
@@ -83,5 +78,7 @@ export async function hu(game, key) {
 				resolve()
 			}, { once: true })
 		})
+
+		return false
 	}
 }

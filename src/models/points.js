@@ -27,11 +27,11 @@ export default class Points {
 
 		this.points = 0
 		this.fanzhong = {
-			69: ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0],
-			70: ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0],
-			76: ['无字', 'Wuzi', 'No honors', fz76WuZi, 0],
-			80: ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0],
-			81: ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0],
+			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0],
+			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0],
+			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0],
+			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0],
+			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0],
 		}
 	}
 

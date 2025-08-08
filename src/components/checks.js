@@ -16,8 +16,7 @@ import { checkDianhu } from './hu/dianhu.js'
 
 export async function newTileChecks(game, key) {
 	if (await checkZimo(game)) {
-		await hu(game, key)
-		return true
+		return await hu(game, key)
 	}
 
 	if (await checkJiagang(game)) {
@@ -40,8 +39,7 @@ export async function newTileChecks(game, key) {
 export async function dropTileChecks(game, tile, key) {
 	const res = await checkDianhu(game, tile, key)
 	if (res) {
-		await hu(game, res)
-		return true
+		return await hu(game, res)
 	}
 
 	// melds

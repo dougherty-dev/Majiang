@@ -11,12 +11,17 @@ import { newRound } from './new-round.js'
 import { delay, sortTiles, sound } from '../helpers.js'
 import { displayRound } from '../display/floor.js'
 import { displayPoints } from '../display/display.js'
+import { revealDoors } from '../display/door.js'
+import { revealMelds } from '../display/melds.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
 
 import Points from '../../models/points.js'
 
 export async function displayResults(game, key, door) {
+	revealDoors(game.players)
+	revealMelds(game.players)
+
 	const board = document.getElementById('majiang-board')
 
 	const resultsOverlay = createElement('div', ['results-overlay'])
@@ -25,25 +30,29 @@ export async function displayResults(game, key, door) {
 	const h1 = createElement('h1', '', 'Results')
 	resultsContents.appendChild(h1)
 
+	if (game.winner) {
+		let icon = `user${key}`
+		if (key == HUMANPLAYER) {
+			const avatar = localStorage.getItem(MAJIANGAVATAR)
+			if (avatar) {
+				icon = `avatar/${avatar}`
+			}
+		}
+
+		const image = createElement('img', ['profile'])
+		image.height = 50
+		image.width = 50
+		image.alt = `Player ${key}`
+		image.src = `img/${icon}.svg`
+
+		resultsContents.appendChild(image)
+	}
+
 	const player = key == HUMANPLAYER ? 'You' : `Player ${key}`
 	const msg = game.draw ? 'Draw' : `${player} won the round`
 
-	let icon = `user${key}`
-	if (key == HUMANPLAYER) {
-		const avatar = localStorage.getItem(MAJIANGAVATAR)
-		if (avatar) {
-			icon = `avatar/${avatar}`
-		}
-	}
-
-	const image = createElement('img', ['profile'])
-	image.height = 50
-	image.width = 50
-	image.alt = `Player ${key}`
-	image.src = `img/${icon}.svg`
-
 	const h2 = createElement('h2', '', msg)
-	resultsContents.append(image, h2)
+	resultsContents.appendChild(h2)
 
 	if (door.length) {
 		const paragraph = createElement('p', ['results-set'])

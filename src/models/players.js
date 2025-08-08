@@ -28,10 +28,10 @@ class Player {
 export default class Players {
 	constructor() {
 		this.players = {
-			1: new Player().player,	// east
-			2: new Player().player,	// south
-			3: new Player().player,	// west
-			4: new Player().player	// north
+			'1': new Player().player,	// east
+			'2': new Player().player,	// south
+			'3': new Player().player,	// west
+			'4': new Player().player	// north
 		}
 	}
 }
