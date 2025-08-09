@@ -92,11 +92,38 @@ export async function checkHu(player, door) {
 
 function checkType(key, type, lookup, hu) {
 	if (!(type in lookup)) return false
-	
-	const melds = lookup[type]
 
-	// ignore duplicates for now, just use first occurrence
-	for (const meld of melds[0]) {
+	const meldsets = lookup[type]
+
+	// traverse all possible duplicates, find max number of melds
+	let maxHuMelds = -1
+	let maxMelds = []
+
+	for (const melds of meldsets) {
+		let huPairs = hu.pairs
+		let huMelds = hu.melds
+
+		for (const meld of melds) {
+			switch (meld.length) {
+			case 2:
+				huPairs++
+				break
+			case 3:
+				if (!ZI.includes(key) && meld.match(SHUNZI)) {
+					huMelds++
+				} else if (meld.match(KEZI)) {
+					huMelds++
+				}
+
+				break
+			}
+		}
+
+		if (huPairs <= 1 && huMelds > maxHuMelds) maxMelds = melds
+	}
+
+	// accept solution
+	for (const meld of maxMelds) {
 		switch (meld.length) {
 		case 2:
 			hu.duizi.push([key, meld])

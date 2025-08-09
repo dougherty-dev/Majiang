@@ -47,7 +47,7 @@ export function modIncrease(number) {
 }
 
 export function sortTiles(tiles, ignore = false) {
-	if (!ignore) {
+	if (tiles && !ignore) {
 		tiles.sort((a, b) => a[2].localeCompare(b[2]))
 	}
 }
