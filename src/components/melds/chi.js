@@ -156,11 +156,9 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 	board.appendChild(meldOverlay)
 
 	await new Promise(resolve => {
-		button.addEventListener('click', () => {
-			board.removeChild(meldOverlay)
-			resolve()
-		}, { once: true })
+		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
+	if (meldOverlay) meldOverlay.remove()
 	return false
 }

@@ -34,7 +34,7 @@ export async function hu(game, key) {
 		sound('snd/hule.m4a')
 		displayResults(game, key, door)
 
-		return false
+		return true
 	}
 
 	if (key == 4) {

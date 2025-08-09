@@ -21,7 +21,7 @@ export async function botDiscard(game) {
 		types[tile[7]] += tile[1]
 	}
 
-	for (const [key, type] of Object.entries(types)) {
+	for (const [key, type] of Object.entries(types).reverse()) {
 		const pair = type.match(DUIZI)
 
 		const triple = type.match(KEZI)
@@ -68,7 +68,7 @@ export async function botDiscard(game) {
 	}
 
 	for (const tile of Object.values(door)) {
-		const ix = tiles.findIndex(elem => elem[0] === tile[7] && elem[1] === tile[1])
+		const ix = tiles.findIndex(elem => elem[0] == tile[7] && elem[1] == tile[1])
 		if (ix === -1) {
 			discard.push([tile[7], tile[1]])
 		}
@@ -76,7 +76,7 @@ export async function botDiscard(game) {
 
 	let index = -1
 	if (discard.length) {
-		index = door.findIndex(elem => elem[7] === discard[0][0] && elem[1] === discard[0][1])
+		index = door.findIndex(elem => elem[7] == discard[0][0] && elem[1] == discard[0][1])
 	}
 
 	displayDiscarded(game.currentPlayer, door.at(index))

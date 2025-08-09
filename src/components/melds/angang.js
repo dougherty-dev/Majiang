@@ -112,6 +112,6 @@ async function humanAngangHandling(game, meldSet) {
 		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
-	board.removeChild(meldOverlay)
+	if (meldOverlay) meldOverlay.remove()
 	return isAngang
 }

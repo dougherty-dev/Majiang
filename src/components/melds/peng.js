@@ -151,6 +151,6 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
-	board.removeChild(meldOverlay)
+	if (meldOverlay) meldOverlay.remove()
 	return isPeng
 }

@@ -19,6 +19,7 @@ import { createTile } from '../tiles.js'
 import Points from '../../models/points.js'
 
 export async function displayResults(game, key, door) {
+	await delay(500)
 	revealDoors(game.players)
 	revealMelds(game.players)
 
@@ -75,13 +76,13 @@ export async function displayResults(game, key, door) {
 		await points.fanPoints()
 		const score = Object.entries(points.fanzhong).filter(arr => arr[1][4] > 0)
 
-		await delay(1200)
+		await delay(1500)
 		for (const point of Object.values(score)) {
 			const fan = createElement('p', ['fan'])
 			fan.textContent = `${point[1][0]} ${point[1][1]} | ${point[1][2]}: ${point[1][4]} p`
 			resultsContents.appendChild(fan)
 			sound(`snd/fanzhong/${point[0]}.m4a`)
-			await delay(1200)
+			await delay(1500)
 		}
 
 		const fan = createElement('p', ['fan'])

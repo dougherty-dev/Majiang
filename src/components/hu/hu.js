@@ -80,7 +80,7 @@ export async function checkHu(player, door) {
 			break
 		}
 	}
-	console.log(player.hu)
+
 	if (player.hu.pairs === 1 && player.hu.melds === 4) {
 		return true
 	}
@@ -99,13 +99,14 @@ function checkType(key, type, lookup, hu) {
 				hu.pairs++
 				break
 			case 3:
-				if (meld.match(SHUNZI)) {
+				if (!['f', 'j'].includes(key) && meld.match(SHUNZI)) {
 					hu.shunzi.push([key, meld])
+					hu.melds++
 				} else if (meld.match(KEZI)) {
 					hu.kezi.push([key, meld])
+					hu.melds++
 				}
 
-				hu.melds++
 				break
 			}
 		}

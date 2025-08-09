@@ -120,6 +120,6 @@ async function humanJiagangHandling(game, peng, tile) {
 		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
 
-	board.removeChild(meldOverlay)
+	if (meldOverlay) meldOverlay.remove()
 	return isJiagang
 }

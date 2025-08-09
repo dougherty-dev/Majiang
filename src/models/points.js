@@ -9,7 +9,7 @@ const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz1DaSiXi } from './fanzhong/fanzhong88.js'
@@ -35,6 +35,7 @@ export default class Points {
 			'54': ['双箭刻', 'Shuang jianke', 'Two dragons kezi', fz54ShuangJianke, 0, ['59']],
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],
 			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0, []],
+			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],
 			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
 			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],
 			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0, []],

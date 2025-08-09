@@ -7,7 +7,7 @@
 
 const FZ1 = 1
 
-// 69. Pure double shunzi (Yiban gao, 一般高
+// 69. Pure double shunzi (Yiban gao, 一般高)
 export async function fz69YibanGao(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
@@ -20,20 +20,29 @@ export async function fz69YibanGao(struct) {
 	return 0
 }
 
-// 70. Mixed double shunzi (Xi xiangfeng, 喜相逢):
+// 70. Mixed double shunzi (Xi xiangfeng, 喜相逢)
 export async function fz70XiXiangfeng(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
 	let hit = []
 	for (const type of shunzi) {
-		if (hit.includes(type[1])) return FZ1
-		hit.push(type[1])
+		if (hit.length && hit[0][1] === type[1] && hit[0][0] !== type[0]) return FZ1
+		hit.push(type)
 	}
 
 	return 0
 }
 
-// 76. No honors (Wu zi, 无字):
+// 74. Melded gang (Minggang, 明杠)
+export async function fz74Minggang(struct) {
+	for (const meld of struct.game.players[struct.key].melds) {
+		if (meld.type == 'gang') return FZ1
+	}
+
+	return 0
+}
+
+// 76. No honors (Wu zi, 无字)
 export async function fz76WuZi(struct) {
 	return struct.door.some(arr => ['f', 'j'].includes(arr[7])) ? 0 : FZ1
 }
