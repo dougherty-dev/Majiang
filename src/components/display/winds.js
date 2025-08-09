@@ -73,7 +73,7 @@ async function avatar() {
 		if (target.nodeName === 'IMG' && target.classList.contains('avatar')) {
 			localStorage.setItem('Majiang_avatar', target.id)
 			document.getElementById('grid-user4').style.backgroundImage = 'url(' + `img/avatar/${target.id}.svg` + ')'
-			document.body.removeChild(avatarOverlay)
+			if (avatarOverlay) avatarOverlay.remove()
 		}
 	}, {once: true})
 
@@ -83,9 +83,8 @@ async function avatar() {
 	document.body.appendChild(avatarOverlay)
 
 	await new Promise(resolve => {
-		button.addEventListener('click', () => {
-			document.body.removeChild(avatarOverlay)
-			resolve()
-		}, { once: true })
+		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})
+
+	if (avatarOverlay) avatarOverlay.remove()
 }

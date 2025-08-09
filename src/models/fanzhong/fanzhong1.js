@@ -5,6 +5,8 @@
  * @module models/fanzhong/fanzhong1
  */
 
+import { ZI } from '../tiles.js'
+
 const FZ1 = 1
 
 // 69. Pure double shunzi (Yiban gao, 一般高)
@@ -44,7 +46,7 @@ export async function fz74Minggang(struct) {
 
 // 76. No honors (Wu zi, 无字)
 export async function fz76WuZi(struct) {
-	return struct.door.some(arr => ['f', 'j'].includes(arr[7])) ? 0 : FZ1
+	return struct.door.some(arr => ZI.includes(arr[7])) ? 0 : FZ1
 }
 
 // 80. Self-drawn (Zimo, 自摸)

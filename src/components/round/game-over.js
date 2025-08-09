@@ -51,6 +51,6 @@ export async function gameOver(game) {
 		ok.addEventListener('click', async() => { resolve() }, { once: true })
 	})
 
-	board.removeChild(resultsOverlay)
+	if (resultsOverlay) resultsOverlay.remove()
 	newGame()
 }

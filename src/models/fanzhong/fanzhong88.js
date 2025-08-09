@@ -5,13 +5,15 @@
  * @module models/fanzhong/fanzhong88
  */
 
+import { FENG } from '../tiles.js'
+
 const FZ64 = 64
 
 // 1. Big four winds (Da si xi, 大四喜)
 export async function fz1DaSiXi(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
 
-	if (kezi.length === 4 && kezi.every((type) => type[0] === 'f')) {
+	if (kezi.length === 4 && kezi.every((type) => type[0] === FENG)) {
 		return FZ64
 	}
 

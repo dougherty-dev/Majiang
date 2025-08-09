@@ -5,7 +5,7 @@
  * @module components/melds/chi
  */
 
-import { SHUZIPAI } from '../../models/tiles.js'
+import { SHU } from '../../models/tiles.js'
 import { createTile, handleTiles } from '../tiles.js'
 import { delay, sortTiles, modIncrease, sound } from '../helpers.js'
 import { displayDoor } from '../display/door.js'
@@ -22,7 +22,7 @@ export async function checkChi(game, tile) {
 	const type = tile[7]
 	const value = tile[1]
 
-	if (!SHUZIPAI.includes(type)) return false
+	if (!SHU.includes(type)) return false
 
 	let patterns = []
 	switch (value) {
@@ -139,7 +139,8 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 		paragraph.addEventListener('click', async() => {
 			chi(game, meldSet, nextPlayer)
 
-			board.removeChild(meldOverlay)
+			if (meldOverlay) meldOverlay.remove()
+
 			const door = document.getElementById('door' + game.currentPlayer)
 			if (!door) return
 

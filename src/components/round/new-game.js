@@ -28,7 +28,8 @@ export async function newGame() {
 		}, { once: true })
 	})
 
-	control.removeChild(newGameOverlay)
+	if (newGameOverlay) newGameOverlay.remove()
+
 	await saveGame(null)
 	await initGame()
 }

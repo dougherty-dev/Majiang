@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong24
  */
 
-import { SHUZIPAI } from '../tiles.js'
+import { SHU } from '../tiles.js'
 
 const FZ24 = 24
 
@@ -19,7 +19,7 @@ export async function fz22QingYiSe(struct) {
 		]
 	)
 
-	if (SHUZIPAI.includes(melds[0][0]) &&
+	if (SHU.includes(melds[0][0]) &&
 		melds.length === 5 &&
 		melds.every((type) => type[0] === melds[0][0])
 	) {

@@ -100,7 +100,7 @@ export async function displayResults(game, key, door) {
 		ok.addEventListener('click', async() => { resolve() }, { once: true })
 	})
 
-	board.removeChild(resultsOverlay)
+	if (resultsOverlay) resultsOverlay.remove()
 
 	for (const index of ALLPLAYERS) {
 		game.players[index].door = []

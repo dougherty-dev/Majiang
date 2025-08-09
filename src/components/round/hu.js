@@ -66,17 +66,17 @@ export async function hu(game, key) {
 
 		ok.addEventListener('click', async() => {
 			sound('snd/hule.m4a')
-			board.removeChild(huOverlay)
+			if (huOverlay) huOverlay.remove()
 			await displayResults(game, key, door)
 		}, { once: true })
 
 		await new Promise(resolve => {
 			button.addEventListener('click', () => {
-				board.removeChild(huOverlay)
 				resolve()
 			}, { once: true })
 		})
 
+		if (huOverlay) huOverlay.remove()
 		return false
 	}
 }

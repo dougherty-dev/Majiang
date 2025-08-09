@@ -6,6 +6,7 @@
  */
 
 import { TYPES, DUIZI, KEZI, SHUNZI } from './patterns.js'
+import { ZI } from '../../models/tiles.js'
 import { lookup2 } from './lookup2.js'
 import { lookup3 } from './lookup3.js'
 import { lookup5 } from './lookup5.js'
@@ -92,14 +93,15 @@ function checkType(key, type, lookup, hu) {
 	if (type in lookup) {
 		const melds = lookup[type]
 
-		for (const meld of melds) {
+		// ignore duplicates for now, just use first occurrence
+		for (const meld of melds[0]) {
 			switch (meld.length) {
 			case 2:
 				hu.duizi.push([key, meld])
 				hu.pairs++
 				break
 			case 3:
-				if (!['f', 'j'].includes(key) && meld.match(SHUNZI)) {
+				if (!ZI.includes(key) && meld.match(SHUNZI)) {
 					hu.shunzi.push([key, meld])
 					hu.melds++
 				} else if (meld.match(KEZI)) {

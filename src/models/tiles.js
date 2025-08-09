@@ -7,7 +7,13 @@
 
 import { ALLPLAYERS } from './constants.js'
 
-export const SHUZIPAI = ['b', 't', 'w']
+export const BING = 'b'
+export const TIAO = 't'
+export const WAN = 'w'
+export const SHU = [BING, TIAO, WAN]
+export const FENG = 'f'
+export const JIAN = 'j'
+export const ZI = [FENG, JIAN]
 
 function quadruple(set, start) {
 	let newSet = []

@@ -132,7 +132,8 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 			if (meldType === 'peng') {
 				isPeng = 'peng'
 				handleTiles(game, door)
-				board.removeChild(meldOverlay)
+
+				if (meldOverlay) meldOverlay.remove()
 			} else {
 				isPeng = 'gang'
 				button.click()
