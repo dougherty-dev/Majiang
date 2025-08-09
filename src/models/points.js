@@ -10,6 +10,8 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
+import { fz63Pinghu } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz1DaSiXi } from './fanzhong/fanzhong88.js'
@@ -32,7 +34,9 @@ export default class Points {
 		this.fanzhong = {
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
+			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'54': ['双箭刻', 'Shuang jianke', 'Two dragons kezi', fz54ShuangJianke, 0, ['59']],
+			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],
 			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0, []],
 			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],

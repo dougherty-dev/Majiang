@@ -8,6 +8,7 @@
 export default class Hu {
 	constructor() {
 		this.hu = {
+			types: [],
 			pairs: null,
 			melds: null,
 			zimo: false,

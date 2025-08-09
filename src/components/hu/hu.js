@@ -36,8 +36,7 @@ export async function checkHu(player, door) {
 	player.hu.melds = player.melds.length
 
 	for (const meld of player.melds) {
-		const m = meld.meld
-		const set = [m[0][7], `${m[0][1]}${m[1][1]}${m[2][1]}`]
+		const set = [meld.meld[0][7], meld.meld.map(item => item[1]).join('')]
 
 		switch (meld.type) {
 		case 'peng':
@@ -45,7 +44,7 @@ export async function checkHu(player, door) {
 			break
 		case 'gang':
 		case 'angang':
-			player.hu.gangzi.push([m[0][7], `${m[0][1]}${m[1][1]}${m[2][1]}${m[3][1]}`])
+			player.hu.gangzi.push(set)
 			break
 		case 'chi':
 			player.hu.shunzi.push(set)
@@ -58,6 +57,8 @@ export async function checkHu(player, door) {
 	for (const tile of door) {
 		types[tile[7]] += tile[1]
 	}
+
+	player.hu.types = types
 
 	// either seven pairs, or just one
 	let pairs = 0
@@ -90,31 +91,29 @@ export async function checkHu(player, door) {
 }
 
 function checkType(key, type, lookup, hu) {
-	if (type in lookup) {
-		const melds = lookup[type]
+	if (!(type in lookup)) return false
+	
+	const melds = lookup[type]
 
-		// ignore duplicates for now, just use first occurrence
-		for (const meld of melds[0]) {
-			switch (meld.length) {
-			case 2:
-				hu.duizi.push([key, meld])
-				hu.pairs++
-				break
-			case 3:
-				if (!ZI.includes(key) && meld.match(SHUNZI)) {
-					hu.shunzi.push([key, meld])
-					hu.melds++
-				} else if (meld.match(KEZI)) {
-					hu.kezi.push([key, meld])
-					hu.melds++
-				}
-
-				break
+	// ignore duplicates for now, just use first occurrence
+	for (const meld of melds[0]) {
+		switch (meld.length) {
+		case 2:
+			hu.duizi.push([key, meld])
+			hu.pairs++
+			break
+		case 3:
+			if (!ZI.includes(key) && meld.match(SHUNZI)) {
+				hu.shunzi.push([key, meld])
+				hu.melds++
+			} else if (meld.match(KEZI)) {
+				hu.kezi.push([key, meld])
+				hu.melds++
 			}
-		}
 
-		return true
+			break
+		}
 	}
 
-	return false
+	return true
 }

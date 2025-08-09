@@ -79,7 +79,7 @@ export async function displayResults(game, key, door) {
 		await delay(1500)
 		for (const point of Object.values(score)) {
 			const fan = createElement('p', ['fan'])
-			fan.textContent = `${point[1][0]} ${point[1][1]} | ${point[1][2]}: ${point[1][4]} p`
+			fan.textContent = `${point[0]}: ${point[1][0]} ${point[1][1]} | ${point[1][2]}: ${point[1][4]} p`
 			resultsContents.appendChild(fan)
 			sound(`snd/fanzhong/${point[0]}.m4a`)
 			await delay(1500)
