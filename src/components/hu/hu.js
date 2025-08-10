@@ -67,7 +67,13 @@ export async function checkHu(player, door) {
 		if (pair) pairs += pair.length
 	}
 
-	if (pairs === 7) return true
+	if (pairs === 7) {
+		player.hu.pairs = 7
+		for (const tile of door) {
+			player.hu.duizi.push(tile)
+		}
+		return true
+	}
 
 	for (const [key, type] of Object.entries(types)) {
 

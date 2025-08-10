@@ -50,19 +50,19 @@ export async function newRound(game) {
 	 */
 
 	// const tiles = [
-	// 	'zi5',
-	// 	'zi5',
-	// 	'zi5',
-	// 	'zi5',
-	// 	'wan2',
-	// 	'wan2',
-	// 	'wan2',
-	// 	'tiao8',
-	// 	'tiao8',
-	// 	'tiao8',
-	// 	'bing3',
-	// 	'bing3',
-	// 	'bing3',
+	// 	'tiao1',
+	// 	'tiao1',
+	// 	'tiao2',
+	// 	'tiao2',
+	// 	'tiao3',
+	// 	'tiao3',
+	// 	'tiao4',
+	// 	'tiao4',
+	// 	'tiao5',
+	// 	'tiao5',
+	// 	'tiao6',
+	// 	'tiao6',
+	// 	'tiao7',
 	// ]
 
 	// for (const tile of tiles) {

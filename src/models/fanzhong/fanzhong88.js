@@ -43,3 +43,21 @@ export async function fz5SiGang(struct) {
 	return (struct.game.players[struct.key].hu.gangzi.length === 4) ? FZ88 : 0
 
 }
+
+// 6. Seven shifted pairs (Lian qi dui, 连七对)
+export async function fz6LianQiDui(struct) {
+	const duizi = struct.game.players[struct.key].hu.duizi
+	const type = duizi.map(item => item[1]).join('')
+	const pattern = /(11223344556677|22334455667788|33445566778899)/g
+
+	if (
+		struct.game.players[struct.key].hu.pairs === 7 &&
+		type.match(pattern)
+	) {
+
+		return FZ88
+	}
+		
+	return 0
+
+}
