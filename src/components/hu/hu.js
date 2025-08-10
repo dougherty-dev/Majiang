@@ -5,7 +5,7 @@
  * @module components/hu/hu
  */
 
-import { TYPES, DUIZI } from './patterns.js'
+import { TYPES } from './patterns.js'
 import { lookup2 } from './lookup2.js'
 import { lookup3 } from './lookup3.js'
 import { lookup5 } from './lookup5.js'
@@ -18,6 +18,7 @@ import { lookup14 } from './lookup14.js'
 import { checkType } from './check-type.js'
 
 import Hu from '../../models/hu.js'
+import { checkSpecial } from './specials.js'
 
 const lookup = {
 	lookup2: lookup2,
@@ -52,31 +53,19 @@ export async function checkHu(player, door) {
 		}
 	}
 
-	const types = Object.assign([], TYPES)
+	const types = Object.assign({}, TYPES)
 
 	for (const tile of door) {
 		types[tile[7]] += tile[1]
 	}
 
 	player.hu.types = types
+	player.hu.values = Object.values(types).filter(item => item !== '')
 
-	// either seven pairs, or just one
-	let pairs = 0
-	for (const type of Object.values(types)) {
-		const pair = type.match(DUIZI)
-		if (pair) pairs += pair.length
-	}
+	if (await checkSpecial(player, door, types)) return true
 
-	if (pairs === 7) {
-		player.hu.pairs = 7
-		for (const tile of door) {
-			player.hu.duizi.push(tile)
-		}
-		return true
-	}
-
+	// regular hands
 	for (const [key, type] of Object.entries(types)) {
-
 		switch (true) {
 		case type.length === 0:
 			break

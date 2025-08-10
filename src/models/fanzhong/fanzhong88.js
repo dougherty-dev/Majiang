@@ -20,9 +20,7 @@ export async function fz1DaSiXi(struct) {
 		kezi.length + gangzi.length === 4
 		&& kezi.every((type) => type[0] === FENG)
 		&& gangzi.every((type) => type[0] === FENG)
-	) {
-		return FZ88
-	}
+	) return FZ88
 
 	return 0
 }
@@ -86,11 +84,14 @@ export async function fz6LianQiDui(struct) {
 	if (
 		struct.game.players[struct.key].hu.pairs === 7 &&
 		type.match(pattern)
-	) {
-
-		return FZ88
-	}
+	) return FZ88
 		
 	return 0
+}
 
+// 7. Thirteen orphans (Shisan yao, 十三幺)
+export async function fz7ShisanYao(struct) {
+	if (struct.game.players[struct.key].hu.shisanyao) return FZ88
+
+	return 0
 }

@@ -9,14 +9,16 @@ export default class Hu {
 	constructor() {
 		this.hu = {
 			types: [],
-			pairs: null,
-			melds: null,
+			pairs: 0,
+			melds: 0,
 			zimo: false,
+			shisanyao: false,
 			dianhu: false,
 			duizi: [],
 			shunzi: [],
 			kezi: [],
-			gangzi: []
+			gangzi: [],
+			values: []
 		}
 	}
 }
