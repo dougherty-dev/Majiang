@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong88
  */
 
-import { FENG, JIAN } from '../tiles.js'
+import { BING, FENG, JIAN, TIAO } from '../tiles.js'
 
 const FZ88 = 88
 
@@ -34,6 +34,24 @@ export async function fz2DaSanYuan(struct) {
 	const count = types.filter(item => item === JIAN).length
 
 	if (count === 3) return FZ88
+
+	return 0
+}
+
+// 3. All green (Lü yise, 绿一色)
+export async function fz3LyYise(struct) {
+	const melds = Object.assign([],
+		[
+			...struct.game.players[struct.key].hu.duizi,
+			...struct.game.players[struct.key].hu.shunzi,
+			...struct.game.players[struct.key].hu.kezi
+		]
+	)
+
+	const jian = melds.filter(item => item[0] === 'j').map(item => item[1]).join('')
+	const tiao = melds.filter(item => item[0] === 't').map(item => item[1]).join('')
+
+	if (/^[2]+$/.test(jian) && /^[23468]+$/.test(tiao)) return FZ88
 
 	return 0
 }

@@ -27,7 +27,7 @@ export function checkType(key, type, lookup, player) {
 
 	// DRY
 	if (meldsets.length > 1) {
-	console.log(actualMelds, meldsets) // actual melds must be subset of contructed sets
+		console.log(actualMelds, meldsets) // actual melds must be subset of contructed sets
 		for (const melds of meldsets) {
 			let huPairs = player.hu.pairs
 			let huMelds = player.hu.melds

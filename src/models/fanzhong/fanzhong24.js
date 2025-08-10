@@ -20,7 +20,6 @@ export async function fz22QingYiSe(struct) {
 	)
 
 	if (SHU.includes(melds[0][0]) &&
-		melds.length === 5 &&
 		melds.every((type) => type[0] === melds[0][0])
 	) {
 		return FZ24

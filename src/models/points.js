@@ -14,7 +14,7 @@ import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
 import { fz63Pinghu } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz54ShuangJianke } from './fanzhong/fanzhong6.js'
-import { fz1DaSiXi, fz2DaSanYuan, fz5SiGang, fz6LianQiDui } from './fanzhong/fanzhong88.js'
+import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz5SiGang, fz6LianQiDui } from './fanzhong/fanzhong88.js'
 
 export default class Points {
 	constructor(game, key, door) {
@@ -32,14 +32,21 @@ export default class Points {
 
 		this.points = 0
 		this.fanzhong = {
+			// 88 fan
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
 			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['54', '59']],
+			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, []],
 			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['79']],
 			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['22', '79']],
+			// 24 fan
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
+			// 16 fan
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
+			// 6 fan
 			'54': ['双箭刻', 'Shuang jianke', 'Two dragons kezi', fz54ShuangJianke, 0, ['59']],
+			// 2 fan
 			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
+			// 1 fan
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],
 			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0, []],
 			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],
