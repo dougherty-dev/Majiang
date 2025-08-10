@@ -11,14 +11,12 @@ const FZ24 = 24
 
 // 22. Full flush (Qing yi se, 清一色):
 export async function fz22QingYiSe(struct) {
-	const melds = Object.assign([],
-		[
-			...struct.game.players[struct.key].hu.duizi,
-			...struct.game.players[struct.key].hu.shunzi,
-			...struct.game.players[struct.key].hu.kezi,
-			...struct.game.players[struct.key].hu.gangzi
-		]
-	)
+	const melds = Object.assign([], [
+		...struct.game.players[struct.key].hu.duizi,
+		...struct.game.players[struct.key].hu.shunzi,
+		...struct.game.players[struct.key].hu.kezi,
+		...struct.game.players[struct.key].hu.gangzi
+	])
 
 	if (
 		melds.length &&

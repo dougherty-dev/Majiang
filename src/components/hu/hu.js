@@ -16,9 +16,9 @@ import { lookup11 } from './lookup11.js'
 import { lookup12 } from './lookup12.js'
 import { lookup14 } from './lookup14.js'
 import { checkType } from './check-type.js'
+import { checkSpecial } from './specials.js'
 
 import Hu from '../../models/hu.js'
-import { checkSpecial } from './specials.js'
 
 const lookup = {
 	lookup2: lookup2,

@@ -8,7 +8,7 @@
 export default class Hu {
 	constructor() {
 		this.hu = {
-			types: [],
+			types: {},
 			pairs: 0,
 			melds: 0,
 			zimo: false,
@@ -18,7 +18,8 @@ export default class Hu {
 			shunzi: [],
 			kezi: [],
 			gangzi: [],
-			values: []
+			values: [],
+			allMelds: []
 		}
 	}
 }

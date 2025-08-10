@@ -5,15 +5,25 @@
  * @module models/fanzhong/fanzhong2
  */
 
+import { fz76WuZi } from './fanzhong1.js'
+
 const FZ2 = 2
 
 // 63. All shunzi (Pinghu, 平和)
 export async function fz63Pinghu(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	if (struct.game.players[struct.key].hu.shunzi.length === 4) {
 		return FZ2
 	}
+
+	return 0
+}
+
+// 68. All simples (Duanyao, 断幺)
+export async function fz68Duanyao(struct) {
+	if (!fz76WuZi(struct)) return 0
+
+	const suit = struct.game.players[struct.key].hu.values.join('')
+	if (/^[2345678]+$/.test(suit)) return FZ2
 
 	return 0
 }

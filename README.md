@@ -2,19 +2,20 @@
 
 ## Javascript game
 
-The classical Chinese game Majiang (麻将) is here being built as a single player game against three computer players, using Javascript and SASS. The game is now (v. 0.4.0) playable at [Github pages](https://dougherty-dev.github.io/Majiang/), although with the following caveats:
+The classical Chinese game Majiang (麻将) is here being built as a single player game against three computer players, using Javascript and SASS. The game is playable at [Github pages](https://dougherty-dev.github.io/Majiang/), although with the following caveats:
 
-- Only 8 extra points are given from losers to winner in each hand («Idiot Majiang», or 戆嘟麻将, *gangdu majiang*). *Fan* scoring rules will be implemented continuously.
-- *Hu* patterns are not yet complete, especially not more elaborate winning patterns, like orphans or knitted tiles.
+- No minimum *fan* score is (yet) needed to win (so called «Idiot Majiang», or 戆嘟麻将, *gangdu majiang*). *Fan* scoring rules are being implemented continuously.
+- Not all *hu* patterns are yet complete, like knitted patterns.
 - Bots currently only have modest intelligence. They’ll still beat you, though.
 - There will be bugs.
 
 ### Hints
 
 - Human player is seated at the bottom position of the table, with numerical designation 4.
-- Double-click to discard tiles.
+- Double-click to discard a tile.
 - Click on human player’s seat wind icon to choose another avatar.
 - Sort tiles by drag and drop. Restore automatic ordering by clicking the sort icon above the seat wind icon.
+- You are supposed to deal with the hand dealt to you, but there’s always the escape key.
 
 New to Majiang? Just tag along and see what’s happening, then read the rules.
 

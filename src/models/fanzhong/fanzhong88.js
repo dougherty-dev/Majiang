@@ -46,13 +46,12 @@ export async function fz2DaSanYuan(struct) {
 export async function fz3LyYise(struct) {
 	if (struct.game.players[struct.key].hu.melds !== 5) return 0
 
-	const melds = Object.assign([],
-		[
-			...struct.game.players[struct.key].hu.duizi,
-			...struct.game.players[struct.key].hu.shunzi,
-			...struct.game.players[struct.key].hu.kezi
-		]
-	)
+	const melds = Object.assign([], [
+		...struct.game.players[struct.key].hu.duizi,
+		...struct.game.players[struct.key].hu.shunzi,
+		...struct.game.players[struct.key].hu.kezi,
+		...struct.game.players[struct.key].hu.gangzi
+	])
 
 	const jian = melds.filter(item => item[0] === 'j').map(item => item[1]).join('')
 	const tiao = melds.filter(item => item[0] === 't').map(item => item[1]).join('')
