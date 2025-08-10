@@ -9,6 +9,8 @@ const FZ2 = 2
 
 // 63. All shunzi (Pinghu, 平和)
 export async function fz63Pinghu(struct) {
+	if (struct.game.players[struct.key].hu.melds !== 5) return 0
+
 	if (struct.game.players[struct.key].hu.shunzi.length === 4) {
 		return FZ2
 	}

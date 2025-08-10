@@ -15,7 +15,8 @@ export async function fz22QingYiSe(struct) {
 		[
 			...struct.game.players[struct.key].hu.duizi,
 			...struct.game.players[struct.key].hu.shunzi,
-			...struct.game.players[struct.key].hu.kezi
+			...struct.game.players[struct.key].hu.kezi,
+			...struct.game.players[struct.key].hu.gangzi
 		]
 	)
 

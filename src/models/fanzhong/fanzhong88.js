@@ -13,6 +13,8 @@ const FZ88 = 88
 
 // 1. Big four winds (Da si xi, 大四喜)
 export async function fz1DaSiXi(struct) {
+	if (struct.game.players[struct.key].hu.melds !== 5) return 0
+
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
 
@@ -27,6 +29,8 @@ export async function fz1DaSiXi(struct) {
 
 // 2. Big three dragons (Da san yuan, 大三元)
 export async function fz2DaSanYuan(struct) {
+	if (struct.game.players[struct.key].hu.melds !== 5) return 0
+
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
 
@@ -40,6 +44,8 @@ export async function fz2DaSanYuan(struct) {
 
 // 3. All green (Lü yise, 绿一色)
 export async function fz3LyYise(struct) {
+	if (struct.game.players[struct.key].hu.melds !== 5) return 0
+
 	const melds = Object.assign([],
 		[
 			...struct.game.players[struct.key].hu.duizi,
@@ -58,6 +64,8 @@ export async function fz3LyYise(struct) {
 
 // 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
 export async function fz4JiuLianBaodeng(struct) {
+	if (struct.game.players[struct.key].hu.melds !== 5) return 0
+
 	if (!fz22QingYiSe(struct)) return 0
 
 	let door = Object.assign([], struct.game.players[struct.key].door)
@@ -77,6 +85,8 @@ export async function fz5SiGang(struct) {
 
 // 6. Seven shifted pairs (Lian qi dui, 连七对)
 export async function fz6LianQiDui(struct) {
+	if (struct.game.players[struct.key].hu.pairs !== 7) return 0
+
 	const duizi = struct.game.players[struct.key].hu.duizi
 	const type = duizi.map(item => item[1]).join('')
 	const pattern = /(11223344556677|22334455667788|33445566778899)/g
@@ -92,6 +102,5 @@ export async function fz6LianQiDui(struct) {
 // 7. Thirteen orphans (Shisan yao, 十三幺)
 export async function fz7ShisanYao(struct) {
 	if (struct.game.players[struct.key].hu.shisanyao) return FZ88
-
 	return 0
 }

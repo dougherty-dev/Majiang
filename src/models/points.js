@@ -13,6 +13,7 @@ import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Hu
 import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
 import { fz63Pinghu } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
+import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
@@ -37,9 +38,11 @@ export default class Points {
 			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['54', '59']],
 			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, []],
 			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '73']],
-			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['79']],
+			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['17', '48', '57', '67', '74', '79']],
 			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['22', '79']],
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '79']],
+			// 32 fan
+			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
 			// 24 fan
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			// 16 fan
