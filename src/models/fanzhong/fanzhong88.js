@@ -37,3 +37,9 @@ export async function fz2DaSanYuan(struct) {
 
 	return 0
 }
+
+// 5. Four gangs (Si gang, 四杠)
+export async function fz5SiGang(struct) {
+	return (struct.game.players[struct.key].hu.gangzi.length === 4) ? FZ88 : 0
+
+}

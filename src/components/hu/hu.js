@@ -5,8 +5,7 @@
  * @module components/hu/hu
  */
 
-import { TYPES, DUIZI, KEZI, SHUNZI } from './patterns.js'
-import { ZI } from '../../models/tiles.js'
+import { TYPES, DUIZI } from './patterns.js'
 import { lookup2 } from './lookup2.js'
 import { lookup3 } from './lookup3.js'
 import { lookup5 } from './lookup5.js'
@@ -16,6 +15,7 @@ import { lookup9 } from './lookup9.js'
 import { lookup11 } from './lookup11.js'
 import { lookup12 } from './lookup12.js'
 import { lookup14 } from './lookup14.js'
+import { checkType } from './check-type.js'
 
 import Hu from '../../models/hu.js'
 
@@ -78,7 +78,7 @@ export async function checkHu(player, door) {
 			// check special hands first, though
 			return
 		default:
-			if (!checkType(key, type, lookup['lookup' + type.length], player.hu)) return false
+			if (!checkType(key, type, lookup['lookup' + type.length], player)) return false
 			break
 		}
 	}
@@ -88,59 +88,4 @@ export async function checkHu(player, door) {
 	}
 
 	return false
-}
-
-function checkType(key, type, lookup, hu) {
-	if (!(type in lookup)) return false
-
-	const meldsets = lookup[type]
-
-	// traverse all possible duplicates, find max number of melds
-	let maxHuMelds = -1
-	let maxMelds = []
-
-	for (const melds of meldsets) {
-		let huPairs = hu.pairs
-		let huMelds = hu.melds
-
-		for (const meld of melds) {
-			switch (meld.length) {
-			case 2:
-				huPairs++
-				break
-			case 3:
-				if (!ZI.includes(key) && meld.match(SHUNZI)) {
-					huMelds++
-				} else if (meld.match(KEZI)) {
-					huMelds++
-				}
-
-				break
-			}
-		}
-
-		if (huPairs <= 1 && huMelds > maxHuMelds) maxMelds = melds
-	}
-
-	// accept solution
-	for (const meld of maxMelds) {
-		switch (meld.length) {
-		case 2:
-			hu.duizi.push([key, meld])
-			hu.pairs++
-			break
-		case 3:
-			if (!ZI.includes(key) && meld.match(SHUNZI)) {
-				hu.shunzi.push([key, meld])
-				hu.melds++
-			} else if (meld.match(KEZI)) {
-				hu.kezi.push([key, meld])
-				hu.melds++
-			}
-
-			break
-		}
-	}
-
-	return true
 }

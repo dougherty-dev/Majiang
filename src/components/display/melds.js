@@ -39,7 +39,9 @@ export async function displayMeld(key, player, reveal = false) {
 				break
 			case 'angang':
 				ext = ''
-				if (!reveal) {
+				if (reveal) {
+					hidden = (index == 1 || index == 2)
+				} else {
 					hidden = key != HUMANPLAYER || (key == HUMANPLAYER && (index == 1 || index == 2) )
 				}
 				break
