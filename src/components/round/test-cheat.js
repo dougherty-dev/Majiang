@@ -13,19 +13,19 @@ export async function cheat(game) {
 	 */
 
 	const tiles = [
-		'bing2',
-		'bing2',
-		'bing3',
-		'bing4',
-		'wan3',
-		'wan3',
-		'wan3',
-		'wan5',
-		'wan5',
-		'wan5',
+		'bing6',
+		'bing7',
+		'bing8',
+		'tiao2',
+		'tiao2',
+		'tiao2',
 		'tiao8',
 		'tiao8',
 		'tiao8',
+		'wan2',
+		'wan2',
+		'wan3',
+		'wan4',
 	]
 
 	for (const tile of tiles) {

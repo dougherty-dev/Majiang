@@ -60,7 +60,6 @@ export async function checkHu(player, door) {
 	}
 
 	player.hu.types = types
-	player.hu.values = Object.values(types).filter(item => item !== '')
 
 	if (await checkSpecial(player, door, types)) return true
 
