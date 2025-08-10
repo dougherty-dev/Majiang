@@ -14,7 +14,7 @@ import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
 import { fz63Pinghu } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz54ShuangJianke } from './fanzhong/fanzhong6.js'
-import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz5SiGang, fz6LianQiDui } from './fanzhong/fanzhong88.js'
+import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui } from './fanzhong/fanzhong88.js'
 
 export default class Points {
 	constructor(game, key, door) {
@@ -36,6 +36,7 @@ export default class Points {
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
 			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['54', '59']],
 			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, []],
+			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '73']],
 			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['79']],
 			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['22', '79']],
 			// 24 fan

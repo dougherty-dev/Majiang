@@ -13,6 +13,7 @@ import { replaceFlowers } from '../tiles.js'
 import { displayPrevailingWind, displaySeatWinds } from '../display/winds.js'
 import { displayDoors } from '../display/door.js'
 import { gameOver } from './game-over.js'
+import { cheat } from './test-cheat.js'
 
 export async function newRound(game) {
 	game.tiles = shuffle(Object.assign([], TILES))
@@ -45,39 +46,7 @@ export async function newRound(game) {
 	game.winner = null
 	game.draw = null
 
-	/**
-	 * Cheat mode
-	 */
-
-	// const tiles = [
-	// 	'zi5',
-	// 	'zi5',
-	// 	'zi5',
-	// 	'zi6',
-	// 	'zi6',
-	// 	'zi6',
-	// 	'zi7',
-	// 	'zi7',
-	// 	'zi7',
-	// 	'wan1',
-	// 	'wan2',
-	// 	'wan3',
-	// 	'wan4',
-	// ]
-
-	// for (const tile of tiles) {
-	// 	game.players[4].door.push(game.tiles.splice(game.tiles.findIndex(item => item[2] === tile), 1)[0])
-	// }
-
-	// for (const [key, player] of Object.entries(game.players)) {
-	// 	if (key == 4) continue
-	// 	for (let i = 1; i <= 13; i++) {
-	// 		const tile = game.tiles.shift()
-	// 		player.door.push(tile)
-	// 	}
-
-	// 	sortTiles(player.door, game.sorted)
-	// }
+	// cheat(game)
 
 	for (const player of Object.values(game.players)) {
 		for (let i = 1; i <= 13; i++) {

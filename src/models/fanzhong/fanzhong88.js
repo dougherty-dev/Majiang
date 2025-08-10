@@ -5,7 +5,9 @@
  * @module models/fanzhong/fanzhong88
  */
 
-import { BING, FENG, JIAN, TIAO } from '../tiles.js'
+import { sortTiles } from '../../components/helpers.js'
+import { FENG, JIAN } from '../tiles.js'
+import { fz22QingYiSe } from './fanzhong24.js'
 
 const FZ88 = 88
 
@@ -56,10 +58,23 @@ export async function fz3LyYise(struct) {
 	return 0
 }
 
+// 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
+export async function fz4JiuLianBaodeng(struct) {
+	if (!fz22QingYiSe(struct)) return 0
+
+	let door = Object.assign([], struct.game.players[struct.key].door)
+	if (door.length === 14) door.splice(-1, 1) // remove zimo tile
+	sortTiles(door)
+
+	const pattern = '1112345678999'
+	if (door.map(item => item[1]).join('') === pattern) return FZ88
+
+	return 0
+}
+
 // 5. Four gangs (Si gang, 四杠)
 export async function fz5SiGang(struct) {
 	return (struct.game.players[struct.key].hu.gangzi.length === 4) ? FZ88 : 0
-
 }
 
 // 6. Seven shifted pairs (Lian qi dui, 连七对)
