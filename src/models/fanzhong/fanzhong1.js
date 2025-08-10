@@ -11,8 +11,6 @@ const FZ1 = 1
 
 // 69. Pure double shunzi (Yiban gao, 一般高)
 export async function fz69YibanGao(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
 	let hit = []
@@ -26,8 +24,6 @@ export async function fz69YibanGao(struct) {
 
 // 70. Mixed double shunzi (Xi xiangfeng, 喜相逢)
 export async function fz70XiXiangfeng(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
 	let hit = []
@@ -41,8 +37,6 @@ export async function fz70XiXiangfeng(struct) {
 
 // 74. Melded gang (Minggang, 明杠)
 export async function fz74Minggang(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	for (const meld of struct.game.players[struct.key].melds) {
 		if (meld.type == 'gang') return FZ1
 	}
@@ -52,7 +46,7 @@ export async function fz74Minggang(struct) {
 
 // 76. No honors (Wu zi, 无字)
 export async function fz76WuZi(struct) {
-	return struct.door.some(arr => ZI.includes(arr[7])) ? 0 : FZ1
+	return struct.tiles.some(arr => ZI.includes(arr[7])) ? 0 : FZ1
 }
 
 // 80. Self-drawn (Zimo, 自摸)

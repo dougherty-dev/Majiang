@@ -11,8 +11,6 @@ const FZ16 = 16
 
 // 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高)
 export async function fz30YiSeSanBuGao(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const hu = struct.game.players[struct.key].hu
 
 	for (const type of Object.values(hu.types)) {

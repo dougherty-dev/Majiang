@@ -7,10 +7,11 @@
 
 import { DUIZI } from './patterns.js'
 
-export async function checkSpecial(player, door, types) {
+// These hands have no melds
+export async function checkSpecial(player, door) {
 	// either seven pairs, or just one
 	let pairs = 0
-	for (const type of Object.values(types)) {
+	for (const type of Object.values(player.hu.types)) {
 		const pair = type.match(DUIZI)
 		if (pair) pairs += pair.length
 	}
@@ -25,13 +26,14 @@ export async function checkSpecial(player, door, types) {
 	}
 
 	// 13 orphans
+	const values = Object.values(player.hu.types).filter(item => item !== '')
 	if (
-		player.hu.values.length === 5 &&
-		/^[19]+$/.test(types.b) &&
-		/^[19]+$/.test(types.t) &&
-		/^[19]+$/.test(types.w) &&
-		/^[1234]+$/.test(types.f) &&
-		/^[123]+$/.test(types.j)
+		values.length === 5 &&
+		['19'].every(n => player.hu.types.b.includes(n)) &&
+		['19'].every(n => player.hu.types.t.includes(n)) &&
+		['19'].every(n => player.hu.types.w.includes(n)) &&
+		['1234'].every(n => player.hu.types.f.includes(n)) &&
+		['123'].every(n => player.hu.types.j.includes(n))
 	) {
 		player.hu.shisanyao = true
 		return true

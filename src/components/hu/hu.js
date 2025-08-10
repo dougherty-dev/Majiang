@@ -32,10 +32,21 @@ const lookup = {
 	lookup14: lookup14,
 }
 
+/**
+ * @description Check validity of _remaining_ tiles at hand for possible hu.
+ * Also check special hands without melds (all tiles at hand).
+ * Melds are implictly already approved.
+ * Then build combined meld structure for score calculation.
+ * 
+ * @param {Object} player Potential winner.
+ * @param {Object} door Remaining tiles at hand.
+ * @returns Boolean
+ */
 export async function checkHu(player, door) {
 	player.hu = new Hu().hu
 	player.hu.melds = player.melds.length
 
+	// Collect melds
 	for (const meld of player.melds) {
 		const set = [meld.meld[0][7], meld.meld.map(item => item[1]).join('')]
 
@@ -53,18 +64,16 @@ export async function checkHu(player, door) {
 		}
 	}
 
-	const types = Object.assign({}, TYPES)
+	player.hu.types = Object.assign({}, TYPES)
 
 	for (const tile of door) {
-		types[tile[7]] += tile[1]
+		player.hu.types[tile[7]] += tile[1]
 	}
 
-	player.hu.types = types
-
-	if (await checkSpecial(player, door, types)) return true
+	if (await checkSpecial(player, door)) return true
 
 	// regular hands
-	for (const [key, type] of Object.entries(types)) {
+	for (const [key, type] of Object.entries(player.hu.types)) {
 		switch (true) {
 		case type.length === 0:
 			break

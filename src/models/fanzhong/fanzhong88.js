@@ -13,15 +13,13 @@ const FZ88 = 88
 
 // 1. Big four winds (Da si xi, 大四喜)
 export async function fz1DaSiXi(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
 
 	if (
-		kezi.length + gangzi.length === 4
-		&& kezi.every((type) => type[0] === FENG)
-		&& gangzi.every((type) => type[0] === FENG)
+		kezi.length + gangzi.length === 4 &&
+		kezi.every((type) => type[0] === FENG) &&
+		gangzi.every((type) => type[0] === FENG)
 	) return FZ88
 
 	return 0
@@ -29,8 +27,6 @@ export async function fz1DaSiXi(struct) {
 
 // 2. Big three dragons (Da san yuan, 大三元)
 export async function fz2DaSanYuan(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
 
@@ -44,14 +40,7 @@ export async function fz2DaSanYuan(struct) {
 
 // 3. All green (Lü yise, 绿一色)
 export async function fz3LyYise(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
-	const melds = Object.assign([], [
-		...struct.game.players[struct.key].hu.duizi,
-		...struct.game.players[struct.key].hu.shunzi,
-		...struct.game.players[struct.key].hu.kezi,
-		...struct.game.players[struct.key].hu.gangzi
-	])
+	const melds = struct.game.players[struct.key].hu.allMelds
 
 	const jian = melds.filter(item => item[0] === 'j').map(item => item[1]).join('')
 	const tiao = melds.filter(item => item[0] === 't').map(item => item[1]).join('')
@@ -63,8 +52,6 @@ export async function fz3LyYise(struct) {
 
 // 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
 export async function fz4JiuLianBaodeng(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	if (!fz22QingYiSe(struct)) return 0
 
 	let door = Object.assign([], struct.game.players[struct.key].door)

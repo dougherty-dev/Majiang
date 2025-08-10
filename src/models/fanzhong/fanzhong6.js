@@ -11,8 +11,6 @@ const FZ6 = 6
 
 // 54. Two dragons kezi (Shuang jianke, 双箭刻)
 export async function fz54ShuangJianke(struct) {
-	if (struct.game.players[struct.key].hu.melds !== 5) return 0
-
 	const kezi = struct.game.players[struct.key].hu.kezi
 
 	let count = 0
@@ -22,6 +20,14 @@ export async function fz54ShuangJianke(struct) {
 			if (count === 2) return FZ6
 		}
 	}
+
+	return 0
+}
+
+// 49. All kezi (Pengpeng hu, 碰碰和)
+export async function fz49PengpengHu(struct) {
+	const hu = struct.game.players[struct.key].hu
+	if (hu.kezi.length + hu.gangzi.length === 4) return FZ6
 
 	return 0
 }
