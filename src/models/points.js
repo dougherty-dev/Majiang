@@ -11,7 +11,7 @@ import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
-import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz68Duanyao } from './fanzhong/fanzhong2.js'
+import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
@@ -77,6 +77,7 @@ export default class Points {
 			'62': ['门前清', 'Menqian qing', 'Concealed hand', fz62MenqianQing, 0, []],
 			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
 			'64': ['四归一', 'Si gui yi', 'Tile hog', fz64SiGuiYi, 0, []],
+			'65': ['双同刻', 'Shuang tongke', 'Double kezi', fz65ShuangTongke, 0, []],
 			'68': ['断幺', 'Duanyao', 'All simples', fz68Duanyao, 0, []],
 			// 1 fan
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],

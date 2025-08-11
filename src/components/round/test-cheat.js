@@ -14,10 +14,10 @@ export async function cheat(game) {
 
 	const tiles = [
 		'bing7',
-		'bing8',
-		'bing9',
-		'tiao5',
-		'tiao6',
+		'bing7',
+		'bing7',
+		'tiao7',
+		'tiao7',
 		'tiao7',
 		'wan6',
 		'wan7',

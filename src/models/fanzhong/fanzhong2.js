@@ -18,9 +18,7 @@ export async function fz59Jianke(struct) {
 	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
 	const count = types.filter(item => item === JIAN).length
 
-	if (count === 1) return FZ2
-
-	return 0
+	return (count === 1) ? FZ2 : 0
 }
 
 // 60. Prevalent wind (Quanfengke, 圈风刻)
@@ -32,9 +30,7 @@ export async function fz60Quanfengke(struct) {
 		item[1][0] == struct.game.prevailingWind
 	).length
 
-	if (quanfeng) return FZ2
-
-	return 0
+	return (quanfeng) ? FZ2 : 0
 }
 
 // 61. Seat wind (Menfengke, 门风刻)
@@ -46,9 +42,7 @@ export async function fz61Menfengke(struct) {
 		item[1][0] == struct.game.players[struct.key].wind
 	).length
 
-	if (menfeng) return FZ2
-
-	return 0
+	return (menfeng) ? FZ2 : 0
 }
 
 // 62. Concealed hand (Menqian qing, 门前清)
@@ -56,9 +50,7 @@ export async function fz62MenqianQing(struct) {
 	const melds = struct.game.players[struct.key].melds
 	const allConcealed = melds.filter(item => item.type !== 'angang').length === 0
 
-	if (allConcealed && struct.game.players[struct.key].hu.dianhu) return FZ2
-
-	return 0
+	return (allConcealed && struct.game.players[struct.key].hu.dianhu) ? FZ2 : 0
 }
 
 // 63. All shunzi (Pinghu, 平和)
@@ -91,6 +83,19 @@ export async function fz64SiGuiYi(struct) {
 	return 0
 }
 
+// 65. Double kezi (Shuang tongke, 双同刻)
+export async function fz65ShuangTongke(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const melds = [...kezi, ...gangzi]
+
+	const suited = melds.filter(item => SHU.includes(item[0]))
+	const reduced = suited.map(item => item[1][0])
+	const set = [...new Set(reduced)]
+
+	return (set.length === reduced.length) ? 0 : FZ2
+}
+
 // 68. All simples (Duanyao, 断幺)
 export async function fz68Duanyao(struct) {
 	if (!await fz76WuZi(struct)) return 0
@@ -98,7 +103,6 @@ export async function fz68Duanyao(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 
 	const suit = melds.map(item => item[1]).join('')
-	if (/^[2345678]+$/.test(suit)) return FZ2
+	return (/^[2345678]+$/.test(suit)) ? FZ2 : 0
 
-	return 0
 }
