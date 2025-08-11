@@ -51,6 +51,16 @@ export async function fz61Menfengke(struct) {
 	return 0
 }
 
+// 62. Concealed hand (Menqian qing, 门前清)
+export async function fz62MenqianQing(struct) {
+	const melds = struct.game.players[struct.key].melds
+	const allConcealed = melds.filter(item => item.type !== 'angang').length === 0
+
+	if (allConcealed && struct.game.players[struct.key].hu.dianhu) return FZ2
+
+	return 0
+}
+
 // 63. All shunzi (Pinghu, 平和)
 export async function fz63Pinghu(struct) {
 	if (struct.game.players[struct.key].hu.shunzi.length === 4) {

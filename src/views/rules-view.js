@@ -1405,7 +1405,7 @@ export default class RulesView extends HTMLElement {
 							<p><strong>Seat wind</strong> (<em>Menfengke</em>, <span class="fanzhong" data-src="61">门风刻</span>): kezi (gangzi) of wind tile corresponding to the seat wind.</p>
 						</li>
 						<li>
-							<p><strong>Concealed hand</strong> (<em>Menqian qing</em>, <span class="fanzhong" data-src="62">门前清</span>): all tiles are concelaed, on board or on hand, winning by a discarded tile.</p>
+							<p><strong>Concealed hand</strong> (<em>Menqian qing</em>, <span class="fanzhong" data-src="62">门前清</span>): all tiles are concealed, on board or on hand, winning by a discarded tile.</p>
 						</li>
 						<li>
 							<p><strong>All shunzi</strong> (<em>Pinghu</em>, <span class="fanzhong" data-src="63">平和</span>): four shunzi and a suited pair.</p>
