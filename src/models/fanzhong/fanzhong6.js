@@ -37,6 +37,13 @@ export async function fz52WuMenJi(struct) {
 	return (types === 'bfjtw') ? FZ6 : 0
 }
 
+// 53. Melded hand (Quan qiu ren, 全求人)
+export async function fz53QuanQiuRen(struct) {
+	const melds = struct.game.players[struct.key].melds.length
+
+	return (melds === 4 && struct.game.players[struct.key].hu.dianhu) ? FZ6 : 0
+}
+
 // 54. Two dragons kezi (Shuang jianke, 双箭刻)
 export async function fz54ShuangJianke(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
