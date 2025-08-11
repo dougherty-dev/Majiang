@@ -9,7 +9,7 @@ import { SHU } from '../tiles.js'
 
 const FZ24 = 24
 
-// 22. Full flush (Qing yi se, 清一色):
+// 22. Full flush (Qing yi se, 清一色)
 export async function fz22QingYiSe(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 

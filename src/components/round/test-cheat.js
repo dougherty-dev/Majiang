@@ -20,11 +20,11 @@ export async function cheat(game) {
 		'bing3',
 		'bing3',
 		'bing4',
-		'bing4',
-		'bing4',
-		'tiao3',
-		'tiao3',
-		'tiao3',
+		'bing5',
+		'bing6',
+		'bing8',
+		'bing8',
+		'zi2',
 		'zi2',
 	]
 

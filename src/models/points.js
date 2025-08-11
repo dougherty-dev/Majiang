@@ -14,7 +14,7 @@ import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
 import { fz63Pinghu, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
-import { fz49PengpengHu, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
+import { fz49PengpengHu, fz50HunYiSe, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -59,6 +59,7 @@ export default class Points {
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],
+			'50': ['混一色', 'Hun yi se', 'Half flush', fz50HunYiSe, 0, []],
 			'54': ['双箭刻', 'Shuang jianke', 'Two dragons kezi', fz54ShuangJianke, 0, ['59']],
 			// 2 fan
 			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
