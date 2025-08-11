@@ -896,8 +896,7 @@ export default class RulesView extends HTMLElement {
 							<p><strong>Pure shifted shunzi</strong> (<em>Yi se san bu gao</em>, <span class="fanzhong" data-src="30">一色三步高</span>): three suited shunzi shifted up either 1 or 2 in value, but not both.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
-								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
-								<img width="30" height="41" alt="🀛" src="img/tiles/shuzipai-bingzi-3.svg" class="meld-end">
+								<img width="30" height="41" alt="🀛" src="img/tiles/shuzipai-bingzi-1.svg" class="meld-end">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg" class="meld-end">

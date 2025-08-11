@@ -22,10 +22,10 @@ export async function cheat(game) {
 		'wan6',
 		'wan7',
 		'wan8',
-		'zi2',
-		'zi2',
-		'zi2',
-		'zi7',
+		'wan9',
+		'wan9',
+		'wan9',
+		'zi6',
 	]
 
 	for (const tile of tiles) {
