@@ -29,17 +29,23 @@ export async function fz50HunYiSe(struct) {
 	return 0
 }
 
+// 52. All types (Wu men ji, 五门齐)
+export async function fz52WuMenJi(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const types = [...new Set(melds.map(item => item[0]))].sort().join('')
+
+	return (types === 'bfjtw') ? FZ6 : 0
+}
+
 // 54. Two dragons kezi (Shuang jianke, 双箭刻)
 export async function fz54ShuangJianke(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
 
-	let count = 0
-	for (const type of kezi) {
-		if (type[0] === JIAN) {
-			count++
-			if (count === 2) return FZ6
-		}
-	}
+	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
+	const count = types.filter(item => item === JIAN).length
+
+	if (count === 2) return FZ6
 
 	return 0
 }
