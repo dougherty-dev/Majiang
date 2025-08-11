@@ -26,13 +26,27 @@ export async function fz59Jianke(struct) {
 // 60. Prevalent wind (Quanfengke, 圈风刻)
 export async function fz60Quanfengke(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
-	const shunfeng = melds.filter(
+	const quanfeng = melds.filter(
 		item => item[0] === FENG &&
 		item[1].length >= 3 &&
 		item[1][0] == struct.game.prevailingWind
-	)
+	).length
 
-	if (shunfeng.length) return FZ2
+	if (quanfeng) return FZ2
+
+	return 0
+}
+
+// 61. Seat wind (Menfengke, 门风刻)
+export async function fz61Menfengke(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const menfeng = melds.filter(
+		item => item[0] === FENG &&
+		item[1].length >= 3 &&
+		item[1][0] == struct.game.players[struct.key].wind
+	).length
+
+	if (menfeng) return FZ2
 
 	return 0
 }

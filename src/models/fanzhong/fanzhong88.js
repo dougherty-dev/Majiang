@@ -42,10 +42,13 @@ export async function fz2DaSanYuan(struct) {
 export async function fz3LyYise(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 
-	const jian = melds.filter(item => item[0] === 'j').map(item => item[1]).join('')
-	const tiao = melds.filter(item => item[0] === 't').map(item => item[1]).join('')
+	const jian = melds.filter(item => item[0] === 'j').map(item => item[1])
+	const tiao = melds.filter(item => item[0] === 't').map(item => item[1])
 
-	if (/^[2]+$/.test(jian) && /^[23468]+$/.test(tiao)) return FZ88
+	if (
+		jian.length + tiao.length === 5 &&
+		/^[2]+$/.test(jian.join('')) &&
+		/^[23468]+$/.test(tiao.join(''))) return FZ88
 
 	return 0
 }
