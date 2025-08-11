@@ -5,8 +5,20 @@
  * @module models/fanzhong/fanzhong4
  */
 
+import { ZI } from '../tiles.js'
+
 const FZ4 = 4
 const FZ2 = 2
+
+// 55. Outside hand (Quan dai yao, 全带幺)
+export async function fz55QuanDaiYao(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+
+	const yaojiuzi = melds.filter(item => ZI.includes(item[0]) || /[19]+/.test(item[1]))
+	if (yaojiuzi.length === 5) return FZ4 
+
+	return 0
+}
 
 // 56. Fully concealed hand (Bu qiu ren, 不求人)
 export async function fz56BuQiuRen(struct) {
