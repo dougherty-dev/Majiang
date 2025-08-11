@@ -32,7 +32,7 @@ export async function fz60Quanfengke(struct) {
 		item[1][0] == struct.game.prevailingWind
 	)
 
-	if (shunfeng) return FZ2
+	if (shunfeng.length) return FZ2
 
 	return 0
 }
