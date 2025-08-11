@@ -20,7 +20,7 @@ export async function fz63Pinghu(struct) {
 
 // 68. All simples (Duanyao, 断幺)
 export async function fz68Duanyao(struct) {
-	if (!fz76WuZi(struct)) return 0
+	if (!await fz76WuZi(struct)) return 0
 
 	const melds = struct.game.players[struct.key].hu.allMelds
 

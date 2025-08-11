@@ -6,7 +6,7 @@
  */
 
 import { SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
-import { BING, FENG, JIAN, SHU } from '../tiles.js'
+import { JIAN, SHU } from '../tiles.js'
 
 const FZ6 = 6
 

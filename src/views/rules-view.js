@@ -242,7 +242,7 @@ export default class RulesView extends HTMLElement {
 				<section class="columns">
 					<h4>Fan types</h4>
 					<p>Fan scores are calculated according to the following type chart, from highest to lowest. The arrangement of tiles (kezi or shunzi) makes a difference in calculating the fan, and there can only be one such arrangement.</p>
-					<p>Some fan types can be achieved only by taking a discarded tile, others only by having a concealed hand. Fan types implied in others are usually prohibited, and are explicitly marked as such in the listing.</p>
+					<p>Some fan types can be achieved only by taking a discarded tile, others only by having a concealed hand. Fan types implied in others are usually prohibited, while other types are marked explicitly as such in the listing. For instance, a hand with four gangzi cannot include points for other gangzi combinations.</p>
 					<p>In this implementation, the computer program will automatically select the highest possible score.</p>
 					<h4>88 fan:</h4>
 					<ol>

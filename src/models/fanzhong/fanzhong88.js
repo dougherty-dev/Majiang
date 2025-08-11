@@ -52,7 +52,7 @@ export async function fz3LyYise(struct) {
 
 // 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
 export async function fz4JiuLianBaodeng(struct) {
-	if (!fz22QingYiSe(struct)) return 0
+	if (!await fz22QingYiSe(struct)) return 0
 
 	let door = Object.assign([], struct.game.players[struct.key].door)
 	if (door.length === 14) door.splice(-1, 1) // remove zimo tile
