@@ -20,9 +20,9 @@ export async function fz49PengpengHu(struct) {
 // 50. Half flush (Hun yi se, 混一色)
 export async function fz50HunYiSe(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
-	const types = [...new Set(melds.map(item => item[0]))].join('')
+	const types = [...new Set(melds.map(item => item[0]))].sort().join('')
 
-	if (/^[bfj]+$/.test(types) || /^[tfj]+$/.test(types) || /^[wfj]+$/.test(types)) {
+	if (['bf', 'bj', 'bfj', 'ft', 'jt', 'fjt', 'fw', 'jw', 'fjw'].includes(types)) {
 		return FZ6
 	}
 

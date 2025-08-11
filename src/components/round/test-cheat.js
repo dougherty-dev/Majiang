@@ -22,7 +22,7 @@ export async function cheat(game) {
 		'bing4',
 		'bing5',
 		'bing6',
-		'bing8',
+		'bing7',
 		'bing8',
 		'zi2',
 		'zi2',
