@@ -11,7 +11,7 @@ import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
-import { fz63Pinghu, fz68Duanyao } from './fanzhong/fanzhong2.js'
+import { fz59Jianke, fz60Quanfengke, fz63Pinghu, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
@@ -71,6 +71,8 @@ export default class Points {
 			'57': ['双明杠', 'Shuang minggang', 'Two melded gangs', fz57ShuangMinggang, 0, []],
 			'58': ['和绝张', 'Hu juezhang', 'Last tile', fz58HuJuezhang, 0, []],
 			// 2 fan
+			'59': ['箭刻', 'Jianke', 'Dragon kezi', fz59Jianke, 0, []],
+			'60': ['圈风刻', 'Quanfengke', 'Prevalent wind', fz60Quanfengke, 0, []],
 			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
 			'68': ['断幺', 'Duanyao', 'All simples', fz68Duanyao, 0, []],
 			// 1 fan

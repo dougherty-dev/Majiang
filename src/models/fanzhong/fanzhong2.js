@@ -5,9 +5,37 @@
  * @module models/fanzhong/fanzhong2
  */
 
+import { FENG, JIAN } from '../tiles.js'
 import { fz76WuZi } from './fanzhong1.js'
 
 const FZ2 = 2
+
+// 59. Dragon kezi (Jianke, 箭刻)
+export async function fz59Jianke(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+
+	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
+	const count = types.filter(item => item === JIAN).length
+
+	if (count === 1) return FZ2
+
+	return 0
+}
+
+// 60. Prevalent wind (Quanfengke, 圈风刻)
+export async function fz60Quanfengke(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const shunfeng = melds.filter(
+		item => item[0] === FENG &&
+		item[1].length >= 3 &&
+		item[1][0] == struct.game.prevailingWind
+	)
+
+	if (shunfeng) return FZ2
+
+	return 0
+}
 
 // 63. All shunzi (Pinghu, 平和)
 export async function fz63Pinghu(struct) {
