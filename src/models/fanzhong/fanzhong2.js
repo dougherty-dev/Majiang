@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong2
  */
 
-import { FENG, JIAN } from '../tiles.js'
+import { BING, FENG, JIAN, SHU, TIAO, WAN } from '../tiles.js'
 import { fz76WuZi } from './fanzhong1.js'
 
 const FZ2 = 2
@@ -66,6 +66,27 @@ export async function fz63Pinghu(struct) {
 	if (struct.game.players[struct.key].hu.shunzi.length === 4) {
 		return FZ2
 	}
+
+	return 0
+}
+
+// 64. Tile hog (Si gui yi, 四归一)
+export async function fz64SiGuiYi(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+	const duizi = struct.game.players[struct.key].hu.duizi
+
+	const suited = [...kezi, ...shunzi, ...duizi].filter(item => SHU.includes(item[0]))
+	const pattern = /(\d)\1{3}/
+
+	const bingzi = suited.filter(item => item[0] === BING).map(item => item[1]).join('').split('').sort().join('')
+	if (bingzi.match(pattern)) return FZ2
+
+	const tiaozi = suited.filter(item => item[0] === TIAO).map(item => item[1]).join('').split('').sort().join('')
+	if (tiaozi.match(pattern)) return FZ2
+
+	const wanzi = suited.filter(item => item[0] === WAN).map(item => item[1]).join('').split('').sort().join('')
+	if (wanzi.match(pattern)) return FZ2
 
 	return 0
 }
