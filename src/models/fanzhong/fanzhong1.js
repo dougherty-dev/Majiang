@@ -52,6 +52,23 @@ export async function fz71LianLiu(struct) {
 	return 0
 }
 
+// 72. Two terminal shunzi (Laoshao fu, 老少副)
+export async function fz72LaoshaoFu(struct) {
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+	const pattern = /(123456|234567|345678|456789)/g
+
+	const bingzi = shunzi.filter(item => item[0] === BING).map(item => item[1])
+	if (bingzi.includes('123') && bingzi.includes('789')) return FZ1
+
+	const tiaozi = shunzi.filter(item => item[0] === TIAO).map(item => item[1])
+	if (tiaozi.includes('123') && tiaozi.includes('789')) return FZ1
+
+	const wanzi = shunzi.filter(item => item[0] === WAN).map(item => item[1])
+	if (wanzi.includes('123') && wanzi.includes('789')) return FZ1
+
+	return 0
+}
+
 // 74. Melded gang (Minggang, 明杠)
 export async function fz74Minggang(struct) {
 	const melds = struct.game.players[struct.key].melds
