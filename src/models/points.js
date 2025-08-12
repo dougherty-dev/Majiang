@@ -9,7 +9,7 @@ const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
@@ -88,6 +88,7 @@ export default class Points {
 			// 1 fan
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],
 			'70': ['喜相逢', 'Xi xiangfeng', 'Mixed double shunzi', fz70XiXiangfeng, 0, []],
+			'71': ['连六', 'Lian liu', 'Short straight', fz71LianLiu, 0, []],
 			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],
 			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
 			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],

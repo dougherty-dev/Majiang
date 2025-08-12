@@ -64,7 +64,7 @@ export async function checkChi(game, tile) {
 	for (let meld of melds) {
 		let chiSet = [tile]
 		for (const paizi of meld) {
-			let index = hand.findIndex(elem => elem[1] === paizi && elem[3].startsWith(type))
+			let index = hand.findIndex(elem => elem[1] === paizi && elem[7] === type)
 			chiSet.push(hand[index])
 		}
 

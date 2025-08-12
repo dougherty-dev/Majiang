@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong1
  */
 
-import { ZI } from '../tiles.js'
+import { BING, TIAO, WAN, ZI } from '../tiles.js'
 
 const FZ1 = 1
 
@@ -31,6 +31,23 @@ export async function fz70XiXiangfeng(struct) {
 		if (hit.length && hit[0][1] === type[1] && hit[0][0] !== type[0]) return FZ1
 		hit.push(type)
 	}
+
+	return 0
+}
+
+// 71. Short straight (Lian liu, 连六)
+export async function fz71LianLiu(struct) {
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+	const pattern = /(123456|234567|345678|456789)/g
+
+	const bingzi = shunzi.filter(item => item[0] === BING).map(item => item[1]).join('').split('').sort().join('')
+	if (bingzi.match(pattern)) return FZ1
+
+	const tiaozi = shunzi.filter(item => item[0] === TIAO).map(item => item[1]).join('').split('').sort().join('')
+	if (tiaozi.match(pattern)) return FZ1
+
+	const wanzi = shunzi.filter(item => item[0] === WAN).map(item => item[1]).join('').split('').sort().join('')
+	if (wanzi.match(pattern)) return FZ1
 
 	return 0
 }
