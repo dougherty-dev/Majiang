@@ -10,7 +10,7 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz30YiSeSanBuGao, fz32SanTongKe } from './fanzhong/fanzhong16.js'
+import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
@@ -61,6 +61,7 @@ export default class Points {
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			// 16 fan
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
+			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
 			'32': ['三同刻', 'San tong ke', 'Triple kezi', fz32SanTongKe, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],

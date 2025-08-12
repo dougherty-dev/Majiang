@@ -23,6 +23,14 @@ export async function fz30YiSeSanBuGao(struct) {
 	return 0
 }
 
+// 31. All fives (Quan dai wu, 全带五)
+export async function fz31QuanDaiWu(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const quandaiwu = melds.filter(item => item[1].includes(['2']))
+
+	return (quandaiwu.length === 5) ? FZ16 : 0
+}
+
 // 32. Triple kezi (San tong ke, 三同刻)
 export async function fz32SanTongKe(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
@@ -33,5 +41,5 @@ export async function fz32SanTongKe(struct) {
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
 
-	return (reduced.length === 3 && set.length === 1) ? FZ2 : 0
+	return (reduced.length === 3 && set.length === 1) ? FZ16 : 0
 }
