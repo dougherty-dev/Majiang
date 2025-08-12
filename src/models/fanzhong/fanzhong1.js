@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong1
  */
 
-import { BING, TIAO, WAN, ZI } from '../tiles.js'
+import { BING, SHU, TIAO, WAN, ZI } from '../tiles.js'
 
 const FZ1 = 1
 
@@ -55,7 +55,6 @@ export async function fz71LianLiu(struct) {
 // 72. Two terminal shunzi (Laoshao fu, 老少副)
 export async function fz72LaoshaoFu(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
-	const pattern = /(123456|234567|345678|456789)/g
 
 	const bingzi = shunzi.filter(item => item[0] === BING).map(item => item[1])
 	if (bingzi.includes('123') && bingzi.includes('789')) return FZ1
@@ -88,6 +87,14 @@ export async function fz74Minggang(struct) {
 	const gang = melds.filter(item => item.type === 'gang').length
 
 	return (gang === 1) ? FZ1 : 0
+}
+
+// 75. One voided suit (Que yi men, 缺一门)
+export async function fz75QueYiMen(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const suits = [... new Set(melds.filter(item => SHU.includes(item[0])).map(item => item[0]))]
+
+	return (suits.length === 2) ? FZ1 : 0
 }
 
 // 76. No honors (Wu zi, 无字)

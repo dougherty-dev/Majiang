@@ -9,7 +9,7 @@ const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
@@ -92,6 +92,7 @@ export default class Points {
 			'72': ['老少副', 'Laoshao fu', 'Two terminal shunzi', fz72LaoshaoFu, 0, []],
 			'73': ['幺九刻', 'Yao jiu ke', 'Terminal kezi', fz73YaoJiuKe, 0, []],
 			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],
+			'75': ['缺一门', 'Que yi men', 'One voided suit', fz75QueYiMen, 0, []],
 			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
 			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],
 			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0, []],
