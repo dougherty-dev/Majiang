@@ -26,8 +26,8 @@ export async function fz60Quanfengke(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 	const quanfeng = melds.filter(
 		item => item[0] === FENG &&
-		item[1].length >= 3 &&
-		item[1][0] == struct.game.prevailingWind
+			item[1].length >= 3 &&
+			item[1][0] == struct.game.prevailingWind
 	).length
 
 	return (quanfeng) ? FZ2 : 0
@@ -38,8 +38,8 @@ export async function fz61Menfengke(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 	const menfeng = melds.filter(
 		item => item[0] === FENG &&
-		item[1].length >= 3 &&
-		item[1][0] == struct.game.players[struct.key].wind
+			item[1].length >= 3 &&
+			item[1][0] == struct.game.players[struct.key].wind
 	).length
 
 	return (menfeng) ? FZ2 : 0
@@ -93,7 +93,15 @@ export async function fz65ShuangTongke(struct) {
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
 
-	return (set.length === reduced.length) ? 0 : FZ2
+	return (set.length === 2 && set.length === reduced.length) ? 0 : FZ2
+}
+
+// 67. Concealed gang (Angang, 暗杠)
+export async function fz67Angang(struct) {
+	const melds = struct.game.players[struct.key].melds
+	const angang = melds.filter(item => item.type === 'angang').length
+
+	return (angang === 1) ? FZ2 : 0
 }
 
 // 68. All simples (Duanyao, 断幺)

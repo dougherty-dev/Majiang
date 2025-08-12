@@ -21,3 +21,16 @@ export async function fz30YiSeSanBuGao(struct) {
 
 	return 0
 }
+
+// 32. Triple kezi (San tong ke, 三同刻)
+export async function fz32SanTongKe(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const melds = [...kezi, ...gangzi]
+
+	const suited = melds.filter(item => SHU.includes(item[0]))
+	const reduced = suited.map(item => item[1][0])
+	const set = [...new Set(reduced)]
+
+	return (set.length === 3 && set.length === reduced.length) ? 0 : FZ16
+}

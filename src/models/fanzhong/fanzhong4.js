@@ -35,7 +35,7 @@ export async function fz57ShuangMinggang(struct) {
 	const melds = struct.game.players[struct.key].melds
 
 	const gang = melds.filter(item => item.type === 'gang').length
-	const angang = melds.filter(item => item.type === 'angang')-length
+	const angang = melds.filter(item => item.type === 'angang').length
 
 	if (angang === 1 && gang === 1) return FZ4 + FZ2
 	if (angang === 0 && gang === 2) return FZ4

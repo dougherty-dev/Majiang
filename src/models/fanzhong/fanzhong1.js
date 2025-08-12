@@ -37,11 +37,10 @@ export async function fz70XiXiangfeng(struct) {
 
 // 74. Melded gang (Minggang, 明杠)
 export async function fz74Minggang(struct) {
-	for (const meld of struct.game.players[struct.key].melds) {
-		if (meld.type == 'gang') return FZ1
-	}
+	const melds = struct.game.players[struct.key].melds
+	const gang = melds.filter(item => item.type === 'gang').length
 
-	return 0
+	return (gang === 1) ? FZ1 : 0
 }
 
 // 76. No honors (Wu zi, 无字)

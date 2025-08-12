@@ -10,8 +10,8 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz74Minggang, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz30YiSeSanBuGao } from './fanzhong/fanzhong16.js'
-import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz68Duanyao } from './fanzhong/fanzhong2.js'
+import { fz30YiSeSanBuGao, fz32SanTongKe } from './fanzhong/fanzhong16.js'
+import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
@@ -58,6 +58,7 @@ export default class Points {
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			// 16 fan
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
+			'32': ['三同刻', 'San tong ke', 'Triple kezi', fz32SanTongKe, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],
 			'50': ['混一色', 'Hun yi se', 'Half flush', fz50HunYiSe, 0, []],
@@ -78,6 +79,7 @@ export default class Points {
 			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
 			'64': ['四归一', 'Si gui yi', 'Tile hog', fz64SiGuiYi, 0, []],
 			'65': ['双同刻', 'Shuang tongke', 'Double kezi', fz65ShuangTongke, 0, []],
+			'67': ['暗杠', 'Angang', 'Concealed gang', fz67Angang, 0, []],
 			'68': ['断幺', 'Duanyao', 'All simples', fz68Duanyao, 0, []],
 			// 1 fan
 			'69': ['一般高', 'Yiban gao', 'Pure double shunzi', fz69YibanGao, 0, []],

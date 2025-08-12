@@ -16,7 +16,7 @@ export async function cheat(game) {
 		'bing7',
 		'bing7',
 		'bing7',
-		'tiao7',
+		'bing7',
 		'tiao7',
 		'tiao7',
 		'wan6',

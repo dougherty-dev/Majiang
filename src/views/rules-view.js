@@ -952,7 +952,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Three concealed kezi</strong> (<em>San an ke</em>, <span class="fanzhong" data-src="33">三暗刻</span>): three kezi (gangzi), all concealed in hand.</p>
+							<p><strong>Three concealed kezi</strong> (<em>San anke</em>, <span class="fanzhong" data-src="33">三暗刻</span>): three kezi (gangzi), all concealed in hand.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
