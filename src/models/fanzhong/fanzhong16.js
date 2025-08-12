@@ -6,6 +6,7 @@
  */
 
 import { SHIFTEDAX3, SHIFTEDBX3 } from '../../components/hu/patterns.js'
+import { SHU } from '../tiles.js'
 
 const FZ16 = 16
 
