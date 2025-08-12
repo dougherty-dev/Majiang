@@ -43,3 +43,8 @@ export async function fz32SanTongKe(struct) {
 
 	return (reduced.length === 3 && set.length === 1) ? FZ16 : 0
 }
+
+// 33. Three concealed kezi (San anke, 三暗刻)
+export async function fz33SanAnke(struct) {
+	return (struct.concealedKezi === 3) ? FZ16 : 0
+}

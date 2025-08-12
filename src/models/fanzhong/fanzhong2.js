@@ -96,6 +96,11 @@ export async function fz65ShuangTongke(struct) {
 	return (reduced.length === 2 && set.length === 1) ? FZ2 : 0
 }
 
+// 66. Two concealed kezi (Shuang anke, 双暗刻)
+export async function fz66ShuangAnke(struct) {
+	return (struct.concealedKezi === 2) ? FZ2 : 0
+}
+
 // 67. Concealed gang (Angang, 暗杠)
 export async function fz67Angang(struct) {
 	const melds = struct.game.players[struct.key].melds

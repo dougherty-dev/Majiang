@@ -10,13 +10,13 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe } from './fanzhong/fanzhong16.js'
-import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
+import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe, fz33SanAnke } from './fanzhong/fanzhong16.js'
+import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
-import { fz11ZiYiSe } from './fanzhong/fanzhong64.js'
+import { fz11ZiYiSe, fz12SiAnke } from './fanzhong/fanzhong64.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -55,6 +55,7 @@ export default class Points {
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '79']],
 			// 64 fan
 			'11': ['字一色', 'Zi yi se', 'All honors', fz11ZiYiSe, 0, ['49', '55', '73']],
+			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49']],
 			// 32 fan
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
 			// 24 fan
@@ -63,12 +64,13 @@ export default class Points {
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
 			'32': ['三同刻', 'San tong ke', 'Triple kezi', fz32SanTongKe, 0, []],
+			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],
 			'50': ['混一色', 'Hun yi se', 'Half flush', fz50HunYiSe, 0, []],
 			'51': ['三色三步高', 'San se san bu gao', 'Mixed shifted shunzi', fz51SanSeSanBuGao, 0, []],
 			'52': ['五门齐', 'Wu men ji', 'All types', fz52WuMenJi, 0, []],
-			'53': ['全求人', 'Quan qiu ren', 'Melded hand', fz53QuanQiuRen, 0, []],
+			'53': ['全求人', 'Quan qiu ren', 'Melded hand', fz53QuanQiuRen, 0, ['79']],
 			'54': ['双箭刻', 'Shuang jianke', 'Two dragons kezi', fz54ShuangJianke, 0, ['59']],
 			// 4 fan
 			'55': ['全带幺', 'Quan dai yao', 'Outside hand', fz55QuanDaiYao, 0, []],
@@ -80,9 +82,10 @@ export default class Points {
 			'60': ['圈风刻', 'Quanfengke', 'Prevalent wind', fz60Quanfengke, 0, []],
 			'61': ['门风刻', 'Menfengke', 'Seat wind', fz61Menfengke, 0, []],
 			'62': ['门前清', 'Menqian qing', 'Concealed hand', fz62MenqianQing, 0, []],
-			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, []],
+			'63': ['平和', 'Pinghu', 'All shunzi', fz63Pinghu, 0, ['76']],
 			'64': ['四归一', 'Si gui yi', 'Tile hog', fz64SiGuiYi, 0, []],
 			'65': ['双同刻', 'Shuang tongke', 'Double kezi', fz65ShuangTongke, 0, []],
+			'66': ['双暗刻', 'Shuang anke', 'Two concealed kezi', fz66ShuangAnke, 0, []],
 			'67': ['暗杠', 'Angang', 'Concealed gang', fz67Angang, 0, []],
 			'68': ['断幺', 'Duanyao', 'All simples', fz68Duanyao, 0, []],
 			// 1 fan

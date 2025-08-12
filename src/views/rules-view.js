@@ -493,7 +493,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 49 All kezi; 55 Outside hand; 73 Terminal kezi.</p>
 						</li>
 						<li>
-							<p><strong>Four concealed kezi</strong> (<em>Si an ke</em>, <span class="fanzhong" data-src="12">四暗刻</span>): four kezi (gangzi), all concealed (no open melds).</p>
+							<p><strong>Four concealed kezi</strong> (<em>Si an ke</em>, <span class="fanzhong" data-src="12">四暗刻</span>): four kezi (gangzi), on hand or melded (angang).</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
@@ -952,7 +952,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Three concealed kezi</strong> (<em>San anke</em>, <span class="fanzhong" data-src="33">三暗刻</span>): three kezi (gangzi), all concealed in hand.</p>
+							<p><strong>Three concealed kezi</strong> (<em>San anke</em>, <span class="fanzhong" data-src="33">三暗刻</span>): three kezi (gangzi), on hand or melded (angang).</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -1466,7 +1466,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Two concealed kezi</strong> (<em>Shuang anke</em>, <span class="fanzhong" data-src="66">双暗刻</span>): two concealed kezi (gangzi) on hand, not melded.</p>
+							<p><strong>Two concealed kezi</strong> (<em>Shuang anke</em>, <span class="fanzhong" data-src="66">双暗刻</span>): two concealed kezi (gangzi), on hand or melded (angang).</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
