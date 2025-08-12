@@ -69,6 +69,19 @@ export async function fz72LaoshaoFu(struct) {
 	return 0
 }
 
+// 73. Terminal kezi (Yao jiu ke, 幺九刻)
+export async function fz73YaoJiuKe(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+
+	const types = [...kezi, ...gangzi]
+		.map(item => [item[0], item[1][0]])
+		.filter(item => item[0] !== 'j')
+		.filter(item => item[0] === 'f' || item[1] === '1' || item[1] === '9')
+
+	return (types.length) ? FZ1 : 0
+}
+
 // 74. Melded gang (Minggang, 明杠)
 export async function fz74Minggang(struct) {
 	const melds = struct.game.players[struct.key].melds
