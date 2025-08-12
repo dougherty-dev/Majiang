@@ -93,7 +93,7 @@ export async function fz65ShuangTongke(struct) {
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
 
-	return (set.length === 2 && set.length === reduced.length) ? FZ2 : 0
+	return (reduced.length === 2 && set.length === 1) ? FZ2 : 0
 }
 
 // 67. Concealed gang (Angang, 暗杠)

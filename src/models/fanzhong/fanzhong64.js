@@ -7,7 +7,6 @@
 
 import { ZI } from '../tiles.js'
 
-
 const FZ64 = 64
 
 // 11. All honors (Zi yi se, 字一色)
