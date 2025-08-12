@@ -33,5 +33,5 @@ export async function fz32SanTongKe(struct) {
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
 
-	return (set.length === 3 && set.length === reduced.length) ? 0 : FZ16
+	return (set.length === 3 && set.length === reduced.length) ? FZ16 : 0
 }
