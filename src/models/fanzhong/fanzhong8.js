@@ -55,6 +55,13 @@ export async function fz43WuFanHu(struct) {
 	return FZ8
 }
 
+// 44. Last tile draw (Miaoshou-huichun, 妙手回春)
+export async function fz44MiaoshouHuichun(struct) {
+	const zimo = struct.game.players[struct.key].hu.zimo
+	const tileCount = struct.game.tiles.length
+	return (zimo && tileCount === 0) ? FZ8 : 0
+}
+
 // 48. Two concealed gangzi (Shuang angang, 双暗杠)
 export async function fz48ShuangAngang(struct) {
 	const melds = struct.game.players[struct.key].melds
