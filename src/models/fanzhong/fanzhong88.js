@@ -33,9 +33,7 @@ export async function fz2DaSanYuan(struct) {
 	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
 	const count = types.filter(item => item === JIAN).length
 
-	if (count === 3) return FZ88
-
-	return 0
+	return (count === 3) ? FZ88 : 0
 }
 
 // 3. All green (Lü yise, 绿一色)

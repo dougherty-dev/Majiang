@@ -5,9 +5,39 @@
  * @module models/fanzhong/fanzhong64
  */
 
-import { ZI } from '../tiles.js'
+import { FENG, JIAN, ZI } from '../tiles.js'
 
 const FZ64 = 64
+
+// 9. Little four winds (Xiao si xi, 小四喜)
+export async function fz9XiaoSiXi(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const duizi = struct.game.players[struct.key].hu.duizi
+
+	const typesKezi = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
+	const countKezi = typesKezi.filter(item => item === FENG).length
+
+	const typesDuizi = duizi.map(item => item[0])
+	const countDuizi = typesDuizi.filter(item => item === FENG).length
+
+	return (countKezi === 3 && countDuizi === 1) ? FZ64 : 0
+}
+
+// 10. Little three dragons (Xiao san yuan, 小三元)
+export async function fz10XiaoSanYuan(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const duizi = struct.game.players[struct.key].hu.duizi
+
+	const typesKezi = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
+	const countKezi = typesKezi.filter(item => item === JIAN).length
+
+	const typesDuizi = duizi.map(item => item[0])
+	const countDuizi = typesDuizi.filter(item => item === JIAN).length
+
+	return (countKezi === 2 && countDuizi === 1) ? FZ64 : 0
+}
 
 // 11. All honors (Zi yi se, 字一色)
 export async function fz11ZiYiSe(struct) {
