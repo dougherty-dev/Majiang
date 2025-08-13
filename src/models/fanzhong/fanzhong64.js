@@ -25,11 +25,12 @@ export async function fz12SiAnke(struct) {
 
 	const melds = struct.game.players[struct.key].melds
 	const gang = melds.filter(item => item.type === 'gang')
+	const peng = melds.filter(item => item.type === 'peng')
 
 	// Save result for:
 	// 33. Three concealed kezi (San anke, 三暗刻)
 	// 66. Two concealed kezi (Shuang anke, 双暗刻)
-	struct.concealedKezi = kegang.length - gang.length
+	struct.concealedKezi = kegang.length - gang.length - peng.length
 
 	return (struct.concealedKezi === 4) ? FZ64 : 0
 }
