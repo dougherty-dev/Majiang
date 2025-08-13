@@ -27,6 +27,14 @@ export async function fz12SiAnke(struct) {
 	const gang = melds.filter(item => item.type === 'gang')
 	const peng = melds.filter(item => item.type === 'peng')
 
+	// kezi on dianhu (and qianggang) is open
+	if (struct.game.players[struct.key].hu.dianhu) {
+		const tile = struct.game.players[struct.game.currentPlayer].drop
+		for (const ke of kegang) {
+			if (ke[0] == tile[7] && ke[1][0] == tile[1]) return 0
+		}
+	}
+
 	// Save result for:
 	// 33. Three concealed kezi (San anke, 三暗刻)
 	// 66. Two concealed kezi (Shuang anke, 双暗刻)

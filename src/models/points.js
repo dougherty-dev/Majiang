@@ -17,7 +17,7 @@ import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz11ZiYiSe, fz12SiAnke } from './fanzhong/fanzhong64.js'
-import { fz43WuFanHu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
+import { fz39Hualong, fz43WuFanHu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -67,6 +67,7 @@ export default class Points {
 			'32': ['三同刻', 'San tong ke', 'Triple kezi', fz32SanTongKe, 0, []],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 8 fan
+			'39': ['花龙', 'Hualong', 'Mixed straight', fz39Hualong, 0, []],
 			'43': ['无番和', 'Wu fan hu', 'Chicken hand', fz43WuFanHu, 0, []],
 			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
 			// 6 fan
