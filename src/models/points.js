@@ -15,7 +15,7 @@ import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu,
 import { fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
 import { fz17SanGang, fz19QiDui } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
-import { fz14YiSeSiTongshun } from './fanzhong/fanzhong48.js'
+import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
 import { fz39Hualong, fz40Tuibudao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
@@ -65,6 +65,7 @@ export default class Points {
 			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, ['19', '22', '63', '69', '72', '76']],
 			// 48 fan
 			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, ['24', '64', '69']],
+			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, ['23', '49']],
 			// 32 fan
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],
