@@ -429,7 +429,6 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
-							<p>In the example, there are also two <em>65. Double kezi</em> worth 4 fan each.</p>
 							<p class="exclude">➖ 49 All kezi; 55 Outside hand; 73 Terminal kezi; 76 No honors.</p>
 						</li>
 						<li>

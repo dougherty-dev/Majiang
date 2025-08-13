@@ -18,8 +18,10 @@ export async function checkSpecial(player, door) {
 
 	if (pairs === 7) {
 		player.hu.pairs = 7
-		for (const tile of door) {
-			player.hu.duizi.push(tile)
+		for (const [index, tile] of Object.entries(door)) {
+			if (index % 2 !== 0) continue
+			const set = [tile[7], `${tile[1]}${tile[1]}`]
+			player.hu.duizi.push(set)
 		}
 
 		return true

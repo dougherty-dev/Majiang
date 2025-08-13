@@ -16,7 +16,7 @@ import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
 import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
-import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
+import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
 import { fz39Hualong, fz40Tuibudao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
@@ -56,10 +56,12 @@ export default class Points {
 			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['22', '79']],
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '79']],
 			// 64 fan
+			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, ['49', '55', '73', '76']],
 			'9': ['小四喜', 'Xiao si xi', 'Little four winds', fz9XiaoSiXi, 0, ['38', '73']],
 			'10': ['小三元', 'Xiao san yuan', 'Little three dragons', fz10XiaoSanYuan, 0, ['54', '59']],
 			'11': ['字一色', 'Zi yi se', 'All honors', fz11ZiYiSe, 0, ['49', '55', '73']],
 			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49']],
+			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, ['19', '22', '63', '69', '72', '76']],
 			// 32 fan
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
 			// 24 fan

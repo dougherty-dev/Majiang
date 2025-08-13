@@ -5,9 +5,22 @@
  * @module models/fanzhong/fanzhong64
  */
 
-import { FENG, JIAN, ZI } from '../tiles.js'
+import { FENG, JIAN, SHU, ZI } from '../tiles.js'
 
 const FZ64 = 64
+
+// 8. Pure terminals (Qing yao jiu, 清幺九)
+export async function fz8QingYaoJiu(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const duizi = struct.game.players[struct.key].hu.duizi
+
+	const melds = [...kezi, ...gangzi, ...duizi]
+	const shu = melds.filter(item => SHU.includes(item[0]))
+	const yaojiu = shu.filter(item => ['1', '9'].includes(item[1][0]))
+
+	return (yaojiu.length === 5) ? FZ64 : 0
+}
 
 // 9. Little four winds (Xiao si xi, 小四喜)
 export async function fz9XiaoSiXi(struct) {
@@ -71,4 +84,14 @@ export async function fz12SiAnke(struct) {
 	struct.concealedKezi = kegang.length - gang.length - peng.length
 
 	return (struct.concealedKezi === 4) ? FZ64 : 0
+}
+
+// 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会)
+export async function fz13YiSeShuangLongHui(struct) {
+	const pattern = '11223355778899'
+	const types = Object.values(struct.types)
+	struct.game.players[struct.key].hu.pairs = 1
+	struct.game.players[struct.key].hu.melds = 4
+
+	return (types.includes(pattern)) ? FZ64 : 0
 }
