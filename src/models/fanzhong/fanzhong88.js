@@ -6,6 +6,7 @@
  */
 
 import { sortTiles } from '../../components/helpers.js'
+import { LIANQIDUI } from '../../components/hu/patterns.js'
 import { FENG, JIAN } from '../tiles.js'
 import { fz22QingYiSe } from './fanzhong24.js'
 
@@ -72,17 +73,26 @@ export async function fz5SiGang(struct) {
 
 // 6. Seven shifted pairs (Lian qi dui, 连七对)
 export async function fz6LianQiDui(struct) {
-	if (struct.game.players[struct.key].hu.pairs !== 7) return 0
+	const types = Object.values(struct.types).filter(item => item.length === 14)
 
-	const duizi = struct.game.players[struct.key].hu.duizi
-	const type = duizi.map(item => item[1]).join('')
-	const pattern = /(11223344556677|22334455667788|33445566778899)/g
+	if (types.length && types[0].match(LIANQIDUI)) {
+		// reset and rearrange
+		struct.game.players[struct.key].hu.allMelds = []
+		struct.game.players[struct.key].hu.duizi = []
+		struct.game.players[struct.key].hu.shunzi = []
+		struct.game.players[struct.key].hu.kezi = []
+		struct.game.players[struct.key].hu.gangzi = []
 
-	if (
-		struct.game.players[struct.key].hu.pairs === 7 &&
-		type.match(pattern)
-	) return FZ88
-		
+		for (const [index, tile] of Object.entries(struct.tiles)) {
+			if (index % 2 !== 0) continue
+			const set = [tile[7], `${tile[1]}${tile[1]}`]
+			struct.game.players[struct.key].hu.duizi.push(set)
+			struct.game.players[struct.key].hu.allMelds.push(set)
+		}
+
+		return FZ88
+	}
+
 	return 0
 }
 

@@ -31,8 +31,8 @@ export async function fz31QuanDaiWu(struct) {
 	return (quandaiwu.length === 5) ? FZ16 : 0
 }
 
-// 32. Triple kezi (San tong ke, 三同刻)
-export async function fz32SanTongKe(struct) {
+// 32. Triple kezi (San tongke, 三同刻)
+export async function fz32SanTongke(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
 	const melds = [...kezi, ...gangzi]

@@ -554,7 +554,7 @@ export default class RulesView extends HTMLElement {
 					<h4>48 fan:</h4>
 					<ol>
 						<li value="14">
-							<p><strong>Quadruple shunzi</strong> (<em>Yi se si tong shun</em>, <span class="fanzhong" data-src="14">一色四同顺</span>): four identical shunzi, plus an arbitrary pair.</p>
+							<p><strong>Quadruple shunzi</strong> (<em>Yi se si tongshun</em>, <span class="fanzhong" data-src="14">一色四同顺</span>): four identical shunzi, plus an arbitrary pair.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -747,7 +747,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
-							<p><strong>Pure triple shunzi</strong> (<em>Yi se san tong shun</em>, <span class="fanzhong" data-src="23">一色三同顺</span>): three identical shunzi.</p>
+							<p><strong>Pure triple shunzi</strong> (<em>Yi se san tongshun</em>, <span class="fanzhong" data-src="23">一色三同顺</span>): three identical shunzi.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -931,7 +931,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 68 All simples.</p>
 						</li>
 						<li>
-							<p><strong>Triple kezi</strong> (<em>San tong ke</em>, <span class="fanzhong" data-src="32">三同刻</span>): three kezi (gangzi) of the same value.</p>
+							<p><strong>Triple kezi</strong> (<em>San tongke</em>, <span class="fanzhong" data-src="32">三同刻</span>): three kezi (gangzi) of the same value.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -1137,7 +1137,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 75 One voided suit.</p>
 						</li>
 						<li>
-							<p><strong>Mixed triple shunzi</strong> (<em>San se san tong shun</em>, <span class="fanzhong" data-src="41">三色三同顺</span>): three equal shunzi in each suit.</p>
+							<p><strong>Mixed triple shunzi</strong> (<em>San se san tongshun</em>, <span class="fanzhong" data-src="41">三色三同顺</span>): three equal shunzi in each suit.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">

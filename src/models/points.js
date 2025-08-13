@@ -10,11 +10,12 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongKe, fz33SanAnke } from './fanzhong/fanzhong16.js'
+import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz22QingYiSe } from './fanzhong/fanzhong24.js'
-import { fz17SanGang } from './fanzhong/fanzhong32.js'
+import { fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
+import { fz17SanGang, fz19QiDui } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
+import { fz14YiSeSiTongshun } from './fanzhong/fanzhong48.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
 import { fz39Hualong, fz40Tuibudao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
@@ -53,7 +54,7 @@ export default class Points {
 			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, []],
 			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '73']],
 			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['17', '48', '57', '67', '74', '79']],
-			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['22', '79']],
+			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['19', '22', '56', '62', '76', '79']],
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '79']],
 			// 64 fan
 			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, ['49', '55', '73', '76']],
@@ -62,14 +63,18 @@ export default class Points {
 			'11': ['字一色', 'Zi yi se', 'All honors', fz11ZiYiSe, 0, ['49', '55', '73']],
 			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49']],
 			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, ['19', '22', '63', '69', '72', '76']],
+			// 48 fan
+			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, ['24', '64', '69']],
 			// 32 fan
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
+			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],
 			// 24 fan
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
+			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['49', '55', '73']],
 			// 16 fan
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
-			'32': ['三同刻', 'San tong ke', 'Triple kezi', fz32SanTongKe, 0, []],
+			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, []],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 8 fan
 			'39': ['花龙', 'Hualong', 'Mixed straight', fz39Hualong, 0, []],

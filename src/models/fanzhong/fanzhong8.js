@@ -51,7 +51,7 @@ export async function fz40Tuibudao(struct) {
 }
 
 // 43. Chicken hand (Wu fan hu, 无番和)
-export async function fz43WuFanHu(struct) {
+export async function fz43WuFanHu(struct) { // eslint-disable-line
 	return FZ8
 }
 

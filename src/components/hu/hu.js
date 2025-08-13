@@ -70,15 +70,12 @@ export async function checkHu(player, door) {
 		player.hu.types[tile[7]] += tile[1]
 	}
 
-	if (await checkSpecial(player, door)) return true
-
 	// regular hands
 	for (const [key, type] of Object.entries(player.hu.types)) {
 		switch (true) {
 		case type.length === 0:
 			break
 		case [1, 4, 7, 10, 13].includes(type.length):
-			// check special hands first, though
 			return
 		default:
 			if (!checkType(key, type, lookup['lookup' + type.length], player)) return false
@@ -89,6 +86,9 @@ export async function checkHu(player, door) {
 	if (player.hu.pairs === 1 && player.hu.melds === 4) {
 		return true
 	}
+
+	// special hands
+	if (await checkSpecial(player, door)) return true
 
 	return false
 }
