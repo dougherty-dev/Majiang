@@ -11,11 +11,7 @@ const FZ64 = 64
 
 // 8. Pure terminals (Qing yao jiu, 清幺九)
 export async function fz8QingYaoJiu(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-	const duizi = struct.game.players[struct.key].hu.duizi
-
-	const melds = [...kezi, ...gangzi, ...duizi]
+	const melds = struct.game.players[struct.key].hu.allMelds
 	const shu = melds.filter(item => SHU.includes(item[0]))
 	const yaojiu = shu.filter(item => ['1', '9'].includes(item[1][0]))
 
