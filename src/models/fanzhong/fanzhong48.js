@@ -6,7 +6,6 @@
  */
 
 import { TYPES } from '../../components/hu/patterns.js'
-import { SHU } from '../tiles.js'
 
 const FZ48 = 48
 
@@ -35,6 +34,8 @@ export async function fz15YiSeSiJieGao(struct) {
 	for (const tile of triples) {
 		types[tile[0]] += tile[1]
 	}
+
+	struct.meldTypes = types
 
 	const reduced = Object.values(types).filter(item => item.length === 12)
 

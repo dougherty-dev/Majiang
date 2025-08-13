@@ -10,6 +10,7 @@ import { SHU } from '../tiles.js'
 
 const FZ16 = 16
 
+// Not satisfactory, rewrite
 // 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高)
 export async function fz30YiSeSanBuGao(struct) {
 	const hu = struct.game.players[struct.key].hu

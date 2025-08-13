@@ -12,8 +12,8 @@ import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
-import { fz17SanGang, fz19QiDui } from './fanzhong/fanzhong32.js'
+import { fz19QiDui, fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
+import { fz16YiSeSiBuGao, fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
@@ -67,6 +67,7 @@ export default class Points {
 			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, ['24', '64', '69']],
 			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, ['23', '49']],
 			// 32 fan
+			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, ['71', '72']],
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],
 			// 24 fan
