@@ -26,7 +26,7 @@ export async function fz30YiSeSanBuGao(struct) {
 // 31. All fives (Quan dai wu, 全带五)
 export async function fz31QuanDaiWu(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
-	const quandaiwu = melds.filter(item => item[1].includes(['2']))
+	const quandaiwu = melds.filter(item => item[1].includes('5'))
 
 	return (quandaiwu.length === 5) ? FZ16 : 0
 }

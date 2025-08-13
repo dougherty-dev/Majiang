@@ -17,7 +17,7 @@ import { fz17SanGang } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz11ZiYiSe, fz12SiAnke } from './fanzhong/fanzhong64.js'
-import { fz39Hualong, fz43WuFanHu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
+import { fz39Hualong, fz40Tuibudao, fz43WuFanHu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -44,6 +44,7 @@ export default class Points {
 			...hu.gangzi
 		])
 
+		this.exclude = []
 		this.points = 0
 		this.fanzhong = {
 			// 88 fan
@@ -68,6 +69,7 @@ export default class Points {
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 8 fan
 			'39': ['花龙', 'Hualong', 'Mixed straight', fz39Hualong, 0, []],
+			'40': ['推不倒', 'Tuibudao', 'Reversible tiles', fz40Tuibudao, 0, ['75']],
 			'43': ['无番和', 'Wu fan hu', 'Chicken hand', fz43WuFanHu, 0, []],
 			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
 			// 6 fan
@@ -129,17 +131,19 @@ export default class Points {
 	}
 
 	async fanPoints() {
-		let exclude = []
 		for await (const key of Object.keys(this.fanzhong)) {
-			if (key === '43' || exclude.includes(key)) continue
-			await this.applyRule(key, exclude)
+			if (key === '43' || key === '81' || this.exclude.includes(key)) continue
+			await this.applyRule(key)
 		}
 
 		// 43. Chicken hand (Wu fan hu, 无番和)
-		if (this.points === 0) await this.applyRule('43', exclude)
+		if (this.points === 0) await this.applyRule('43')
+
+		// 81. Flower tiles (Huapai, 花牌)
+		await this.applyRule('81')
 	}
 
-	async applyRule(key, exclude) {
+	async applyRule(key) {
 		const fz = this.fanzhong[key]
 		const points = await fz[3](this.struct)
 
@@ -147,7 +151,7 @@ export default class Points {
 			fz[4] = points
 			this.points += points
 			if (fz[5].length) {
-				exclude = [...exclude, ...fz[5]]
+				this.exclude = [...this.exclude, ...fz[5]]
 			}
 		}
 	}

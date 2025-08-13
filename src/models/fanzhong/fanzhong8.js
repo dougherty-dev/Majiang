@@ -5,6 +5,8 @@
  * @module models/fanzhong/fanzhong8
  */
 
+import { BING, FENG, JIAN, TIAO, WAN } from '../tiles.js'
+
 const FZ8 = 8
 
 // 39. Mixed straight (Hualong, 花龙)
@@ -25,6 +27,27 @@ export async function fz39Hualong(struct) {
 	}
 
 	return 0
+}
+
+// 40. Reversible tiles (Tuibudao, 推不倒)
+export async function fz40Tuibudao(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const winds = melds.filter(item => item[0] === FENG)
+	if (winds.length) return 0
+
+	const wanzi = melds.filter(item => item[0] === WAN)
+	if (wanzi.length) return 0
+
+	const dragons = melds.filter(item => item[0] === JIAN && !item[1].includes('3'))
+	if (dragons.length) return 0
+
+	const tiaozi = melds.filter(item => item[0] === TIAO && !item[1].match(/^[245689]+$/))
+	if (tiaozi.length) return 0
+
+	const bingzi = melds.filter(item => item[0] === BING && !item[1].match(/^[1234589]+$/))
+	if (bingzi.length) return 0
+
+	return FZ8
 }
 
 // 43. Chicken hand (Wu fan hu, 无番和)
