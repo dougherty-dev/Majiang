@@ -62,6 +62,13 @@ export async function fz44MiaoshouHuichun(struct) {
 	return (zimo && tileCount === 0) ? FZ8 : 0
 }
 
+// 45. Last tile claim (Haidi-laoyue, 海底捞月)
+export async function fz45HaidiLaoyue(struct) {
+	const dianhu = struct.game.players[struct.key].hu.dianhu
+	const tileCount = struct.game.tiles.length
+	return (dianhu && tileCount === 0) ? FZ8 : 0
+}
+
 // 48. Two concealed gangzi (Shuang angang, 双暗杠)
 export async function fz48ShuangAngang(struct) {
 	const melds = struct.game.players[struct.key].melds
