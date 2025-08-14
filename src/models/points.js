@@ -10,10 +10,10 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
+import { fz34QuanBuKao, fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
 import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
+import { fz19QiDui, fz20QiXingBuKao, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
 import { fz16YiSeSiBuGao, fz17SanGang, fz18HunYaoJiu } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
@@ -74,6 +74,7 @@ export default class Points {
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, ['49', '55', '73']],
 			// 24 fan
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],
+			'20': ['七星不靠', 'Qi xing bu kao', 'Greater honors and knitted tiles', fz20QiXingBuKao, 0, ['52']],
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, ['49', '68']],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['49', '55', '73']],
@@ -88,15 +89,17 @@ export default class Points {
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
 			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, []],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
-			// 8 fan
+			// 12 fan
+			'34': ['全不靠', 'Quan bu kao', 'Lesser honors and knitted tiles', fz34QuanBuKao, 0, ['52']],
 			'36': ['大于五', 'Da yu wu', 'Upper four', fz36DaYuWu, 0, ['76']],
 			'37': ['小于五', 'Xiao yu wu', 'Lower four', fz37XiaoYuWu, 0, ['76']],
 			'38': ['三风刻', 'San feng ke', 'Big three winds', fz38SanFengKe, 0, []],
+			// 8 fan
 			'39': ['花龙', 'Hualong', 'Mixed straight', fz39Hualong, 0, []],
 			'40': ['推不倒', 'Tuibudao', 'Reversible tiles', fz40Tuibudao, 0, ['75']],
+			'43': ['无番和', 'Wu fan hu', 'Chicken hand', fz43WuFanHu, 0, []],
 			'44': ['妙手回春', 'Miaoshou-huichun', 'Last tile draw', fz44MiaoshouHuichun, 0, ['80']],
 			'45': ['海底捞月', 'Haidi-laoyue', 'Last tile claim', fz45HaidiLaoyue, 0, []],
-			'43': ['无番和', 'Wu fan hu', 'Chicken hand', fz43WuFanHu, 0, []],
 			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],

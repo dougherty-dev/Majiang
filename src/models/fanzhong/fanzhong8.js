@@ -31,7 +31,8 @@ export async function fz39Hualong(struct) {
 
 // 40. Reversible tiles (Tuibudao, 推不倒)
 export async function fz40Tuibudao(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
+	const melds = Object.entries(struct.game.players[struct.key].hu.types)
+
 	const winds = melds.filter(item => item[0] === FENG)
 	if (winds.length) return 0
 

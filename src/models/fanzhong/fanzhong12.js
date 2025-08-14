@@ -9,6 +9,13 @@ import { FENG, SHU } from '../tiles.js'
 
 const FZ12 = 12
 
+// 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠)
+export async function fz34QuanBuKao(struct) {
+	const hu = struct.game.players[struct.key].hu
+
+	return (hu.isKnitted && hu.isLesserHonors) ? FZ12 : 0
+}
+
 // 36. Upper four (Da yu wu, 大于五)
 export async function fz36DaYuWu(struct) {
 	const lower = struct.tiles.filter(item => SHU.includes(item[7]) && item[1] > 5)

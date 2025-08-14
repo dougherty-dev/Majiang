@@ -39,6 +39,13 @@ export async function fz19QiDui(struct) {
 	return 0
 }
 
+// 20. Greater honors and knitted tiles (Qi xing bu kao, 七星不靠)
+export async function fz20QiXingBuKao(struct) {
+	const hu = struct.game.players[struct.key].hu
+
+	return (hu.isKnitted && hu.isGreaterHonors) ? FZ24 : 0
+}
+
 // 21. All even kezi (Quan shuang ke, 全双刻)
 export async function fz21QuanShuangKe(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds

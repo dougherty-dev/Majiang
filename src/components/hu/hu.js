@@ -71,21 +71,15 @@ export async function checkHu(player, door) {
 	}
 
 	// regular hands
-	for (const [key, type] of Object.entries(player.hu.types)) {
-		switch (true) {
-		case type.length === 0:
-			break
-		case [1, 4, 7, 10, 13].includes(type.length):
-			return
-		default:
-			if (!checkType(key, type, lookup['lookup' + type.length], player)) return false
-			break
-		}
+	const types = Object.entries(player.hu.types).filter(item => item[1] !== '')
+	for (const [key, type] of types) {
+		if (
+			[1, 4, 7, 10, 13].includes(type.length) ||
+			!checkType(key, type, lookup['lookup' + type.length], player)
+		) break
 	}
 
-	if (player.hu.pairs === 1 && player.hu.melds === 4) {
-		return true
-	}
+	if (player.hu.pairs === 1 && player.hu.melds === 4) return true
 
 	// special hands
 	if (await checkSpecial(player, door)) return true
