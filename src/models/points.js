@@ -10,7 +10,7 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz36DaYuWu, fz37XiaoYuWu } from './fanzhong/fanzhong12.js'
+import { fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
 import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
@@ -91,6 +91,7 @@ export default class Points {
 			// 8 fan
 			'36': ['大于五', 'Da yu wu', 'Upper four', fz36DaYuWu, 0, ['76']],
 			'37': ['小于五', 'Xiao yu wu', 'Lower four', fz37XiaoYuWu, 0, ['76']],
+			'38': ['三风刻', 'San feng ke', 'Big three winds', fz38SanFengKe, 0, []],
 			'39': ['花龙', 'Hualong', 'Mixed straight', fz39Hualong, 0, []],
 			'40': ['推不倒', 'Tuibudao', 'Reversible tiles', fz40Tuibudao, 0, ['75']],
 			'44': ['妙手回春', 'Miaoshou-huichun', 'Last tile draw', fz44MiaoshouHuichun, 0, ['80']],

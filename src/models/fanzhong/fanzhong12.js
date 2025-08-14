@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong12
  */
 
-import { SHU } from '../tiles.js'
+import { FENG, SHU } from '../tiles.js'
 
 const FZ12 = 12
 
@@ -21,4 +21,13 @@ export async function fz37XiaoYuWu(struct) {
 	const lower = struct.tiles.filter(item => SHU.includes(item[7]) && item[1] < 5)
 
 	return (lower.length >= 14) ? FZ12 : 0
+}
+
+// 38. Big three winds (San feng ke, 三风刻)
+export async function fz38SanFengKe(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const melds = [...kezi, ...gangzi].filter(item => item[0] === FENG)
+
+	return (melds.length === 3) ? FZ12 : 0
 }

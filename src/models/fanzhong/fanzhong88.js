@@ -16,14 +16,9 @@ const FZ88 = 88
 export async function fz1DaSiXi(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const melds = [...kezi, ...gangzi].filter(item => item[0] === FENG)
 
-	if (
-		kezi.length + gangzi.length === 4 &&
-		kezi.every((type) => type[0] === FENG) &&
-		gangzi.every((type) => type[0] === FENG)
-	) return FZ88
-
-	return 0
+	return (melds.length === 4) ? FZ88 : 0
 }
 
 // 2. Big three dragons (Da san yuan, 大三元)

@@ -81,7 +81,7 @@ export async function fz23YiSeSanTongshun(struct) {
 // Only with actual melds, otherwise 23 (same sorted pattern)
 export async function fz24YiSeSanJieGao(struct) {
 	const pattern = /(111222333|222333444|333444555|444555666|555666777|666777888|777888999)/g
-	const kezi = struct.game.players[struct.key].hu.kezi
+	const kezi = struct.game.players[struct.key].hu.kezi.filter(item => SHU.includes(item[0]))
 
 	const types = Object.assign({}, TYPES)
 
