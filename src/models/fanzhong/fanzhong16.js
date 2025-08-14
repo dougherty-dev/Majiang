@@ -5,10 +5,28 @@
  * @module models/fanzhong/fanzhong6
  */
 
-import { SHIFTEDAX3, SHIFTEDBX3 } from '../../components/hu/patterns.js'
-import { SHU } from '../tiles.js'
+import { SHIFTEDAX3, SHIFTEDBX3, TYPES } from '../../components/hu/patterns.js'
+import { BING, SHU, TIAO, WAN } from '../tiles.js'
 
 const FZ16 = 16
+
+// 28. Pure straight (Qing long, 清龙)
+export async function fz28QingLong(struct) {
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+
+	for (const type of SHU) {
+		const suit = shunzi.filter(item => item[0] === type).map(item => `${item[1]}`)
+
+		if (
+			suit.length >= 3 &&
+			suit.includes('123') &&
+			suit.includes('456') &&
+			suit.includes('789')
+		) return FZ16
+	}
+
+	return 0
+}
 
 // Not satisfactory, rewrite
 // 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高)
