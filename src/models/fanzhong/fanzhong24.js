@@ -39,6 +39,15 @@ export async function fz19QiDui(struct) {
 	return 0
 }
 
+// 21. All even kezi (Quan shuang ke, 全双刻)
+export async function fz21QuanShuangKe(struct) {
+	const melds = struct.game.players[struct.key].hu.allMelds
+	const shu = melds.filter(item => SHU.includes(item[0]))
+	const even = shu.filter(item => ['2', '4', '6', '8'].includes(item[1][0]))
+
+	return (even.length === 5) ? FZ24 : 0
+}
+
 // 22. Full flush (Qing yi se, 清一色)
 export async function fz22QingYiSe(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds

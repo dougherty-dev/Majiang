@@ -12,7 +12,7 @@ import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz19QiDui, fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
+import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun } from './fanzhong/fanzhong24.js'
 import { fz16YiSeSiBuGao, fz17SanGang, fz18HunYaoJiu } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
@@ -72,6 +72,7 @@ export default class Points {
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, ['49', '55', '73']],
 			// 24 fan
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],
+			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, ['49', '68']],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['49', '55', '73']],
 			// 16 fan
