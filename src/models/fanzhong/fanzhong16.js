@@ -28,6 +28,30 @@ export async function fz28QingLong(struct) {
 	return 0
 }
 
+// 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会)
+export async function fz29SanSeShuangLongHui(struct) {
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+	const duizi = struct.game.players[struct.key].hu.duizi
+
+	const melds = [...shunzi, ...duizi]
+	const combined = melds.map(item => `${item[0]}${item[1]}`)
+	const longhui = [
+		['b123', 't789', 'w55'],
+		['b789', 't123', 'w55'],
+		['t123', 'w789', 'b55'],
+		['t789', 'w123', 'b55'],
+		['b123', 'w789', 't55'],
+		['b789', 'w123', 't55'],
+	]
+
+	for (const long of longhui) {
+		const contains = long.every(item => combined.includes(item))
+		if (contains) return FZ16
+	}
+
+	return 0
+}
+
 // Not satisfactory, rewrite
 // 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高)
 export async function fz30YiSeSanBuGao(struct) {

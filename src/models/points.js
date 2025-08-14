@@ -10,7 +10,7 @@ const EXTRAPOINTS = 8
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz28QingLong, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
+import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
 import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
 import { fz16YiSeSiBuGao, fz17SanGang, fz18HunYaoJiu } from './fanzhong/fanzhong32.js'
@@ -82,6 +82,7 @@ export default class Points {
 			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, ['76']],
 			// 16 fan
 			'28': ['清龙', 'Qing long', 'Pure straight', fz28QingLong, 0, ['71', '72']],
+			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, ['63', '70', '72', '76']],
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
 			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, []],
