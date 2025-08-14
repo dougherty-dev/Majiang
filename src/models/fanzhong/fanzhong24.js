@@ -6,7 +6,7 @@
  */
 
 import { SHU } from '../tiles.js'
-import { DUIZI, TYPES } from '../../components/hu/patterns.js'
+import { DUIZI, KEZI, TYPES } from '../../components/hu/patterns.js'
 
 const FZ24 = 24
 
@@ -14,7 +14,7 @@ const FZ24 = 24
 export async function fz19QiDui(struct) {
 	let pairs = 0
 	for (const type of Object.values(struct.types)) {
-		const pair = type.match(DUIZI)
+		const pair = type.match(DUIZI) && !type.match(KEZI)
 		if (pair) pairs += pair.length
 	}
 
@@ -98,4 +98,25 @@ export async function fz24YiSeSanJieGao(struct) {
 	}
 
 	return 0
+}
+
+// 25. Upper tiles (Quan da, 全大)
+export async function fz25QuanDa(struct) {
+	const upper = struct.tiles.filter(item => SHU.includes(item[7]) && [7, 8, 9].includes(item[1]))
+
+	return (upper.length >= 14) ? FZ24 : 0
+}
+
+// 26. Middle tiles (Quan zhong, 全中)
+export async function fz26QuanZhong(struct) {
+	const middle = struct.tiles.filter(item => SHU.includes(item[7]) && [4, 5, 6].includes(item[1]))
+
+	return (middle.length >= 14) ? FZ24 : 0
+}
+
+// 27. Lower tiles (Quan xiao, 全小)
+export async function fz27QuanXiao(struct) {
+	const lower = struct.tiles.filter(item => SHU.includes(item[7]) && [1, 2, 3].includes(item[1]))
+
+	return (lower.length >= 14) ? FZ24 : 0
 }

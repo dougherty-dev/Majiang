@@ -12,7 +12,7 @@ import { ALLPLAYERS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao } from './fanzhong/fanzhong24.js'
+import { fz19QiDui, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
 import { fz16YiSeSiBuGao, fz17SanGang, fz18HunYaoJiu } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
@@ -76,6 +76,9 @@ export default class Points {
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['49', '55', '73']],
 			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, ['49', '55', '73']],
+			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, ['76']],
+			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, ['68']],
+			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, ['76']],
 			// 16 fan
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, []],
@@ -98,7 +101,7 @@ export default class Points {
 			// 4 fan
 			'55': ['全带幺', 'Quan dai yao', 'Outside hand', fz55QuanDaiYao, 0, []],
 			'56': ['不求人', 'Bu qiu ren', 'Fully concealed hand', fz56BuQiuRen, 0, []],
-			'57': ['双明杠', 'Shuang minggang', 'Two melded gangs', fz57ShuangMinggang, 0, []],
+			'57': ['双明杠', 'Shuang minggang', 'Two melded gangs', fz57ShuangMinggang, 0, ['67', '74']],
 			'58': ['和绝张', 'Hu juezhang', 'Last tile', fz58HuJuezhang, 0, []],
 			// 2 fan
 			'59': ['箭刻', 'Jianke', 'Dragon kezi', fz59Jianke, 0, []],
