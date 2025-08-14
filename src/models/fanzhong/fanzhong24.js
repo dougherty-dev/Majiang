@@ -6,7 +6,7 @@
  */
 
 import { SHU } from '../tiles.js'
-import { DUIZI } from '../../components/hu/patterns.js'
+import { DUIZI, TYPES } from '../../components/hu/patterns.js'
 
 const FZ24 = 24
 
@@ -75,4 +75,27 @@ export async function fz23YiSeSanTongshun(struct) {
 	const count = occurrences.filter(item => item === 3)
 
 	return (count.length) ? FZ24 : 0
+}
+
+// 24. Pure shifted kezi (Yi se san jie gao, 一色三节高)
+// Only with actual melds, otherwise 23 (same sorted pattern)
+export async function fz24YiSeSanJieGao(struct) {
+	const pattern = /(111222333|222333444|333444555|444555666|555666777|666777888|777888999)/g
+	const kezi = struct.game.players[struct.key].hu.kezi
+
+	const types = Object.assign({}, TYPES)
+
+	for (const tile of kezi) {
+		types[tile[0]] += tile[1]
+	}
+
+	const reduced = Object.values(types).filter(item => item.length >= 9)
+
+	if (reduced.length) {
+		const sorted = reduced[0].split('').sort().join('')
+
+		return (sorted.match(pattern)) ? FZ24 : 0
+	}
+
+	return 0
 }

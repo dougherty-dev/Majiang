@@ -15,6 +15,7 @@ export async function draw(game) {
 	displayResults(game, 0, [])
 }
 
+// fix: when not hu, should be able to meld…
 export async function hu(game, key) {
 	let door = []
 	for (const set of game.players[key].melds) {
