@@ -33,6 +33,11 @@ export async function newTileChecks(game, key) {
 		return true
 	}
 
+	if (game.tiles.length === 0) {
+		await draw(game)
+		return true
+	}
+
 	return false
 }
 
@@ -47,7 +52,7 @@ export async function dropTileChecks(game, tile, key) {
 		// 	await hu()
 		// 	return
 		// }
-		newTile(game)
+		await newTile(game)
 		return true
 	case 'peng':
 		return true
@@ -57,7 +62,6 @@ export async function dropTileChecks(game, tile, key) {
 
 	if (game.tiles.length === 0) {
 		await draw(game)
-		console.log('draw', game)
 		return true
 	}
 

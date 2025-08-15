@@ -39,7 +39,7 @@ function killNode(target, key) {
 	elem.replaceWith(elem.cloneNode(true))
 }
 
-export async function  displayClearBoard() {
+export async function displayClearBoard() {
 	for (const key of ALLPLAYERS) {
 		killNode('door', key)
 		killNode('control-drop', key)
@@ -84,10 +84,24 @@ export async function displayExit(points, required) {
 	if (exit) {
 		sound('snd/note.m4a')
 		exit.innerHTML = `${points} / ${required} 番`
-		exit.classList.add('show');
-		setTimeout(() => {
-			exit.innerHTML = '';
-			exit.classList.remove('show');
-		}, 4000)
+		await fadeOut(exit, 4000)
+		exit.innerHTML = ''
 	}
+}
+
+async function fadeOut(element, durationInMs) {
+	return new Promise((resolve) => {
+		const animation = element.animate(
+			[
+				{ opacity: '1' },
+				{ opacity: '0' }
+			],
+			{
+				duration: durationInMs,
+				easing: 'linear',
+				fill: 'forwards'
+			}
+		)
+		animation.onfinish = () => resolve()
+	})
 }

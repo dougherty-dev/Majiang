@@ -23,7 +23,6 @@ export function observeNewTile(game) {
 		if (!door) return
 
 		let callback = async (mutationList, observer) => { // eslint-disable-line
-			// player has a new tile?
 			if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
 
 			if (await newTileChecks(game, key)) return
