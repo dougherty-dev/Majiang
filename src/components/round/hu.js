@@ -35,7 +35,7 @@ export async function hu(game, key) {
 		door.push(tile)
 	}
 
-	const points = new Points(game, 4, door)
+	const points = new Points(game, key, door)
 	await points.fanPoints()
 
 	if (key != 4) {

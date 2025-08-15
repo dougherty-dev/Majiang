@@ -38,9 +38,7 @@ export async function newTileChecks(game, key) {
 
 export async function dropTileChecks(game, tile, key) {
 	const res = await checkDianhu(game, tile, key)
-	if (res) {
-		return await hu(game, res)
-	}
+	if (res && await hu(game, res)) return true
 
 	// melds
 	switch (await checkPeng(game, tile)) {
@@ -59,6 +57,7 @@ export async function dropTileChecks(game, tile, key) {
 
 	if (game.tiles.length === 0) {
 		await draw(game)
+		console.log('draw', game)
 		return true
 	}
 
