@@ -5,8 +5,8 @@
  * @module models/fanzhong/fanzhong6
  */
 
-import { SHIFTEDAX3, SHIFTEDBX3, TYPES } from '../../components/hu/patterns.js'
-import { BING, SHU, TIAO, WAN } from '../tiles.js'
+import { SHIFTEDAX3, SHIFTEDBX3 } from '../../components/hu/patterns.js'
+import { SHU } from '../tiles.js'
 
 const FZ16 = 16
 

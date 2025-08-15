@@ -5,7 +5,7 @@
  * @module models/fanzhong/fanzhong8
  */
 
-import { BING, FENG, JIAN, TIAO, WAN } from '../tiles.js'
+import { BING, FENG, JIAN, SHU, TIAO, WAN } from '../tiles.js'
 
 const FZ8 = 8
 
@@ -47,6 +47,23 @@ export async function fz40Tuibudao(struct) {
 
 	const bingzi = melds.filter(item => item[0] === BING && !item[1].match(/^[1234589]+$/))
 	if (bingzi.length) return 0
+
+	return FZ8
+}
+
+// 41. Mixed triple shunzi (San se san tongshun, 三色三同顺)
+export async function fz41SanSeSanTongshun(struct) {
+	const values = struct.game.players[struct.key].hu.shunzi.map(item => `${item[1]}`)
+	if (values.length < 3) return 0
+
+	const top = Array.from(new Set(values)).reduce((prev, curr) =>
+		values.filter(el => el === curr).length > values.filter(el => el === prev).length ? curr : prev
+	)
+
+	const shunzi = struct.game.players[struct.key].hu.shunzi.map(item => `${item[0]}${item[1]}`)
+	for (const type of SHU) {
+		if (!shunzi.includes(type + top)) return 0
+	}
 
 	return FZ8
 }

@@ -17,7 +17,7 @@ export async function checkSpecial(player, door) {
 	if (await sevenPairs(player, door)) return true
 	if (await orphans(player)) return true
 	if (await knittedHonors(player)) return true
-	if (await knittedStraight(player, door)) return true
+	if (await knittedStraight(player)) return true
 
 	return false
 }
@@ -107,7 +107,7 @@ async function knittedHonors(player) {
 	}
 }
 
-async function knittedStraight(player, door) {
+async function knittedStraight(player) {
 	const types = Object.entries(player.hu.types)
 	const flowers = types.filter(item => SHU.includes(item[0]))
 
