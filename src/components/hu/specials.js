@@ -6,13 +6,18 @@
  */
 
 import { SHU, ZI } from '../../models/tiles.js'
-import { DUIZI } from './patterns.js'
+import { knitted147w3, knitted258w3, knitted369w3 } from './knitted3.js'
+import { knitted147w5, knitted258w5, knitted369w5 } from './knitted5.js'
+import { knitted147w6, knitted258w6, knitted369w6 } from './knitted6.js'
+import { knitted147w8, knitted258w8, knitted369w8 } from './knitted8.js'
+import { DUIZI, KEZI } from './patterns.js'
 
 // These hands have no melds
 export async function checkSpecial(player, door) {
 	if (await sevenPairs(player, door)) return true
 	if (await orphans(player)) return true
-	if (await knitted(player)) return true
+	if (await knittedHonors(player)) return true
+	if (await knittedStraight(player, door)) return true
 
 	return false
 }
@@ -58,25 +63,26 @@ async function orphans(player) {
 }
 
 // knitted tiles with honors
-async function knitted(player) {
-	const shu = Object.entries(player.hu.types).filter(item => SHU.includes(item[0])).map(item => `${item[1]}`)
+async function knittedHonors(player) {
+	const types = Object.entries(player.hu.types)
+	const shu = types.filter(item => SHU.includes(item[0])).map(item => `${item[1]}`)
 
 	if (shu.length < 3) return false
-	const zi = Object.entries(player.hu.types).filter(item => ZI.includes(item[0])).map(item => `${item[1]}`)
+	const zi = types.filter(item => ZI.includes(item[0])).map(item => `${item[1]}`)
 
-	const knitted = [
+	const kni = [
 		['1', '4', '7', '14', '17', '47', '147'],
 		['2', '5', '8', '25', '28', '58', '258'],
 		['3', '6', '9', '36', '39', '69', '369']
 	]
 
 	const isKnitted = shu.length === 3 && (
-		(knitted[0].includes(shu[0]) && knitted[1].includes(shu[1]) && knitted[2].includes(shu[2])) ||
-		(knitted[0].includes(shu[0]) && knitted[1].includes(shu[2]) && knitted[2].includes(shu[1])) ||
-		(knitted[0].includes(shu[1]) && knitted[1].includes(shu[0]) && knitted[2].includes(shu[2])) ||
-		(knitted[0].includes(shu[1]) && knitted[1].includes(shu[2]) && knitted[2].includes(shu[0])) ||
-		(knitted[0].includes(shu[2]) && knitted[1].includes(shu[0]) && knitted[2].includes(shu[1])) ||
-		(knitted[0].includes(shu[2]) && knitted[1].includes(shu[1]) && knitted[2].includes(shu[0]))
+		(kni[0].includes(shu[0]) && kni[1].includes(shu[1]) && kni[2].includes(shu[2])) ||
+		(kni[0].includes(shu[0]) && kni[1].includes(shu[2]) && kni[2].includes(shu[1])) ||
+		(kni[0].includes(shu[1]) && kni[1].includes(shu[0]) && kni[2].includes(shu[2])) ||
+		(kni[0].includes(shu[1]) && kni[1].includes(shu[2]) && kni[2].includes(shu[0])) ||
+		(kni[0].includes(shu[2]) && kni[1].includes(shu[0]) && kni[2].includes(shu[1])) ||
+		(kni[0].includes(shu[2]) && kni[1].includes(shu[1]) && kni[2].includes(shu[0]))
 	)
 
 	const isGreaterHonors = zi.length === 2 && zi[0] === '1234' && zi[1] === '123'
@@ -99,22 +105,80 @@ async function knitted(player) {
 		player.hu.isLesserHonors = true
 		return true
 	}
+}
 
-	// const flowers = Object.entries(player.hu.types).filter(item => SHU.includes(item[0])).map(item => `${item[0]}${item[1]}`)
+async function knittedStraight(player, door) {
+	const types = Object.entries(player.hu.types)
+	const flowers = types.filter(item => SHU.includes(item[0]))
 
-	// const isKnittedStraight = (
-	// 	(flowers.includes('b147') && flowers.includes('t258') && flowers.includes('w369')) ||
-	// 	(flowers.includes('b147') && flowers.includes('w258') && flowers.includes('t369')) ||
-	// 	(flowers.includes('t147') && flowers.includes('b258') && flowers.includes('w369')) ||
-	// 	(flowers.includes('t147') && flowers.includes('w258') && flowers.includes('b369')) ||
-	// 	(flowers.includes('w147') && flowers.includes('b258') && flowers.includes('t369')) ||
-	// 	(flowers.includes('w147') && flowers.includes('t258') && flowers.includes('b369'))
-	// )
+	if (flowers.length < 3) return false
+	for (const flower of flowers) {
+		if (![3, 5, 6, 8].includes(flower[1].length)) return false
+	}
 
-	// if (isKnittedStraight) {
-	// 	player.hu.isKnittedStraight = true
-	// 	return true
-	// }
+	const lookup = {
+		knitted147w3: knitted147w3,
+		knitted258w3: knitted258w3,
+		knitted369w3: knitted369w3,
+		knitted147w5: knitted147w5,
+		knitted258w5: knitted258w5,
+		knitted369w5: knitted369w5,
+		knitted147w6: knitted147w6,
+		knitted258w6: knitted258w6,
+		knitted369w6: knitted369w6,
+		knitted147w8: knitted147w8,
+		knitted258w8: knitted258w8,
+		knitted369w8: knitted369w8
+	}
+
+	const combinations = [
+		['147', '258', '369'],
+		['147', '369', '258'],
+		['258', '147', '369'],
+		['258', '369', '147'],
+		['369', '147', '258'],
+		['369', '258', '147']
+	]
+
+	let melds = []
+	let item
+	for (const combo of combinations) {
+		melds = []
+
+		for (const key of combo.keys()) {
+			item = lookup[`knitted${combo[key]}w${flowers[key][1].length}`][flowers[key][1]]
+			if (item === undefined) continue
+			melds.push(item)
+		}
+		if (melds.length === 3) break
+	}
+
+	if (melds.length < 3) return false
+
+	player.allMelds = []
+	for (const [key, group] of Object.entries(melds)) {
+		for (const arr of group) {
+			for (const meld of arr) {
+				player.allMelds.push(SHU[key] + meld)
+			}
+		}
+	}
+
+	const zi = types.filter(item => ZI.includes(item[0]) && item[1].length)
+
+	for (const meld of zi) {
+		if (
+			(meld[1].length === 2 && meld[1].match(DUIZI)) ||
+			(meld[1].length === 3 && meld[1].match(KEZI))
+		) {
+			player.allMelds.push(meld[0] + meld[1])
+		}
+	}
+
+	if (player.allMelds.length === 5) {
+		player.hu.isKnittedStraight = true
+		return true
+	}
 
 	return false
 }

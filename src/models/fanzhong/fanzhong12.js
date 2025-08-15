@@ -16,6 +16,13 @@ export async function fz34QuanBuKao(struct) {
 	return (hu.isKnitted && hu.isLesserHonors) ? FZ12 : 0
 }
 
+// 35. Knitted straight (Zuhe long, 组合龙)
+export async function fz35ZuheLong(struct) {
+	const hu = struct.game.players[struct.key].hu
+
+	return (hu.isKnittedStraight) ? FZ12 : 0
+}
+
 // 36. Upper four (Da yu wu, 大于五)
 export async function fz36DaYuWu(struct) {
 	const lower = struct.tiles.filter(item => SHU.includes(item[7]) && item[1] > 5)
