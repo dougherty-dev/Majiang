@@ -16,9 +16,7 @@ import { revealMelds } from '../display/melds.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
 
-import Points from '../../models/points.js'
-
-export async function displayResults(game, key, door) {
+export async function displayResults(game, key, door, points) {
 	await delay(500)
 	revealDoors(game.players)
 	revealMelds(game.players)
@@ -72,8 +70,6 @@ export async function displayResults(game, key, door) {
 	board.appendChild(resultsOverlay)
 
 	if (game.winner) {
-		const points = new Points(game, key, door)
-		await points.fanPoints()
 		const score = Object.entries(points.fanzhong).filter(arr => arr[1][4] > 0)
 
 		await delay(1500)

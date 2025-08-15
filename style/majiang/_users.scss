@@ -48,8 +48,26 @@
 }
 
 .points {
-	font-size: max(1.5vmin, 2 * $minsize);
+	font-size: max(2vmin, $minsize);
 	color: $gray-10;
 	text-shadow: 1px 1px 2px $black;
 	opacity: 0.75;
+}
+
+.grid-user4-exit {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.3rem;
+	color: $secondary-1;
+	opacity: 1;
+	transition: opacity 0.5s ease-out;
+}
+
+.exit {
+	opacity: 0;
+}
+
+.exit.show {
+	opacity: 1;
 }

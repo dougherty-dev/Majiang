@@ -5,12 +5,16 @@
  * @module components/round/results
  */
 
+import { EXITFAN } from '../../models/constants.js'
+import Points from '../../models/points.js'
+import { displayExit } from '../display/display.js'
 import { createElement } from '../elements.js'
 import { sound } from '../helpers.js'
 import { createTile } from '../tiles.js'
 import { displayResults } from './results.js'
 
 export async function draw(game) {
+	game.winner = false
 	game.draw = true
 	displayResults(game, 0, [])
 }
@@ -31,14 +35,25 @@ export async function hu(game, key) {
 		door.push(tile)
 	}
 
+	const points = new Points(game, 4, door)
+	await points.fanPoints()
+
 	if (key != 4) {
+		if (points.exit < EXITFAN) return false
+
 		sound('snd/hule.m4a')
-		displayResults(game, key, door)
+		displayResults(game, key, door, points)
 
 		return true
 	}
 
+
 	if (key == 4) {
+		if (points.exit < EXITFAN) {
+			displayExit(points.exit, EXITFAN)
+			return false
+		}
+
 		const board = document.getElementById('majiang-board')
 		const huOverlay = createElement('div', ['hu-overlay'])
 		const huContents = createElement('div', ['hu-contents'])
@@ -68,7 +83,7 @@ export async function hu(game, key) {
 		ok.addEventListener('click', async() => {
 			sound('snd/hule.m4a')
 			if (huOverlay) huOverlay.remove()
-			await displayResults(game, key, door)
+			await displayResults(game, key, door, points)
 		}, { once: true })
 
 		await new Promise(resolve => {

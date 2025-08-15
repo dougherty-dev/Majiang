@@ -13,6 +13,7 @@ import { enableDrag } from '../../components/drag.js'
 import { displayPrevailingWind, displaySeatWinds } from './winds.js'
 import { displayDoors } from './door.js'
 import { displayFlowers } from './flowers.js'
+import { sound } from '../helpers.js'
 
 export function displayPoints(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -76,4 +77,17 @@ export async function layoutGame(game) {
 	displayPoints(game.players)
 	displayTileCount(game.tiles.length)
 	displayHiliteTiles()
+}
+
+export async function displayExit(points, required) {
+	const exit = document.getElementById('exit')
+	if (exit) {
+		sound('snd/note.m4a')
+		exit.innerHTML = `${points} / ${required} 番`
+		exit.classList.add('show');
+		setTimeout(() => {
+			exit.innerHTML = '';
+			exit.classList.remove('show');
+		}, 4000)
+	}
 }
