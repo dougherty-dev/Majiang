@@ -68,6 +68,35 @@ export async function fz41SanSeSanTongshun(struct) {
 	return FZ8
 }
 
+// 42. Mixed shifted kezi (San se san jie gao, 三色三节高)
+export async function fz42SanSeSanJieGao(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	const kegang = [...kezi, ...gangzi].filter(item => SHU.includes(item[0])).map(item => `${item[0]}${item[1]}`)
+	if (kegang.length < 3) return 0
+
+	const combinations = [
+		[111, 222, 333],
+		[111, 333, 222],
+		[222, 111, 333],
+		[222, 333, 111],
+		[333, 111, 222],
+		[333, 222, 111]
+	]
+
+	for (const add of [111, 222, 333, 444, 555, 666, 777]) {
+		for (const combo of combinations) {
+			if (
+				kegang.includes(`b${combo[0] + add}`) &&
+				kegang.includes(`t${combo[1] + add}`) &&
+				kegang.includes(`w${combo[2] + add}`)
+			) return FZ8
+		}
+	}
+
+	return 0
+}
+
 // 43. Chicken hand (Wu fan hu, 无番和)
 export async function fz43WuFanHu(struct) { // eslint-disable-line
 	return FZ8
