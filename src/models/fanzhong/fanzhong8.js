@@ -121,6 +121,11 @@ export async function fz46GangshangKaihua(struct) {
 	return (struct.game.gangshangKaihua) ? FZ8 : 0
 }
 
+// 47. Robbing the gang (Qiang gangpai, 抢杠和)
+export async function fz47QiangGangpai(struct) {
+	return (struct.game.qianggang) ? FZ8 : 0
+}
+
 // 48. Two concealed gangzi (Shuang angang, 双暗杠)
 export async function fz48ShuangAngang(struct) {
 	const melds = struct.game.players[struct.key].melds

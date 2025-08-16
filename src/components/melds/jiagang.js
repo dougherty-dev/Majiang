@@ -42,7 +42,7 @@ export async function checkJiagang(game) {
 		}
 	}
 
-	if (peng < 0) return
+	if (peng < 0) return false
 
 	if (game.currentPlayer === 4) {
 		return await humanJiagangHandling(game, peng, tile)
@@ -78,7 +78,7 @@ async function AIJiagangHandling(game, peng, tile) {
 	await jiagang(game, peng, tile)
 	await delay(1000)
 
-	return true
+	return tile
 }
 
 async function humanJiagangHandling(game, peng, tile) {
@@ -106,7 +106,7 @@ async function humanJiagangHandling(game, peng, tile) {
 
 	paragraph.addEventListener('click', async() => {
 		jiagang(game, peng, tile)
-		isJiagang = true
+		isJiagang = tile
 
 		button.click()
 	}, {once: true})
