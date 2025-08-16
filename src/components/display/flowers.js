@@ -31,7 +31,8 @@ export async function  displayFlower(key, tile, interactive = true) {
 	img.classList.add('flower')
 
 	if (interactive) {
+		await delay(500)
 		sound('snd/buhua.m4a')
-		await delay(1500)
+		await delay(1000)
 	}
 }

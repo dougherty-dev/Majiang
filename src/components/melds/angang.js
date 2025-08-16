@@ -65,13 +65,13 @@ async function angang(game, meldSet) {
 	})
 
 	displayMeld(game.currentPlayer, game.players[game.currentPlayer])
+	await delay(1000)
 }
 
 async function AIAngangHandling(game, meldSet) {
 	// bots will just angang for now
 	await delay(1000)
 	await angang(game, meldSet)
-	await delay(1000)
 
 	return true
 }

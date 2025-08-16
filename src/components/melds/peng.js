@@ -74,14 +74,14 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 	game.players[game.currentPlayer].turn = false
 	game.currentPlayer = pengPlayer
 	game.players[game.currentPlayer].turn = true
+	await delay(1000)
 }
 
 async function AIPengHandling(game, meldSet, pengPlayer) {
 	// bots will just gang and peng for now
 	await delay(1000)
 	const meldType = (meldSet.length === 4) ? 'gang' : 'peng'
-	peng(game, meldSet, meldType, pengPlayer)
-	await delay(1000)
+	await peng(game, meldSet, meldType, pengPlayer)
 
 	if (meldType === 'peng') {
 		await botDiscard(game)
@@ -131,9 +131,9 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 
 			if (meldType === 'peng') {
 				isPeng = 'peng'
-				handleTiles(game, door)
-
 				if (meldOverlay) meldOverlay.remove()
+
+				handleTiles(game, door)
 			} else {
 				isPeng = 'gang'
 				button.click()

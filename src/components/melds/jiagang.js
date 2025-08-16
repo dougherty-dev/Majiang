@@ -70,13 +70,13 @@ async function jiagang(game, peng, tile) {
 
 	game.players[game.currentPlayer].melds[peng].type = 'gang'
 	displayMeld(game.currentPlayer, game.players[game.currentPlayer])
+	await delay(1000)
 }
 
 async function AIJiagangHandling(game, peng, tile) {
 	// bots will just jiagang for now
 	await delay(1000)
 	await jiagang(game, peng, tile)
-	await delay(1000)
 
 	return tile
 }

@@ -131,6 +131,26 @@ export async function fz77Bianzhang(struct) {
 	return (struct.game.tingpai) ? FZ1 : 0
 }
 
+// 78. Closed wait (Kanzhang, 坎张)
+export async function fz78Kanzhang(struct) {
+	const hupai = struct.game.hupai
+	const shunzi = struct.game.players[struct.key].hu.shunzi
+		.filter(item => item[0] === hupai[7])
+
+	const triple = shunzi.filter(item => item[1][1] == hupai[1])
+	if (triple.length === 0) return 0
+
+	const door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].hu.zimo) door.pop()
+
+	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
+	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
+
+	struct.game.tingpai = await tingpai(seq)
+
+	return (struct.game.tingpai) ? FZ1 : 0
+}
+
 // 79. Single wait (Dandiao jiang, 单调将)
 export async function fz79DandiaoJiang(struct) {
 	const hupai = struct.game.hupai
