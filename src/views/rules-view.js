@@ -1387,7 +1387,7 @@ export default class RulesView extends HTMLElement {
 							<p><strong>Two melded gangs</strong> (<em>Shuang minggang</em>, <span class="fanzhong" data-src="57">双明杠</span>): two melded open gang. Angang plus minggang gives six points.</p>
 						</li>
 						<li>
-							<p><strong>Last tile</strong> (<em>Hu juezhang</em>, <span class="fanzhong" data-src="58">和绝张</span>): winning on the last tile, discarded or in the wall.</p>
+							<p><strong>Last of its kind</strong> (<em>Hu juezhang</em>, <span class="fanzhong" data-src="58">和绝张</span>): winning on the last (fourth) tile of its kind. All four tiles must be open on the floor, in the meld, or in the winning hand.</p>
 						</li>
 					</ol>
 				</section>

@@ -12,6 +12,13 @@ import { displayFlower } from './display/flowers.js'
 import { sortTiles, sound } from './helpers.js'
 import { newTileChecks } from './checks.js'
 
+/**
+ * Create an IMG DOM element for a tile object.
+ * @param {Object} tile 
+ * @param {String} ext 
+ * @param {Boolean} hidden 
+ * @returns 
+ */
 export function createTile(tile, ext = '', hidden = false) {
 	if (!tile) return
 	const img = document.createElement('img')
@@ -48,6 +55,11 @@ export function createTile(tile, ext = '', hidden = false) {
 	return img
 }
 
+/**
+ * Return a tile from wall, or false if no tile left.
+ * @param {Object} tiles
+ * @returns {Object|false}
+ */
 export async function takeTile(tiles) {
 	if (tiles) {
 		const tile = tiles.shift()
@@ -58,12 +70,26 @@ export async function takeTile(tiles) {
 	return false
 }
 
+/**
+ * Take a tile from wall, if it exists.
+ * Continuously replace and display flower tiles, as long as there are tiles left.
+ * If tile, add it to the door, and redisplay the updated door.
+ * For human player, initiate manual handling.
+ * Called from:
+ * components/play/play
+ * components/checks/newTileChecks
+ * components/checks/dropTileChecks
+ * @param {Object} game 
+ */
 export async function newTile(game) {
 	let tile = await takeTile(game.tiles)
 	let tileCopy
 
 	if (!tile) return
 
+	/**
+	 * Replace flower tiles.
+	 */
 	while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
 		tileCopy = tile
 		game.players[game.currentPlayer].flowers.push(tile)
@@ -80,6 +106,9 @@ export async function newTile(game) {
 	displayAddToDoor(game.currentPlayer, tile)
 
 	if (game.currentPlayer === 4) {
+		/**
+		 * If zimo, initaite hu process. If jiagang/angang, take new tile.
+		 */
 		if (await newTileChecks(game, game.currentPlayer)) return
 
 		const door = document.getElementById('door' + game.currentPlayer)
@@ -89,6 +118,10 @@ export async function newTile(game) {
 	}
 }
 
+/**
+ * Inital replacement of flower tiles, for all players.
+ * @param {Object} game 
+ */
 export async function replaceFlowers(game) {
 	let tileCopy
 	let playing = true
@@ -150,7 +183,8 @@ export function	handleTiles(game, door) {
 		if (!e.target.matches('.t')) return
 
 		// Find clicked tile
-		const index = Array.from(door.children).findIndex(elem => elem.dataset.id === e.target.dataset.id)
+		const index = Array.from(door.children).findIndex(elem =>
+			elem.dataset.id === e.target.dataset.id)
 		const chosen = game.players[game.currentPlayer].door[index]
 
 		// Discard clicked tile

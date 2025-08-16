@@ -33,11 +33,6 @@ export async function newTileChecks(game, key) {
 		return true
 	}
 
-	if (game.tiles.length === 0) {
-		await draw(game)
-		return true
-	}
-
 	return false
 }
 

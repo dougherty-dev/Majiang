@@ -21,6 +21,7 @@ export async function checkDianhu(game, tile, key) {
 
 		if (await checkHu(player, door)) {
 			player.hu.dianhu = true
+			game.hupai = tile
 			game.winner = index
 			return index
 		}

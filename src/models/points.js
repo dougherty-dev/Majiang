@@ -115,7 +115,7 @@ export default class Points {
 			'55': ['全带幺', 'Quan dai yao', 'Outside hand', fz55QuanDaiYao, 0, []],
 			'56': ['不求人', 'Bu qiu ren', 'Fully concealed hand', fz56BuQiuRen, 0, []],
 			'57': ['双明杠', 'Shuang minggang', 'Two melded gangs', fz57ShuangMinggang, 0, ['67', '74']],
-			'58': ['和绝张', 'Hu juezhang', 'Last tile', fz58HuJuezhang, 0, []],
+			'58': ['和绝张', 'Hu juezhang', 'Last of its kind', fz58HuJuezhang, 0, []],
 			// 2 fan
 			'59': ['箭刻', 'Jianke', 'Dragon kezi', fz59Jianke, 0, []],
 			'60': ['圈风刻', 'Quanfengke', 'Prevalent wind', fz60Quanfengke, 0, []],

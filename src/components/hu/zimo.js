@@ -12,10 +12,12 @@ export async function checkZimo(game) {
 	let player = game.players[game.currentPlayer]
 
 	const door = Object.assign([], player.door)
+	const tile = door.at(-1)
 	sortTiles(door)
 
 	if (await checkHu(player, door)) {
 		player.hu.zimo = true
+		game.hupai = tile
 		game.winner = game.currentPlayer
 		return true
 	}

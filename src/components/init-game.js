@@ -27,6 +27,7 @@ export async function initGame(game) {
 		sorted: false,
 		draw: false,
 		winner: false,
+		hupai: null,
 		players: new Players().players
 	}
 

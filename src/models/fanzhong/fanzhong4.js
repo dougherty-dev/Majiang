@@ -5,6 +5,7 @@
  * @module models/fanzhong/fanzhong4
  */
 
+import { play } from '../../components/play.js'
 import { ZI } from '../tiles.js'
 
 const FZ4 = 4
@@ -43,9 +44,20 @@ export async function fz57ShuangMinggang(struct) {
 	return 0
 }
 
-// 58. Last tile (Hu juezhang, 和绝张)
+// 58. Last of its kind (Hu juezhang, 和绝张)
 export async function fz58HuJuezhang(struct) {
-	if (struct.game.tiles.length === 0) return FZ4
+	const hupai = struct.game.hupai[2]
+	const players = Object.entries(struct.game.players)
+	const currentPlayer = struct.game.players[struct.game.currentPlayer]
+	const winner = struct.game.players[struct.key].door
 
-	return 0
+	const drop = currentPlayer.drop.filter(item => item[2] === hupai)
+	const floor = players.map(item => item[1].floor).flat().filter(item => item[2] === hupai)
+	const melds = players.map(item => item[1].melds).flat().filter(item => item.type !== 'angang')
+		.map(item => item.meld).flat().filter(item => item[2] === hupai)
+	const door = winner.filter(item => item[2] === hupai)
+
+	const count = floor.length + melds.length + door.length + drop.length
+
+	return (count === 4) ? FZ4 : 0
 }
