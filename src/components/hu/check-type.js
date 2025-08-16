@@ -7,11 +7,32 @@
 
 import { KEZI, SHUNZI } from './patterns.js'
 import { ZI } from '../../models/tiles.js'
+import { lookup2 } from './lookup2.js'
+import { lookup3 } from './lookup3.js'
+import { lookup5 } from './lookup5.js'
+import { lookup6 } from './lookup6.js'
+import { lookup8 } from './lookup8.js'
+import { lookup9 } from './lookup9.js'
+import { lookup11 } from './lookup11.js'
+import { lookup12 } from './lookup12.js'
+import { lookup14 } from './lookup14.js'
 
-export function checkType(key, type, lookup, player) {
-	if (!(type in lookup)) return false
+const lookup = {
+	lookup2: lookup2,
+	lookup3: lookup3,
+	lookup5: lookup5,
+	lookup6: lookup6,
+	lookup8: lookup8,
+	lookup9: lookup9,
+	lookup11: lookup11,
+	lookup12: lookup12,
+	lookup14: lookup14,
+}
 
-	const meldsets = lookup[type]
+export async function checkType(key, type, lookupKey, player) {
+	if (!(type in lookup[lookupKey])) return false
+
+	const meldsets = lookup[lookupKey][type]
 
 	// traverse all possible duplicates, find max number of melds
 	let maxHuMelds = -1
@@ -76,4 +97,20 @@ export function checkType(key, type, lookup, player) {
 	}
 
 	return true
+}
+
+export async function tingpai(seq) {
+	let count = 0
+	const index = `lookup${seq.length + 1}`
+	let type
+	let str
+	for (const val of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+		type = Object.assign([], seq)
+		type.push(val)
+		str = type.sort().join('')
+
+		if (lookup[index] && lookup[index][str]) count++
+	}
+
+	return (count === 1)
 }

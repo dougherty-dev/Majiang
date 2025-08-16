@@ -5,7 +5,6 @@
  * @module models/fanzhong/fanzhong4
  */
 
-import { play } from '../../components/play.js'
 import { ZI } from '../tiles.js'
 
 const FZ4 = 4

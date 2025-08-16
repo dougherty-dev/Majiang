@@ -9,7 +9,7 @@ const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz79DandiaoJiang, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz34QuanBuKao, fz35ZuheLong, fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
 import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
@@ -139,6 +139,7 @@ export default class Points {
 			'75': ['缺一门', 'Que yi men', 'One voided suit', fz75QueYiMen, 0, []],
 			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
 			'77': ['边张', 'Bianzhang', 'Edge wait', fz77Bianzhang, 0, ['78', '79']],
+			'79': ['单调将', 'Dandiao jiang', 'Single wait', fz79DandiaoJiang, 0, []],
 			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],
 			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0, []],
 		}

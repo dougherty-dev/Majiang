@@ -28,6 +28,7 @@ export async function initGame(game) {
 		draw: false,
 		winner: false,
 		hupai: null,
+		tingpai: null,
 		qianggang: false,
 		players: new Players().players
 	}

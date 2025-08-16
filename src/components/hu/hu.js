@@ -6,31 +6,9 @@
  */
 
 import { TYPES } from './patterns.js'
-import { lookup2 } from './lookup2.js'
-import { lookup3 } from './lookup3.js'
-import { lookup5 } from './lookup5.js'
-import { lookup6 } from './lookup6.js'
-import { lookup8 } from './lookup8.js'
-import { lookup9 } from './lookup9.js'
-import { lookup11 } from './lookup11.js'
-import { lookup12 } from './lookup12.js'
-import { lookup14 } from './lookup14.js'
 import { checkType } from './check-type.js'
 import { checkSpecial } from './specials.js'
-
 import Hu from '../../models/hu.js'
-
-const lookup = {
-	lookup2: lookup2,
-	lookup3: lookup3,
-	lookup5: lookup5,
-	lookup6: lookup6,
-	lookup8: lookup8,
-	lookup9: lookup9,
-	lookup11: lookup11,
-	lookup12: lookup12,
-	lookup14: lookup14,
-}
 
 /**
  * @description Check validity of _remaining_ tiles at hand for possible hu.
@@ -72,10 +50,10 @@ export async function checkHu(player, door) {
 
 	// regular hands
 	const types = Object.entries(player.hu.types).filter(item => item[1] !== '')
-	for (const [key, type] of types) {
+	for await (const [key, type] of types) {
 		if (
 			[1, 4, 7, 10, 13].includes(type.length) ||
-			!checkType(key, type, lookup['lookup' + type.length], player)
+			!await checkType(key, type, 'lookup' + type.length, player)
 		) break
 	}
 
