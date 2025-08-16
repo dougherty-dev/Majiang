@@ -19,7 +19,7 @@ import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
-import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
+import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz46GangshangKaihua, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -103,6 +103,7 @@ export default class Points {
 			'43': ['无番和', 'Wu fan hu', 'Chicken hand', fz43WuFanHu, 0, []],
 			'44': ['妙手回春', 'Miaoshou-huichun', 'Last tile draw', fz44MiaoshouHuichun, 0, ['80']],
 			'45': ['海底捞月', 'Haidi-laoyue', 'Last tile claim', fz45HaidiLaoyue, 0, []],
+			'46': ['杠上开花', 'Gangshang kaihua', 'Out with replacement tile', fz46GangshangKaihua, 0, ['81']],
 			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],

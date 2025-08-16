@@ -116,10 +116,14 @@ export async function fz45HaidiLaoyue(struct) {
 	return (dianhu && tileCount === 0) ? FZ8 : 0
 }
 
+// 46. Out with replacement tile (Gangshang kaihua, 杠上开花)
+export async function fz46GangshangKaihua(struct) {
+	return (struct.game.gangshangKaihua) ? FZ8 : 0
+}
+
 // 48. Two concealed gangzi (Shuang angang, 双暗杠)
 export async function fz48ShuangAngang(struct) {
 	const melds = struct.game.players[struct.key].melds
 	const angang = melds.filter(item => item.type === 'angang')
-
 	return (angang.length === 2) ? FZ8 : 0
 }

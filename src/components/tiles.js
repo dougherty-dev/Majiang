@@ -91,6 +91,7 @@ export async function newTile(game) {
 	 * Replace flower tiles.
 	 */
 	while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
+		game.gangshangKaihua = false
 		tileCopy = tile
 		game.players[game.currentPlayer].flowers.push(tile)
 
@@ -133,6 +134,7 @@ export async function replaceFlowers(game) {
 			while (HUAPAI.includes(tile)) {
 				if (!playing) return
 
+				game.gangshangKaihua = false
 				tileCopy = tile
 				player.flowers.push(tile)
 

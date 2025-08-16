@@ -24,12 +24,16 @@ export async function newTileChecks(game, key) {
 		// 	await hu()
 		// 	return
 		// }
+		game.gangshangKaihua = true
 		await newTile(game)
+		game.gangshangKaihua = false
 		return true
 	}
 
 	if (await checkAngang(game)) {
+		game.gangshangKaihua = true
 		await newTile(game)
+		game.gangshangKaihua = false
 		return true
 	}
 
@@ -47,7 +51,9 @@ export async function dropTileChecks(game, tile, key) {
 		// 	await hu()
 		// 	return
 		// }
+		game.gangshangKaihua = true
 		await newTile(game)
+		game.gangshangKaihua = false
 		return true
 	case 'peng':
 		return true
