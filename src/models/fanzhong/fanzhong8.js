@@ -121,8 +121,8 @@ export async function fz46GangshangKaihua(struct) {
 	return (struct.game.gangshangKaihua) ? FZ8 : 0
 }
 
-// 47. Robbing the gang (Qiang gangpai, 抢杠和)
-export async function fz47QiangGangpai(struct) {
+// 47. Robbing the gang (Qiangganghu, 抢杠和)
+export async function fz47Qiangganghu(struct) {
 	return (struct.game.qianggang) ? FZ8 : 0
 }
 

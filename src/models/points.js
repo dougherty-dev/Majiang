@@ -9,7 +9,7 @@ const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
 import { fz34QuanBuKao, fz35ZuheLong, fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
 import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
 import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
@@ -19,7 +19,7 @@ import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
 import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
 import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
-import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz46GangshangKaihua, fz47QiangGangpai, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
+import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz46GangshangKaihua, fz47Qiangganghu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 export default class Points {
@@ -104,7 +104,7 @@ export default class Points {
 			'44': ['妙手回春', 'Miaoshou-huichun', 'Last tile draw', fz44MiaoshouHuichun, 0, ['80']],
 			'45': ['海底捞月', 'Haidi-laoyue', 'Last tile claim', fz45HaidiLaoyue, 0, []],
 			'46': ['杠上开花', 'Gangshang kaihua', 'Out with replacement tile', fz46GangshangKaihua, 0, ['81']],
-			'47': ['抢杠和', 'Qiang gangpai', 'Robbing the gang', fz47QiangGangpai, 0, ['58']],
+			'47': ['抢杠和', 'Qiangganghu', 'Robbing the gang', fz47Qiangganghu, 0, ['58']],
 			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],
@@ -138,6 +138,7 @@ export default class Points {
 			'74': ['明杠', 'Minggang', 'Melded gang', fz74Minggang, 0, []],
 			'75': ['缺一门', 'Que yi men', 'One voided suit', fz75QueYiMen, 0, []],
 			'76': ['无字', 'Wuzi', 'No honors', fz76WuZi, 0, []],
+			'77': ['边张', 'Bianzhang', 'Edge wait', fz77Bianzhang, 0, ['78', '79']],
 			'80': ['自摸', 'Zimo', 'Self-drawn', fz80Zimo, 0, []],
 			'81': ['花牌', 'Huapai', 'Flower tiles', fz81Huapai, 0, []],
 		}
