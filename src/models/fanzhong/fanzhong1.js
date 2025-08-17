@@ -124,12 +124,14 @@ export async function fz77Bianzhang(struct) {
 	if (struct.game.players[struct.key].hu.zimo) door.pop()
 	if (door.length === 1) return 0
 
+	const inc = door.map(item => item[1])
+
 	switch (hupai[1]) {
 	case 3:
-		if (!door.includes('1') || !door.includes('2')) return 0
+		if (!inc.includes(1) || !inc.includes(2)) return 0
 		break
 	case 7:
-		if (!door.includes('8') || !door.includes('9')) return 0
+		if (!inc.includes(8) || !inc.includes(9)) return 0
 	}
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
@@ -153,7 +155,8 @@ export async function fz78Kanzhang(struct) {
 	if (struct.game.players[struct.key].hu.zimo) door.pop()
 	if (door.length === 1) return 0
 
-	if (!door.includes(hupai[1] - 1) || !door.includes(hupai[1] + 1)) return 0
+	const inc = door.map(item => item[1])
+	if (!inc.includes(hupai[1] - 1) || !door.includes(hupai[1] + 1)) return 0
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
