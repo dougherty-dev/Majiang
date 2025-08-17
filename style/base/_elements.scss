@@ -23,9 +23,9 @@ body {
 	font-size: max(1vmin, 1rem);
 }
 
-html, body
-{
-    font-size: 100%;
+html,
+body {
+	font-size: 100%;
 }
 
 main {
@@ -33,7 +33,7 @@ main {
 }
 
 h1 {
-	font-size: max(2.0vmin, 1.6rem);
+	font-size: max(2vmin, 1.6rem);
 	line-height: max(3.5vmin, 2.5rem);
 	color: $header-foreground-color;
 }

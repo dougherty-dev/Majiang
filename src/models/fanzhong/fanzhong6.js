@@ -6,7 +6,7 @@
  */
 
 import { SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
-import { JIAN, SHU } from '../tiles.js'
+import { SHU } from '../tiles.js'
 
 const FZ6 = 6
 
@@ -83,14 +83,7 @@ export async function fz53QuanQiuRen(struct) {
 }
 
 // 54. Two dragons kezi (Shuang jianke, 双箭刻)
+// From: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz54ShuangJianke(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-
-	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
-	const count = types.filter(item => item === JIAN).length
-
-	if (count === 2) return FZ6
-
-	return 0
+	return (struct.jianKezi.length === 2) ? FZ6 : 0
 }

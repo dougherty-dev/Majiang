@@ -6,6 +6,7 @@
  */
 
 import { TYPES } from '../../components/hu/patterns.js'
+import { SHU } from '../tiles.js'
 
 const FZ48 = 48
 
@@ -26,8 +27,7 @@ export async function fz14YiSeSiTongshun(struct) {
 // 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高)
 export async function fz15YiSeSiJieGao(struct) {
 	const pattern = /(111222333444|222333444555|333444555666|444555666777|555666777888|666777888999)/g
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const triples = melds.filter(item => item[1].length > 2)
+	const triples = struct.keziGangzi.filter(item => SHU.includes(item[0]) && item[1].length > 2)
 
 	const types = Object.assign({}, TYPES)
 

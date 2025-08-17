@@ -27,7 +27,7 @@
 
 	cursor: grab;
 
-	&>p img {
+	>p img {
 		cursor: pointer;
 	}
 
@@ -79,7 +79,7 @@
 	padding: 1rem;
 	text-align: center;
 
-	&>p img {
+	>p img {
 		cursor: pointer;
 	}
 

@@ -16,20 +16,18 @@ const FZ88 = 88
 export async function fz1DaSiXi(struct) {
 	const kezi = struct.game.players[struct.key].hu.kezi
 	const gangzi = struct.game.players[struct.key].hu.gangzi
-	const melds = [...kezi, ...gangzi].filter(item => item[0] === FENG)
 
-	return (melds.length === 4) ? FZ88 : 0
+	struct.keziGangzi = [...kezi, ...gangzi]
+	struct.fengKezi = struct.keziGangzi.filter(item => item[0] === FENG)
+
+	return (struct.fengKezi.length === 4) ? FZ88 : 0
 }
 
 // 2. Big three dragons (Da san yuan, 大三元)
 export async function fz2DaSanYuan(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
+	struct.jianKezi = struct.keziGangzi.filter(item => item[0] === JIAN)
 
-	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
-	const count = types.filter(item => item === JIAN).length
-
-	return (count === 3) ? FZ88 : 0
+	return (struct.jianKezi.length === 3) ? FZ88 : 0
 }
 
 // 3. All green (Lü yise, 绿一色)

@@ -14,8 +14,7 @@
 	grid-area: $p;
 	display: grid;
 	grid-template-columns: repeat(2, 50%);
-	grid-template-areas:
-		'#{$p}-points #{$p}-seatwind';
+	grid-template-areas: '#{$p}-points #{$p}-seatwind';
 
 	.grid-#{$p}-points {
 		@include grid-u(#{$p}-points, flex-start);

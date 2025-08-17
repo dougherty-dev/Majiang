@@ -14,8 +14,8 @@
 	display: grid;
 	grid-template-rows: 25% 50% 25%;
 	grid-template-areas: '#{$p}-flowers'
-	'#{$p}-melds'
-	'#{$p}-door';
+		'#{$p}-melds'
+		'#{$p}-door';
 	padding-bottom: 0.5vmin;
 
 	.grid-#{$p}-flowers {

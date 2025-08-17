@@ -5,20 +5,15 @@
  * @module models/fanzhong/fanzhong2
  */
 
-import { BING, FENG, JIAN, SHU, TIAO, WAN } from '../tiles.js'
+import { BING, FENG, SHU, TIAO, WAN } from '../tiles.js'
 import { fz76WuZi } from './fanzhong1.js'
 
 const FZ2 = 2
 
 // 59. Dragon kezi (Jianke, 箭刻)
+// From: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz59Jianke(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-
-	const types = [...kezi.map(item => item[0]), ...gangzi.map(item => item[0])]
-	const count = types.filter(item => item === JIAN).length
-
-	return (count === 1) ? FZ2 : 0
+	return (struct.jianKezi.length === 1) ? FZ2 : 0
 }
 
 // 60. Prevalent wind (Quanfengke, 圈风刻)

@@ -46,15 +46,18 @@ export async function newRound(game) {
 	game.winner = null
 	game.draw = null
 
-	// cheat(game)
+	const cheatOn = false
+	if (cheatOn) {
+		cheat(game)
+	} else {
+		for (const player of Object.values(game.players)) {
+			for (let i = 1; i <= 13; i++) {
+				const tile = game.tiles.shift()
+				player.door.push(tile)
+			}
 
-	for (const player of Object.values(game.players)) {
-		for (let i = 1; i <= 13; i++) {
-			const tile = game.tiles.shift()
-			player.door.push(tile)
+			sortTiles(player.door, game.sorted)
 		}
-
-		sortTiles(player.door, game.sorted)
 	}
 
 	displayDoors(game.players)

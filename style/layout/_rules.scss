@@ -8,7 +8,7 @@
 	column-rule: medium dotted $tertiary-3;
 	padding: 1rem;
 
-	& p,
+	p,
 	h2,
 	h3,
 	h4,
@@ -29,7 +29,7 @@
 	text-decoration: wavy underline $primary-1;
 
 	&::after {
-		content: ' 🔈'
+		content: ' 🔈';
 	}
 }
 
