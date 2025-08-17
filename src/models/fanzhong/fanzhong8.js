@@ -70,9 +70,7 @@ export async function fz41SanSeSanTongshun(struct) {
 
 // 42. Mixed shifted kezi (San se san jie gao, 三色三节高)
 export async function fz42SanSeSanJieGao(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-	const kegang = [...kezi, ...gangzi].filter(item => SHU.includes(item[0])).map(item => `${item[0]}${item[1]}`)
+	const kegang = struct.keziGangzi.filter(item => SHU.includes(item[0])).map(item => `${item[0]}${item[1]}`)
 	if (kegang.length < 3) return 0
 
 	const combinations = [

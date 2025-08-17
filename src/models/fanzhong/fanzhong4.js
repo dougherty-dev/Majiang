@@ -12,9 +12,9 @@ const FZ2 = 2
 
 // 55. Outside hand (Quan dai yao, 全带幺)
 export async function fz55QuanDaiYao(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
+	const allMelds = struct.game.players[struct.key].hu.allMelds
 
-	const yaojiuzi = melds.filter(item => ZI.includes(item[0]) || /[19]+/.test(item[1]))
+	const yaojiuzi = allMelds.filter(item => ZI.includes(item[0]) || /[19]+/.test(item[1]))
 	if (yaojiuzi.length === 5) return FZ4 
 
 	return 0
@@ -49,6 +49,8 @@ export async function fz58HuJuezhang(struct) {
 	const players = Object.entries(struct.game.players)
 	const currentPlayer = struct.game.players[struct.game.currentPlayer]
 	const winner = struct.game.players[struct.key].door
+
+	if (!currentPlayer.drop) return 0
 
 	const drop = currentPlayer.drop.filter(item => item[2] === hupai)
 	const floor = players.map(item => item[1].floor).flat().filter(item => item[2] === hupai)

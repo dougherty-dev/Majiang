@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module main
+ * @description Import custom modules, routing, navigation.
+ * Initiate the Majiang class.
  */
 
 import Majiang from './models/majiang.js'

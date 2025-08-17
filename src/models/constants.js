@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module models/tiles
+ * @module models/constants
  */
 
 export const HUMANPLAYER = 4

@@ -47,22 +47,21 @@ export async function fz20QiXingBuKao(struct) {
 }
 
 // 21. All even kezi (Quan shuang ke, 全双刻)
+// From: 8. Pure terminals (Qing yao jiu, 清幺九)
 export async function fz21QuanShuangKe(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const shu = melds.filter(item => SHU.includes(item[0]))
-	const even = shu.filter(item => ['2', '4', '6', '8'].includes(item[1][0]))
+	const even = struct.shuMelds.filter(item => ['2', '4', '6', '8'].includes(item[1][0]))
 
 	return (even.length === 5) ? FZ24 : 0
 }
 
 // 22. Full flush (Qing yi se, 清一色)
 export async function fz22QingYiSe(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
+	const allMelds = struct.game.players[struct.key].hu.allMelds
 
 	if (
-		melds.length &&
-		SHU.includes(melds[0][0]) &&
-		melds.every((type) => type[0] === melds[0][0])
+		allMelds.length &&
+		SHU.includes(allMelds[0][0]) &&
+		allMelds.every((type) => type[0] === allMelds[0][0])
 	) {
 		return FZ24
 	}

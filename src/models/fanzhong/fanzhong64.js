@@ -5,17 +5,16 @@
  * @module models/fanzhong/fanzhong64
  */
 
-import { FENG, JIAN, SHU, ZI } from '../tiles.js'
+import { FENG, JIAN, ZI } from '../tiles.js'
 
 const FZ64 = 64
 
 // 8. Pure terminals (Qing yao jiu, 清幺九)
+// From: 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
 export async function fz8QingYaoJiu(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const shu = melds.filter(item => SHU.includes(item[0]))
-	const yaojiu = shu.filter(item => ['1', '9'].includes(item[1][0]))
+	struct.yaojiu = struct.shuMelds.filter(item => ['1', '9'].includes(item[1][0]))
 
-	return (yaojiu.length === 5) ? FZ64 : 0
+	return (struct.yaojiu.length === 5) ? FZ64 : 0
 }
 
 // 9. Little four winds (Xiao si xi, 小四喜)
@@ -39,9 +38,9 @@ export async function fz10XiaoSanYuan(struct) {
 // 11. All honors (Zi yi se, 字一色)
 export async function fz11ZiYiSe(struct) {
 	const allMelds = struct.game.players[struct.key].hu.allMelds
-	const zi = allMelds.filter(item => ZI.includes(item[0]))
+	struct.ziMelds = allMelds.filter(item => ZI.includes(item[0]))
 
-	return (zi.length === 5) ? FZ64 : 0
+	return (struct.ziMelds.length === 5) ? FZ64 : 0
 }
 
 // 12. Four concealed kezi (Si anke, 四暗刻)

@@ -57,11 +57,11 @@ export default class Points {
 			// 88 fan
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
 			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['54', '59']],
-			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, []],
-			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '73']],
-			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['17', '48', '57', '67', '74', '79']],
-			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['19', '22', '79']],
-			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '79']],
+			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, ['50']],
+			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '62', '73']],
+			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['17', '49', '57', '74', '79']],
+			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['19', '22', '63', '79']],
+			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '56', '62', '79']],
 			// 64 fan
 			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, ['49', '55', '73', '76']],
 			'9': ['小四喜', 'Xiao si xi', 'Little four winds', fz9XiaoSiXi, 0, ['38', '73']],
@@ -74,7 +74,7 @@ export default class Points {
 			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, ['23', '49']],
 			// 32 fan
 			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, ['71', '72']],
-			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['48', '57', '67', '74', '76']],
+			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['57', '74', '76']],
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, ['49', '55', '73']],
 			// 24 fan
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, ['79']],

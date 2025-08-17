@@ -149,7 +149,7 @@ export default class RulesView extends HTMLElement {
 				<section class="columns">
 					<h4>Melds</h4>
 					<p>Each player continually draws and discards a tile, possibly with bonus tile replacement, unless there is some other action. One such is defined by <span class="term">melds</span> (<em>baipai</em>, 摆牌), of which there are three kinds: <em>chi</em>, <em>peng</em> and <em>gang</em>.</p>
-					<p><em>Chi</em> (吃, «eat») is when the next player in turn can pick up the just discarded tile to form a <span class="term">sequence</span> of three tiles (<em>shunzi</em>, 顺子), which are then placed openly on the board. Chi is the verb, <span class="term">shunzi</span> is the result of the action.</p>
+					<p><em>Chi</em> (吃, «eat») is when the next player in turn can pick up the just discarded tile to form a <span class="term">sequence</span> of three suited tiles (<em>shunzi</em>, 顺子), which are then placed openly on the board. Chi is the verb, <span class="term">shunzi</span> is the result of the action.</p>
 					<p class="wrap">
 						<img width="41" height="30" alt="🀟" src="img/tiles/shuzipai-bingzi-7-o.svg">
 						<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
@@ -160,7 +160,7 @@ export default class RulesView extends HTMLElement {
 						<img width="41" height="30" alt="🀊" src="img/tiles/shuzipai-wanzi-4-o.svg">
 						<img width="30" height="41" alt="🀋" src="img/tiles/shuzipai-wanzi-5.svg">
 					</p>
-					<p><em>Peng</em> (碰, «knock») can be done by any player who can form a <span class="term">set</span> of three identical tiles (<em>kezi</em>, 刻子), of any kind, except bonus tiles, from the just discarded tile. The player making the chi or peng then discards a tile, and the game continues from there. Peng is the verb, <span class="term">kezi</span> is the result of the action.</p>
+					<p><em>Peng</em> (碰, «knock») can be made by any player who can form a <span class="term">set</span> of three identical tiles (<em>kezi</em>, 刻子), of any kind, except bonus tiles, from the just discarded tile. The player making the chi or peng then discards a tile, and the game continues from there. Peng is the verb, <span class="term">kezi</span> is the result of the action.</p>
 					<p class="wrap">
 						<img width="30" height="41" alt="🀇" src="img/tiles/shuzipai-wanzi-1.svg">
 						<img width="30" height="41" alt="🀇" src="img/tiles/shuzipai-wanzi-1-o.svg">
@@ -172,7 +172,7 @@ export default class RulesView extends HTMLElement {
 						<img width="41" height="30" alt="🀃" src="img/tiles/zipai-fengpai-4-bei-o.svg">
 					</p>
 					<p><em>Gang</em> (杠, «make a bar») is similar to peng, but with four identical tiles forming a <span class="term">bar</span> (<em>gangzi</em>, 杠子), and is then called an <span class="term">open gang</span> (<em>minggang</em>, 明杠). A gang can also be formed by drawing a tile, complementing a peng on hand. It is then called a <span class="term">concealed gang</span> (<em>angang</em>, 暗杠), and the tiles are placed on the board with the backside up.</p>
-					<p>Likewise, a kezi that is placed on the board after a peng can be <span class="term">completed</span> (<em>jiagang</em>, 加杠) to a gangzi by drawing the fourth tile from the wall. When a gang is formed, the player must pick a new tile from the wall.</p>
+					<p>Likewise, a kezi that is placed on the board after a peng can be <span class="term">completed</span> (<em>jiagang</em>, 加杠, or <em>bugang</em>, 补杠) to a gangzi by drawing the fourth tile from the wall. When a gangzi is formed, the player must pick a new tile from the wall. If there are no tiles left, a gangzi may not be formed.</p>
 					<p>A gang has priority over a peng, and a peng over a chi. A player may not make a gang immediately after making a chi or peng, that is, announcing a concealed gang in the same turn. However, making a consecutive gang after taking a tile is allowed. Gang is the verb, <span class="term">gangzi</span> is the result of the action. A taken tile is rotated 90&nbsp;° and indicating position whence it came.</p>
 					<p class="wrap">
 						<img width="30" height="41" alt="🀄︎" src="img/tiles/zipai-jianpai-1-zhong.svg">
@@ -323,7 +323,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Nine gates</strong> (<em>Jiu lian baodeng</em>, <span class="fanzhong" data-src="4">九莲宝灯</span>): suited tiles of the form 1112345678999 plus any additional tile in the same suit.</p>
+							<p><strong>Nine gates</strong> (<em>Jiu lian baodeng</em>, <span class="fanzhong" data-src="4">九莲宝灯</span>): suited tiles of the form 1112345678999 on hand, waiting for any additional tile 1–9 in the same suit.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">

@@ -18,8 +18,8 @@ export async function fz59Jianke(struct) {
 
 // 60. Prevalent wind (Quanfengke, 圈风刻)
 export async function fz60Quanfengke(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const quanfeng = melds.filter(
+	const allMelds = struct.game.players[struct.key].hu.allMelds
+	const quanfeng = allMelds.filter(
 		item => item[0] === FENG &&
 			item[1].length >= 3 &&
 			item[1][0] == struct.game.prevailingWind
@@ -30,8 +30,8 @@ export async function fz60Quanfengke(struct) {
 
 // 61. Seat wind (Menfengke, 门风刻)
 export async function fz61Menfengke(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const menfeng = melds.filter(
+	const allMelds = struct.game.players[struct.key].hu.allMelds
+	const menfeng = allMelds.filter(
 		item => item[0] === FENG &&
 			item[1].length >= 3 &&
 			item[1][0] == struct.game.players[struct.key].wind
@@ -80,11 +80,7 @@ export async function fz64SiGuiYi(struct) {
 
 // 65. Double kezi (Shuang tongke, 双同刻)
 export async function fz65ShuangTongke(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-	const melds = [...kezi, ...gangzi]
-
-	const suited = melds.filter(item => SHU.includes(item[0]))
+	const suited = struct.keziGangzi.filter(item => SHU.includes(item[0]))
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
 
