@@ -23,7 +23,7 @@ import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz
 import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
 
 /**
- * The Points class. Calculate points according to the 81 winning hand rules.
+ * The Points class. Calculate points according to the 81 standard rules.
  */
 export default class Points {
 	constructor(game, key, tiles) {

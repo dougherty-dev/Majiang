@@ -112,16 +112,25 @@ export async function fz77Bianzhang(struct) {
 	let triple = []
 	switch (hupai[1]) {
 	case 3:
-		triple = shunzi.filter(item => item[1][2] == hupai[1])
+		triple = shunzi.filter(item => item[1][2] === '3')
 		break
 	case 7:
-		triple = shunzi.filter(item => item[1][0] == hupai[1])
+		triple = shunzi.filter(item => item[1][0] === '7')
 	}
 
 	if (triple.length === 0) return 0
 
 	const door = Object.assign([], struct.game.players[struct.key].door)
 	if (struct.game.players[struct.key].hu.zimo) door.pop()
+	if (door.length === 1) return 0
+
+	switch (hupai[1]) {
+	case 3:
+		if (!door.includes('1') || !door.includes('2')) return 0
+		break
+	case 7:
+		if (!door.includes('8') || !door.includes('9')) return 0
+	}
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
@@ -142,6 +151,9 @@ export async function fz78Kanzhang(struct) {
 
 	const door = Object.assign([], struct.game.players[struct.key].door)
 	if (struct.game.players[struct.key].hu.zimo) door.pop()
+	if (door.length === 1) return 0
+
+	if (!door.includes(hupai[1] - 1) || !door.includes(hupai[1] + 1)) return 0
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
