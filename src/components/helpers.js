@@ -34,6 +34,7 @@ export function shuffle(tiles) {
 export function sound(src) {
 	const promise = new Audio(src).play()
 	if (promise !== undefined) {
+		// jshint unused:false
 		promise.then(() => {}).catch((error) => {}) // eslint-disable-line
 	}
 }

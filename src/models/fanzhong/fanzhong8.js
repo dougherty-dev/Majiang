@@ -96,8 +96,8 @@ export async function fz42SanSeSanJieGao(struct) {
 }
 
 // 43. Chicken hand (Wu fan hu, 无番和)
-export async function fz43WuFanHu(struct) { // eslint-disable-line
-	return FZ8
+export async function fz43WuFanHu(struct) {
+	return (struct.points) ? 0 : FZ8
 }
 
 // 44. Last tile draw (Miaoshou-huichun, 妙手回春)

@@ -15,7 +15,6 @@ export default class Navigation extends HTMLElement {
 		super()
 
 		this.router = new Router()
-		this.favorites
 	}
 
 	async connectedCallback() {

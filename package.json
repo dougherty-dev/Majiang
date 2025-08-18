@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Implement later\" && exit 0",
     "start": "http-server .",
-    "posttest": "npm run eslint && npm run stylelint",
+    "posttest": "npm run eslint && npm run jshint src && npm run stylelint",
+    "jshint": "jshint src",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
     "stylelint": "stylelint \"**/*.{css,scss}\"",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "eslint": "^9.32.0",
+    "jshint": "^2.13.6",
     "postcss": "^8.5.6",
     "sass": "^1.89.2",
     "stylelint": "^16.23.0",

@@ -1,0 +1,16 @@
+{
+  "esversion": 11,
+  "strict": "implied",
+  "browser": true,
+  "asi": true,
+  "undef": true,
+  "unused": true,
+  "leanswitch": true,
+  "shadow": true,
+  "loopfunc": true,
+  "globals": {
+    "MY_GLOBAL": true,
+	  "customElements": true,
+	  "crypto": true
+  }
+}

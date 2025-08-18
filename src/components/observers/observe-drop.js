@@ -26,6 +26,7 @@ export function observeDrop(game) {
 		let drop = document.getElementById('control-drop' + key)
 		if (!drop) return
 
+		// jshint unused:false
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			if (!drop.firstChild) return // no tile
 

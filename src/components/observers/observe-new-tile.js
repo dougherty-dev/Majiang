@@ -22,6 +22,7 @@ export function observeNewTile(game) {
 		let door = document.getElementById('door' + key)
 		if (!door) return
 
+		// jshint unused:false
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
 
