@@ -21,7 +21,7 @@ const FZ88 = 88
 
 /**
  * 1. Big four winds (Da si xi, 大四喜)
- * Four kezi/gangzi with winds, and an arbitrary pair,
+ * Four kezi/gangzi with winds, and an arbitrary pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
@@ -37,7 +37,7 @@ export async function fz1DaSiXi(struct) {
 
 /**
  * 2. Big three dragons (Da san yuan, 大三元)
- * Three kezi/gangzi with dragons, an additional arbitrary kezi, an additional pair.
+ * Three kezi/gangzi with dragons, an additional arbitrary shunzi/kezi, and an additional pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */

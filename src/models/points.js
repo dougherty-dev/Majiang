@@ -53,6 +53,7 @@ export default class Points {
 		this.points = 0
 		this.exit = 0
 
+		// ['fanzhong name', 'pinyin', 'English', function, points, [rule exclusion list]]
 		this.fanzhong = {
 			// 88 fan
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
@@ -63,11 +64,11 @@ export default class Points {
 			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, ['19', '22', '63', '79']],
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, ['52', '56', '62', '79']],
 			// 64 fan
-			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, ['49', '55', '73', '76']],
+			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, ['18', '32', '49', '55', '65', '73', '76']],
 			'9': ['小四喜', 'Xiao si xi', 'Little four winds', fz9XiaoSiXi, 0, ['38', '73']],
-			'10': ['小三元', 'Xiao san yuan', 'Little three dragons', fz10XiaoSanYuan, 0, ['54', '59']],
+			'10': ['小三元', 'Xiao san yuan', 'Little three dragons', fz10XiaoSanYuan, 0, ['54', '59', '75']],
 			'11': ['字一色', 'Zi yi se', 'All honors', fz11ZiYiSe, 0, ['49', '55', '73']],
-			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49']],
+			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49', '56', '62']],
 			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, ['19', '22', '63', '69', '72', '76']],
 			// 48 fan
 			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, ['24', '64', '69']],

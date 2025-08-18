@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Implement later\" && exit 0",
     "start": "http-server .",
-    "posttest": "npm run eslint && npm run jshint src && npm run stylelint",
+    "posttest": "npm run eslint && npm run jshint && npm run stylelint",
     "jshint": "jshint src",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
