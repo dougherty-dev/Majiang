@@ -13,7 +13,7 @@ import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
 
 export async function checkJiagang(game) {
-	if (game.tiles.length === 0) return false
+	if (game.tiles.length < 2) return false
 
 	let pengs = []
 	for (const [key, meld] of Object.entries(game.players[game.currentPlayer].melds)) {

@@ -13,7 +13,7 @@ import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
 
 export async function checkAngang(game) {
-	if (game.tiles.length === 0) return false
+	if (game.tiles.length < 2) return false
 
 	const door = Object.assign([], game.players[game.currentPlayer].door)
 	sortTiles(door)

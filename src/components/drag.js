@@ -18,7 +18,7 @@ export function enableDrag(game) {
 	door.addEventListener('dragstart', (e) => {
 		item = e.target
 		e.target.classList.add('dragstart')
-		door.lastChild.classList.remove('new-tile')
+		door.lastChild.classList.remove('tile-divider')
 		game.sorted = true
 	})
 
