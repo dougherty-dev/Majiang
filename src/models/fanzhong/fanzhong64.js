@@ -5,20 +5,21 @@
  * @module models/fanzhong/fanzhong64
  */
 
-import { FENG, JIAN, ZI } from '../tiles.js'
+import { FENG, JIAN, SHU, ZI } from '../tiles.js'
 
 const FZ64 = 64
 
 // 8. Pure terminals (Qing yao jiu, 清幺九)
-// From: 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
 export async function fz8QingYaoJiu(struct) {
+	const allMelds = struct.game.players[struct.key].hu.allMelds
+	struct.shuMelds = allMelds.filter(item => SHU.includes(item[0]))
 	struct.yaojiu = struct.shuMelds.filter(item => ['1', '9'].includes(item[1][0]))
 
 	return (struct.yaojiu.length === 5) ? FZ64 : 0
 }
 
 // 9. Little four winds (Xiao si xi, 小四喜)
-// From: 2. Big three dragons (Da san yuan, 大三元)
+// Defined in: 1. Big four winds (Da si xi, 大四喜)
 export async function fz9XiaoSiXi(struct) {
 	const duizi = struct.game.players[struct.key].hu.duizi
 	const fengDuizi = duizi.filter(item => item[0] === FENG)
@@ -27,7 +28,7 @@ export async function fz9XiaoSiXi(struct) {
 }
 
 // 10. Little three dragons (Xiao san yuan, 小三元)
-// From: 2. Big three dragons (Da san yuan, 大三元)
+// Defined in: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz10XiaoSanYuan(struct) {
 	const duizi = struct.game.players[struct.key].hu.duizi
 	const jianDuizi = duizi.filter(item => item[0] === JIAN)
@@ -44,11 +45,11 @@ export async function fz11ZiYiSe(struct) {
 }
 
 // 12. Four concealed kezi (Si anke, 四暗刻)
-// From: 2. Big three dragons (Da san yuan, 大三元)
+// Defined in: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz12SiAnke(struct) {
 	const melds = struct.game.players[struct.key].melds
-	const gang = melds.filter(item => item.type === 'gang')
-	const peng = melds.filter(item => item.type === 'peng')
+	const gangMelds = melds.filter(item => item.type === 'gang')
+	const pengMelds = melds.filter(item => item.type === 'peng')
 
 	// kezi on dianhu (and qianggang) is open
 	if (struct.game.players[struct.key].hu.dianhu) {
@@ -58,10 +59,7 @@ export async function fz12SiAnke(struct) {
 		}
 	}
 
-	// Save result for:
-	// 33. Three concealed kezi (San anke, 三暗刻)
-	// 66. Two concealed kezi (Shuang anke, 双暗刻)
-	struct.concealedKezi = struct.keziGangzi.length - gang.length - peng.length
+	struct.concealedKezi = struct.keziGangzi.length - gangMelds.length - pengMelds.length
 
 	return (struct.concealedKezi === 4) ? FZ64 : 0
 }

@@ -19,7 +19,7 @@ class Player {
 			melds: [],
 			flowers: [],
 			floor: [],
-			drop: null,
+			drop: [],
 			hu: new Hu().hu
 		}
 	}

@@ -47,26 +47,22 @@ export async function fz20QiXingBuKao(struct) {
 }
 
 // 21. All even kezi (Quan shuang ke, 全双刻)
-// From: 8. Pure terminals (Qing yao jiu, 清幺九)
+// Defined in: 8. Pure terminals (Qing yao jiu, 清幺九)
 export async function fz21QuanShuangKe(struct) {
 	const even = struct.shuMelds.filter(item => ['2', '4', '6', '8'].includes(item[1][0]))
 
 	return (even.length === 5) ? FZ24 : 0
 }
 
-// 22. Full flush (Qing yi se, 清一色)
+/**
+ * 22. Full flush (Qing yi se, 清一色)
+ * All tiles in the same suit.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 88.
+ * Defined in: 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
+ */
 export async function fz22QingYiSe(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
-
-	if (
-		allMelds.length &&
-		SHU.includes(allMelds[0][0]) &&
-		allMelds.every((type) => type[0] === allMelds[0][0])
-	) {
-		return FZ24
-	}
-
-	return 0
+	return (struct.qingyise) ? FZ24: 0
 }
 
 // 23. Pure triple shunzi (Yi se san tongshun, 一色三同顺)

@@ -15,7 +15,7 @@
 
 import { sortTiles } from '../../components/helpers.js'
 import { LIANQIDUI } from '../../components/hu/patterns.js'
-import { FENG, JIAN, SHU, TIAO } from '../tiles.js'
+import { FENG, JIAN, TIAO } from '../tiles.js'
 
 const FZ88 = 88
 
@@ -73,15 +73,14 @@ export async function fz3LyYise(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz4JiuLianBaodeng(struct) {
-	const pattern = '1112345678999'
-
-	const allMelds = struct.game.players[struct.key].hu.allMelds
-	struct.shuMelds = allMelds.filter(item => SHU.includes(item[0]))
+	struct.qingyise = struct.tiles.filter(item => item[7] === struct.tiles[0][7]).length === 14
+	if (!struct.qingyise) return 0
 
 	let door = Object.assign([], struct.tiles)
 	door.splice(-1, 1)
 	sortTiles(door)
 
+	const pattern = '1112345678999'
 	if (door.map(item => item[1]).join('') === pattern) return FZ88
 
 	return 0
