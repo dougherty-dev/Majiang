@@ -40,7 +40,6 @@ export async function checkType(key, type, lookupKey, player) {
 
 	// DRY
 	if (meldsets.length > 1) {
-		console.log(meldsets)
 		for (const melds of meldsets) {
 			let huPairs = player.hu.pairs
 			let huMelds = player.hu.melds

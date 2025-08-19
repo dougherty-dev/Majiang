@@ -6,7 +6,6 @@
  */
 
 import { BING, FENG, SHU, TIAO, WAN } from '../tiles.js'
-import { fz76WuZi } from './fanzhong1.js'
 
 const FZ2 = 2
 

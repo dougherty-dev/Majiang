@@ -91,9 +91,9 @@ export default class Points {
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['24', '69']],
 			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, ['23']],
-			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, ['76']],
+			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, ['36', '76']],
 			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, ['68']],
-			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, ['76']],
+			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, ['37', '76']],
 			// 16 fan
 			'28': ['清龙', 'Qing long', 'Pure straight', fz28QingLong, 0, ['71', '72']],
 			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, ['63', '70', '72', '76']],

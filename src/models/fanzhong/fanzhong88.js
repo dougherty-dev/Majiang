@@ -26,7 +26,8 @@ const FZ88 = 88
  * @returns {Number} 0 or 88.
  */
 export async function fz1DaSiXi(struct) {
-	struct.fengTypes = Object.entries(struct.types).filter(item => item[0] === FENG)[0][1]
+	struct.allTypes = Object.entries(struct.types)
+	struct.fengTypes = struct.allTypes.filter(item => item[0] === FENG)[0][1]
 
 	return (struct.fengTypes.match(/1{3,4}2{3,4}3{3,4}4{3,4}/g)) ? FZ88 : 0
 }
