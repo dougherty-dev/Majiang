@@ -11,9 +11,8 @@ import { fz76WuZi } from './fanzhong1.js'
 const FZ2 = 2
 
 // 59. Dragon kezi (Jianke, 箭刻)
-// From: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz59Jianke(struct) {
-	return (struct.jianKezi.length === 1) ? FZ2 : 0
+	return (struct.jianTypes.match(/1{3,4}|2{3,4}|3{3,4}/g)) ? FZ2 : 0
 }
 
 // 60. Prevalent wind (Quanfengke, 圈风刻)
@@ -102,11 +101,8 @@ export async function fz67Angang(struct) {
 
 // 68. All simples (Duanyao, 断幺)
 export async function fz68Duanyao(struct) {
-	if (!await fz76WuZi(struct)) return 0
-
-	const melds = struct.game.players[struct.key].hu.allMelds
-
-	const suit = melds.map(item => item[1]).join('')
-	return (/^[2345678]+$/.test(suit)) ? FZ2 : 0
+	const hasZi = struct.fengTypes.length || struct.jianTypes.length
+	const shuTypes = struct.shuTypes.map(item => item[1]).join('')
+	return (!hasZi && /^[2345678][^19]+$/.test(shuTypes)) ? FZ2 : 0
 
 }

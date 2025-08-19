@@ -31,9 +31,7 @@ export async function newTileChecks(game, key) {
 			game.qianggang = false
 		}
 
-		game.gangshangKaihua = true
 		await newTile(game)
-		game.gangshangKaihua = false
 		return true
 	}
 

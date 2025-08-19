@@ -48,7 +48,7 @@ export async function displayResults(game, key, door, points) {
 	}
 
 	const player = key == HUMANPLAYER ? 'You' : `Player ${key}`
-	const msg = game.draw ? 'Draw' : `${player} won the round`
+	const msg = game.draw ? 'Draw' : `${player} won the hand`
 
 	const h2 = createElement('h2', '', msg)
 	resultsContents.appendChild(h2)

@@ -6,37 +6,13 @@
  */
 
 import { SHU } from '../tiles.js'
-import { DUIZI, KEZI, TYPES } from '../../components/hu/patterns.js'
+import { TYPES } from '../../components/hu/patterns.js'
 
 const FZ24 = 24
 
 // 19. Seven pairs (Qi dui, 七对)
 export async function fz19QiDui(struct) {
-	let pairs = 0
-	for (const type of Object.values(struct.types)) {
-		const pair = type.match(DUIZI) && !type.match(KEZI)
-		if (pair) pairs += pair.length
-	}
-
-	if (pairs === 7) {
-		// reset and rearrange
-		struct.game.players[struct.key].hu.allMelds = []
-		struct.game.players[struct.key].hu.duizi = []
-		struct.game.players[struct.key].hu.shunzi = []
-		struct.game.players[struct.key].hu.kezi = []
-		struct.game.players[struct.key].hu.gangzi = []
-
-		for (const [index, tile] of Object.entries(struct.tiles)) {
-			if (index % 2 !== 0) continue
-			const set = [tile[7], `${tile[1]}${tile[1]}`]
-			struct.game.players[struct.key].hu.duizi.push(set)
-			struct.game.players[struct.key].hu.allMelds.push(set)
-		}
-
-		return FZ24
-	}
-
-	return 0
+	return (struct.game.players[struct.key].hu.allMelds.length === 7) ? FZ24: 0
 }
 
 // 20. Greater honors and knitted tiles (Qi xing bu kao, 七星不靠)
@@ -49,6 +25,8 @@ export async function fz20QiXingBuKao(struct) {
 // 21. All even kezi (Quan shuang ke, 全双刻)
 // Defined in: 8. Pure terminals (Qing yao jiu, 清幺九)
 export async function fz21QuanShuangKe(struct) {
+	const allMelds = struct.game.players[struct.key].hu.allMelds
+	struct.shuMelds = allMelds.filter(item => SHU.includes(item[0]))
 	const even = struct.shuMelds.filter(item => ['2', '4', '6', '8'].includes(item[1][0]))
 
 	return (even.length === 5) ? FZ24 : 0

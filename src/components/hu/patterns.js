@@ -9,6 +9,7 @@ export const TYPES = {b: '', t: '', w: '', f: '', j: ''}
 
 export const DUIZI = /(\d)\1{1}/g
 export const KEZI = /(\d)\1{2}/g
+export const GANGZI = /(\d)\1{3}/g
 
 export const HALFSHUNZI = /(12|23|34|45|56|67|78|89)/g
 export const SHUNZI = /(123|234|345|456|567|678|789)/g

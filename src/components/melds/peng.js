@@ -78,7 +78,8 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 }
 
 async function AIPengHandling(game, meldSet, pengPlayer) {
-	// bots will just gang and peng for now
+	if (meldSet.length === 4 && game.tiles.length < 2) return false
+
 	await delay(1000)
 	const meldType = (meldSet.length === 4) ? 'gang' : 'peng'
 	await peng(game, meldSet, meldType, pengPlayer)
@@ -101,6 +102,7 @@ async function humanPengHandling(game, meldSet, pengPlayer) {
 		gangSet = Object.assign([], meldSet)
 		pengSet.splice(-1, 1)
 	}
+	if (meldSet.length === 4 && game.tiles.length < 2) gangSet = []
 
 	const meldOverlay = createElement('div', ['meld-overlay'])
 	const meldContents = createElement('div', ['meld-contents'])

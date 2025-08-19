@@ -40,5 +40,12 @@ export async function fz37XiaoYuWu(struct) {
 // 38. Big three winds (San feng ke, 三风刻)
 // From: 1. Big four winds (Da si xi, 大四喜)
 export async function fz38SanFengKe(struct) {
-	return (struct.fengKezi.length === 3) ? FZ12 : 0
+	const pattern = new RegExp([
+		'1{3,4}2{3,4}3{3,4}',
+		'1{3,4}2{3,4}4{3,4}',
+		'1{3,4}3{3,4}4{3,4}',
+		'2{3,4}3{3,4}4{3,4}'
+	].join('|'), 'g')
+
+	return (struct.fengTypes.match(pattern)) ? FZ12 : 0
 }

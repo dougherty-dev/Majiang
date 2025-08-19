@@ -108,7 +108,7 @@ export async function newTile(game) {
 
 	if (game.currentPlayer === 4) {
 		/**
-		 * If zimo, initaite hu process. If jiagang/angang, take new tile.
+		 * If zimo, initiate hu process. If jiagang/angang, take new tile.
 		 */
 		if (await newTileChecks(game, game.currentPlayer)) return
 

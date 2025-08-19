@@ -38,17 +38,9 @@ export async function checkType(key, type, lookupKey, player) {
 	let maxHuMelds = -1
 	let maxMelds = meldsets[0]
 
-	const actualMelds = []
-	for (const meld of player.melds) {
-		if (meld.meld[0][7] === key) {
-			const set = meld.meld.map(item => item[1]).join('')
-			actualMelds.push(set)
-		}
-	}
-
 	// DRY
 	if (meldsets.length > 1) {
-		console.log(actualMelds, meldsets) // to be implemented, actual melds must be subset of contructed sets
+		console.log(meldsets)
 		for (const melds of meldsets) {
 			let huPairs = player.hu.pairs
 			let huMelds = player.hu.melds
@@ -59,12 +51,10 @@ export async function checkType(key, type, lookupKey, player) {
 					huPairs++
 					break
 				case 3:
-					if (!ZI.includes(key) && meld.match(SHUNZI)) {
-						huMelds++
-					} else if (meld.match(KEZI)) {
-						huMelds++
-					}
-
+					if (
+						(!ZI.includes(key) && meld.match(SHUNZI)) ||
+						meld.match(KEZI)
+					) huMelds++
 					break
 				}
 			}

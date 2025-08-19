@@ -33,10 +33,17 @@ export default class Points {
 			tiles: tiles
 		}
 
-		this.struct.types = Object.assign([], TYPES)
+		this.struct.types = Object.assign({}, TYPES)
 
 		for (const tile of this.struct.tiles) {
 			this.struct.types[tile[7]] += tile[1]
+		}
+
+		for (let [key, type] of Object.entries(this.struct.types)) {
+			if (type) {
+				type = type.split('').sort().join('')
+				this.struct.types[key] = type
+			}
 		}
 
 		const hu = this.struct.game.players[this.struct.key].hu
@@ -56,8 +63,8 @@ export default class Points {
 		// ['fanzhong name', 'pinyin', 'English', function, points, [rule exclusion list]]
 		this.fanzhong = {
 			// 88 fan
-			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['38', '49', '60', '61', '73']],
-			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['54', '59']],
+			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['9', '38', '49', '60', '61', '73']],
+			'2': ['大三元', 'Da san yuan', 'Big three dragons', fz2DaSanYuan, 0, ['10', '54', '59']],
 			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, ['50']],
 			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, ['22', '62', '73']],
 			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, ['17', '49', '57', '74', '79']],

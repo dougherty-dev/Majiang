@@ -15,65 +15,61 @@
 
 import { sortTiles } from '../../components/helpers.js'
 import { LIANQIDUI } from '../../components/hu/patterns.js'
-import { FENG, JIAN, TIAO } from '../tiles.js'
+import { FENG, JIAN, SHU, TIAO } from '../tiles.js'
 
 const FZ88 = 88
 
 /**
- * 1. Big four winds (Da si xi, 大四喜)
+ * 1. Big four winds (Da si xi, 大四喜).
  * Four kezi/gangzi with winds, and an arbitrary pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz1DaSiXi(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
+	struct.fengTypes = Object.entries(struct.types).filter(item => item[0] === FENG)[0][1]
 
-	struct.keziGangzi = [...kezi, ...gangzi]
-	struct.fengKezi = struct.keziGangzi.filter(item => item[0] === FENG)
-
-	return (struct.fengKezi.length === 4) ? FZ88 : 0
+	return (struct.fengTypes.match(/1{3,4}2{3,4}3{3,4}4{3,4}/g)) ? FZ88 : 0
 }
 
 /**
- * 2. Big three dragons (Da san yuan, 大三元)
+ * 2. Big three dragons (Da san yuan, 大三元).
  * Three kezi/gangzi with dragons, an additional arbitrary shunzi/kezi, and an additional pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz2DaSanYuan(struct) {
-	struct.jianKezi = struct.keziGangzi.filter(item => item[0] === JIAN)
+	struct.jianTypes = Object.entries(struct.types).filter(item => item[0] === JIAN)[0][1]
 
-	return (struct.jianKezi.length === 3) ? FZ88 : 0
+	return (struct.jianTypes.match(/1{3,4}2{3,4}3{3,4}/g)) ? FZ88 : 0
 }
 
 /**
- * 3. All green (Lü yise, 绿一色)
+ * 3. All green (Lü yise, 绿一色).
  * Four regular melds and a pair consisting of bamboo 23468 and optionally green dragon.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz3LyYise(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
-
-	const jianMelds = allMelds.filter(item => item[0] === JIAN).map(item => item[1])
-	const tiaoMelds = allMelds.filter(item => item[0] === TIAO).map(item => item[1])
+	const tiaoTypes = Object.entries(struct.types).filter(item => item[0] === TIAO)[0][1]
 
 	return (
-		jianMelds.length + tiaoMelds.length === 5 &&
-		/^[2]*$/.test(jianMelds.join('')) &&
-		/^[23468]+$/.test(tiaoMelds.join(''))
+		struct.jianTypes.length + tiaoTypes.length === struct.tiles.length &&
+		/^[2]*$/.test(struct.jianTypes) &&
+		/^[23468]+$/.test(struct.tiaoTypes)
 	) ? FZ88 : 0
 }
 
 /**
- * 4. Nine gates (Jiu lian baodeng, 九莲宝灯)
+ * 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
  * Suited sequence 1112345678999 at hand, waiting for any additional tile in the suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz4JiuLianBaodeng(struct) {
-	struct.qingyise = struct.tiles.filter(item => item[7] === struct.tiles[0][7]).length === 14
+	struct.shuTiles = struct.tiles.filter(item => SHU.includes(item[7]))
+	struct.qingyise = struct.shuTiles.filter(item => item[7] === struct.tiles[0][7])
+		.length === struct.tiles.length
+
 	if (!struct.qingyise) return 0
 
 	let door = Object.assign([], struct.tiles)
@@ -87,45 +83,34 @@ export async function fz4JiuLianBaodeng(struct) {
 }
 
 /**
- * 5. Four gangs (Si gang, 四杠)
+ * 5. Four gangs (Si gang, 四杠).
  * Four open or concealed gangs.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz5SiGang(struct) {
-	return (struct.game.players[struct.key].hu.gangzi.length === 4) ? FZ88 : 0
+	return (struct.tiles.length === 18) ? FZ88 : 0
 }
 
 /**
- * 6. Seven shifted pairs (Lian qi dui, 连七对)
+ * 6. Seven shifted pairs (Lian qi dui, 连七对).
  * Sequence of seven pairs shifted up one in value, e.g. 33445566778899
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
  */
 export async function fz6LianQiDui(struct) {
-	const types = Object.values(struct.types).filter(item => item.length === 14)
+	struct.shuTypes = Object.entries(struct.types).filter(item => SHU.includes(item[0]))
+	const types = struct.shuTypes.filter(item => item[1].length === 14)
 
-	if (!(types.length && types[0].match(LIANQIDUI))) return 0
-
-	// reset and rearrange
-	struct.game.players[struct.key].hu.allMelds = []
-	struct.game.players[struct.key].hu.duizi = []
-	struct.game.players[struct.key].hu.shunzi = []
-	struct.game.players[struct.key].hu.kezi = []
-	struct.game.players[struct.key].hu.gangzi = []
-
-	for (const [index, tile] of Object.entries(struct.tiles)) {
-		if (index % 2 !== 0) continue
-		const set = [tile[7], `${tile[1]}${tile[1]}`]
-		struct.game.players[struct.key].hu.duizi.push(set)
-		struct.game.players[struct.key].hu.allMelds.push(set)
-	}
-
-	return FZ88
+	return (
+		types.length &&
+		struct.tiles.length === 14 &&
+		types[0][1].match(LIANQIDUI)
+	) ? FZ88 : 0
 }
 
 /**
- * 7. Thirteen orphans (Shisan yao, 十三幺)
+ * 7. Thirteen orphans (Shisan yao, 十三幺).
  * All suited 1s and 9s, one each of honors, plus an additional tile of the same kind.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.

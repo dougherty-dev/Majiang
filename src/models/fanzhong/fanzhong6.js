@@ -85,5 +85,7 @@ export async function fz53QuanQiuRen(struct) {
 // 54. Two dragons kezi (Shuang jianke, 双箭刻)
 // From: 2. Big three dragons (Da san yuan, 大三元)
 export async function fz54ShuangJianke(struct) {
-	return (struct.jianKezi.length === 2) ? FZ6 : 0
+	const pattern = /1{3,4}2{3,4}|1{3,4}3{3,4}|2{3,4}3{3,4}/g
+
+	return (struct.jianTypes.match(pattern)) ? FZ6 : 0
 }

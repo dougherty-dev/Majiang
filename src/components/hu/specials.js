@@ -47,13 +47,14 @@ async function sevenPairs(player, door) {
 // 13 orphans
 async function orphans(player) {
 	const values = Object.values(player.hu.types).filter(item => item !== '')
+
 	if (
 		values.length === 5 &&
-		['19'].every(n => player.hu.types.b.includes(n)) &&
-		['19'].every(n => player.hu.types.t.includes(n)) &&
-		['19'].every(n => player.hu.types.w.includes(n)) &&
-		['1234'].every(n => player.hu.types.f.includes(n)) &&
-		['123'].every(n => player.hu.types.j.includes(n))
+		player.hu.types.b.match(/1{1,2}9{1,2}/g) &&
+		player.hu.types.t.match(/1{1,2}9{1,2}/g) &&
+		player.hu.types.w.match(/1{1,2}9{1,2}/g) &&
+		player.hu.types.f.match(/1{1,2}2{1,2}3{1,2}4{1,2}/g) &&
+		player.hu.types.j.match(/1{1,2}2{1,2}3{1,2}/g)
 	) {
 		player.hu.shisanyao = true
 		return true
