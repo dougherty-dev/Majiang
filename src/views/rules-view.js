@@ -1073,7 +1073,7 @@ export default class RulesView extends HTMLElement {
 							<p class="exclude">➖ 76 No honors.</p>
 						</li>
 						<li>
-							<p><strong>Big three winds</strong> (<em>San feng ke</em>, <span class="fanzhong" data-src="38">三风刻</span>): gangzi (kongzi) of three winds.</p>
+							<p><strong>Big three winds</strong> (<em>San feng ke</em>, <span class="fanzhong" data-src="38">三风刻</span>): kezi (gangzi) of three winds.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg" class="meld-end">

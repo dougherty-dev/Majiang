@@ -173,6 +173,8 @@ async function knittedStraight(player) {
 			(meld[1].length === 3 && meld[1].match(KEZI))
 		) {
 			player.allMelds.push(meld[0] + meld[1])
+		} else {
+			return false
 		}
 	}
 

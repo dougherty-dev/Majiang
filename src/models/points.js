@@ -102,7 +102,7 @@ export default class Points {
 			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, []],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 12 fan
-			'34': ['全不靠', 'Quan bu kao', 'Lesser honors and knitted tiles', fz34QuanBuKao, 0, ['52']],
+			'34': ['全不靠', 'Quan bu kao', 'Lesser honors and knitted tiles', fz34QuanBuKao, 0, ['52', '62']],
 			'35': ['组合龙', 'Zuhe long', 'Knitted straight', fz35ZuheLong, 0, []],
 			'36': ['大于五', 'Da yu wu', 'Upper four', fz36DaYuWu, 0, ['76']],
 			'37': ['小于五', 'Xiao yu wu', 'Lower four', fz37XiaoYuWu, 0, ['76']],
