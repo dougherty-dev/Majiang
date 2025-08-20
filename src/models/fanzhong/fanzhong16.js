@@ -84,8 +84,8 @@ export async function fz30YiSeSanBuGao(struct) {
 	].join('|'), 'g')
 
 	const type = shuTypes.match(shifted)
-	if (type && type.length === 0) return 0
-console.log(type)
+	if (!type) return 0
+
 	const digits = [...new Set(type[0].split(''))].join('')
 	const patterns = {
 		'15': '122333445',
