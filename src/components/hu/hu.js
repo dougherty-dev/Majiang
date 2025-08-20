@@ -12,10 +12,7 @@ import Hu from '../../models/hu.js'
 
 /**
  * @description Check validity of _remaining_ tiles at hand for possible hu.
- * Also check special hands without melds (all tiles at hand).
- * Melds are implictly already approved.
- * Then build combined meld structure for score calculation.
- * 
+ * The exact nature of the hu will be decided later, for now just confirm a winning pattern.
  * @param {Object} player Potential winner.
  * @param {Object} door Remaining tiles at hand.
  * @returns Boolean

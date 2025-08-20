@@ -65,7 +65,12 @@ export async function cheat(game) {
 	// 16 fan
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'wan5', 'wan5', 'zi1', 'zi1'] // 28
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'tiao5'] // 28
-	const tiles = ['bing1', 'bing2', 'bing3', 'bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'wan5'] // 29
+	// const tiles = ['bing1', 'bing2', 'bing3', 'bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'wan5'] // 29
+	// const tiles = ['bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
+	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
+	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5'] // 30
+	// const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
+	const tiles = ['bing2', 'bing2', 'bing2', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan2', 'wan2', 'zi7', 'zi7', 'wan5', 'wan6'] // 32
 
 	for (const tile of tiles) {
 		game.players[4].door.push(game.tiles.splice(game.tiles.findIndex(item => item[2] === tile), 1)[0])
@@ -81,4 +86,3 @@ export async function cheat(game) {
 		sortTiles(player.door, game.sorted)
 	}
 }
-

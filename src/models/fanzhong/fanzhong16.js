@@ -14,10 +14,14 @@
 import { lookup2 } from '../../components/hu/lookup2.js'
 import { lookup3 } from '../../components/hu/lookup3.js'
 import { lookup5 } from '../../components/hu/lookup5.js'
-import { SHIFTEDAX3, SHIFTEDBX3 } from '../../components/hu/patterns.js'
-import { SHU } from '../tiles.js'
+import { KEZI } from '../../components/hu/patterns.js'
 
 const FZ16 = 16
+const lookup = {
+	lookup2: lookup2,
+	lookup3: lookup3,
+	lookup5: lookup5
+}
 
 /**
  * 28. Pure straight (Qing long, 清龙).
@@ -35,16 +39,9 @@ export async function fz28QingLong(struct) {
 		shuTypes = shuTypes.replace(digit, '')
 	}
 
-	const lookup = {
-		lookup2: lookup2,
-		lookup3: lookup3,
-		lookup5: lookup5
-	}
-
 	if (shuTypes.length === 0) return FZ16
 
 	if ([2, 3, 5].includes(shuTypes.length)) {
-		console.log(shuTypes.length)
 		if (shuTypes in lookup[`lookup${shuTypes.length}`]) return FZ16
 	}
 
@@ -64,7 +61,6 @@ export async function fz29SanSeShuangLongHui(struct) {
 	return (shuanglong === 2 && fives === 1) ? FZ16 : 0
 }
 
-// Not satisfactory, rewrite
 /**
  * 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
  * Three suited shunzi shifted up either 1 or 2 in value, but not both.
@@ -72,12 +68,47 @@ export async function fz29SanSeShuangLongHui(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz30YiSeSanBuGao(struct) {
-	const hu = struct.game.players[struct.key].hu
+	let shuTypes = struct.shuTypes.filter(item => item[1].length >= 9)
+	if (!shuTypes.length) return 0
+	shuTypes = shuTypes[0][1]
 
-	for (const type of Object.values(hu.types)) {
-		if (type.match(SHIFTEDAX3) || type.match(SHIFTEDBX3)) {
-			return FZ16
-		}
+	const shifted = new RegExp ([
+		'1{1,}2{2,}3{3,}4{2,}5{1,}',
+		'2{1,}3{2,}4{3,}5{2,}6{1,}',
+		'3{1,}4{2,}5{3,}6{2,}7{1,}',
+		'4{1,}5{2,}6{3,}7{2,}8{1,}',
+		'5{1,}6{2,}7{3,}8{2,}9{1,}',
+		'1{1,}2{1,}3{2,}4{1,}5{2,}6{1,}7{1,}',
+		'2{1,}3{1,}4{2,}5{1,}6{2,}7{1,}8{1,}',
+		'3{1,}4{1,}5{2,}6{1,}7{2,}8{1,}9{1,}'
+	].join('|'), 'g')
+
+	const type = shuTypes.match(shifted)
+	if (type.length === 0) return 0
+
+	const digits = [...new Set(type[0].split(''))].join('')
+	const patterns = {
+		'15': '122333445',
+		'26': '233444556',
+		'37': '344555667',
+		'47': '455666778',
+		'59': '566777889',
+		'17': '123345567',
+		'28': '234456678',
+		'39': '345567789'
+	}
+
+	const pattern = patterns[`${digits[0]}${digits.at(-1)}`]
+
+	// Remove shunzi, check remainder
+	for (const digit of pattern.split('')) {
+		shuTypes = shuTypes.replace(digit, '')
+	}
+
+	if (shuTypes.length === 0) return FZ16
+
+	if ([2, 3, 5].includes(shuTypes.length)) {
+		if (shuTypes in lookup[`lookup${shuTypes.length}`]) return FZ16
 	}
 
 	return 0
@@ -90,10 +121,17 @@ export async function fz30YiSeSanBuGao(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz31QuanDaiWu(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const quandaiwu = melds.filter(item => item[1].includes('5'))
+	if (struct.jianTypes.length || struct.fengTypes.length) return 0
 
-	return (quandaiwu.length === 5) ? FZ16 : 0
+	const noWu = struct.shuTypes.filter(item => !item[1].includes('5'))
+	if (noWu.length) return 0
+
+	const melds = struct.game.players[struct.key]
+		.melds.filter(item => ['gang', 'angang'].includes(item.type))
+		.map(item => item.meld)
+		.filter(item => item[0][1] === 5)
+
+	return (melds.length) ? 0 : FZ16
 }
 
 /**
@@ -103,11 +141,16 @@ export async function fz31QuanDaiWu(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
-	const suited = struct.keziGangzi.filter(item => SHU.includes(item[0]))
-	const reduced = suited.map(item => item[1][0])
-	const set = [...new Set(reduced)]
+	const kezi = struct.shuTypes.filter(item => item[1]
+		.match(KEZI))
+		.map(item => item[1])
+		.sort((a, b) => a.length - b.length)
 
-	return (reduced.length === 3 && set.length === 1) ? FZ16 : 0
+	if (!kezi.length) return
+
+	const santongke = kezi.filter(item => item.includes(kezi[0]))
+
+	return (santongke.length === 3) ? FZ16 : 0
 }
 
 /**

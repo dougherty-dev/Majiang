@@ -26,7 +26,7 @@ const lookup = {
 	lookup9: lookup9,
 	lookup11: lookup11,
 	lookup12: lookup12,
-	lookup14: lookup14,
+	lookup14: lookup14
 }
 
 export async function checkType(key, type, lookupKey, player) {

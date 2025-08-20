@@ -133,7 +133,7 @@ export async function fz24YiSeSanJieGao(struct) {
 export async function fz25QuanDa(struct) {
 	const upper = struct.shuTiles.filter(item => [7, 8, 9].includes(item[1]))
 
-	return (upper.length >= 14) ? FZ24 : 0
+	return (upper.length === struct.tiles.length) ? FZ24 : 0
 }
 
 /**
@@ -145,7 +145,7 @@ export async function fz25QuanDa(struct) {
 export async function fz26QuanZhong(struct) {
 	const middle = struct.shuTiles.filter(item => [4, 5, 6].includes(item[1]))
 
-	return (middle.length >= 14) ? FZ24 : 0
+	return (middle.length === struct.tiles.length) ? FZ24 : 0
 }
 
 /**
@@ -157,5 +157,5 @@ export async function fz26QuanZhong(struct) {
 export async function fz27QuanXiao(struct) {
 	const lower = struct.shuTiles.filter(item => [1, 2, 3].includes(item[1]))
 
-	return (lower.length >= 14) ? FZ24 : 0
+	return (lower.length === struct.tiles.length) ? FZ24 : 0
 }
