@@ -24,12 +24,7 @@ export async function newTileChecks(game, key) {
 		/**
 		 * Check for qianggang.
 		 */
-		const res = await checkDianhu(game, tile, key)
-		if (res) {
-			game.qianggang = true
-			if (await hu(game, res)) return true
-			game.qianggang = false
-		}
+		if (await checkDianhu(game, tile, key)) return true
 
 		await newTile(game)
 		return true
@@ -46,8 +41,7 @@ export async function newTileChecks(game, key) {
 }
 
 export async function dropTileChecks(game, tile, key) {
-	const res = await checkDianhu(game, tile, key)
-	if (res && await hu(game, res)) return true
+	if (await checkDianhu(game, tile, key)) return true
 
 	// melds
 	switch (await checkPeng(game, tile)) {

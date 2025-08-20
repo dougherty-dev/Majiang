@@ -56,7 +56,7 @@ export async function fz3LyYise(struct) {
 	return (
 		struct.jianTypes.length + tiaoTypes.length === struct.tiles.length &&
 		/^[2]*$/.test(struct.jianTypes) &&
-		/^[23468]+$/.test(struct.tiaoTypes)
+		/^[23468][^19]+$/.test(tiaoTypes)
 	) ? FZ88 : 0
 }
 
@@ -77,10 +77,7 @@ export async function fz4JiuLianBaodeng(struct) {
 	door.splice(-1, 1)
 	sortTiles(door)
 
-	const pattern = '1112345678999'
-	if (door.map(item => item[1]).join('') === pattern) return FZ88
-
-	return 0
+	return (door.map(item => item[1]).join('') === '1112345678999') ? FZ88 : 0
 }
 
 /**

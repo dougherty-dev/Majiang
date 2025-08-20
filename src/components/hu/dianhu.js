@@ -7,6 +7,7 @@
 
 import { ALLPLAYERS } from '../../models/constants.js'
 import { sortTiles } from '../helpers.js'
+import { hu } from '../round/hu.js'
 import { checkHu } from './hu.js'
 
 export async function checkDianhu(game, tile, key) {
@@ -23,7 +24,7 @@ export async function checkDianhu(game, tile, key) {
 			player.hu.dianhu = true
 			game.hupai = tile
 			game.winner = index
-			return index
+			if (await hu(game, index)) return true
 		}
 	}
 

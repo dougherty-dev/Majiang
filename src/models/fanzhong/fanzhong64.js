@@ -110,8 +110,7 @@ export async function fz12SiAnke(struct) {
  * @returns {Number} 0 or 64.
  */
 export async function fz13YiSeShuangLongHui(struct) {
-	const pattern = '11223355778899'
-	const types = struct.shuTypes.filter(item => item[1] === pattern)
+	const types = struct.shuTypes.filter(item => item[1] === '11223355778899')
 
-	return (types.length) ? FZ64 : 0
+	return (types.length && struct.tiles.length === 14) ? FZ64 : 0
 }

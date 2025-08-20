@@ -15,7 +15,7 @@
  */
 
 import { SHU } from '../tiles.js'
-import { TYPES } from '../../components/hu/patterns.js'
+import { DUIZI, KEZI, TYPES } from '../../components/hu/patterns.js'
 
 const FZ24 = 24
 
@@ -26,8 +26,15 @@ const FZ24 = 24
  * @returns {Number} 0 or 24.
  */
 export async function fz19QiDui(struct) {
-	const allTypes = struct.allTypes.map(item => item[1]).join('')
-	const pairs = allTypes.match(/11|22|33|44|55|66|77|88|99/g)
+	let pairs = []
+	let match
+
+	for (const type of struct.allTypes) {
+		if (type[1] && !type[1].match(KEZI)) {
+			match = type[1].match(DUIZI)
+			if (match) pairs = [...pairs, ...match]
+		}
+	}
 
 	return (pairs && pairs.length === 7) ? FZ24 : 0
 }
