@@ -17,7 +17,7 @@ import { KEZI } from '../../components/hu/patterns.js'
 const FZ64 = 64
 
 /**
- * 8. Pure terminals (Qing yao jiu, 清幺九).
+ * ✅ 8. Pure terminals (Qing yao jiu, 清幺九).
  * Suited kezi of 1s and 9s only.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
@@ -30,7 +30,7 @@ export async function fz8QingYaoJiu(struct) {
 }
 
 /**
- * 9. Little four winds (Xiao si xi, 小四喜).
+ * ✅ 9. Little four winds (Xiao si xi, 小四喜).
  * Three kezi/gangzi and a pair with winds, and an arbitrary shunzi/kezi/gangzi.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
@@ -47,7 +47,7 @@ export async function fz9XiaoSiXi(struct) {
 }
 
 /**
- * 10. Little three dragons (Xiao san yuan, 小三元).
+ * ✅ 10. Little three dragons (Xiao san yuan, 小三元).
  * Two kezi/gangzi and a pair with dragons, and an additional arbitrary kezi/shunzi.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
@@ -63,7 +63,7 @@ export async function fz10XiaoSanYuan(struct) {
 }
 
 /**
- * 11. All honors (Zi yi se, 字一色).
+ * ✅ 11. All honors (Zi yi se, 字一色).
  * All melds are kezi/gangzi of winds and dragons.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
@@ -73,7 +73,7 @@ export async function fz11ZiYiSe(struct) {
 }
 
 /**
- * 12. Four concealed kezi (Si anke, 四暗刻).
+ * ✅ 12. Four concealed kezi (Si anke, 四暗刻).
  * All melds are concealed kezi/gangzi, either on hand or as melded angang.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
@@ -100,7 +100,7 @@ export async function fz12SiAnke(struct) {
 }
 
 /**
- * 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
+ * ✅ 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
  * All melds in one suit, with two shunzi 123 and 789 each, and a pair 55.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.

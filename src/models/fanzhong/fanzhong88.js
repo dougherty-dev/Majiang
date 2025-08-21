@@ -20,7 +20,7 @@ import { FENG, JIAN, SHU, TIAO } from '../tiles.js'
 const FZ88 = 88
 
 /**
- * 1. Big four winds (Da si xi, 大四喜).
+ * ✅ 1. Big four winds (Da si xi, 大四喜).
  * Four kezi/gangzi with winds, and an arbitrary pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -33,7 +33,7 @@ export async function fz1DaSiXi(struct) {
 }
 
 /**
- * 2. Big three dragons (Da san yuan, 大三元).
+ * ✅ 2. Big three dragons (Da san yuan, 大三元).
  * Three kezi/gangzi with dragons, an additional arbitrary shunzi/kezi, and an additional pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -45,7 +45,7 @@ export async function fz2DaSanYuan(struct) {
 }
 
 /**
- * 3. All green (Lü yise, 绿一色).
+ * ✅ 3. All green (Lü yise, 绿一色).
  * Four regular melds and a pair consisting of bamboo 23468 and optionally green dragon.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -61,7 +61,7 @@ export async function fz3LyYise(struct) {
 }
 
 /**
- * 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
+ * ✅ 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
  * Suited sequence 1112345678999 at hand, waiting for any additional tile in the suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -82,7 +82,7 @@ export async function fz4JiuLianBaodeng(struct) {
 }
 
 /**
- * 5. Four gangs (Si gang, 四杠).
+ * ✅ 5. Four gangs (Si gang, 四杠).
  * Four open or concealed gangs.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -92,7 +92,7 @@ export async function fz5SiGang(struct) {
 }
 
 /**
- * 6. Seven shifted pairs (Lian qi dui, 连七对).
+ * ✅ 6. Seven shifted pairs (Lian qi dui, 连七对).
  * Sequence of seven pairs shifted up one in value, e.g. 33445566778899
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.
@@ -110,7 +110,7 @@ export async function fz6LianQiDui(struct) {
 }
 
 /**
- * 7. Thirteen orphans (Shisan yao, 十三幺).
+ * ✅ 7. Thirteen orphans (Shisan yao, 十三幺).
  * All suited 1s and 9s, one each of honors, plus an additional tile of the same kind.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 88.

@@ -10,7 +10,7 @@
 const FZ48 = 48
 
 /**
- * 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
+ * ✅ 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
  * Four identical shunzi, in the same suit, with the same values.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 48.
@@ -34,7 +34,7 @@ export async function fz14YiSeSiTongshun(struct) {
 }
 
 /**
- * 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
+ * ✅ 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
  * Four kezi in the same suit, shifted up one in value for each kezi.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 48.

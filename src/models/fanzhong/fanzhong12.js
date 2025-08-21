@@ -37,7 +37,7 @@ export async function fz35ZuheLong(struct) {
 }
 
 /**
- * 36. Upper four (Da yu wu, 大于五).
+ * ✅ 36. Upper four (Da yu wu, 大于五).
  * All tiles valued 6–9.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 12.
@@ -49,7 +49,7 @@ export async function fz36DaYuWu(struct) {
 }
 
 /**
- * 37. Lower four (Xiao yu wu, 小于五).
+ * ✅ 37. Lower four (Xiao yu wu, 小于五).
  * All tiles valued 1–4.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 12.
@@ -61,7 +61,7 @@ export async function fz37XiaoYuWu(struct) {
 }
 
 /**
- * 38. Big three winds (San feng ke, 三风刻).
+ * ✅ 38. Big three winds (San feng ke, 三风刻).
  * Kezi (gangzi) of three winds.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 12.

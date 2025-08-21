@@ -1277,7 +1277,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Mixed shifted shunzi</strong> (<em>San se san bu gao</em>, <span class="fanzhong" data-src="51">三色三步高</span>): three shunzi in each suit, consecutively shifted up in value.</p>
+							<p><strong>Mixed shifted shunzi</strong> (<em>San se san bu gao</em>, <span class="fanzhong" data-src="51">三色三步高</span>): one shunzi in each suit, consecutively shifted up in value.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀟" src="img/tiles/shuzipai-bingzi-7.svg">
 								<img width="30" height="41" alt="🀠" src="img/tiles/shuzipai-bingzi-8.svg">

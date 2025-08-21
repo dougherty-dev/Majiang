@@ -20,13 +20,14 @@ import { DUIZI, KEZI, TYPES } from '../../components/hu/patterns.js'
 const FZ24 = 24
 
 /**
- * 19. Seven pairs (Qi dui, 七对).
+ * ✅ 19. Seven pairs (Qi dui, 七对).
  * Seven pairs of all types.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
  */
 export async function fz19QiDui(struct) {
 	let pairs = []
+	struct.qidui = false
 
 	for (const type of struct.allTypes) {
 		if (type[1] && !type[1].match(KEZI)) {
@@ -35,7 +36,12 @@ export async function fz19QiDui(struct) {
 		}
 	}
 
-	return (pairs && pairs.length === 7) ? FZ24 : 0
+	if (pairs && pairs.length === 7) {
+		struct.qidui = true
+		return FZ24
+	}
+
+	return 0
 }
 
 /**
@@ -43,7 +49,6 @@ export async function fz19QiDui(struct) {
  * One each of winds and dragons, plus special full/partial suited shunzi 147, 258, and 369.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
- * PROBLEMATIC?
  */
 export async function fz20QiXingBuKao(struct) {
 	const hu = struct.game.players[struct.key].hu
@@ -52,7 +57,7 @@ export async function fz20QiXingBuKao(struct) {
 }
 
 /**
- * 21. All even kezi (Quan shuang ke, 全双刻).
+ * ✅ 21. All even kezi (Quan shuang ke, 全双刻).
  * Suited kezi (gangzi) and a pair with values 2, 4, 6, 8.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
@@ -68,7 +73,7 @@ export async function fz21QuanShuangKe(struct) {
 }
 
 /**
- * 22. Full flush (Qing yi se, 清一色).
+ * ✅ 22. Full flush (Qing yi se, 清一色).
  * All tiles in the same suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
@@ -128,7 +133,7 @@ export async function fz24YiSeSanJieGao(struct) {
 }
 
 /**
- * 25. Upper tiles (Quan da, 全大).
+ * ✅ 25. Upper tiles (Quan da, 全大).
  * All tiles of values 7, 8, and 9.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
@@ -140,7 +145,7 @@ export async function fz25QuanDa(struct) {
 }
 
 /**
- * 26. Middle tiles (Quan zhong, 全中).
+ * ✅ 26. Middle tiles (Quan zhong, 全中).
  * All tiles of values 4, 5, and 6.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
@@ -152,7 +157,7 @@ export async function fz26QuanZhong(struct) {
 }
 
 /**
- * 27. Lower tiles (Quan xiao, 全小).
+ * ✅ 27. Lower tiles (Quan xiao, 全小).
  * All tiles of values 4, 5, and 6.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.

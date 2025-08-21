@@ -3,6 +3,10 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong4
+ * @property {Function} fz55QuanDaiYao 55. Outside hand (Quan dai yao, 全带幺).
+ * @property {Function} fz56BuQiuRen 56. Fully concealed hand (Bu qiu ren, 不求人).
+ * @property {Function} fz57ShuangMinggang 57. Two melded gangs (Shuang minggang, 双明杠).
+ * @property {Function} fz58HuJuezhang 58. Last of its kind (Hu juezhang, 和绝张).
  */
 
 import { ZI } from '../tiles.js'
@@ -10,40 +14,64 @@ import { ZI } from '../tiles.js'
 const FZ4 = 4
 const FZ2 = 2
 
-// 55. Outside hand (Quan dai yao, 全带幺)
+/**
+ * ✅ 55. Outside hand (Quan dai yao, 全带幺).
+ * Terminals included in every set.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 4.
+ * 19. Qi dui covered in 18. Hun yao jiu, with 55 excluded.
+ */
 export async function fz55QuanDaiYao(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
+	const patterns = [
+		'11', '99', '111', '123', '789', '999', '11123', '11199', '11789', '11999', '12399',
+		'78999', '111123', '111789', '111999', '112233', '123789', '123999', '778899',
+		'789999', '11112233', '11112399', '11123789', '11123999', '11178999', '11223399',
+		'11778899', '11789999', '12378999', '77889999', '111123789', '111123999', '111222333',
+		'111778899', '111789999', '112233789', '112233999', '123778899', '123789999',
+		'777888999', '11112233789', '11112233999', '11112378999', '11122233399', '11123778899',
+		'11123789999', '11177889999', '11223378999', '11777888999', '12377889999', '111122223333',
+		'111123778899', '111123789999', '111222333789', '111222333999', '111777888999',
+		'112233778899', '112233789999', '123777888999', '777788889999', '11112222333399',
+		'11112233778899', '11112233789999', '11112377889999', '11122233378999', '11123777888999',
+		'11223377889999', '11777788889999'
+	]
 
-	const yaojiuzi = allMelds.filter(item => ZI.includes(item[0]) || /[19]+/.test(item[1]))
-	if (yaojiuzi.length === 5) return FZ4 
+	const shuTypes = struct.shuTypes14.filter(item => item[1])
+	const noYao = shuTypes.filter(item => !patterns.includes(item[1]))
 
-	return 0
+	return (noYao.length) ? 0 : FZ4
 }
 
-// 56. Fully concealed hand (Bu qiu ren, 不求人)
+/**
+ * ✅ 56. Fully concealed hand (Bu qiu ren, 不求人).
+ * Hand with no melds, must win by self-draw.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 4.
+ */
 export async function fz56BuQiuRen(struct) {
-	if (
+	return (
 		struct.game.players[struct.key].melds.length === 0 &&
 		struct.game.zimo
-	) return FZ4
-
-	return 0
+	) ? FZ4 : 0
 }
 
-// 57. Two melded gangs (Shuang minggang, 双明杠)
+/**
+ * ✅ 57. Two melded gangs (Shuang minggang, 双明杠).
+ * Two melded open gang. Angang plus minggang gives six points.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0, 4 or 6.
+ */
 export async function fz57ShuangMinggang(struct) {
-	const melds = struct.game.players[struct.key].melds
-
-	const gang = melds.filter(item => item.type === 'gang').length
-	const angang = melds.filter(item => item.type === 'angang').length
-
-	if (angang === 1 && gang === 1) return FZ4 + FZ2
-	if (angang === 0 && gang === 2) return FZ4
-
-	return 0
+	if (struct.angangMelds.length === 1 && struct.gangMelds.length === 1) return FZ4 + FZ2
+	return (struct.angangMelds.length === 0 && struct.gangMelds.length === 2) ? FZ4 : 0
 }
 
-// 58. Last of its kind (Hu juezhang, 和绝张)
+/**
+ * 58. Last of its kind (Hu juezhang, 和绝张).
+ * Winning on the last (fourth) tile of its kind.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 4.
+ */
 export async function fz58HuJuezhang(struct) {
 	const hupai = struct.game.hupai[2]
 	const players = Object.entries(struct.game.players)

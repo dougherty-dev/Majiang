@@ -82,7 +82,7 @@ export async function displayResults(game, key, door, points) {
 		}
 
 		const fan = createElement('p', ['fan'])
-		fan.textContent = `Sum: ${points.points} p`
+		fan.textContent = `Sum: ${points.struct.points} p`
 		resultsContents.appendChild(fan)
 
 		points.sumPoints(game, key)

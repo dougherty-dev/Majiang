@@ -30,7 +30,8 @@ export default class Points {
 		this.struct = {
 			game: game,
 			key: key,
-			tiles: tiles
+			tiles: tiles,
+			points: 0
 		}
 
 		this.struct.types = Object.assign({}, TYPES)
@@ -47,18 +48,14 @@ export default class Points {
 			.map(item => item.meld)
 			.map(item => [item[0][7], item[0][1]])
 
-		for (const [key, type] of Object.entries(this.struct.types14)) {
+		for (const key of Object.keys(this.struct.types14)) {
 			const digit = gangzi.find(item => item[0] === key)
 			if (digit) {
 				this.struct.types14[key] = this.struct.types14[key].replace(digit[1], '')
 			}
-		}
 
-		for (let [key, type] of Object.entries(this.struct.types)) {
-			if (type) {
-				type = type.split('').sort().join('')
-				this.struct.types[key] = type
-			}
+			this.struct.types[key] = this.struct.types[key].split('').sort().join('')
+			this.struct.types14[key] = this.struct.types14[key].split('').sort().join('')
 		}
 
 		const hu = this.struct.game.players[this.struct.key].hu
@@ -72,7 +69,6 @@ export default class Points {
 		])
 
 		this.exclude = []
-		this.points = 0
 		this.exit = 0
 
 		// ['fanzhong name', 'pinyin', 'English', function, points, [rule exclusion list]]
@@ -132,7 +128,7 @@ export default class Points {
 			'45': ['海底捞月', 'Haidi-laoyue', 'Last tile claim', fz45HaidiLaoyue, 0, []],
 			'46': ['杠上开花', 'Gangshang kaihua', 'Out with replacement tile', fz46GangshangKaihua, 0, ['80']],
 			'47': ['抢杠和', 'Qiangganghu', 'Robbing the gang', fz47Qiangganghu, 0, ['58']],
-			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, []],
+			'48': ['双暗杠', 'Shuang angang', 'Two concealed gangzi', fz48ShuangAngang, 0, ['66']],
 			// 6 fan
 			'49': ['碰碰和', 'Pengpeng hu', 'All kezi', fz49PengpengHu, 0, []],
 			'50': ['混一色', 'Hun yi se', 'Half flush', fz50HunYiSe, 0, []],
@@ -184,12 +180,12 @@ export default class Points {
 
 			if (this.fanzhong[80][4] > 0) {
 				for (const index of players) {
-					game.players[key].points += this.points
-					game.players[index].points -= this.points
+					game.players[key].points += this.struct.points
+					game.players[index].points -= this.struct.points
 				}
 			} else {
-				game.players[key].points += this.points
-				game.players[game.currentPlayer].points -= this.points
+				game.players[key].points += this.struct.points
+				game.players[game.currentPlayer].points -= this.struct.points
 			}
 		}
 	}
@@ -201,9 +197,9 @@ export default class Points {
 		}
 
 		// 43. Chicken hand (Wu fan hu, 无番和)
-		if (this.points === 0) await this.applyRule('43')
+		await this.applyRule('43')
 
-		this.exit = this.points
+		this.exit = this.struct.points
 		// 81. Flower tiles (Huapai, 花牌)
 		await this.applyRule('81')
 	}
@@ -214,7 +210,7 @@ export default class Points {
 
 		if (points) {
 			fz[4] = points
-			this.points += points
+			this.struct.points += points
 			if (fz[5].length) {
 				this.exclude = [...this.exclude, ...fz[5]]
 			}

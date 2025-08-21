@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module models/fanzhong/fanzhong6
+ * @module models/fanzhong/fanzhong16
  * @property {Function} fz28QingLong 28. Pure straight (Qing long, 清龙).
  * @property {Function} fz29SanSeShuangLongHui 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
  * @property {Function} fz30YiSeSanBuGao 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
@@ -24,7 +24,7 @@ const lookup = {
 }
 
 /**
- * 28. Pure straight (Qing long, 清龙).
+ * ✅ 28. Pure straight (Qing long, 清龙).
  * Three shunzi 123, 456, 789 in the same suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
@@ -49,7 +49,7 @@ export async function fz28QingLong(struct) {
 }
 
 /**
- * 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
+ * ✅ 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
  * Two suited shunzi each of 1-2-3 and 7-8-9, and a pair of fives in the third suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
@@ -62,7 +62,7 @@ export async function fz29SanSeShuangLongHui(struct) {
 }
 
 /**
- * 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
+ * ✅ 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
  * Three suited shunzi shifted up either 1 or 2 in value, but not both.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
@@ -115,7 +115,7 @@ export async function fz30YiSeSanBuGao(struct) {
 }
 
 /**
- * 31. All fives (Quan dai wu, 全带五).
+ * ✅ 31. All fives (Quan dai wu, 全带五).
  * All shunzi, kezi (gangzi) and duizi containing a five.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
@@ -136,7 +136,7 @@ export async function fz31QuanDaiWu(struct) {
 }
 
 /**
- * 32. Triple kezi (San tongke, 三同刻).
+ * ✅ 32. Triple kezi (San tongke, 三同刻).
  * Three kezi (gangzi) of the same value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
@@ -154,7 +154,7 @@ export async function fz32SanTongke(struct) {
 }
 
 /**
- * 33. Three concealed kezi (San anke, 三暗刻).
+ * ✅ 33. Three concealed kezi (San anke, 三暗刻).
  * Three kezi (gangzi), on hand or melded (angang).
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.

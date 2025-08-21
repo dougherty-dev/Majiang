@@ -3,6 +3,19 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong1
+ * @property {Function} fz69YibanGao 69. Pure double shunzi (Yiban gao, 一般高).
+ * @property {Function} fz70XiXiangfeng 70. Mixed double shunzi (Xi xiangfeng, 喜相逢).
+ * @property {Function} fz71LianLiu 71. Short straight (Lian liu, 连六).
+ * @property {Function} fz72LaoshaoFu 72. Two terminal shunzi (Laoshao fu, 老少副).
+ * @property {Function} fz73YaoJiuKe 73. Terminal kezi (Yao jiu ke, 幺九刻).
+ * @property {Function} fz74Minggang 74. Melded gang (Minggang, 明杠).
+ * @property {Function} fz75QueYiMen 75. One voided suit (Que yi men, 缺一门).
+ * @property {Function} fz76WuZi 76. No honors (Wu zi, 无字).
+ * @property {Function} fz77Bianzhang 77. Edge wait (Bianzhang, 边张).
+ * @property {Function} fz78Kanzhang 78. Closed wait (Kanzhang, 坎张).
+ * @property {Function} fz79DandiaoJiang 79. Single wait (Dandiao jiang, 单调将).
+ * @property {Function} fz80Zimo 80. Self-drawn (Zimo, 自摸).
+ * @property {Function} fz81Huapai 81. Flower tiles (Huapai, 花牌).
  */
 
 import { tingpai } from '../../components/hu/check-type.js'
@@ -10,7 +23,12 @@ import { BING, SHU, TIAO, WAN, ZI } from '../tiles.js'
 
 const FZ1 = 1
 
-// 69. Pure double shunzi (Yiban gao, 一般高)
+/**
+ * 69. Pure double shunzi (Yiban gao, 一般高).
+ * Containing two identical shunzi.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz69YibanGao(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
@@ -23,7 +41,12 @@ export async function fz69YibanGao(struct) {
 	return 0
 }
 
-// 70. Mixed double shunzi (Xi xiangfeng, 喜相逢)
+/**
+ * 70. Mixed double shunzi (Xi xiangfeng, 喜相逢).
+ * Containing two shunzi with same values but in different suits.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz70XiXiangfeng(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
@@ -36,7 +59,12 @@ export async function fz70XiXiangfeng(struct) {
 	return 0
 }
 
-// 71. Short straight (Lian liu, 连六)
+/**
+ * 71. Short straight (Lian liu, 连六).
+ * Two shunzi in the same suit making six consecutive values.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz71LianLiu(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 	const pattern = /(123456|234567|345678|456789)/g
@@ -53,7 +81,12 @@ export async function fz71LianLiu(struct) {
 	return 0
 }
 
-// 72. Two terminal shunzi (Laoshao fu, 老少副)
+/**
+ * 72. Two terminal shunzi (Laoshao fu, 老少副).
+ * Two shunzi 1-2-3 and 6-7-8 in the same suit.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz72LaoshaoFu(struct) {
 	const shunzi = struct.game.players[struct.key].hu.shunzi
 
@@ -69,7 +102,12 @@ export async function fz72LaoshaoFu(struct) {
 	return 0
 }
 
-// 73. Terminal kezi (Yao jiu ke, 幺九刻)
+/**
+ * 73. Terminal kezi (Yao jiu ke, 幺九刻).
+ * Single kezi (gangzi) of ones, nines, or a wind.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz73YaoJiuKe(struct) {
 	const types = struct.keziGangzi
 		.map(item => [item[0], item[1][0]])
@@ -79,7 +117,12 @@ export async function fz73YaoJiuKe(struct) {
 	return types.length * FZ1
 }
 
-// 74. Melded gang (Minggang, 明杠)
+/**
+ * 74. Melded gang (Minggang, 明杠).
+ * Open gang.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz74Minggang(struct) {
 	const melds = struct.game.players[struct.key].melds
 	const gang = melds.filter(item => item.type === 'gang').length
@@ -87,7 +130,12 @@ export async function fz74Minggang(struct) {
 	return (gang === 1) ? FZ1 : 0
 }
 
-// 75. One voided suit (Que yi men, 缺一门)
+/**
+ * 75. One voided suit (Que yi men, 缺一门).
+ * Hand lacking one of the three suits.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz75QueYiMen(struct) {
 	const melds = struct.game.players[struct.key].hu.allMelds
 	const suits = [... new Set(melds.filter(item => SHU.includes(item[0])).map(item => item[0]))]
@@ -95,12 +143,22 @@ export async function fz75QueYiMen(struct) {
 	return (suits.length === 2) ? FZ1 : 0
 }
 
-// 76. No honors (Wu zi, 无字)
+/**
+ * 76. No honors (Wu zi, 无字).
+ * Hand with only suited tiles.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz76WuZi(struct) {
 	return struct.tiles.some(arr => ZI.includes(arr[7])) ? 0 : FZ1
 }
 
-// 77. Edge wait (Bianzhang, 边张)
+/**
+ * 77. Edge wait (Bianzhang, 边张).
+ * Exclusively waiting for a 3 to form a shunzi 1-2-3, or for a 7 to form a shunzi 7-8-9.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz77Bianzhang(struct) {
 	const hupai = struct.game.hupai
 	const shunzi = struct.game.players[struct.key].hu.shunzi
@@ -139,7 +197,12 @@ export async function fz77Bianzhang(struct) {
 	return (struct.game.tingpai) ? FZ1 : 0
 }
 
-// 78. Closed wait (Kanzhang, 坎张)
+/**
+ * 78. Closed wait (Kanzhang, 坎张).
+ * Exclusively waiting to form a shunzi from the middle value.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz78Kanzhang(struct) {
 	const hupai = struct.game.hupai
 	const shunzi = struct.game.players[struct.key].hu.shunzi
@@ -163,7 +226,12 @@ export async function fz78Kanzhang(struct) {
 	return (struct.game.tingpai) ? FZ1 : 0
 }
 
-// 79. Single wait (Dandiao jiang, 单调将)
+/**
+ * 79. Single wait (Dandiao jiang, 单调将).
+ * Exclusively waiting for winning tile to form a pair.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz79DandiaoJiang(struct) {
 	const hupai = struct.game.hupai
 	const duizi = struct.game.players[struct.key].hu.duizi
@@ -185,12 +253,22 @@ export async function fz79DandiaoJiang(struct) {
 	return (struct.game.tingpai) ? FZ1 : 0
 }
 
-// 80. Self-drawn (Zimo, 自摸)
+/**
+ * ✅ 80. Self-drawn (Zimo, 自摸).
+ * Winning by tile drawn from wall.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz80Zimo(struct) {
 	return (struct.game.players[struct.key].hu.zimo) ? FZ1 : 0
 }
 
-// 81. Flower tiles (Huapai, 花牌)
+/**
+ * ✅ 81. Flower tiles (Huapai, 花牌).
+ * Each bonus tile amounts to one fan when winning.
+ * @param {Object} struct Game parameters.
+ * @returns {Number} 0 or 1.
+ */
 export async function fz81Huapai(struct) {
 	return struct.game.players[struct.key].flowers.length
 }

@@ -48,7 +48,7 @@ export async function fz39Hualong(struct) {
 }
 
 /**
- * 40. Reversible tiles (Tuibudao, 推不倒).
+ * ✅ 40. Reversible tiles (Tuibudao, 推不倒).
  * Dots 1234589, bamboo 245689, and white dragon only.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -64,7 +64,7 @@ export async function fz40Tuibudao(struct) {
 }
 
 /**
- * 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
+ * ✅ 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
  * Three equal shunzi in each suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -74,11 +74,13 @@ export async function fz41SanSeSanTongshun(struct) {
 	if (shuTypes.length < 3) return 0
 
 	let sorted = shuTypes.map(item => item[1]).sort((a, b) => a.length - b.length)
+
 	const shunzi = sorted[0].match(SHUNZI)
 	if (!shunzi) return 0
 
 	// Remove shunzi, check remainder
 	for (const digit of shunzi[0].split('')) {
+		if (!sorted[1].includes(digit) || !sorted[2].includes(digit)) return 0
 		sorted[1] = sorted[1].replace(digit, '')
 		sorted[2] = sorted[2].replace(digit, '')
 	}
@@ -95,7 +97,7 @@ export async function fz41SanSeSanTongshun(struct) {
 }
 
 /**
- * 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
+ * ✅ 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
  * Three kezi (gangzi) in each suit, shifted upwards in value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -112,8 +114,9 @@ export async function fz42SanSeSanJieGao(struct) {
 	if (!diff) return 0
 
 	// Remove kezi, check remainder
-	let remainder = shuTypes.map(item => item[1].replace(item[1].match(KEZI), ''))
-		.filter(item => item !== '')
+	let remainder = shuTypes.map(item => item[1]
+		.replace(item[1].match(KEZI), ''))
+		.filter(item => item)
 
 	for (const type of remainder) {
 		if ([2, 3, 5].includes(type.length)) {
@@ -127,17 +130,17 @@ export async function fz42SanSeSanJieGao(struct) {
 }
 
 /**
- * 43. Chicken hand (Wu fan hu, 无番和).
+ * ✅ 43. Chicken hand (Wu fan hu, 无番和).
  * Hand with no regular fan value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
  */
 export async function fz43WuFanHu(struct) {
-	return (struct.points) ? 0 : FZ8
+	return (struct.points === 0) ? FZ8 : 0 
 }
 
 /**
- * 44. Last tile draw (Miaoshou-huichun, 妙手回春).
+ * ✅ 44. Last tile draw (Miaoshou-huichun, 妙手回春).
  * Self-draw win on the last tile in the wall.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -149,7 +152,7 @@ export async function fz44MiaoshouHuichun(struct) {
 }
 
 /**
- * 45. Last tile claim (Haidi-laoyue, 海底捞月).
+ * ✅ 45. Last tile claim (Haidi-laoyue, 海底捞月).
  * Winning on the last (discarded) tile in the game.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -173,7 +176,7 @@ export async function fz47Qiangganghu(struct) {
 }
 
 /**
- * 48. Two concealed gangzi (Shuang angang, 双暗杠).
+ * ✅ 48. Two concealed gangzi (Shuang angang, 双暗杠).
  * Having two concealed gangzi laid out.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.

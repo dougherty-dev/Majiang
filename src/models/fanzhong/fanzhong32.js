@@ -35,7 +35,7 @@ export async function fz16YiSeSiBuGao(struct) {
 }
 
 /**
- * 17. Three gangs (San gang, 三杠).
+ * ✅ 17. Three gangs (San gang, 三杠).
  * Exactly three gangs amounts to 17 tiles.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 32.
@@ -45,7 +45,7 @@ export async function fz17SanGang(struct) {
 }
 
 /**
- * 18. Non-pure terminals (Hun yao jiu, 混幺九).
+ * ✅ 18. Non-pure terminals (Hun yao jiu, 混幺九).
  * Kezi (gangzi) and a single duizi of ones and/or nines, and honors.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 32.
