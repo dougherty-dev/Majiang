@@ -119,7 +119,6 @@ export async function fz30YiSeSanBuGao(struct) {
  * All shunzi, kezi (gangzi) and duizi containing a five.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
- * PROBLEMATIC
  */
 export async function fz31QuanDaiWu(struct) {
 	if (struct.jianTypes.length || struct.fengTypes.length) return 0
@@ -151,7 +150,7 @@ export async function fz31QuanDaiWu(struct) {
 }
 
 /**
- * 32. Triple kezi (San tongke, 三同刻).
+ * ✅ 32. Triple kezi (San tongke, 三同刻).
  * Three kezi (gangzi) of the same value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.

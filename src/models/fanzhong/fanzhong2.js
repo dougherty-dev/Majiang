@@ -28,8 +28,8 @@ const lookup = {
 	lookup2: lookup2,
 	lookup3: lookup3,
 	lookup5: lookup5,
-	lookup5: lookup6,
-	lookup5: lookup8,
+	lookup6: lookup6,
+	lookup8: lookup8,
 }
 
 /**
