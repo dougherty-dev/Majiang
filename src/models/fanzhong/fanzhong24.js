@@ -27,11 +27,10 @@ const FZ24 = 24
  */
 export async function fz19QiDui(struct) {
 	let pairs = []
-	let match
 
 	for (const type of struct.allTypes) {
 		if (type[1] && !type[1].match(KEZI)) {
-			match = type[1].match(DUIZI)
+			const match = type[1].match(DUIZI)
 			if (match) pairs = [...pairs, ...match]
 		}
 	}
@@ -44,6 +43,7 @@ export async function fz19QiDui(struct) {
  * One each of winds and dragons, plus special full/partial suited shunzi 147, 258, and 369.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
+ * PROBLEMATIC?
  */
 export async function fz20QiXingBuKao(struct) {
 	const hu = struct.game.players[struct.key].hu
@@ -59,9 +59,12 @@ export async function fz20QiXingBuKao(struct) {
  */
 export async function fz21QuanShuangKe(struct) {
 	const types = struct.shuTypes.map(item => item[1]).join('')
-	const even = types.match(/2{2,4}|4{2,4}|6{2,4}|8{2,4}/g)
+	const even = types.match(/^[2468][^13579]+$/g)
 
-	return (even && even.length === 5) ? FZ24 : 0
+	if (!even) return 0
+	const kezi = even.map(item => item.match(KEZI)).filter(item => item && item.length >= 3).flat()
+
+	return (kezi.length === 4) ? FZ24 : 0
 }
 
 /**

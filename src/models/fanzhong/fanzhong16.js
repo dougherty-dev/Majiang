@@ -30,7 +30,7 @@ const lookup = {
  * @returns {Number} 0 or 16.
  */
 export async function fz28QingLong(struct) {
-	let shuTypes = struct.shuTypes.filter(item => item[1].match(/1+2+3+4+5+6+7+8+9+/g))
+	let shuTypes = struct.shuTypes14.filter(item => item[1].match(/1+2+3+4+5+6+7+8+9+/g))
 	if (!shuTypes.length) return 0
 	shuTypes = shuTypes[0][1]
 
@@ -68,7 +68,7 @@ export async function fz29SanSeShuangLongHui(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz30YiSeSanBuGao(struct) {
-	let shuTypes = struct.shuTypes.filter(item => item[1].length >= 9)
+	let shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
 	if (!shuTypes.length) return 0
 	shuTypes = shuTypes[0][1]
 
@@ -119,6 +119,7 @@ export async function fz30YiSeSanBuGao(struct) {
  * All shunzi, kezi (gangzi) and duizi containing a five.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
+ * PROBLEMATIC
  */
 export async function fz31QuanDaiWu(struct) {
 	if (struct.jianTypes.length || struct.fengTypes.length) return 0
@@ -126,8 +127,8 @@ export async function fz31QuanDaiWu(struct) {
 	const noWu = struct.shuTypes.filter(item => !item[1].includes('5'))
 	if (noWu.length) return 0
 
-	const melds = struct.game.players[struct.key]
-		.melds.filter(item => ['gang', 'angang'].includes(item.type))
+	const melds = struct.game.players[struct.key].melds
+		.filter(item => ['gang', 'angang'].includes(item.type))
 		.map(item => item.meld)
 		.filter(item => item[0][1] === 5)
 
@@ -141,8 +142,7 @@ export async function fz31QuanDaiWu(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
-	const kezi = struct.shuTypes.filter(item => item[1]
-		.match(KEZI))
+	const kezi = struct.shuTypes.filter(item => item[1].match(KEZI))
 		.map(item => item[1])
 		.sort((a, b) => a.length - b.length)
 

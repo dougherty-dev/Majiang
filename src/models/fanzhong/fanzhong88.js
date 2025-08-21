@@ -68,7 +68,8 @@ export async function fz3LyYise(struct) {
  */
 export async function fz4JiuLianBaodeng(struct) {
 	struct.shuTiles = struct.tiles.filter(item => SHU.includes(item[7]))
-	struct.qingyise = struct.shuTiles.filter(item => item[7] === struct.tiles[0][7])
+	struct.qingyise = struct.shuTiles
+		.filter(item => item[7] === struct.tiles[0][7])
 		.length === struct.tiles.length
 
 	if (!struct.qingyise) return 0
@@ -98,6 +99,7 @@ export async function fz5SiGang(struct) {
  */
 export async function fz6LianQiDui(struct) {
 	struct.shuTypes = Object.entries(struct.types).filter(item => SHU.includes(item[0]))
+	struct.shuTypes14 = Object.entries(struct.types14).filter(item => SHU.includes(item[0]))
 	const types = struct.shuTypes.filter(item => item[1].length === 14)
 
 	return (

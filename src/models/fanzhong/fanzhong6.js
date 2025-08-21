@@ -5,29 +5,23 @@
  * @module models/fanzhong/fanzhong6
  */
 
-import { SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
+import { KEZI, SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
 import { SHU } from '../tiles.js'
 
 const FZ6 = 6
 
 // 49. All kezi (Pengpeng hu, 碰碰和)
 export async function fz49PengpengHu(struct) {
-	const hu = struct.game.players[struct.key].hu
-	if (hu.kezi.length + hu.gangzi.length === 4) return FZ6
+	const types = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item)
 
-	return 0
+	return (types.length === 4) ? FZ6 : 0
 }
 
 // 50. Half flush (Hun yi se, 混一色)
 export async function fz50HunYiSe(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const types = [...new Set(melds.map(item => item[0]))].sort().join('')
+	const types = struct.allTypes.filter(item => item[1] !== '').map(item => item[0]).join('')
 
-	if (['bf', 'bj', 'bfj', 'ft', 'jt', 'fjt', 'fw', 'jw', 'fjw'].includes(types)) {
-		return FZ6
-	}
-
-	return 0
+	return (['bf', 'bj', 'bfj', 'ft', 'jt', 'fjt', 'fw', 'jw', 'fjw'].includes(types)) ? FZ6 : 0
 }
 
 // 51. Mixed shifted shunzi (San se san bu gao, 三色三步高)
@@ -69,10 +63,9 @@ export async function fz51SanSeSanBuGao(struct) {
 
 // 52. All types (Wu men ji, 五门齐)
 export async function fz52WuMenJi(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const types = [...new Set(melds.map(item => item[0]))].sort().join('')
+	const types = struct.allTypes.filter(item => item[1] !== '').map(item => item[0]).join('')
 
-	return (types === 'bfjtw') ? FZ6 : 0
+	return (types === 'btwfj') ? FZ6 : 0
 }
 
 // 53. Melded hand (Quan qiu ren, 全求人)

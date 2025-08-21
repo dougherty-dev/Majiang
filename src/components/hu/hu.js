@@ -12,6 +12,7 @@ import Hu from '../../models/hu.js'
 
 /**
  * @description Check validity of _remaining_ tiles at hand for possible hu.
+ * Melds are valid by default. Special hands do not have melds.
  * The exact nature of the hu will be decided later, for now just confirm a winning pattern.
  * @param {Object} player Potential winner.
  * @param {Object} door Remaining tiles at hand.
@@ -21,7 +22,7 @@ export async function checkHu(player, door) {
 	player.hu = new Hu().hu
 	player.hu.melds = player.melds.length
 
-	// Collect melds
+	// Collect melds.
 	for (const meld of player.melds) {
 		const set = [meld.meld[0][7], meld.meld.map(item => item[1]).join('')]
 
@@ -45,7 +46,7 @@ export async function checkHu(player, door) {
 		player.hu.types[tile[7]] += tile[1]
 	}
 
-	// regular hands
+	// Regular hands.
 	const types = Object.entries(player.hu.types).filter(item => item[1] !== '')
 	for await (const [key, type] of types) {
 		if (
@@ -56,7 +57,7 @@ export async function checkHu(player, door) {
 
 	if (player.hu.pairs === 1 && player.hu.melds === 4) return true
 
-	// special hands
+	// Special hands.
 	if (await checkSpecial(player, door)) return true
 
 	return false

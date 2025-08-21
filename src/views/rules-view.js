@@ -1117,7 +1117,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Reversible tiles</strong> (<em>Tuibudao</em>, <span class="fanzhong" data-src="40">推不倒</span>): shunzi, kezi (gangzi) and duizi consisting of vertically symmetrical tiles only: dots 1234589; bamboo 245689, and white dragon.</p>
+							<p><strong>Reversible tiles</strong> (<em>Tuibudao</em>, <span class="fanzhong" data-src="40">推不倒</span>): shunzi, kezi (gangzi) and duizi consisting of vertically symmetrical tiles only: dots 1234589, bamboo 245689, and white dragon.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀚" src="img/tiles/shuzipai-bingzi-2.svg">
@@ -1169,7 +1169,8 @@ export default class RulesView extends HTMLElement {
 								<img width="30" height="41" alt="🀍" src="img/tiles/shuzipai-wanzi-7.svg">
 								<img width="30" height="41" alt="🀍" src="img/tiles/shuzipai-wanzi-7.svg">
 								<img width="30" height="41" alt="🀍" src="img/tiles/shuzipai-wanzi-7.svg" class="meld-end">
-								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
+								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-7.svg">
+								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-8.svg">
 								<img width="30" height="41" alt="🀏" src="img/tiles/shuzipai-wanzi-9.svg">
 							</p>
 						</li>

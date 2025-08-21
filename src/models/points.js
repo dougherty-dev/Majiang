@@ -34,9 +34,24 @@ export default class Points {
 		}
 
 		this.struct.types = Object.assign({}, TYPES)
+		this.struct.types14 = Object.assign({}, TYPES)
 
 		for (const tile of this.struct.tiles) {
 			this.struct.types[tile[7]] += tile[1]
+			this.struct.types14[tile[7]] += tile[1]
+		}
+
+		// Principal type composition, excluding gangzi; needed for lookups
+		const gangzi = this.struct.game.players[this.struct.key].melds
+			.filter(item => ['gang', 'angang'].includes(item.type))
+			.map(item => item.meld)
+			.map(item => [item[0][7], item[0][1]])
+
+		for (const [key, type] of Object.entries(this.struct.types14)) {
+			const digit = gangzi.find(item => item[0] === key)
+			if (digit) {
+				this.struct.types14[key] = this.struct.types14[key].replace(digit[1], '')
+			}
 		}
 
 		for (let [key, type] of Object.entries(this.struct.types)) {

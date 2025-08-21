@@ -5,6 +5,7 @@
  * @module models/fanzhong/fanzhong2
  */
 
+import { KEZI } from '../../components/hu/patterns.js'
 import { BING, FENG, SHU, TIAO, WAN } from '../tiles.js'
 
 const FZ2 = 2
@@ -16,26 +17,16 @@ export async function fz59Jianke(struct) {
 
 // 60. Prevalent wind (Quanfengke, 圈风刻)
 export async function fz60Quanfengke(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
-	const quanfeng = allMelds.filter(
-		item => item[0] === FENG &&
-			item[1].length >= 3 &&
-			item[1][0] == struct.game.prevailingWind
-	).length
+	const regex = new RegExp(`${struct.game.prevailingWind}{3,4}`, 'g')
 
-	return (quanfeng) ? FZ2 : 0
+	return regex.test(struct.fengTypes) ? FZ2 : 0
 }
 
 // 61. Seat wind (Menfengke, 门风刻)
 export async function fz61Menfengke(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
-	const menfeng = allMelds.filter(
-		item => item[0] === FENG &&
-			item[1].length >= 3 &&
-			item[1][0] == struct.game.players[struct.key].wind
-	).length
+	const regex = new RegExp(`${struct.game.players[struct.key].wind}{3,4}`, 'g')
 
-	return (menfeng) ? FZ2 : 0
+	return regex.test(struct.fengTypes) ? FZ2 : 0
 }
 
 // 62. Concealed hand (Menqian qing, 门前清)
@@ -78,6 +69,10 @@ export async function fz64SiGuiYi(struct) {
 
 // 65. Double kezi (Shuang tongke, 双同刻)
 export async function fz65ShuangTongke(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	struct.keziGangzi = [...kezi, ...gangzi]
+
 	const suited = struct.keziGangzi.filter(item => SHU.includes(item[0]))
 	const reduced = suited.map(item => item[1][0])
 	const set = [...new Set(reduced)]
@@ -92,10 +87,7 @@ export async function fz66ShuangAnke(struct) {
 
 // 67. Concealed gang (Angang, 暗杠)
 export async function fz67Angang(struct) {
-	const melds = struct.game.players[struct.key].melds
-	const angang = melds.filter(item => item.type === 'angang').length
-
-	return (angang === 1) ? FZ2 : 0
+	return (struct.angangMelds.length === 1) ? FZ2 : 0
 }
 
 // 68. All simples (Duanyao, 断幺)
