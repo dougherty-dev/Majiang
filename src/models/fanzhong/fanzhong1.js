@@ -109,6 +109,10 @@ export async function fz72LaoshaoFu(struct) {
  * @returns {Number} 0 or 1.
  */
 export async function fz73YaoJiuKe(struct) {
+	const kezi = struct.game.players[struct.key].hu.kezi
+	const gangzi = struct.game.players[struct.key].hu.gangzi
+	struct.keziGangzi = [...kezi, ...gangzi]
+
 	const types = struct.keziGangzi
 		.map(item => [item[0], item[1][0]])
 		.filter(item => item[0] !== 'j')

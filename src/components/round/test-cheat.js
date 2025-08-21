@@ -69,7 +69,7 @@ export async function cheat(game) {
 	// const tiles = ['bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5'] // 30
-	// const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
+	const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
 	// const tiles = ['bing2', 'bing2', 'bing2', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan2', 'wan2', 'zi7', 'zi7', 'wan5', 'wan6'] // 32
 
 	// 12 fan
@@ -94,10 +94,15 @@ export async function cheat(game) {
 	// const tiles = ['bing9', 'bing9', 'bing9', 'tiao1', 'tiao1', 'tiao1', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'wan9', 'wan9'] // 49
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao6', 'tiao6', 'tiao6', 'tiao8', 'tiao8', 'tiao8', 'zi5', 'zi5', 'zi1', 'zi1'] // 50
 
+	// 6 fan
 	// const tiles = ['bing7', 'bing8', 'bing9', 'tiao8', 'tiao8', 'tiao8', 'wan5', 'wan6', 'wan7', 'zi1', 'zi1', 'zi7', 'zi7'] // 52
 	// const tiles = ['bing8', 'bing8', 'bing9', 'bing9', 'bing9', 'wan6', 'wan7', 'zi1', 'zi1', 'zi1', 'zi7', 'zi7', 'zi7'] // 54
-	const tiles = ['bing1', 'bing2', 'bing3', 'bing9', 'bing9', 'bing9', 'tiao1', 'tiao2', 'tiao3', 'zi3', 'zi3', 'zi6', 'zi6'] // 55
+	// const tiles = ['bing1', 'bing2', 'bing3', 'bing9', 'bing9', 'bing9', 'tiao1', 'tiao2', 'tiao3', 'zi3', 'zi3', 'zi6', 'zi6'] // 55
 	// const tiles = ['bing1', 'bing1', 'bing9', 'bing9', 'wan9', 'wan9', 'tiao1', 'tiao1', 'zi5', 'zi3', 'zi3', 'tiao9', 'tiao9'] // 55 qidui
+
+	// 2 fan
+	// const tiles = ['bing1', 'bing2', 'bing3', 'bing4', 'bing4', 'bing4', 'tiao4', 'tiao4', 'tiao4', 'tiao7', 'tiao8', 'wan1', 'wan1'] // 65
+
 
 	for (const tile of tiles) {
 		game.players[4].door.push(game.tiles.splice(game.tiles.findIndex(item => item[2] === tile), 1)[0])

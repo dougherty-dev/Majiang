@@ -15,9 +15,22 @@
  * @property {Function} fz68Duanyao 68. All simples (Duanyao, 断幺).
  */
 
+import { lookup2 } from '../../components/hu/lookup2.js'
+import { lookup3 } from '../../components/hu/lookup3.js'
+import { lookup5 } from '../../components/hu/lookup5.js'
+import { lookup6 } from '../../components/hu/lookup6.js'
+import { lookup8 } from '../../components/hu/lookup8.js'
+import { KEZI } from '../../components/hu/patterns.js'
 import { BING, SHU, TIAO, WAN } from '../tiles.js'
 
 const FZ2 = 2
+const lookup = {
+	lookup2: lookup2,
+	lookup3: lookup3,
+	lookup5: lookup5,
+	lookup5: lookup6,
+	lookup5: lookup8,
+}
 
 /**
  * ✅ 59. Dragon kezi (Jianke, 箭刻).
@@ -108,21 +121,39 @@ export async function fz64SiGuiYi(struct) {
 }
 
 /**
- * 65. Double kezi (Shuang tongke, 双同刻).
+ * ✅ 65. Double kezi (Shuang tongke, 双同刻).
  * Two kezi (gangzi) of the same value in different suits.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 2.
  */
 export async function fz65ShuangTongke(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-	struct.keziGangzi = [...kezi, ...gangzi]
+	const types = struct.shuTypes14.filter(item => item[1])
+		.map(item => item[1].match(KEZI))
+		.filter(item => item).flat()
 
-	const suited = struct.keziGangzi.filter(item => SHU.includes(item[0]))
-	const reduced = suited.map(item => item[1][0])
-	const set = [...new Set(reduced)]
+	const candidates = [...new Set(types)]
+	if (candidates.length + 1 > types.length) return 0
 
-	return (reduced.length === 2 && set.length === 1) ? FZ2 : 0
+	let shuangTonke
+	let shuTypes = struct.shuTypes14.map(item => item[1])
+	for (const candidate of candidates) {
+		// Remove kezi, check remainder
+		shuangTonke = true
+
+		for (let type of shuTypes) {
+			for (const digit of candidate.split('')) {
+				type = type.replace(digit, '')
+			}
+
+			if ([2, 3, 5, 6, 8].includes(type.length)) {
+				if (!(type in lookup[`lookup${type.length}`])) shuangTonke = false
+			}
+		}
+
+		if (shuangTonke) return FZ2
+	}
+
+	return 0
 }
 
 /**

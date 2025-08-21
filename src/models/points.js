@@ -110,7 +110,7 @@ export default class Points {
 			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, ['63', '70', '72', '76']],
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, []],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, ['68']],
-			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, []],
+			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, ['65']],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
 			// 12 fan
 			'34': ['全不靠', 'Quan bu kao', 'Lesser honors and knitted tiles', fz34QuanBuKao, 0, ['52', '62']],

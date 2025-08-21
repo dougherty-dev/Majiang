@@ -124,8 +124,23 @@ export async function fz30YiSeSanBuGao(struct) {
 export async function fz31QuanDaiWu(struct) {
 	if (struct.jianTypes.length || struct.fengTypes.length) return 0
 
-	const noWu = struct.shuTypes.filter(item => !item[1].includes('5'))
+	const noWu = struct.shuTypes14.filter(item => !item[1].includes('5'))
 	if (noWu.length) return 0
+
+	const patterns = [
+		'55', '345', '456', '555', '567', '34555', '45556', '55567', '334455',
+		'344556', '345555', '345567', '445566', '455556', '455667', '555567',
+		'556677', '33445555', '34455556', '34555567', '44555566', '45555667',
+		'55556677', '333444555', '334445556', '334455567', '344455566',
+		'344555667', '345556677', '444555666', '445556667', '455566677',
+		'555666777', '333344445555', '333444455556', '333444555567',
+		'334444555566', '334445555667', '334455556677', '344445555666',
+		'344455556667', '344555566677', '345555666777', '444455556666',
+		'444555566667', '445555666677', '455556666777', '555566667777',
+	]
+
+	const types =  struct.shuTypes14.filter(item => patterns.includes(item[1]))
+	if (types.length !== struct.shuTypes14.length) return 0
 
 	const melds = struct.game.players[struct.key].melds
 		.filter(item => ['gang', 'angang'].includes(item.type))
@@ -136,21 +151,49 @@ export async function fz31QuanDaiWu(struct) {
 }
 
 /**
- * ✅ 32. Triple kezi (San tongke, 三同刻).
+ * 32. Triple kezi (San tongke, 三同刻).
  * Three kezi (gangzi) of the same value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
-	const kezi = struct.shuTypes.filter(item => item[1].match(KEZI))
-		.map(item => item[1])
-		.sort((a, b) => a.length - b.length)
+	const types = struct.shuTypes14.filter(item => item[1])
+		.map(item => item[1].match(KEZI))
+		.filter(item => item).flat()
 
-	if (!kezi.length) return
+	const candidates = [...new Set(types)]
+	if (candidates.length + 2 > types.length) return 0
 
-	const santongke = kezi.filter(item => item.includes(kezi[0]))
+	let santongke
+	let shuTypes = struct.shuTypes14.map(item => item[1])
+	for (const candidate of candidates) {
+		// Remove kezi, check remainder
+		santongke = true
 
-	return (santongke.length === 3) ? FZ16 : 0
+		for (let type of shuTypes) {
+			for (const digit of candidate.split('')) {
+				type = type.replace(digit, '')
+			}
+
+			if ([2, 3, 5].includes(type.length)) {
+				if (!(type in lookup[`lookup${type.length}`])) santongke = false
+			}
+		}
+
+		if (santongke) return FZ16
+	}
+
+	return 0
+
+	// const kezi = struct.shuTypes.filter(item => item[1].match(KEZI))
+	// 	.map(item => item[1])
+	// 	.sort((a, b) => a.length - b.length)
+
+	// if (!kezi.length) return
+
+	// const santongke = kezi.filter(item => item.includes(kezi[0]))
+
+	// return (santongke.length === 3) ? FZ16 : 0
 }
 
 /**

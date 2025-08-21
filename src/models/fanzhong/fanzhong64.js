@@ -87,14 +87,16 @@ export async function fz12SiAnke(struct) {
 	struct.nonchiMelds = melds.filter(item => item.type !== 'chi')
 
 	const allKezi = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item).flat()
+	struct.concealedKezi = allKezi.length - struct.gangMelds.length - struct.pengMelds.length
 
 	const dianhu = struct.game.players[struct.key].hu.dianhu
 	const drop = struct.game.players[struct.game.currentPlayer].drop
-	const dianhuKezi = struct.allTypes.filter(item => item[0] === drop[7])
-		.map(item => item[1].match(KEZI)).filter(item => item)
+	if (drop) { // not defined until first tile is discarded, so zimo
+		const dianhuKezi = struct.allTypes.filter(item => item[0] === drop[7])
+			.map(item => item[1].match(KEZI)).filter(item => item)
 
-	struct.concealedKezi = allKezi.length - struct.gangMelds.length - struct.pengMelds.length
-	if (dianhu && dianhuKezi.length) struct.concealedKezi -= 1
+		if (dianhu && dianhuKezi.length) struct.concealedKezi -= 1
+	}
 
 	return (!struct.chiMelds.length && struct.concealedKezi === 4) ? FZ64 : 0
 }
