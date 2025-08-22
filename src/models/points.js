@@ -3,24 +3,44 @@
 /**
  * @author Niklas Dougherty
  * @class models/points
+ * @description The Points class. Calculate points according to the 81 standard rules.
+ * @property {Function} setupTypes Common structures for lexical analysis of patterns.
+ * @property {Function} setupHu Common structures for player.
+ * @property {Function} setupCommon Common structures used in fanzhong rules definitions.
+ * @property {Function} setupFanzhong Fanzhong data matrix.
+ * @property {Function} sumPoints Distribution of points and extra points from losers to winner.
+ * @property {Function} fanPoints Iterate over fanzhong data matrix.
+ * @property {Function} applyRule Call actual fanzhong rule, add new exclusions.
  */
 
 const EXTRAPOINTS = 8
 
 import { TYPES } from '../components/hu/patterns.js'
 import { ALLPLAYERS } from './constants.js'
-import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang, fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz78Kanzhang, fz79DandiaoJiang, fz80Zimo, fz81Huapai } from './fanzhong/fanzhong1.js'
-import { fz34QuanBuKao, fz35ZuheLong, fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe } from './fanzhong/fanzhong12.js'
-import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke, fz33SanAnke } from './fanzhong/fanzhong16.js'
-import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi, fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
-import { fz19QiDui, fz20QiXingBuKao, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun, fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
+import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang,
+	fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz78Kanzhang, fz79DandiaoJiang, fz80Zimo, fz81Huapai }
+	from './fanzhong/fanzhong1.js'
+import { fz34QuanBuKao, fz35ZuheLong, fz36DaYuWu, fz37XiaoYuWu, fz38SanFengKe }
+	from './fanzhong/fanzhong12.js'
+import { fz28QingLong, fz29SanSeShuangLongHui, fz30YiSeSanBuGao, fz31QuanDaiWu, fz32SanTongke,
+	fz33SanAnke } from './fanzhong/fanzhong16.js'
+import { fz59Jianke, fz60Quanfengke, fz61Menfengke, fz62MenqianQing, fz63Pinghu, fz64SiGuiYi,
+	fz65ShuangTongke, fz66ShuangAnke, fz67Angang, fz68Duanyao } from './fanzhong/fanzhong2.js'
+import { fz19QiDui, fz20QiXingBuKao, fz21QuanShuangKe, fz22QingYiSe, fz23YiSeSanTongshun,
+	fz24YiSeSanJieGao, fz25QuanDa, fz26QuanZhong, fz27QuanXiao } from './fanzhong/fanzhong24.js'
 import { fz16YiSeSiBuGao, fz17SanGang, fz18HunYaoJiu } from './fanzhong/fanzhong32.js'
 import { fz55QuanDaiYao, fz56BuQiuRen, fz57ShuangMinggang, fz58HuJuezhang } from './fanzhong/fanzhong4.js'
 import { fz14YiSeSiTongshun, fz15YiSeSiJieGao } from './fanzhong/fanzhong48.js'
-import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen, fz54ShuangJianke } from './fanzhong/fanzhong6.js'
-import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu, fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
-import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu, fz44MiaoshouHuichun, fz45HaidiLaoyue, fz46GangshangKaihua, fz47Qiangganghu, fz48ShuangAngang } from './fanzhong/fanzhong8.js'
-import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao } from './fanzhong/fanzhong88.js'
+import { fz49PengpengHu, fz50HunYiSe, fz51SanSeSanBuGao, fz52WuMenJi, fz53QuanQiuRen,
+	fz54ShuangJianke } from './fanzhong/fanzhong6.js'
+import { fz10XiaoSanYuan, fz11ZiYiSe, fz12SiAnke, fz13YiSeShuangLongHui, fz8QingYaoJiu,
+	fz9XiaoSiXi } from './fanzhong/fanzhong64.js'
+import { fz39Hualong, fz40Tuibudao, fz41SanSeSanTongshun, fz42SanSeSanJieGao, fz43WuFanHu,
+	fz44MiaoshouHuichun, fz45HaidiLaoyue, fz46GangshangKaihua, fz47Qiangganghu, fz48ShuangAngang }
+	from './fanzhong/fanzhong8.js'
+import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6LianQiDui, fz7ShisanYao }
+	from './fanzhong/fanzhong88.js'
+import { FENG, JIAN, SHU, TIAO } from './tiles.js'
 
 /**
  * The Points class. Calculate points according to the 81 standard rules.
@@ -31,9 +51,22 @@ export default class Points {
 			game: game,
 			key: key,
 			tiles: tiles,
-			points: 0
+			points: 0,
+			exit: 0,
+			exclude: [],
+			derivedSets: []
 		}
 
+		this.setupTypes()
+		this.setupHu()
+		this.setupCommon()
+		this.setupFanzhong()
+	}
+
+	/**
+	 * Common structures for lexical analysis of patterns.
+	 */
+	setupTypes() {
 		this.struct.types = Object.assign({}, TYPES)
 		this.struct.types14 = Object.assign({}, TYPES)
 
@@ -42,7 +75,7 @@ export default class Points {
 			this.struct.types14[tile[7]] += tile[1]
 		}
 
-		// Principal type composition, excluding gangzi; needed for lookups
+		// Principal length 14 type composition, excluding gangzi; needed for lookups
 		const gangzi = this.struct.game.players[this.struct.key].melds
 			.filter(item => ['gang', 'angang'].includes(item.type))
 			.map(item => item.meld)
@@ -57,7 +90,13 @@ export default class Points {
 			this.struct.types[key] = this.struct.types[key].split('').sort().join('')
 			this.struct.types14[key] = this.struct.types14[key].split('').sort().join('')
 		}
+	}
 
+	/**
+	 * Common structures for player.
+	 * Unreliable, should retire.
+	 */
+	setupHu() {
 		const hu = this.struct.game.players[this.struct.key].hu
 		hu.values = Object.values(this.struct.types).filter(item => item !== '')
 
@@ -67,11 +106,39 @@ export default class Points {
 			...hu.kezi,
 			...hu.gangzi
 		])
+	}
 
-		this.exclude = []
-		this.exit = 0
+	/**
+	 * Common structures used in fanzhong rules definitions.
+	 */
+	setupCommon() {
+		this.struct.allTypes = Object.entries(this.struct.types)
 
-		// ['fanzhong name', 'pinyin', 'English', function, points, [rule exclusion list]]
+		this.struct.fengTypes = this.struct.allTypes.filter(item => item[0] === FENG)[0][1]
+		this.struct.jianTypes = this.struct.allTypes.filter(item => item[0] === JIAN)[0][1]
+		this.struct.tiaoTypes = this.struct.allTypes.filter(item => item[0] === TIAO)[0][1]
+
+		this.struct.shuTiles = this.struct.tiles.filter(item => SHU.includes(item[7]))
+		this.struct.qingyise = this.struct.shuTiles
+			.filter(item => item[7] === this.struct.tiles[0][7])
+			.length === this.struct.tiles.length
+
+		this.struct.shuTypes = this.struct.allTypes.filter(item => SHU.includes(item[0]))
+		this.struct.shuTypes14 = Object.entries(this.struct.types14).filter(item => SHU.includes(item[0]))
+
+		const melds = this.struct.game.players[this.struct.key].melds
+		this.struct.chiMelds = melds.filter(item => item.type === 'chi')
+		this.struct.pengMelds = melds.filter(item => item.type === 'peng')
+		this.struct.gangMelds = melds.filter(item => item.type === 'gang')
+		this.struct.angangMelds = melds.filter(item => item.type === 'angang')
+		this.struct.nonchiMelds = melds.filter(item => item.type !== 'chi')
+	}
+
+	/**
+	 * Fanzhong data matrix to iterate over when calculating points.
+	 * Structure: ['fanzhong name', 'pinyin', 'English', function, points, [rule exclusion list]]
+	 */
+	setupFanzhong() {
 		this.fanzhong = {
 			// 88 fan
 			'1': ['大四喜', 'Da si xi', 'Big four winds', fz1DaSiXi, 0, ['9', '38', '49', '60', '61', '73']],
@@ -86,13 +153,13 @@ export default class Points {
 			'9': ['小四喜', 'Xiao si xi', 'Little four winds', fz9XiaoSiXi, 0, ['38', '73']],
 			'10': ['小三元', 'Xiao san yuan', 'Little three dragons', fz10XiaoSanYuan, 0, ['54', '59', '75']],
 			'11': ['字一色', 'Zi yi se', 'All honors', fz11ZiYiSe, 0, ['49', '55', '73']],
-			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['49', '56', '62']],
+			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, ['23', '49', '56', '62']],
 			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, ['19', '22', '63', '69', '72', '76']],
 			// 48 fan
 			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, ['24', '64', '69']],
 			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, ['23', '49']],
 			// 32 fan
-			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, ['71', '72']],
+			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, ['30', '66', '71', '72']],
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, ['57', '74', '76']],
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, ['49', '55', '73']],
 			// 24 fan
@@ -100,7 +167,7 @@ export default class Points {
 			'20': ['七星不靠', 'Qi xing bu kao', 'Greater honors and knitted tiles', fz20QiXingBuKao, 0, ['52']],
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, ['49', '68']],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
-			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['24', '69']],
+			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['24', '30', '65', '66', '69']],
 			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, ['23']],
 			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, ['36', '76']],
 			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, ['68']],
@@ -169,6 +236,9 @@ export default class Points {
 		}
 	}
 
+	/**
+	 * Distribution of points and extra points from losers to winner.
+	 */
 	sumPoints(game, key) {
 		const players = ALLPLAYERS.filter(item => item !== key)
 
@@ -190,20 +260,26 @@ export default class Points {
 		}
 	}
 
+	/**
+	 * Iterate over fanzhong data matrix.
+	 */
 	async fanPoints() {
 		for await (const key of Object.keys(this.fanzhong)) {
-			if (key === '43' || key === '81' || this.exclude.includes(key)) continue
+			if (key === '43' || key === '81' || this.struct.exclude.includes(key)) continue
 			await this.applyRule(key)
 		}
 
 		// 43. Chicken hand (Wu fan hu, 无番和)
 		await this.applyRule('43')
 
-		this.exit = this.struct.points
+		this.struct.exit = this.struct.points
 		// 81. Flower tiles (Huapai, 花牌)
 		await this.applyRule('81')
 	}
 
+	/**
+	 * Call actual fanzhong rule, add new exclusions.
+	 */
 	async applyRule(key) {
 		const fz = this.fanzhong[key]
 		const points = await fz[3](this.struct)
@@ -212,7 +288,7 @@ export default class Points {
 			fz[4] = points
 			this.struct.points += points
 			if (fz[5].length) {
-				this.exclude = [...this.exclude, ...fz[5]]
+				this.struct.exclude = [...this.struct.exclude, ...fz[5]]
 			}
 		}
 	}

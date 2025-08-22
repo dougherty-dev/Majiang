@@ -15,17 +15,10 @@
  * @property {Function} fz48ShuangAngang 48. Two concealed gangzi (Shuang angang, 双暗杠).
  */
 
-import { lookup2 } from '../../components/hu/lookup2.js'
-import { lookup3 } from '../../components/hu/lookup3.js'
-import { lookup5 } from '../../components/hu/lookup5.js'
+import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
 
 const FZ8 = 8
-const lookup = {
-	lookup2: lookup2,
-	lookup3: lookup3,
-	lookup5: lookup5
-}
 
 // 39. Mixed straight (Hualong, 花龙)
 export async function fz39Hualong(struct) {
@@ -86,11 +79,7 @@ export async function fz41SanSeSanTongshun(struct) {
 	}
 
 	for (const key of [1, 2]) {
-		if ([2, 3, 5].includes(sorted[key].length)) {
-			if (!(sorted[key] in lookup[`lookup${sorted[key].length}`])) return 0
-		} else if (sorted[key].length) { // irregular, can’t happen
-			return 0
-		}
+		if (!await checkPattern(sorted[key])) return 0
 	}
 
 	return FZ8
@@ -119,11 +108,7 @@ export async function fz42SanSeSanJieGao(struct) {
 		.filter(item => item)
 
 	for (const type of remainder) {
-		if ([2, 3, 5].includes(type.length)) {
-			if (!(type in lookup[`lookup${type.length}`])) return 0
-		} else if (type.length) { // irregular, can’t happen
-			return 0
-		}
+		if (!await checkPattern(type)) return 0
 	}
 
 	return FZ8

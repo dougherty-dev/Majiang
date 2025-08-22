@@ -15,7 +15,8 @@
  */
 
 import { SHU } from '../tiles.js'
-import { DUIZI, KEZI, TYPES } from '../../components/hu/patterns.js'
+import { DUIZI, KEZI, SHUNZI, TYPES } from '../../components/hu/patterns.js'
+import { checkPattern } from '../../components/hu/check-type.js'
 
 const FZ24 = 24
 
@@ -26,6 +27,8 @@ const FZ24 = 24
  * @returns {Number} 0 or 24.
  */
 export async function fz19QiDui(struct) {
+	if (struct.tiles.length !== 14) return 0
+
 	let pairs = []
 	struct.qidui = false
 
@@ -63,7 +66,9 @@ export async function fz20QiXingBuKao(struct) {
  * @returns {Number} 0 or 24.
  */
 export async function fz21QuanShuangKe(struct) {
-	const types = struct.shuTypes.map(item => item[1]).join('')
+	if (struct.fengTypes.length || struct.jianTypes.length) return 0
+
+	const types = struct.shuTypes14.map(item => item[1]).join('')
 	const even = types.match(/^[2468][^13579]+$/g)
 
 	if (!even) return 0
@@ -83,23 +88,33 @@ export async function fz22QingYiSe(struct) {
 }
 
 /**
- * 23. Pure triple shunzi (Yi se san tongshun, 一色三同顺).
+ * ✅ 23. Pure triple shunzi (Yi se san tongshun, 一色三同顺).
  * Three identical shunzi in the same suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
- * PROBLEMATIC
  */
 export async function fz23YiSeSanTongshun(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi
+	// 123 123 123 => 111222333; note that 111222333444 is covered by 15 (48 fan)
+	if (struct.nonchiMelds.length > 1) return 0
 
-	const occurrences = Object.values(shunzi.reduce((acc, curr) => {
-		acc[curr] = (acc[curr] || 0) + 1
-		return acc
-	}, {}))
+	let shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
+	if (!shuTypes.length) return 0
+	shuTypes = shuTypes[0][1]
 
-	const count = occurrences.filter(item => item === 3)
+	const kezi = struct.shuTypes14.map(item => item[1].match(KEZI)).filter(item => item && item.length >= 3)
+	if (!kezi.length) return 0
 
-	return (count.length) ? FZ24 : 0
+	const triple = kezi[0].map(item => item[0]).join('')
+	if (!SHUNZI.test(triple)) return 0
+
+	// Remove three shunzi, check remainder
+	for (const digits of kezi[0]) {
+		shuTypes = shuTypes.replace(digits, '')
+	}
+
+	if (shuTypes.length === 0) return FZ24
+
+	return (await checkPattern(shuTypes)) ? FZ24 : 0
 }
 
 /**

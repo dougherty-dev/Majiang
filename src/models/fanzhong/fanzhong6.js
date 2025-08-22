@@ -11,6 +11,7 @@
  * @property {Function} fz54ShuangJianke 54. Two dragons kezi (Shuang jianke, 双箭刻).
  */
 
+import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI, SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
 import { SHU } from '../tiles.js'
 
@@ -23,9 +24,31 @@ const FZ6 = 6
  * @returns {Number} 0 or 6.
  */
 export async function fz49PengpengHu(struct) {
-	const types = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item).flat()
+	let res = struct.jianTypes.match(KEZI)
+	const jianKezi = (res) ? res.length : 0
 
-	return (types.length === 4) ? FZ6 : 0
+	res = struct.fengTypes.match(KEZI)
+	const fengKezi = (res) ? res.length : 0
+
+	const types = struct.shuTypes14.filter(item => item[1])
+		.map(item => item[1].match(KEZI))
+		.filter(item => item).flat()
+
+	if (jianKezi + fengKezi + types.length < 4) return 0
+
+	let shuTypes = struct.shuTypes14.map(item => item[1])
+
+	for (let type of shuTypes.filter(item => item[1])) {
+		// Remove kezi, check remainder
+		const candidates = type.match(KEZI)
+
+		for (const candidate of candidates) {
+			type = type.replace(candidate, '')
+			if (!await checkPattern(type)) return 0
+		}
+	}
+
+	return FZ6
 }
 
 /**

@@ -15,22 +15,11 @@
  * @property {Function} fz68Duanyao 68. All simples (Duanyao, 断幺).
  */
 
-import { lookup2 } from '../../components/hu/lookup2.js'
-import { lookup3 } from '../../components/hu/lookup3.js'
-import { lookup5 } from '../../components/hu/lookup5.js'
-import { lookup6 } from '../../components/hu/lookup6.js'
-import { lookup8 } from '../../components/hu/lookup8.js'
+import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI } from '../../components/hu/patterns.js'
 import { BING, SHU, TIAO, WAN } from '../tiles.js'
 
 const FZ2 = 2
-const lookup = {
-	lookup2: lookup2,
-	lookup3: lookup3,
-	lookup5: lookup5,
-	lookup6: lookup6,
-	lookup8: lookup8,
-}
 
 /**
  * ✅ 59. Dragon kezi (Jianke, 箭刻).
@@ -145,9 +134,7 @@ export async function fz65ShuangTongke(struct) {
 				type = type.replace(digit, '')
 			}
 
-			if ([2, 3, 5, 6, 8].includes(type.length)) {
-				if (!(type in lookup[`lookup${type.length}`])) shuangTonke = false
-			}
+			shuangTonke = await checkPattern(type)
 		}
 
 		if (shuangTonke) return FZ2

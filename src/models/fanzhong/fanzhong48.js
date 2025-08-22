@@ -19,13 +19,8 @@ export async function fz14YiSeSiTongshun(struct) {
 	if (struct.nonchiMelds.length) return 0
 
 	const pattern = new RegExp([
-		'111122223333',
-		'222233334444',
-		'333344445555',
-		'444455556666',
-		'555566667777',
-		'666677778888',
-		'777788889999'
+		'111122223333', '222233334444', '333344445555', '444455556666',
+		'555566667777', '666677778888', '777788889999'
 	].join('|'), 'g')
 
 	const types = struct.shuTypes.filter(item => item[1].match(pattern))

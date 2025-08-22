@@ -89,10 +89,11 @@ export async function checkType(key, type, lookupKey, player) {
 }
 
 export async function tingpai(seq) {
-	let count = 0
 	const index = `lookup${seq.length + 1}`
+	let count = 0
 	let type
 	let str
+
 	for (const val of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
 		type = Object.assign([], seq)
 		type.push(val)
@@ -102,4 +103,16 @@ export async function tingpai(seq) {
 	}
 
 	return (count === 1)
+}
+
+export async function checkPattern(type) {
+	if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
+		if (!(type in lookup[`lookup${type.length}`])) {
+			return false
+		}
+	} else if (type.length) {
+		return false // Irregular length
+	}
+
+	return true
 }

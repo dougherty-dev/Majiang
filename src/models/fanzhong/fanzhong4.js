@@ -9,7 +9,7 @@
  * @property {Function} fz58HuJuezhang 58. Last of its kind (Hu juezhang, 和绝张).
  */
 
-import { ZI } from '../tiles.js'
+import { SHU } from '../tiles.js'
 
 const FZ4 = 4
 const FZ2 = 2
@@ -22,6 +22,13 @@ const FZ2 = 2
  * 19. Qi dui covered in 18. Hun yao jiu, with 55 excluded.
  */
 export async function fz55QuanDaiYao(struct) {
+	if (struct.derivedSets.length) {
+		const sets = struct.derivedSets.filter(item => item[1] && SHU.includes(item[0]))
+			.map(item => item[1]).flat().filter(item => /[19]/.test(item))
+
+		return (sets.length === 5) ? FZ4 : 0
+	}
+
 	const patterns = [
 		'11', '99', '111', '123', '789', '999', '11123', '11199', '11789', '11999', '12399',
 		'78999', '111123', '111789', '111999', '112233', '123789', '123999', '778899',

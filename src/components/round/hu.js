@@ -38,7 +38,7 @@ export async function hu(game, key) {
 	await points.fanPoints()
 
 	if (key != 4) {
-		if (points.exit < EXITFAN) return false
+		if (points.struct.exit < EXITFAN) return false
 
 		sound('snd/hule.m4a')
 		displayResults(game, key, door, points)
@@ -48,8 +48,8 @@ export async function hu(game, key) {
 
 
 	if (key == 4) {
-		if (points.exit < EXITFAN) {
-			displayExit(points.exit, EXITFAN)
+		if (points.struct.exit < EXITFAN) {
+			displayExit(points.struct.exit, EXITFAN)
 			return false
 		}
 

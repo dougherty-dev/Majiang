@@ -11,17 +11,10 @@
  * @property {Function} fz33SanAnke 33. Three concealed kezi (San anke, 三暗刻).
  */
 
-import { lookup2 } from '../../components/hu/lookup2.js'
-import { lookup3 } from '../../components/hu/lookup3.js'
-import { lookup5 } from '../../components/hu/lookup5.js'
+import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI } from '../../components/hu/patterns.js'
 
 const FZ16 = 16
-const lookup = {
-	lookup2: lookup2,
-	lookup3: lookup3,
-	lookup5: lookup5
-}
 
 /**
  * ✅ 28. Pure straight (Qing long, 清龙).
@@ -41,11 +34,7 @@ export async function fz28QingLong(struct) {
 
 	if (shuTypes.length === 0) return FZ16
 
-	if ([2, 3, 5].includes(shuTypes.length)) {
-		if (shuTypes in lookup[`lookup${shuTypes.length}`]) return FZ16
-	}
-
-	return 0
+	return (await checkPattern(shuTypes)) ? FZ16 : 0
 }
 
 /**
@@ -107,11 +96,7 @@ export async function fz30YiSeSanBuGao(struct) {
 
 	if (shuTypes.length === 0) return FZ16
 
-	if ([2, 3, 5].includes(shuTypes.length)) {
-		if (shuTypes in lookup[`lookup${shuTypes.length}`]) return FZ16
-	}
-
-	return 0
+	return (await checkPattern(shuTypes)) ? FZ16 : 0
 }
 
 /**
@@ -121,7 +106,7 @@ export async function fz30YiSeSanBuGao(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz31QuanDaiWu(struct) {
-	if (struct.jianTypes.length || struct.fengTypes.length) return 0
+	if (struct.fengTypes.length || struct.jianTypes.length) return 0
 
 	const noWu = struct.shuTypes14.filter(item => !item[1].includes('5'))
 	if (noWu.length) return 0
@@ -174,25 +159,13 @@ export async function fz32SanTongke(struct) {
 				type = type.replace(digit, '')
 			}
 
-			if ([2, 3, 5].includes(type.length)) {
-				if (!(type in lookup[`lookup${type.length}`])) santongke = false
-			}
+			santongke = await checkPattern(type)
 		}
 
 		if (santongke) return FZ16
 	}
 
 	return 0
-
-	// const kezi = struct.shuTypes.filter(item => item[1].match(KEZI))
-	// 	.map(item => item[1])
-	// 	.sort((a, b) => a.length - b.length)
-
-	// if (!kezi.length) return
-
-	// const santongke = kezi.filter(item => item.includes(kezi[0]))
-
-	// return (santongke.length === 3) ? FZ16 : 0
 }
 
 /**

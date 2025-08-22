@@ -15,7 +15,6 @@
 
 import { sortTiles } from '../../components/helpers.js'
 import { LIANQIDUI } from '../../components/hu/patterns.js'
-import { FENG, JIAN, SHU, TIAO } from '../tiles.js'
 
 const FZ88 = 88
 
@@ -26,9 +25,6 @@ const FZ88 = 88
  * @returns {Number} 0 or 88.
  */
 export async function fz1DaSiXi(struct) {
-	struct.allTypes = Object.entries(struct.types)
-	struct.fengTypes = struct.allTypes.filter(item => item[0] === FENG)[0][1]
-
 	return (struct.fengTypes.match(/1{3,4}2{3,4}3{3,4}4{3,4}/g)) ? FZ88 : 0
 }
 
@@ -39,8 +35,6 @@ export async function fz1DaSiXi(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz2DaSanYuan(struct) {
-	struct.jianTypes = Object.entries(struct.types).filter(item => item[0] === JIAN)[0][1]
-
 	return (struct.jianTypes.match(/1{3,4}2{3,4}3{3,4}/g)) ? FZ88 : 0
 }
 
@@ -51,12 +45,10 @@ export async function fz2DaSanYuan(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz3LyYise(struct) {
-	const tiaoTypes = Object.entries(struct.types).filter(item => item[0] === TIAO)[0][1]
-
 	return (
-		struct.jianTypes.length + tiaoTypes.length === struct.tiles.length &&
+		struct.jianTypes.length + struct.tiaoTypes.length === struct.tiles.length &&
 		/^[2]*$/.test(struct.jianTypes) &&
-		/^[23468][^19]+$/.test(tiaoTypes)
+		/^[23468][^19]+$/.test(struct.tiaoTypes)
 	) ? FZ88 : 0
 }
 
@@ -67,12 +59,8 @@ export async function fz3LyYise(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz4JiuLianBaodeng(struct) {
-	struct.shuTiles = struct.tiles.filter(item => SHU.includes(item[7]))
-	struct.qingyise = struct.shuTiles
-		.filter(item => item[7] === struct.tiles[0][7])
-		.length === struct.tiles.length
-
 	if (!struct.qingyise) return 0
+	if (struct.game.players[struct.key].melds.length) return 0
 
 	let door = Object.assign([], struct.tiles)
 	door.splice(-1, 1)
@@ -98,8 +86,6 @@ export async function fz5SiGang(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz6LianQiDui(struct) {
-	struct.shuTypes = Object.entries(struct.types).filter(item => SHU.includes(item[0]))
-	struct.shuTypes14 = Object.entries(struct.types14).filter(item => SHU.includes(item[0]))
 	const types = struct.shuTypes.filter(item => item[1].length === 14)
 
 	return (

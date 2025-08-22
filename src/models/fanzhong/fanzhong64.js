@@ -12,7 +12,7 @@
  * @property {Function} fz13YiSeShuangLongHui 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
  */
 
-import { KEZI } from '../../components/hu/patterns.js'
+import { DUIZI, KEZI } from '../../components/hu/patterns.js'
 
 const FZ64 = 64
 
@@ -69,22 +69,18 @@ export async function fz10XiaoSanYuan(struct) {
  * @returns {Number} 0 or 64.
  */
 export async function fz11ZiYiSe(struct) {
-	return (struct.jianTypes.length + struct.fengTypes.length === struct.tiles.length) ? FZ64 : 0
+	return (struct.fengTypes.length + struct.jianTypes.length === struct.tiles.length) ? FZ64 : 0
 }
 
 /**
- * ✅ 12. Four concealed kezi (Si anke, 四暗刻).
+ * 12. Four concealed kezi (Si anke, 四暗刻).
  * All melds are concealed kezi/gangzi, either on hand or as melded angang.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
+ * PROBLEMATIC, must ensure kezi
  */
 export async function fz12SiAnke(struct) {
-	const melds = struct.game.players[struct.key].melds
-	struct.chiMelds = melds.filter(item => item.type === 'chi')
-	struct.pengMelds = melds.filter(item => item.type === 'peng')
-	struct.gangMelds = melds.filter(item => item.type === 'gang')
-	struct.angangMelds = melds.filter(item => item.type === 'angang')
-	struct.nonchiMelds = melds.filter(item => item.type !== 'chi')
+	if (struct.chiMelds.length) return 0
 
 	const allKezi = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item).flat()
 	struct.concealedKezi = allKezi.length - struct.gangMelds.length - struct.pengMelds.length
@@ -98,7 +94,13 @@ export async function fz12SiAnke(struct) {
 		if (dianhu && dianhuKezi.length) struct.concealedKezi -= 1
 	}
 
-	return (!struct.chiMelds.length && struct.concealedKezi === 4) ? FZ64 : 0
+	if (struct.concealedKezi === 4) {
+		struct.derivedSets = struct.allTypes
+			.map(item => [item[0], item[1].match(KEZI) || item[1].match(DUIZI)])
+		return FZ64
+	}
+
+	return 0
 }
 
 /**

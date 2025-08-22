@@ -8,7 +8,7 @@
 import { sortTiles } from '../helpers.js'
 
 /**
- * Test hands by assigning tiles to human player.
+ * Manually test hands by assigning tiles to human player.
  * @param {Object} game The game parameters.
  */
 export async function cheat(game) {
@@ -26,7 +26,7 @@ export async function cheat(game) {
 
 	// 64 fan
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing1'] // 8
-	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing2'] // 8 neg
+	const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing2'] // 8 neg
 	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi4', 'zi2', 'zi4', 'bing7', 'bing8'] // 9
 	// const tiles = ['zi5', 'zi5', 'zi5', 'zi6', 'zi6', 'zi6', 'tiao1', 'tiao2', 'tiao3', 'zi7', 'zi7', 'bing7', 'bing8'] // 10
 	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi2', 'zi5', 'zi5', 'zi6', 'zi6'] // 11
@@ -54,7 +54,7 @@ export async function cheat(game) {
 	// const tiles = ['bing2', 'bing2', 'bing2', 'bing8', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao6', 'wan2', 'wan2', 'wan2', 'wan8'] // 21
 	// const tiles = ['bing1', 'bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao6', 'wan2', 'wan2', 'wan2', 'wan8'] // 21 neg
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao4', 'tiao5', 'tiao5', 'tiao5', 'tiao5', 'tiao6', 'tiao7', 'tiao9'] // 22
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'tiao1', 'tiao2', 'tiao3', 'zi2'] // 23
+	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'tiao1', 'tiao1', 'tiao1', 'zi2'] // 23
 	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing2', 'bing3', 'bing4', 'bing5'] // 23
 	// const tiles = ['bing4', 'bing5', 'bing6', 'bing4', 'bing5', 'bing6', 'bing4', 'bing5', 'bing6', 'bing3', 'bing4', 'bing5', 'bing7'] // 23
 	// const tiles = ['wan2', 'wan3', 'wan4', 'wan3', 'wan3', 'wan3', 'wan4', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'zi3'] // 24
@@ -64,12 +64,13 @@ export async function cheat(game) {
 
 	// 16 fan
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'wan5', 'wan5', 'zi1', 'zi1'] // 28
+	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'tiao5', 'tiao5', 'tiao1', 'tiao1'] // 28
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'tiao5'] // 28
 	// const tiles = ['bing1', 'bing2', 'bing3', 'bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'wan5'] // 29
 	// const tiles = ['bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5'] // 30
-	const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
+	// const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
 	// const tiles = ['bing2', 'bing2', 'bing2', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan2', 'wan2', 'zi7', 'zi7', 'wan5', 'wan6'] // 32
 
 	// 12 fan
@@ -101,7 +102,7 @@ export async function cheat(game) {
 	// const tiles = ['bing1', 'bing1', 'bing9', 'bing9', 'wan9', 'wan9', 'tiao1', 'tiao1', 'zi5', 'zi3', 'zi3', 'tiao9', 'tiao9'] // 55 qidui
 
 	// 2 fan
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing4', 'bing4', 'bing4', 'tiao4', 'tiao4', 'tiao4', 'tiao7', 'tiao8', 'wan1', 'wan1'] // 65
+	// const tiles = ['bing2', 'bing2', 'bing2', 'bing4', 'bing4', 'bing4', 'tiao4', 'tiao4', 'tiao4', 'wan5', 'wan5', 'wan3', 'wan3'] // 65
 
 
 	for (const tile of tiles) {
