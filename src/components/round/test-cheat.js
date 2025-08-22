@@ -26,7 +26,7 @@ export async function cheat(game) {
 
 	// 64 fan
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing1'] // 8
-	const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing2'] // 8 neg
+	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing2'] // 8 neg
 	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi4', 'zi2', 'zi4', 'bing7', 'bing8'] // 9
 	// const tiles = ['zi5', 'zi5', 'zi5', 'zi6', 'zi6', 'zi6', 'tiao1', 'tiao2', 'tiao3', 'zi7', 'zi7', 'bing7', 'bing8'] // 10
 	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi2', 'zi5', 'zi5', 'zi6', 'zi6'] // 11
@@ -44,7 +44,7 @@ export async function cheat(game) {
 
 	// 32 fan
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5', 'tiao6', 'bing2'] // 16
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5', 'tiao6', 'tiao8'] // 16
+	const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5', 'tiao6', 'tiao8'] // 16
 	// const tiles = ['zi5', 'zi5', 'zi5', 'zi5', 'wan3', 'wan3', 'wan3', 'bing2', 'bing2', 'bing2', 'bing2', 'wan3', 'tiao3'] // 17
 	// const tiles = ['bing1', 'bing1', 'bing1', 'bing9', 'bing9', 'bing9', 'tiao9', 'tiao9', 'tiao9', 'wan9', 'wan9', 'wan9', 'zi7'] // 18
 
@@ -102,6 +102,7 @@ export async function cheat(game) {
 	// const tiles = ['bing1', 'bing1', 'bing9', 'bing9', 'wan9', 'wan9', 'tiao1', 'tiao1', 'zi5', 'zi3', 'zi3', 'tiao9', 'tiao9'] // 55 qidui
 
 	// 2 fan
+	// const tiles = ['bing2', 'bing2', 'bing2', 'bing2', 'bing3', 'bing4', 'tiao3', 'tiao4', 'tiao5', 'wan5', 'wan5', 'wan2', 'wan3'] // 64
 	// const tiles = ['bing2', 'bing2', 'bing2', 'bing4', 'bing4', 'bing4', 'tiao4', 'tiao4', 'tiao4', 'wan5', 'wan5', 'wan3', 'wan3'] // 65
 
 

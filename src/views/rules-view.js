@@ -323,7 +323,7 @@ export default class RulesView extends HTMLElement {
 							</p>
 						</li>
 						<li>
-							<p><strong>Nine gates</strong> (<em>Jiu lian baodeng</em>, <span class="fanzhong" data-src="4">九莲宝灯</span>): suited tiles of the form 1112345678999 on hand, waiting for any additional tile 1–9 in the same suit.</p>
+							<p><strong>Nine gates</strong> (<em>Jiu lian baodeng</em>, <span class="fanzhong" data-src="4">九莲宝灯</span>): suited tiles of the form 1112345678999 on hand (none melded), waiting for any additional tile 1–9 in the same suit.</p>
 							<p class="wrap">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">
 								<img width="30" height="41" alt="🀙" src="img/tiles/shuzipai-bingzi-1.svg">

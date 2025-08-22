@@ -16,10 +16,27 @@
  */
 
 import { checkPattern } from '../../components/hu/check-type.js'
-import { KEZI } from '../../components/hu/patterns.js'
-import { BING, SHU, TIAO, WAN } from '../tiles.js'
+import { GANGZI, KEZI } from '../../components/hu/patterns.js'
+import { shunzi11 } from '../../components/hu/shunzi11.js'
+import { shunzi12 } from '../../components/hu/shunzi12.js'
+import { shunzi14 } from '../../components/hu/shunzi14.js'
+import { shunzi3 } from '../../components/hu/shunzi3.js'
+import { shunzi5 } from '../../components/hu/shunzi5.js'
+import { shunzi6 } from '../../components/hu/shunzi6.js'
+import { shunzi8 } from '../../components/hu/shunzi8.js'
+import { shunzi9 } from '../../components/hu/shunzi9.js'
 
 const FZ2 = 2
+const shunziLookup = {
+	shunzi3: shunzi3,
+	shunzi5: shunzi5,
+	shunzi6: shunzi6,
+	shunzi8: shunzi8,
+	shunzi9: shunzi9,
+	shunzi11: shunzi11,
+	shunzi12: shunzi12,
+	shunzi14: shunzi14
+}
 
 /**
  * ✅ 59. Dragon kezi (Jianke, 箭刻).
@@ -70,41 +87,46 @@ export async function fz62MenqianQing(struct) {
 }
 
 /**
- * 63. All shunzi (Pinghu, 平和).
+ * ✅ 63. All shunzi (Pinghu, 平和).
  * Four shunzi and a suited pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 2.
  */
 export async function fz63Pinghu(struct) {
-	if (struct.game.players[struct.key].hu.shunzi.length === 4) {
-		return FZ2
+	if (
+		struct.nonchiMelds.length ||
+		struct.jianTypes.length ||
+		struct.fengTypes.length ||
+		struct.tiles.length !== 14
+	) return 0
+
+	const types = struct.shuTypes.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
+			if (!(type in shunziLookup[`shunzi${type.length}`])) return 0
+		}
 	}
 
-	return 0
+	return FZ2
 }
 
 /**
- * 64. Tile hog (Si gui yi, 四归一).
+ * ✅ 64. Tile hog (Si gui yi, 四归一).
  * Four shunzi and a suited pair.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 2.
  */
 export async function fz64SiGuiYi(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const shunzi = struct.game.players[struct.key].hu.shunzi
-	const duizi = struct.game.players[struct.key].hu.duizi
+	const gangValues = struct.game.players[struct.key].melds
+		.filter(item => ['gang', 'angang'].includes(item.type))
+		.map(item => item.meld[0][1])
 
-	const suited = [...kezi, ...shunzi, ...duizi].filter(item => SHU.includes(item[0]))
-	const pattern = /(\d)\1{3}/
+	const fourValues = struct.shuTypes14.map(item => item[1]
+		.match(GANGZI)).filter(item => item).flat().map(item => parseInt(item[0]))
 
-	const bingzi = suited.filter(item => item[0] === BING).map(item => item[1]).join('').split('').sort().join('')
-	if (bingzi.match(pattern)) return FZ2
-
-	const tiaozi = suited.filter(item => item[0] === TIAO).map(item => item[1]).join('').split('').sort().join('')
-	if (tiaozi.match(pattern)) return FZ2
-
-	const wanzi = suited.filter(item => item[0] === WAN).map(item => item[1]).join('').split('').sort().join('')
-	if (wanzi.match(pattern)) return FZ2
+	for (const digit of fourValues) {
+		if (!(digit in gangValues)) return FZ2
+	}
 
 	return 0
 }
@@ -144,7 +166,7 @@ export async function fz65ShuangTongke(struct) {
 }
 
 /**
- * ✅ 66. Two concealed kezi (Shuang anke, 双暗刻).
+ * 66. Two concealed kezi (Shuang anke, 双暗刻).
  * Two concealed kezi (gangzi), on hand or melded (angang).
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 2.
