@@ -70,6 +70,7 @@ export async function fz56BuQiuRen(struct) {
  */
 export async function fz57ShuangMinggang(struct) {
 	if (struct.angangMelds.length === 1 && struct.gangMelds.length === 1) return FZ4 + FZ2
+
 	return (struct.angangMelds.length === 0 && struct.gangMelds.length === 2) ? FZ4 : 0
 }
 

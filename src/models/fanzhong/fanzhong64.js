@@ -23,10 +23,9 @@ const FZ64 = 64
  * @returns {Number} 0 or 64.
  */
 export async function fz8QingYaoJiu(struct) {
-	if (struct.fengTypes.length || struct.jianTypes.length) return 0
-
 	const types = struct.shuTypes.map(item => item[1]).join('')
-	return (/^[19][^2345678]+$/.test(types)) ? FZ64 : 0
+
+	return (!struct.hasZi && /^[19][^2345678]+$/.test(types)) ? FZ64 : 0
 }
 
 /**
@@ -69,7 +68,7 @@ export async function fz10XiaoSanYuan(struct) {
  * @returns {Number} 0 or 64.
  */
 export async function fz11ZiYiSe(struct) {
-	return (struct.fengTypes.length + struct.jianTypes.length === struct.tiles.length) ? FZ64 : 0
+	return (struct.hasShu) ? 0 : FZ64
 }
 
 /**

@@ -7,15 +7,15 @@
 
 import { KEZI, SHUNZI } from './patterns.js'
 import { ZI } from '../../models/tiles.js'
-import { lookup2 } from './lookup2.js'
-import { lookup3 } from './lookup3.js'
-import { lookup5 } from './lookup5.js'
-import { lookup6 } from './lookup6.js'
-import { lookup8 } from './lookup8.js'
-import { lookup9 } from './lookup9.js'
-import { lookup11 } from './lookup11.js'
-import { lookup12 } from './lookup12.js'
-import { lookup14 } from './lookup14.js'
+import { lookup2 } from '../lookup/lookup2.js'
+import { lookup3 } from '../lookup/lookup3.js'
+import { lookup5 } from '../lookup/lookup5.js'
+import { lookup6 } from '../lookup/lookup6.js'
+import { lookup8 } from '../lookup/lookup8.js'
+import { lookup9 } from '../lookup/lookup9.js'
+import { lookup11 } from '../lookup/lookup11.js'
+import { lookup12 } from '../lookup/lookup12.js'
+import { lookup14 } from '../lookup/lookup14.js'
 
 const lookup = {
 	lookup2: lookup2,

@@ -54,8 +54,7 @@ export async function fz17SanGang(struct) {
  * @returns {Number} 0 or 32.
  */
 export async function fz18HunYaoJiu(struct) {
-	if (struct.chiMelds.length) return 0
-	if (struct.fengTypes.length || struct.jianTypes.length) return 0
+	if (!struct.hasZi || struct.chiMelds.length) return 0
 
 	const shuTypes = struct.shuTypes.map(item => item[1]).join('')
 

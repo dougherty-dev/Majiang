@@ -43,9 +43,9 @@ export async function fz35ZuheLong(struct) {
  * @returns {Number} 0 or 12.
  */
 export async function fz36DaYuWu(struct) {
-	const lower = struct.shuTiles.filter(item => item[1] > 5)
+	const upper = struct.shuTiles.filter(item => item[1] > 5)
 
-	return (lower.length === struct.tiles.length) ? FZ12 : 0
+	return (upper.length === struct.tiles.length) ? FZ12 : 0
 }
 
 /**

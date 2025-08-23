@@ -6,10 +6,7 @@
  */
 
 import { SHU, ZI } from '../../models/tiles.js'
-import { knitted147w3, knitted258w3, knitted369w3 } from './knitted3.js'
-import { knitted147w5, knitted258w5, knitted369w5 } from './knitted5.js'
-import { knitted147w6, knitted258w6, knitted369w6 } from './knitted6.js'
-import { knitted147w8, knitted258w8, knitted369w8 } from './knitted8.js'
+import { knittedLookup } from '../lookup/knitted.js'
 import { DUIZI, KEZI } from './patterns.js'
 
 // These hands have no melds
@@ -117,21 +114,6 @@ async function knittedStraight(player) {
 		if (![3, 5, 6, 8].includes(flower[1].length)) return false
 	}
 
-	const lookup = {
-		knitted147w3: knitted147w3,
-		knitted258w3: knitted258w3,
-		knitted369w3: knitted369w3,
-		knitted147w5: knitted147w5,
-		knitted258w5: knitted258w5,
-		knitted369w5: knitted369w5,
-		knitted147w6: knitted147w6,
-		knitted258w6: knitted258w6,
-		knitted369w6: knitted369w6,
-		knitted147w8: knitted147w8,
-		knitted258w8: knitted258w8,
-		knitted369w8: knitted369w8
-	}
-
 	const combinations = [
 		['147', '258', '369'],
 		['147', '369', '258'],
@@ -147,7 +129,7 @@ async function knittedStraight(player) {
 		melds = []
 
 		for (const key of combo.keys()) {
-			item = lookup[`knitted${combo[key]}w${flowers[key][1].length}`][flowers[key][1]]
+			item = knittedLookup[`knitted${combo[key]}w${flowers[key][1].length}`][flowers[key][1]]
 			if (item === undefined) continue
 			melds.push(item)
 		}

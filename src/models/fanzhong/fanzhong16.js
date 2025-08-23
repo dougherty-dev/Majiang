@@ -23,18 +23,18 @@ const FZ16 = 16
  * @returns {Number} 0 or 16.
  */
 export async function fz28QingLong(struct) {
-	let shuTypes = struct.shuTypes14.filter(item => item[1].match(/1+2+3+4+5+6+7+8+9+/g))
+	const shuTypes = struct.shuTypes14.filter(item => item[1].match(/1+2+3+4+5+6+7+8+9+/g))
 	if (!shuTypes.length) return 0
-	shuTypes = shuTypes[0][1]
+	let types = shuTypes[0][1]
 
 	// Remove long, check remainder
 	for (const digit of '123456789'.split('')) {
-		shuTypes = shuTypes.replace(digit, '')
+		types = types.replace(digit, '')
 	}
 
-	if (shuTypes.length === 0) return FZ16
+	if (types.length === 0) return FZ16
 
-	return (await checkPattern(shuTypes)) ? FZ16 : 0
+	return (await checkPattern(types)) ? FZ16 : 0
 }
 
 /**
@@ -57,9 +57,9 @@ export async function fz29SanSeShuangLongHui(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz30YiSeSanBuGao(struct) {
-	let shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
+	const shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
 	if (!shuTypes.length) return 0
-	shuTypes = shuTypes[0][1]
+	let types = shuTypes[0][1]
 
 	const shifted = new RegExp ([
 		'1{1,}2{2,}3{3,}4{2,}5{1,}',
@@ -72,7 +72,7 @@ export async function fz30YiSeSanBuGao(struct) {
 		'3{1,}4{1,}5{2,}6{1,}7{2,}8{1,}9{1,}'
 	].join('|'), 'g')
 
-	const type = shuTypes.match(shifted)
+	const type = types.match(shifted)
 	if (!type) return 0
 
 	const digits = [...new Set(type[0].split(''))].join('')
@@ -91,12 +91,12 @@ export async function fz30YiSeSanBuGao(struct) {
 
 	// Remove shunzi, check remainder
 	for (const digit of pattern.split('')) {
-		shuTypes = shuTypes.replace(digit, '')
+		types = types.replace(digit, '')
 	}
 
-	if (shuTypes.length === 0) return FZ16
+	if (types.length === 0) return FZ16
 
-	return (await checkPattern(shuTypes)) ? FZ16 : 0
+	return (await checkPattern(types)) ? FZ16 : 0
 }
 
 /**
@@ -106,7 +106,7 @@ export async function fz30YiSeSanBuGao(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz31QuanDaiWu(struct) {
-	if (struct.fengTypes.length || struct.jianTypes.length) return 0
+	if (struct.hasZi) return 0
 
 	const noWu = struct.shuTypes14.filter(item => !item[1].includes('5'))
 	if (noWu.length) return 0
@@ -149,12 +149,13 @@ export async function fz32SanTongke(struct) {
 	if (candidates.length + 2 > types.length) return 0
 
 	let santongke
-	let shuTypes = struct.shuTypes14.map(item => item[1])
+	const shuTypes = struct.shuTypes14.map(item => item[1])
 	for (const candidate of candidates) {
 		// Remove kezi, check remainder
 		santongke = true
 
-		for (let type of shuTypes) {
+		for (const shuType of shuTypes) {
+			let type = shuType
 			for (const digit of candidate.split('')) {
 				type = type.replace(digit, '')
 			}
@@ -169,7 +170,7 @@ export async function fz32SanTongke(struct) {
 }
 
 /**
- * ✅ 33. Three concealed kezi (San anke, 三暗刻).
+ * 33. Three concealed kezi (San anke, 三暗刻).
  * Three kezi (gangzi), on hand or melded (angang).
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 16.

@@ -17,26 +17,9 @@
 
 import { checkPattern } from '../../components/hu/check-type.js'
 import { GANGZI, KEZI } from '../../components/hu/patterns.js'
-import { shunzi11 } from '../../components/hu/shunzi11.js'
-import { shunzi12 } from '../../components/hu/shunzi12.js'
-import { shunzi14 } from '../../components/hu/shunzi14.js'
-import { shunzi3 } from '../../components/hu/shunzi3.js'
-import { shunzi5 } from '../../components/hu/shunzi5.js'
-import { shunzi6 } from '../../components/hu/shunzi6.js'
-import { shunzi8 } from '../../components/hu/shunzi8.js'
-import { shunzi9 } from '../../components/hu/shunzi9.js'
+import { shunziLookup } from '../../components/lookup/shunzi.js'
 
 const FZ2 = 2
-const shunziLookup = {
-	shunzi3: shunzi3,
-	shunzi5: shunzi5,
-	shunzi6: shunzi6,
-	shunzi8: shunzi8,
-	shunzi9: shunzi9,
-	shunzi11: shunzi11,
-	shunzi12: shunzi12,
-	shunzi14: shunzi14
-}
 
 /**
  * ✅ 59. Dragon kezi (Jianke, 箭刻).
@@ -95,12 +78,11 @@ export async function fz62MenqianQing(struct) {
 export async function fz63Pinghu(struct) {
 	if (
 		struct.nonchiMelds.length ||
-		struct.jianTypes.length ||
-		struct.fengTypes.length ||
+		struct.hasZi ||
 		struct.tiles.length !== 14
 	) return 0
 
-	const types = struct.shuTypes.map(item => item[1]).filter(item => item)
+	const types = struct.shuTypes14.map(item => item[1]).filter(item => item)
 	for (const type of types) {
 		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
 			if (!(type in shunziLookup[`shunzi${type.length}`])) return 0
@@ -151,7 +133,8 @@ export async function fz65ShuangTongke(struct) {
 		// Remove kezi, check remainder
 		shuangTonke = true
 
-		for (let type of shuTypes) {
+		for (const shuType of shuTypes) {
+			let type = shuType
 			for (const digit of candidate.split('')) {
 				type = type.replace(digit, '')
 			}
@@ -192,7 +175,6 @@ export async function fz67Angang(struct) {
  * @returns {Number} 0 or 2.
  */
 export async function fz68Duanyao(struct) {
-	const hasZi = struct.fengTypes.length || struct.jianTypes.length
 	const shuTypes = struct.shuTypes.map(item => item[1]).join('')
-	return (!hasZi && /^[2345678][^19]+$/.test(shuTypes)) ? FZ2 : 0
+	return (!struct.hasZi && /^[2345678][^19]+$/.test(shuTypes)) ? FZ2 : 0
 }

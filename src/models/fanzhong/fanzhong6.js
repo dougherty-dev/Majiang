@@ -11,8 +11,8 @@
  * @property {Function} fz54ShuangJianke 54. Two dragons kezi (Shuang jianke, 双箭刻).
  */
 
-import { checkPattern } from '../../components/hu/check-type.js'
-import { KEZI, SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
+import { SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
+import { keziLookup } from '../../components/lookup/kezi.js'
 import { SHU } from '../tiles.js'
 
 const FZ6 = 6
@@ -24,27 +24,10 @@ const FZ6 = 6
  * @returns {Number} 0 or 6.
  */
 export async function fz49PengpengHu(struct) {
-	let res = struct.jianTypes.match(KEZI)
-	const jianKezi = (res) ? res.length : 0
-
-	res = struct.fengTypes.match(KEZI)
-	const fengKezi = (res) ? res.length : 0
-
-	const types = struct.shuTypes14.filter(item => item[1])
-		.map(item => item[1].match(KEZI))
-		.filter(item => item).flat()
-
-	if (jianKezi + fengKezi + types.length < 4) return 0
-
-	let shuTypes = struct.shuTypes14.map(item => item[1])
-
-	for (let type of shuTypes.filter(item => item[1])) {
-		// Remove kezi, check remainder
-		const candidates = type.match(KEZI)
-
-		for (const candidate of candidates) {
-			type = type.replace(candidate, '')
-			if (!await checkPattern(type)) return 0
+	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
+			if (!(type in keziLookup[`kezi${type.length}`])) return 0
 		}
 	}
 
@@ -58,10 +41,9 @@ export async function fz49PengpengHu(struct) {
  * @returns {Number} 0 or 6.
  */
 export async function fz50HunYiSe(struct) {
-	const types = struct.allTypes.filter(item => item[1] !== '')
-		.map(item => item[0]).sort().join('')
+	const shuTypes = struct.shuTypes.filter(item => item[1])
 
-	return (['bf', 'bj', 'bfj', 'ft', 'jt', 'fjt', 'fw', 'jw', 'fjw'].includes(types)) ? FZ6 : 0
+	return (struct.hasZi && shuTypes.length === 1) ? FZ6 : 0
 }
 
 /**
@@ -114,10 +96,9 @@ export async function fz51SanSeSanBuGao(struct) {
  * @returns {Number} 0 or 6.
  */
 export async function fz52WuMenJi(struct) {
-	const types = struct.allTypes.filter(item => item[1] !== '')
-		.map(item => item[0]).sort().join('')
+	const types = struct.allTypes.filter(item => item[1])
 
-	return (types === 'bfjtw') ? FZ6 : 0
+	return (types.length === 5) ? FZ6 : 0
 }
 
 /**

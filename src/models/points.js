@@ -113,18 +113,19 @@ export default class Points {
 	 */
 	setupCommon() {
 		this.struct.allTypes = Object.entries(this.struct.types)
+		this.struct.allTypes14 = Object.entries(this.struct.types14)
 
 		this.struct.fengTypes = this.struct.allTypes.filter(item => item[0] === FENG)[0][1]
 		this.struct.jianTypes = this.struct.allTypes.filter(item => item[0] === JIAN)[0][1]
 		this.struct.tiaoTypes = this.struct.allTypes.filter(item => item[0] === TIAO)[0][1]
+		this.struct.hasZi = this.struct.fengTypes.length > 0 || this.struct.jianTypes.length > 0
 
 		this.struct.shuTiles = this.struct.tiles.filter(item => SHU.includes(item[7]))
-		this.struct.qingyise = this.struct.shuTiles
-			.filter(item => item[7] === this.struct.tiles[0][7])
-			.length === this.struct.tiles.length
-
 		this.struct.shuTypes = this.struct.allTypes.filter(item => SHU.includes(item[0]))
 		this.struct.shuTypes14 = Object.entries(this.struct.types14).filter(item => SHU.includes(item[0]))
+		this.struct.hasShu = this.struct.shuTypes.filter(item => item[1]).length > 0
+		this.struct.qingyise = this.struct.shuTypes.filter(item => item[1]).length === 1 &&
+			!this.struct.hasZi
 
 		const melds = this.struct.game.players[this.struct.key].melds
 		this.struct.chiMelds = melds.filter(item => item.type === 'chi')
@@ -167,7 +168,7 @@ export default class Points {
 			'20': ['七星不靠', 'Qi xing bu kao', 'Greater honors and knitted tiles', fz20QiXingBuKao, 0, ['52']],
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, ['49', '68']],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, ['76']],
-			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['24', '30', '65', '66', '69']],
+			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, ['24', '30', '33', '65', '66', '69']],
 			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, ['23']],
 			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, ['36', '76']],
 			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, ['68']],

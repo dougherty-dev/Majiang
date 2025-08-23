@@ -19,23 +19,25 @@
  */
 
 import { tingpai } from '../../components/hu/check-type.js'
-import { BING, SHU, TIAO, WAN, ZI } from '../tiles.js'
+import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
+import { BING, TIAO, WAN } from '../tiles.js'
 
 const FZ1 = 1
 
 /**
- * 69. Pure double shunzi (Yiban gao, 一般高).
+ * ✅ 69. Pure double shunzi (Yiban gao, 一般高).
  * Containing two identical shunzi.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
  */
 export async function fz69YibanGao(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi
+	if (struct.nonchiMelds.length > 2) return 0
 
-	let hit = []
-	for (const type of shunzi) {
-		if (hit.includes(type)) return FZ1
-		hit.push(type)
+	const types = struct.shuTypes14.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
+			if (type in doubleShunziLookup[`doubleShunzi${type.length}`]) return FZ1
+		}
 	}
 
 	return 0
@@ -122,7 +124,7 @@ export async function fz73YaoJiuKe(struct) {
 }
 
 /**
- * 74. Melded gang (Minggang, 明杠).
+ * ✅ 74. Melded gang (Minggang, 明杠).
  * Open gang.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
@@ -135,26 +137,25 @@ export async function fz74Minggang(struct) {
 }
 
 /**
- * 75. One voided suit (Que yi men, 缺一门).
+ * ✅ 75. One voided suit (Que yi men, 缺一门).
  * Hand lacking one of the three suits.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
  */
 export async function fz75QueYiMen(struct) {
-	const melds = struct.game.players[struct.key].hu.allMelds
-	const suits = [... new Set(melds.filter(item => SHU.includes(item[0])).map(item => item[0]))]
+	const suits = struct.shuTypes14.filter(item => item[1])
 
 	return (suits.length === 2) ? FZ1 : 0
 }
 
 /**
- * 76. No honors (Wu zi, 无字).
+ * ✅ 76. No honors (Wu zi, 无字).
  * Hand with only suited tiles.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
  */
 export async function fz76WuZi(struct) {
-	return struct.tiles.some(arr => ZI.includes(arr[7])) ? 0 : FZ1
+	return struct.hasZi ? 0 : FZ1
 }
 
 /**
