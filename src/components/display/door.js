@@ -5,7 +5,7 @@
  * @module components/display/door
  */
 
-import { createTile } from '../../components/tiles.js'
+import { createTile } from '../tiles.js'
 import { displayRemoveItem } from './display.js'
 
 export function displayDoors(players) {

@@ -78,8 +78,7 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 }
 
 async function AIPengHandling(game, meldSet, pengPlayer) {
-	if (meldSet.length === 4 && game.tiles.length < 2) {
-		// console.log('AIPengHandling: false')
+	if (meldSet.length === 4 && game.tiles.length < 1) {
 		return false
 	}
 

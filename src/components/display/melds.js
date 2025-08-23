@@ -6,7 +6,7 @@
  */
 
 import { createElement } from '../elements.js'
-import { createTile } from '../../components/tiles.js'
+import { createTile } from '../tiles.js'
 import { displayRemoveItem } from './display.js'
 import { HUMANPLAYER } from '../../models/constants.js'
 

@@ -5,7 +5,7 @@
  * @module components/display/tiles
  */
 
-import { createTile } from '../../components/tiles.js'
+import { createTile } from '../tiles.js'
 
 function hiliteToggle(target) {
 	toggle(target, 'mouseover')

@@ -5,7 +5,7 @@
  * @module components/display/floor
  */
 
-import { createTile } from '../../components/tiles.js'
+import { createTile } from '../tiles.js'
 
 export function displayFloors(players) {
 	for (const [key, player] of Object.entries(players)) {

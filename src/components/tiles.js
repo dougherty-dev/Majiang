@@ -11,6 +11,7 @@ import { displayDoor, displayAddToDoor } from './display/door.js'
 import { displayFlower } from './display/flowers.js'
 import { sortTiles, sound } from './helpers.js'
 import { newTileChecks } from './checks.js'
+import { draw } from './round/hu.js'
 
 /**
  * Create an IMG DOM element for a tile object.
@@ -61,10 +62,10 @@ export function createTile(tile, ext = '', hidden = false) {
  * @returns {Object|false}
  */
 export async function takeTile(tiles) {
-	if (tiles) {
+	if (tiles.length) {
 		const tile = tiles.shift()
 		displayTileCount(tiles.length)
-		return tile
+		return (tile) ? tile : false
 	}
 
 	return false
@@ -82,26 +83,36 @@ export async function takeTile(tiles) {
  * @param {Object} game 
  */
 export async function newTile(game) {
+	game.gangshangKaihua = false
+
 	let tile = await takeTile(game.tiles)
 	let tileCopy
 
-	if (!tile) return
+	if (!tile) return false // never happens?
 
 	/**
-	 * Replace flower tiles.
+	 * Replace flower tiles, as long as there are tiles. Otherwise claim draw.
 	 */
 	while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
 		game.gangshangKaihua = false
 		tileCopy = tile
+
+		if (game.tiles.length === 0) {
+			await displayFlower(game.currentPlayer, tileCopy)
+			await draw(game)
+			return false
+		}
+
 		game.players[game.currentPlayer].flowers.push(tile)
 
 		tile = await takeTile(game.tiles)
 		if (tile) {
 			await displayFlower(game.currentPlayer, tileCopy)
+		} else {
+			await draw(game)
+			return false
 		}
 	}
-
-	if (!tile) return
 
 	game.players[game.currentPlayer].door.push(tile)
 	displayAddToDoor(game.currentPlayer, tile)
@@ -110,13 +121,15 @@ export async function newTile(game) {
 		/**
 		 * If zimo, initiate hu process. If jiagang/angang, take new tile.
 		 */
-		if (await newTileChecks(game, game.currentPlayer)) return
+		if (await newTileChecks(game, game.currentPlayer)) return true
 
 		const door = document.getElementById('door' + game.currentPlayer)
-		if (!door) return
+		if (!door) return false
 
 		handleTiles(game, door)
 	}
+
+	return true
 }
 
 /**
