@@ -79,6 +79,15 @@ export async function fz11ZiYiSe(struct) {
  * PROBLEMATIC, must ensure kezi
  */
 export async function fz12SiAnke(struct) {
+	// const drop2 = struct.game.drop
+
+	// const hupai = struct.allTypes14.filter(item => item[0] === drop2[0])
+	// 	.map(item => !item[1].match(KEZI) && item[1].match(DUIZI)).filter(item => item).flat()
+
+	// const types = struct.allTypes14.map(item => item[1].match(KEZI)).filter(item => item).flat()
+
+	// console.log(drop2, types, hupai)
+
 	if (struct.chiMelds.length) return 0
 
 	const allKezi = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item).flat()

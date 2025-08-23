@@ -112,8 +112,7 @@ async function AIChiHandling(game, meldTiles, nextPlayer) {
 	// bots will just eat for now
 	const meldSet = meldTiles[0]
 	await delay(1000)
-	chi(game, meldSet, nextPlayer)
-	await delay(1000)
+	await chi(game, meldSet, nextPlayer)
 	await botDiscard(game)
 
 	return true

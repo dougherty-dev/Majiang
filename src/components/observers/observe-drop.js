@@ -30,9 +30,10 @@ export function observeDrop(game) {
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			if (!drop.firstChild) return // no tile
 
-			// remove dropped tile from door
+			// remove dropped tile from door, set latest drop tile
 			let tile = game.players[key].drop
 			if (tile === undefined) return
+			game.drop = [tile[7], tile[1]]
 
 			// update door, change status to finally discarded
 			displayDoor(game.currentPlayer, game.players[game.currentPlayer])

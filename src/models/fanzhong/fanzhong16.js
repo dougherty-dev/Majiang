@@ -13,6 +13,7 @@
 
 import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI } from '../../components/hu/patterns.js'
+import { qinglongLookup } from '../../components/lookup/qinglong.js'
 
 const FZ16 = 16
 
@@ -23,18 +24,14 @@ const FZ16 = 16
  * @returns {Number} 0 or 16.
  */
 export async function fz28QingLong(struct) {
-	const shuTypes = struct.shuTypes14.filter(item => item[1].match(/1+2+3+4+5+6+7+8+9+/g))
-	if (!shuTypes.length) return 0
-	let types = shuTypes[0][1]
-
-	// Remove long, check remainder
-	for (const digit of '123456789'.split('')) {
-		types = types.replace(digit, '')
+	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([9, 11, 12, 14].includes(type.length)) {
+			if (type in qinglongLookup[`qinglong${type.length}`]) return FZ16
+		}
 	}
 
-	if (types.length === 0) return FZ16
-
-	return (await checkPattern(types)) ? FZ16 : 0
+	return 0
 }
 
 /**

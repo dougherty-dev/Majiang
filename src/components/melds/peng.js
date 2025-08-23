@@ -78,7 +78,10 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 }
 
 async function AIPengHandling(game, meldSet, pengPlayer) {
-	if (meldSet.length === 4 && game.tiles.length < 2) return false
+	if (meldSet.length === 4 && game.tiles.length < 2) {
+		// console.log('AIPengHandling: false')
+		return false
+	}
 
 	await delay(1000)
 	const meldType = (meldSet.length === 4) ? 'gang' : 'peng'

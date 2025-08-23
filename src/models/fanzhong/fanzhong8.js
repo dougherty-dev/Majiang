@@ -57,7 +57,7 @@ export async function fz40Tuibudao(struct) {
 }
 
 /**
- * ✅ 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
+ * (✅) 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
  * Three equal shunzi in each suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -86,7 +86,7 @@ export async function fz41SanSeSanTongshun(struct) {
 }
 
 /**
- * ✅ 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
+ * (✅) 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
  * Three kezi (gangzi) in each suit, shifted upwards in value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 8.
@@ -149,7 +149,7 @@ export async function fz45HaidiLaoyue(struct) {
 }
 
 // 46. Out with replacement tile (Gangshang kaihua, 杠上开花)
-// PROBBLEMATIC
+// PROBBLEMATIC?
 export async function fz46GangshangKaihua(struct) {
 	return (struct.game.gangshangKaihua) ? FZ8 : 0
 }

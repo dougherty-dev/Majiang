@@ -41,9 +41,12 @@ export async function newTileChecks(game, key) {
 }
 
 export async function dropTileChecks(game, tile, key) {
+	// console.log('-----')
+	// console.log('1. dropTileChecks: await checkDianhu')
 	if (await checkDianhu(game, tile, key)) return true
 
 	// melds
+	// console.log('2. dropTileChecks: await checkPeng')
 	switch (await checkPeng(game, tile)) {
 	case 'gang':
 		game.gangshangKaihua = true
@@ -54,9 +57,12 @@ export async function dropTileChecks(game, tile, key) {
 		return true
 	}
 
+	// console.log('3. dropTileChecks: await checkChi')
 	if (await checkChi(game, tile)) return true
 
+	// console.log('4. dropTileChecks: tiles.length === 0?')
 	if (game.tiles.length === 0) {
+		// console.log('dropTileChecks: await draw')
 		await draw(game)
 		return true
 	}

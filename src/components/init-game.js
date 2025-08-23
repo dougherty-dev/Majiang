@@ -30,6 +30,7 @@ export async function initGame(game) {
 		hupai: null,
 		tingpai: null,
 		qianggang: false,
+		drop: [null, null],
 		players: new Players().players
 	}
 

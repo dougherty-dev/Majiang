@@ -20,7 +20,8 @@
 
 import { tingpai } from '../../components/hu/check-type.js'
 import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
-import { BING, TIAO, WAN } from '../tiles.js'
+import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
+import { lianliuLookup } from '../../components/lookup/lianliu.js'
 
 const FZ1 = 1
 
@@ -62,44 +63,35 @@ export async function fz70XiXiangfeng(struct) {
 }
 
 /**
- * 71. Short straight (Lian liu, 连六).
+ * ✅ 71. Short straight (Lian liu, 连六).
  * Two shunzi in the same suit making six consecutive values.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
  */
 export async function fz71LianLiu(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi
-	const pattern = /(123456|234567|345678|456789)/g
-
-	const bingzi = shunzi.filter(item => item[0] === BING).map(item => item[1]).join('').split('').sort().join('')
-	if (bingzi.match(pattern)) return FZ1
-
-	const tiaozi = shunzi.filter(item => item[0] === TIAO).map(item => item[1]).join('').split('').sort().join('')
-	if (tiaozi.match(pattern)) return FZ1
-
-	const wanzi = shunzi.filter(item => item[0] === WAN).map(item => item[1]).join('').split('').sort().join('')
-	if (wanzi.match(pattern)) return FZ1
+	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
+			if (type in lianliuLookup[`lianliu${type.length}`]) return FZ1
+		}
+	}
 
 	return 0
 }
 
 /**
- * 72. Two terminal shunzi (Laoshao fu, 老少副).
+ * ✅ 72. Two terminal shunzi (Laoshao fu, 老少副).
  * Two shunzi 1-2-3 and 6-7-8 in the same suit.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 1.
  */
 export async function fz72LaoshaoFu(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi
-
-	const bingzi = shunzi.filter(item => item[0] === BING).map(item => item[1])
-	if (bingzi.includes('123') && bingzi.includes('789')) return FZ1
-
-	const tiaozi = shunzi.filter(item => item[0] === TIAO).map(item => item[1])
-	if (tiaozi.includes('123') && tiaozi.includes('789')) return FZ1
-
-	const wanzi = shunzi.filter(item => item[0] === WAN).map(item => item[1])
-	if (wanzi.includes('123') && wanzi.includes('789')) return FZ1
+	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+	for (const type of types) {
+		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
+			if (type in laoshaofuLookup[`laoshaofu${type.length}`]) return FZ1
+		}
+	}
 
 	return 0
 }
