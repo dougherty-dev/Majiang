@@ -28,6 +28,8 @@ export async function fz49PengpengHu(struct) {
 	for (const type of types) {
 		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
 			if (!(type in keziLookup[`kezi${type.length}`])) return 0
+		} else if (type.length) { // qi dui, length 2
+			return 0
 		}
 	}
 

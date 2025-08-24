@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/new-round
+ * @description Prepare new round.
+ * @property {Function} newRound Set winds, rotate players.
  */
 
 import { TILES } from '../../models/tiles.js'
@@ -15,6 +17,11 @@ import { displayDoors } from '../display/door.js'
 import { gameOver } from './game-over.js'
 import { cheat } from './test-cheat.js'
 
+/**
+ * Prepare new round. Set winds, rotate players.
+ * @param {Object} game The game parameters.
+ * @returns {boolean}
+ */
 export async function newRound(game) {
 	game.tiles = shuffle(Object.assign([], TILES))
 	game.hand++

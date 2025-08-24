@@ -3,45 +3,68 @@
 /**
  * @author Niklas Dougherty
  * @module components/hu/specials
+ * @description Determine if winning by a special hand.
+ * @property {Function} sevenPairs Seven pairs of any kind.
+ * @property {Function} orphans One each of 1s, 9s, and honors, plus additional pair tile.
+ * @property {Function} knittedHonors Knitted tiles with honors, greater or lesser.
+ * @property {Function} knittedStraight Special shunzi 147, 258, and 369 in different suits.
  */
 
 import { SHU, ZI } from '../../models/tiles.js'
 import { knittedLookup } from '../lookup/knitted.js'
 import { DUIZI, KEZI } from './patterns.js'
 
-// These hands have no melds
+/**
+ * Determine if winning by a special hand.
+ * @param {Object} player The player object.
+ * @param {Array} door The tiles at hand.
+ * @returns {boolean}
+ */
 export async function checkSpecial(player, door) {
-	if (await sevenPairs(player, door)) return true
-	if (await orphans(player)) return true
-	if (await knittedHonors(player)) return true
-	if (await knittedStraight(player)) return true
-
-	return false
+	return (
+		await sevenPairs(player, door) ||
+		await orphans(player) ||
+		await knittedHonors(player) ||
+		await knittedStraight(player)
+	)
 }
 
-// either seven pairs, or just one
+/**
+ * Seven pairs of any kind.
+ * This hand has no melds, door always has 14 tiles.
+ * @param {Object} player The player object.
+ * @param {Array} door The tiles at hand.
+ * @returns {boolean}
+ */
 async function sevenPairs(player, door) {
 	let pairs = 0
-	for (const type of Object.values(player.hu.types)) {
-		const pair = type.match(DUIZI)
-		if (pair) pairs += pair.length
-	}
 
-	if (pairs === 7) {
-		player.hu.pairs = 7
-		for (const [index, tile] of Object.entries(door)) {
-			if (index % 2 !== 0) continue
-			const set = [tile[7], `${tile[1]}${tile[1]}`]
-			player.hu.duizi.push(set)
+	for (const type of Object.entries(player.hu.types)) {
+		if (type[1] && !type[1].match(KEZI)) {
+			const pair = type[1].match(DUIZI)
+			if (pair) pairs += pair.length
 		}
-
-		return true
 	}
 
-	return false
+	if (pairs !== 7) return false
+
+	player.hu.qidui = true
+	player.hu.pairs = pairs
+	for (const [index, tile] of Object.entries(door)) {
+		if (index % 2 !== 0) continue
+		const set = [tile[7], `${tile[1]}${tile[1]}`]
+		player.hu.duizi.push(set)
+	}
+
+	return true
 }
 
-// 13 orphans
+/**
+ * 13 orphans. One each of ones, nines, and honor tiles, plus additional pair tile.
+ * This hand has no melds, door always has 14 tiles.
+ * @param {Object} player The player object.
+ * @returns {boolean}
+ */
 async function orphans(player) {
 	const values = Object.values(player.hu.types).filter(item => item !== '')
 
@@ -60,7 +83,12 @@ async function orphans(player) {
 	return false
 }
 
-// knitted tiles with honors
+/**
+ * Knitted tiles with honors, greater or lesser.
+ * This hand has no melds, door always has 14 tiles.
+ * @param {Object} player The player object.
+ * @returns {boolean}
+ */
 async function knittedHonors(player) {
 	const types = Object.entries(player.hu.types)
 	const shu = types.filter(item => SHU.includes(item[0])).map(item => `${item[1]}`)
@@ -105,6 +133,12 @@ async function knittedHonors(player) {
 	}
 }
 
+/**
+ * Three special shunzi 1-4-7, 2-5-8, and 3-6-9 in different suits.
+ * Allows for one regular meld.
+ * @param {Object} player The player object.
+ * @returns {boolean}
+ */
 async function knittedStraight(player) {
 	const types = Object.entries(player.hu.types)
 	const flowers = types.filter(item => SHU.includes(item[0]))
@@ -130,7 +164,7 @@ async function knittedStraight(player) {
 
 		for (const key of combo.keys()) {
 			item = knittedLookup[`knitted${combo[key]}w${flowers[key][1].length}`][flowers[key][1]]
-			if (item === undefined) continue
+			if (!item) continue
 			melds.push(item)
 		}
 		if (melds.length === 3) break
@@ -160,7 +194,10 @@ async function knittedStraight(player) {
 		}
 	}
 
-	if (player.allMelds.length === 5) {
+	if (
+		player.allMelds.length + player.melds.length === 5 &&
+		player.melds.length <= 1
+	) {
 		player.hu.isKnittedStraight = true
 		return true
 	}

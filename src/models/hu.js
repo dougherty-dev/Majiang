@@ -13,6 +13,7 @@ export default class Hu {
 			melds: 0,
 			zimo: false,
 			shisanyao: false,
+			qidui: false,
 			dianhu: false,
 			duizi: [],
 			shunzi: [],

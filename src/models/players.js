@@ -20,6 +20,7 @@ class Player {
 			flowers: [],
 			floor: [],
 			drop: [],
+			sets: [],
 			hu: new Hu().hu
 		}
 	}

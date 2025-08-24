@@ -58,7 +58,5 @@ export async function checkHu(player, door) {
 	if (player.hu.pairs === 1 && player.hu.melds === 4) return true
 
 	// Special hands.
-	if (await checkSpecial(player, door)) return true
-
-	return false
+	return checkSpecial(player, door)
 }

@@ -13,7 +13,7 @@
 const FZ12 = 12
 
 /**
- * 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
+ * ✅ 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
  * Three full or partial shunzi 147, 258, 369 in different suits, plus at most one each of honors.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 12.
@@ -25,8 +25,8 @@ export async function fz34QuanBuKao(struct) {
 }
 
 /**
- * 35. Knitted straight (Zuhe long, 组合龙).
- * Three full or partial shunzi 147, 258, 369 in different suits.
+ * ✅ 35. Knitted straight (Zuhe long, 组合龙).
+ * Three special shunzi 147, 258, 369 in different suits.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 12.
  */

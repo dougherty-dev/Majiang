@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/results
+ * @description Display results.
+ * @property {Function} displayResults Display results of hand (draw or win).
  */
 
 import { ALLPLAYERS, HUMANPLAYER, MAJIANGAVATAR } from '../../models/constants.js'
@@ -15,8 +17,16 @@ import { revealDoors } from '../display/door.js'
 import { revealMelds } from '../display/melds.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
+import Hu from '../../models/hu.js'
 
-export async function displayResults(game, key, door, points) {
+/**
+ * Announce draw or win. List applicable fan rules with scores, and total points.
+ * @param {Object} game The game parameters.
+ * @param {number} key Winning player index (1–4).
+ * @param {Array} tiles All 14–18 tiles of the winning hand.
+ * @param {number} points The combined score for the winning hand.
+ */
+export async function displayResults(game, key, tiles, points) {
 	await delay(500)
 	revealDoors(game.players)
 	revealMelds(game.players)
@@ -53,11 +63,12 @@ export async function displayResults(game, key, door, points) {
 	const h2 = createElement('h2', '', msg)
 	resultsContents.appendChild(h2)
 
-	if (door.length) {
+	// No tiles when draw.
+	if (tiles.length) {
 		const paragraph = createElement('p', ['results-set'])
 
-		sortTiles(door)
-		for (const tile of door) {
+		sortTiles(tiles)
+		for (const tile of tiles) {
 			const img = createTile(tile)
 			img.classList.add('results')
 			paragraph.appendChild(img)
@@ -69,6 +80,7 @@ export async function displayResults(game, key, door, points) {
 	resultsOverlay.appendChild(resultsContents)
 	board.appendChild(resultsOverlay)
 
+	// List fanzhongs and respective points.
 	if (game.winner) {
 		const score = Object.entries(points.fanzhong).filter(arr => arr[1][4] > 0)
 
@@ -98,14 +110,16 @@ export async function displayResults(game, key, door, points) {
 
 	if (resultsOverlay) resultsOverlay.remove()
 
+	// Prepare new round.
 	for (const index of ALLPLAYERS) {
+		game.players[index].tingpai = null
+		game.players[index].discarded = null
 		game.players[index].door = []
 		game.players[index].melds = []
 		game.players[index].flowers = []
 		game.players[index].floor = []
 		game.players[index].drop = null
-		game.players[index].discarded = null
-		game.players[index].tingpai = null
+		game.players[index].hu = new Hu().hu
 	}
 
 	displayRound(game.round, game.rotation, game.hand)

@@ -3,6 +3,10 @@
 /**
  * @author Niklas Dougherty
  * @module components/hu/check-type
+ * @description Match hand combinations against lookup tables.
+ * @property {Function} checkType Find winning set of melds.
+ * @property {Function} tingpai Determine if waiting for a single possible tile.
+ * @property {Function} checkPattern Match set against lookup pattern.
  */
 
 import { KEZI, SHUNZI } from './patterns.js'
@@ -29,12 +33,20 @@ const lookup = {
 	lookup14: lookup14
 }
 
+/**
+ * Find winning set of melds.
+ * @param {number} key Player index.
+ * @param {string} type Principal numerical representation of a tile type.
+ * @param {string} lookupKey Lookup table name.
+ * @param {Object} player The player object.
+ * @returns {boolean}
+ */
 export async function checkType(key, type, lookupKey, player) {
 	if (!(type in lookup[lookupKey])) return false
 
 	const meldsets = lookup[lookupKey][type]
 
-	// traverse all possible duplicates, find max number of melds
+	// Traverse all possible duplicates, find max number of melds.
 	let maxHuMelds = -1
 	let maxMelds = meldsets[0]
 
@@ -65,7 +77,7 @@ export async function checkType(key, type, lookupKey, player) {
 		}
 	}
 
-	// accept solution
+	// Accept solution.
 	for (const meld of maxMelds) {
 		switch (meld.length) {
 		case 2:
@@ -88,6 +100,11 @@ export async function checkType(key, type, lookupKey, player) {
 	return true
 }
 
+/**
+ * Determine if waiting for a single possible tile.
+ * @param {number} seq Type sequence.
+ * @returns {boolean}
+ */
 export async function tingpai(seq) {
 	const index = `lookup${seq.length + 1}`
 	let count = 0
@@ -105,13 +122,18 @@ export async function tingpai(seq) {
 	return (count === 1)
 }
 
+/**
+ * Match set against lookup pattern.
+ * @param {Object} type 
+ * @returns {boolean}
+ */
 export async function checkPattern(type) {
 	if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
 		if (!(type in lookup[`lookup${type.length}`])) {
 			return false
 		}
 	} else if (type.length) {
-		return false // Irregular length
+		return false // Irregular length.
 	}
 
 	return true

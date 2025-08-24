@@ -3,6 +3,9 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/results
+ * @description Announce draw or hu (win).
+ * @property {Function} draw No tiles left. Declare draw and replay hand.
+ * @property {Function} hu Announce and display potentially winning hand.
  */
 
 import { EXITFAN } from '../../models/constants.js'
@@ -13,41 +16,55 @@ import { sound } from '../helpers.js'
 import { createTile } from '../tiles.js'
 import { displayResults } from './results.js'
 
+/**
+ * No tiles left. Declare draw and replay hand.
+ * @param {Object} game The game parameters.
+ */
 export async function draw(game) {
 	game.winner = false
 	game.draw = true
 	displayResults(game, 0, [])
 }
 
+/**
+ * Announce and display potentially winning hand.
+ * @param {Object} game The game parameters.
+ * @param {*} key Winning player.
+ * @returns {boolean}
+ */
 export async function hu(game, key) {
-	let door = []
+	// Collect tiles for point analysis.
+	let tiles = []
 	for (const set of game.players[key].melds) {
 		for (const tile of set.meld) {
-			door.push(tile)
+			tiles.push(tile)
 		}
 	}
 
-	door = [...door, ...game.players[key].door]
+	tiles = [...tiles, ...game.players[key].door]
 
 	if (game.players[key].hu.dianhu) {
 		const tile = game.players[game.currentPlayer].drop
-		door.push(tile)
+		tiles.push(tile)
 	}
 
-	const points = new Points(game, key, door)
+	const points = new Points(game, key, tiles)
 	await points.fanPoints()
 
+	 // Bots will always take a win.
 	if (key != 4) {
+		// Does player have enough (8 fan) points to exit?
 		if (points.struct.exit < EXITFAN) return false
 
 		sound('snd/hule.m4a')
-		displayResults(game, key, door, points)
+		displayResults(game, key, tiles, points)
 
 		return true
 	}
 
-
+	 // Human player can decline win.
 	if (key == 4) {
+		// Does player have enough (8 fan) points to exit?
 		if (points.struct.exit < EXITFAN) {
 			displayExit(points.struct.exit, EXITFAN)
 			return false
@@ -65,7 +82,7 @@ export async function hu(game, key) {
 
 		const paragraph = createElement('p', ['hu-set'])
 
-		for (const tile of door) {
+		for (const tile of tiles) {
 			const img = createTile(tile)
 			img.classList.add('hu')
 			paragraph.appendChild(img)
@@ -82,7 +99,7 @@ export async function hu(game, key) {
 		ok.addEventListener('click', async() => {
 			sound('snd/hule.m4a')
 			if (huOverlay) huOverlay.remove()
-			await displayResults(game, key, door, points)
+			await displayResults(game, key, tiles, points)
 		}, { once: true })
 
 		await new Promise(resolve => {

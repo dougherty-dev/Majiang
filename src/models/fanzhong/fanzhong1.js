@@ -18,7 +18,7 @@
  * @property {Function} fz81Huapai 81. Flower tiles (Huapai, 花牌).
  */
 
-import { tingpai } from '../../components/hu/check-type.js'
+import { checkPattern, tingpai } from '../../components/hu/check-type.js'
 import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
 import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
 import { lianliuLookup } from '../../components/lookup/lianliu.js'
@@ -45,21 +45,45 @@ export async function fz69YibanGao(struct) {
 }
 
 /**
- * 70. Mixed double shunzi (Xi xiangfeng, 喜相逢).
+ * ✅ 70. Mixed double shunzi (Xi xiangfeng, 喜相逢).
  * Containing two shunzi with same values but in different suits.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 1.
+ * @returns {Number} 0, 1 or 2. Can occur twice in a hand.
  */
 export async function fz70XiXiangfeng(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi
+	const shuTypes = struct.shuTypes.filter(item => item[1])
+		.filter(item => item[1].length > 2).map(item => item[1]).flat()
+	if (shuTypes.length < 2) return 0
 
-	let hit = []
-	for (const type of shunzi) {
-		if (hit.length && hit[0][1] === type[1] && hit[0][0] !== type[0]) return FZ1
-		hit.push(type)
+	let patterns = []
+	for (const d of [1, 2, 3, 4, 5, 6, 7]) {
+		const pattern = new RegExp(`${d}+${d + 1}+${d + 2}+`)
+		const match = shuTypes.filter(item => item.match(pattern))
+
+		if (match.length >= 2) patterns.push([d, d + 1, d + 2])
 	}
 
-	return 0
+	if (!patterns.length) return 0
+
+	let type
+	let pass
+	let count = 0
+	for (const p of patterns) {
+		pass = true
+		for (const shuType of shuTypes) {
+			type = shuType
+			type = type.replace(p[0], '').replace(p[1], '').replace(p[2], '')
+
+			if (type !== '' && !await checkPattern(type)) {
+				pass = false
+				continue
+			}
+		}
+
+		if (pass) count++
+	}
+
+	return count * FZ1
 }
 
 /**
@@ -231,6 +255,7 @@ export async function fz78Kanzhang(struct) {
  */
 export async function fz79DandiaoJiang(struct) {
 	const hupai = struct.game.hupai
+
 	const duizi = struct.game.players[struct.key].hu.duizi
 
 	if (

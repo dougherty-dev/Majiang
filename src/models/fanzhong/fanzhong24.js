@@ -14,7 +14,6 @@
  * @property {Function} fz27QuanXiao 27. Lower tiles (Quan xiao, 全小).
  */
 
-import { DUIZI, KEZI } from '../../components/hu/patterns.js'
 import { tripleShunziLookup } from '../../components/lookup/triple-shunzi.js'
 import { tripleKeziLookup } from '../../components/lookup/triple-kezi.js'
 
@@ -27,28 +26,11 @@ const FZ24 = 24
  * @returns {Number} 0 or 24.
  */
 export async function fz19QiDui(struct) {
-	if (struct.tiles.length !== 14) return 0
-
-	let pairs = []
-	struct.qidui = false
-
-	for (const type of struct.allTypes) {
-		if (type[1] && !type[1].match(KEZI)) {
-			const match = type[1].match(DUIZI)
-			if (match) pairs = [...pairs, ...match]
-		}
-	}
-
-	if (pairs && pairs.length === 7) {
-		struct.qidui = true
-		return FZ24
-	}
-
-	return 0
+	return (struct.game.players[struct.key].hu.qidui) ? FZ24 : 0
 }
 
 /**
- * 20. Greater honors and knitted tiles (Qi xing bu kao, 七星不靠).
+ * ✅ 20. Greater honors and knitted tiles (Qi xing bu kao, 七星不靠).
  * One each of winds and dragons, plus special full/partial suited shunzi 147, 258, and 369.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 24.
@@ -71,7 +53,7 @@ export async function fz21QuanShuangKe(struct) {
 	const types = struct.shuTypes14.map(item => item[1]).join('')
 	const even = types.match(/^[2468][^13579]+$/g)
 
-	return (even && !struct.qidui) ? FZ24 : 0
+	return (even && !struct.game.players[struct.key].hu.qidui) ? FZ24 : 0
 }
 
 /**
