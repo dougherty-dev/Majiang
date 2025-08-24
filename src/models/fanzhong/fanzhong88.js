@@ -86,7 +86,7 @@ export async function fz5SiGang(struct) {
  * @returns {Number} 0 or 88.
  */
 export async function fz6LianQiDui(struct) {
-	const types = struct.shuTypes.filter(item => item[1].length === 14)
+	const types = struct.shuTypes14.filter(item => item[1].length === 14)
 
 	return (
 		types.length &&

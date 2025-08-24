@@ -51,7 +51,7 @@ export async function fz69YibanGao(struct) {
  * @returns {Number} 0, 1 or 2. Can occur twice in a hand.
  */
 export async function fz70XiXiangfeng(struct) {
-	const shuTypes = struct.shuTypes.filter(item => item[1])
+	const shuTypes = struct.shuTypes14.filter(item => item[1])
 		.filter(item => item[1].length > 2).map(item => item[1]).flat()
 	if (shuTypes.length < 2) return 0
 

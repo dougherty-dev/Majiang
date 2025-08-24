@@ -11,9 +11,10 @@
  * @property {Function} fz54ShuangJianke 54. Two dragons kezi (Shuang jianke, 双箭刻).
  */
 
-import { SHIFTEDAX3, SHUNZI } from '../../components/hu/patterns.js'
+import { SHUNZI } from '../../components/hu/patterns.js'
 import { keziLookup } from '../../components/lookup/kezi.js'
-import { SHU } from '../tiles.js'
+import { lookup5 } from '../../components/lookup/lookup5.js'
+import { lookup6 } from '../../components/lookup/lookup6.js'
 
 const FZ6 = 6
 
@@ -49,43 +50,63 @@ export async function fz50HunYiSe(struct) {
 }
 
 /**
- * 51. Mixed shifted shunzi (San se san bu gao, 三色三步高).
+ * ✅ 51. Mixed shifted shunzi (San se san bu gao, 三色三步高).
  * One shunzi in each suit, consecutively shifted up in value.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 6.
- * PROBLEMATIC
  */
 export async function fz51SanSeSanBuGao(struct) {
-	const allMelds = struct.game.players[struct.key].hu.allMelds
+	const shuTypes = struct.shuTypes14.filter(item => item[1])
+		.filter(item => item[1].length > 2).map(item => item[1]).flat()
+		.sort((a, b) => a.length - b.length)
 
-	// extract suited shunzi
-	const melds = allMelds.filter(
-		item => item[1].length === 3 &&
-		SHU.includes(item[0]) &&
-		item[1].match(SHUNZI)
-	)
+	// Three suited sets, lengths: 3, 3, 3 | 3, 3, 5 | 3, 3, 6 | 3, 5, 6 
+	if (shuTypes.length < 3) return 0
 
-	// suited shunzi must be at least 3
-	if (melds.length < 3) return 0
+	const groups = ['123234345', '234345456', '345456567', '456567678', '567678789']
+	let shunzi = []
+	let sets
 
-	// ensure all three types b, t, w are present
-	const types = [...new Set(melds.map(item => item[0]))].sort().join('')
-	if (types !== 'btw') return 0
+	if (!shuTypes[0].match(SHUNZI)) return 0
+	shunzi.push(shuTypes[0]) // First set given, length 3.
 
-	// sort melds by shunzi value
-	melds.sort((a, b) => a[1].localeCompare(b[1]))
+	switch (shuTypes[1].length) { // Second set 3 or 5.
+	case 3:
+		shunzi.push(shuTypes[1])
+		break
+	case 5:
+		if (!lookup5[shuTypes[1]]) return 0
+		sets = lookup5[shuTypes[1]].flat().filter(item => item.length === 3)
+		if (!sets[0].match(SHUNZI)) return 0
+		shunzi.push(sets[0])
+	}
 
-	// make pattern and sort
-	let pattern = `${melds[0][1]}${melds[1][1]}${melds[2][1]}`
-	pattern = [...pattern].sort().join('')
+	switch (shuTypes[2].length) { // Third set 3, 5, or 6.
+	case 3:
+		shunzi.push(shuTypes[2])
+		break
+	case 5:
+		if (!lookup5[shuTypes[2]]) return 0
+		sets = lookup5[shuTypes[2]].flat().filter(item => item.length === 3)
+		if (!sets[0].match(SHUNZI)) return 0
+		shunzi.push(sets[0])
+		break
+	case 6:
+		if (!lookup6[shuTypes[2]]) return 0
+		sets = lookup6[shuTypes[2]].flat().map(item => item.match(SHUNZI))
+			.flat().filter(item => item)
+		if (!sets.length) return 0
+		shunzi.push(sets)
+		break
+	default:
+		return 0
+	}
 
-	// compare with predefined pattern for shifted shunzi
-	if (pattern.match(SHIFTEDAX3)) return FZ6
-
-	if (melds.length > 3) {
-		pattern = `${melds[1][1]}${melds[2][1]}${melds[3][1]}`
-		pattern = [...pattern].sort().join('')
-		if (pattern.match(SHIFTEDAX3)) return FZ6
+	for (const set of [shunzi[2]].flat()) { // Possibly two shunzi for last set.
+		let sorted = Object.assign([], [shunzi[0], shunzi[1]])
+		sorted.push(set)
+		sorted.sort()
+		if (groups.includes(sorted.join(''))) return FZ6
 	}
 
 	return 0
