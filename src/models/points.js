@@ -78,17 +78,15 @@ export default class Points {
 		// Principal length 14 type composition, excluding gangzi; needed for lookups
 		const gangzi = this.struct.game.players[this.struct.key].melds
 			.filter(item => ['gang', 'angang'].includes(item.type))
-			.map(item => item.meld)
-			.map(item => [item[0][7], item[0][1]])
+			.map(item => item.meld).map(item => [item[0][7], item[0][1]])
 
-		for (const key of Object.keys(this.struct.types14)) {
-			const digit = gangzi.find(item => item[0] === key)
-			if (digit) {
-				this.struct.types14[key] = this.struct.types14[key].replace(digit[1], '')
-			}
+		for (const type of gangzi) {
+			this.struct.types14[type[0]] = this.struct.types14[type[0]].replace(type[1], '')
+		}
 
-			this.struct.types[key] = this.struct.types[key].split('').sort().join('')
-			this.struct.types14[key] = this.struct.types14[key].split('').sort().join('')
+		for (const type of Object.entries(this.struct.types)) {
+			this.struct.types[type[0]] = this.struct.types[type[0]].split('').sort().join('')
+			this.struct.types14[type[0]] = this.struct.types14[type[0]].split('').sort().join('')
 		}
 	}
 

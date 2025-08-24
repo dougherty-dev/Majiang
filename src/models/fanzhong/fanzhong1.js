@@ -94,6 +94,7 @@ export async function fz70XiXiangfeng(struct) {
  */
 export async function fz71LianLiu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+
 	for (const type of types) {
 		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
 			if (type in lianliuLookup[`lianliu${type.length}`]) return FZ1
@@ -111,6 +112,7 @@ export async function fz71LianLiu(struct) {
  */
 export async function fz72LaoshaoFu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+
 	for (const type of types) {
 		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
 			if (type in laoshaofuLookup[`laoshaofu${type.length}`]) return FZ1

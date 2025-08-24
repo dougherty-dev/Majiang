@@ -25,12 +25,11 @@ const FZ6 = 6
  * @returns {Number} 0 or 6.
  */
 export async function fz49PengpengHu(struct) {
-	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
+	const types = struct.allTypes14.map(item => item[1]).filter(item => item.length > 2)
+
 	for (const type of types) {
 		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
 			if (!(type in keziLookup[`kezi${type.length}`])) return 0
-		} else if (type.length) { // qi dui, length 2
-			return 0
 		}
 	}
 
