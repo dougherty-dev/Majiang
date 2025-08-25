@@ -80,15 +80,9 @@ export async function fz51SanSeSanBuGao(struct) {
 		shunzi.push(sets[0])
 	}
 
-	switch (shuTypes[2].length) { // Third set 3, 5, or 6.
+	switch (shuTypes[2].length) { // Third set 3 or 6.
 	case 3:
 		shunzi.push(shuTypes[2])
-		break
-	case 5:
-		if (!lookup5[shuTypes[2]]) return 0
-		sets = lookup5[shuTypes[2]].flat().filter(item => item.length === 3)
-		if (!sets[0].match(SHUNZI)) return 0
-		shunzi.push(sets[0])
 		break
 	case 6:
 		if (!lookup6[shuTypes[2]]) return 0

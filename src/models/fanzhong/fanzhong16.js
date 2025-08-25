@@ -12,8 +12,9 @@
  */
 
 import { checkPattern } from '../../components/hu/check-type.js'
-import { KEZI } from '../../components/hu/patterns.js'
+import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
 import { qinglongLookup } from '../../components/lookup/qinglong.js'
+import { sanankeLookup } from '../../components/lookup/san-anke.js'
 
 const FZ16 = 16
 
@@ -173,5 +174,65 @@ export async function fz32SanTongke(struct) {
  * @returns {Number} 0 or 16.
  */
 export async function fz33SanAnke(struct) {
-	return (struct.concealedKezi === 3) ? FZ16 : 0
+	if (struct.openMelds.length > 1) return 0
+
+	const types14 = struct.allTypes14.map(item => [item[0], item[1].match(KEZI)]).filter(item => item[1])
+	if (types14.map(item => item[1]).flat().length < 3) return 0 // 11123 false positive
+
+	let sets = []
+	const melds = struct.chiMelds;
+	const types = struct.allTypes14.filter(item => item)
+	for (const type of types) {
+		if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type[1].length)) {
+			const lookup = sanankeLookup[`sananke${type[1].length}`]
+			if (!(type[1] in lookup)) return 0
+
+			let candidates = lookup[type[1]]
+			// Rare edge cases with two shunzi alternatives, to be implemented later
+			// if (melds.length && candidates.length > 1) { // check meld alternatives
+			// 	const chi = melds.map(item => item.meld).filter(item => item[0][7] === type[0])
+			// 		.map(item => `${item[0][1]}${item[1][1]}${item[2][1]}`)
+			// 	console.log(chi)
+			// 	for (const candidate of candidates) {
+			// 		for (const set of candidate) {
+			// 			console.log(set, chi[0]) // to be done
+			// 			if (set === chi[0]) {
+			// 				sets.push([type[0], set])
+			// 			}
+			// 		}
+			// 	}
+			// } else {
+			// 	for (const candidate of candidates[0]) {
+			// 		sets.push([type[0], candidate])
+			// 	}
+			// }
+
+			for (const candidate of candidates[0]) {
+				sets.push([type[0], candidate])
+			}
+		}
+	}
+
+	const pair = sets.filter(item => item[1].length === 2).flat()
+	const shunzi = sets.filter(item => item[1].match(SHUNZI)).flat()
+	const kezi = sets.filter(item => item[1].match(KEZI))
+
+	if (pair.length !== 2 || shunzi.length !== 2 || kezi.length !== 3) return 0
+
+	if (struct.game.players[struct.key].hu.dianhu) {
+		const drop = struct.game.drop
+
+		if (
+			drop.length && !( // hupai not in pair/shunzi but in kezi
+				(drop[0] === pair[0] && pair[1].includes(drop[1])) ||
+				(!melds.length && drop[0] === shunzi[0] && shunzi[1].includes(drop[1]))
+			)
+		) return 0
+	}
+
+	if (!struct.derivedSets.length) {
+		struct.derivedSets = sets
+	}
+
+	return FZ16
 }

@@ -74,6 +74,8 @@ export async function cheat(game) {
 	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5'] // 30
 	// const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
 	// const tiles = ['bing2', 'bing2', 'bing2', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan2', 'wan2', 'zi7', 'zi7', 'wan5', 'wan6'] // 32
+	// const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'wan6', 'wan6', 'wan6', 'zi3', 'zi3', 'zi3', 'zi5'] // 33
+	// const tiles = ['bing3', 'bing3', 'bing4', 'bing4', 'bing4', 'bing5', 'bing5', 'bing5', 'zi1', 'bing6', 'bing7', 'bing7', 'bing7'] // 33 (33 444 555 777 567, chi 5, wait 7)
 
 	// 12 fan
 	// const tiles = ['bing1', 'bing4', 'bing7', 'tiao5', 'tiao8', 'wan3', 'wan6', 'wan9', 'zi3', 'zi4', 'zi5', 'zi6', 'zi7'] // 34
@@ -85,7 +87,7 @@ export async function cheat(game) {
 	// const tiles = ['bing8', 'bing8', 'tiao7', 'tiao8', 'tiao9', 'zi2', 'zi2', 'zi2', 'zi3', 'zi3', 'zi3', 'zi4', 'zi4'] // 38
 
 	// 8 fan
-
+	const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao4', 'tiao5', 'tiao6', 'wan7', 'wan8', 'wan9', 'zi6'] // 39
 	//const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao2', 'tiao2', 'tiao4', 'tiao5', 'tiao6', 'zi7'] // 40
 	// const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao2', 'tiao2', 'tiao4', 'tiao5', 'tiao6', 'zi6'] // 40 neg
 	// const tiles = ['bing2', 'bing2', 'bing2', 'bing6', 'bing7', 'bing8', 'tiao6', 'tiao7', 'tiao8', 'wan6', 'wan7', 'wan8', 'zi7'] // 41
@@ -95,7 +97,7 @@ export async function cheat(game) {
 	// const tiles = ['bing1', 'bing2', 'bing3', 'tiao7', 'tiao7', 'tiao7', 'zi4', 'zi4', 'wan8', 'wan8', 'wan8', 'tiao2', 'tiao3'] // 43
 	// const tiles = ['bing1', 'bing2', 'bing3', 'tiao7', 'tiao7', 'tiao7', 'tiao7', 'wan8', 'wan8', 'wan8', 'wan8', 'tiao2', 'tiao3'] // 48
 	// const tiles = ['bing9', 'bing9', 'bing9', 'tiao1', 'tiao1', 'tiao1', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'wan9', 'wan9'] // 49
-	const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'bing2'] // 49
+	// const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'bing2'] // 49
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao6', 'tiao6', 'tiao6', 'tiao8', 'tiao8', 'tiao8', 'zi5', 'zi5', 'zi1', 'zi1'] // 50
 
 	// 6 fan

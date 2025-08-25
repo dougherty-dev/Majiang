@@ -155,6 +155,7 @@ export async function fz65ShuangTongke(struct) {
  * @returns {Number} 0 or 2.
  */
 export async function fz66ShuangAnke(struct) {
+	// defunct until reimplemented
 	return (struct.concealedKezi === 2) ? FZ2 : 0
 }
 

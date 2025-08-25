@@ -13,6 +13,7 @@
  */
 
 import { DUIZI, KEZI } from '../../components/hu/patterns.js'
+import { keziLookup } from '../../components/lookup/kezi.js'
 
 const FZ64 = 64
 
@@ -72,43 +73,38 @@ export async function fz11ZiYiSe(struct) {
 }
 
 /**
- * 12. Four concealed kezi (Si anke, 四暗刻).
+ * ✅ 12. Four concealed kezi (Si anke, 四暗刻).
  * All melds are concealed kezi/gangzi, either on hand or as melded angang.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 64.
- * PROBLEMATIC, must ensure kezi
  */
 export async function fz12SiAnke(struct) {
-	// const drop2 = struct.game.drop
+	if (struct.openMelds.length) return 0
 
-	// const hupai = struct.allTypes14.filter(item => item[0] === drop2[0])
-	// 	.map(item => !item[1].match(KEZI) && item[1].match(DUIZI)).filter(item => item).flat()
+	const types14 = struct.allTypes14.map(item => [item[0], item[1].match(KEZI)]).filter(item => item[1])
+	if (types14.map(item => item[1]).flat().length !== 4) return 0
 
-	// const types = struct.allTypes14.map(item => item[1].match(KEZI)).filter(item => item).flat()
-
-	// console.log(drop2, types, hupai)
-
-	if (struct.chiMelds.length) return 0
-
-	const allKezi = struct.allTypes.map(item => item[1].match(KEZI)).filter(item => item).flat()
-	struct.concealedKezi = allKezi.length - struct.gangMelds.length - struct.pengMelds.length
-
-	const dianhu = struct.game.players[struct.key].hu.dianhu
-	const drop = struct.game.players[struct.game.currentPlayer].drop
-	if (drop) { // not defined until first tile is discarded, so zimo
-		const dianhuKezi = struct.allTypes.filter(item => item[0] === drop[7])
-			.map(item => item[1].match(KEZI)).filter(item => item)
-
-		if (dianhu && dianhuKezi.length) struct.concealedKezi -= 1
+	const types = Object.assign(struct.allTypes14.filter(item => item[1].length > 2))
+	for (const type of types) {
+		if (!keziLookup[`kezi${type[1].length}`][type[1]]) return 0
 	}
 
-	if (struct.concealedKezi === 4) {
-		struct.derivedSets = struct.allTypes
+	if (struct.game.players[struct.key].hu.dianhu) {
+		const drop = struct.game.drop
+		const pair = Object.assign(struct.allTypes14.filter(item => item[1].length === 2)).flat()
+
+		if (
+			drop.length && pair.length &&
+			(drop[0] !== pair[0] || !pair[1].includes(drop[1])) // hupai not in pair but in kezi
+		) return 0
+	}
+
+	if (!struct.derivedSets.length) {
+		struct.derivedSets = struct.allTypes14
 			.map(item => [item[0], item[1].match(KEZI) || item[1].match(DUIZI)])
-		return FZ64
 	}
 
-	return 0
+	return FZ64
 }
 
 /**

@@ -17,24 +17,49 @@
 
 import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
+import { lookup3 } from '../../components/lookup/lookup3.js'
+import { lookup5 } from '../../components/lookup/lookup5.js'
 
 const FZ8 = 8
 
-// 39. Mixed straight (Hualong, 花龙)
+// ✅ 39. Mixed straight (Hualong, 花龙)
 export async function fz39Hualong(struct) {
-	const shunzi = struct.game.players[struct.key].hu.shunzi.map(item => `${item[0]}${item[1]}`)
-	const hualong = [
-		['b123', 't456', 'w789'],
-		['b123', 't789', 'w456'],
-		['b456', 't123', 'w789'],
-		['b456', 't789', 'w123'],
-		['b789', 't123', 'w456'],
-		['b789', 't456', 'w123']
-	]
+	const shuTypes = struct.shuTypes14.filter(item => item[1])
+		.filter(item => item[1].length > 2).map(item => item[1]).flat()
+		.sort((a, b) => a.length - b.length)
 
-	for (const long of hualong) {
-		const contains = long.every(item => shunzi.includes(item))
-		if (contains) return FZ8
+	// Three suited sets, lengths: 3, 3, 3 | 3, 3, 5 | 3, 3, 6 | 3, 5, 6 
+	if (shuTypes.length < 3) return 0
+
+	let shunzi = []
+
+	if (!shuTypes[0].match(SHUNZI)) return 0
+	shunzi.push(shuTypes[0]) // First set given, length 3.
+
+	switch (shuTypes[1].length) { // Second set 3 or 5.
+	case 3:
+		shunzi.push(shuTypes[1])
+		break
+	case 5:
+		if (!lookup5[shuTypes[1]]) return 0
+		sets = lookup5[shuTypes[1]].flat().filter(item => item.length === 3)
+		if (!sets[0].match(SHUNZI)) return 0
+		shunzi.push(sets[0])
+	}
+
+	let hualong = '123456789'
+	for (const set of shunzi) {
+		hualong = hualong.replace(set, '')
+	}
+
+	if (hualong.length !== 3 || !hualong.match(SHUNZI)) return 0
+	shuTypes[2] = shuTypes[2].replace(hualong, '')
+
+	switch (shuTypes[2].length) { // Third set 3 or 6, check remainder.
+	case 0:
+		return FZ8
+	case 3:
+		return (shuTypes[2].match(SHUNZI) || shuTypes[2].match(KEZI)) ? FZ8 : 0
 	}
 
 	return 0

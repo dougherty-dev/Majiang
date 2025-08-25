@@ -13,7 +13,10 @@ import { checkHu } from './hu.js'
 export async function checkDianhu(game, tile, key) {
 	const players = ALLPLAYERS.filter(item => item !== key)
 
-	for (const index of players) {
+	const rotate = (arr, position) =>
+		Array.from(arr, (_, index) => arr[(index + position) % arr.length])
+
+	for (const index of rotate(players, key - 1)) {
 		let player = game.players[index]
 
 		const door = Object.assign([], player.door)
