@@ -47,6 +47,7 @@ export function observeDrop(game) {
 
 			// put tile on floor
 			game.players[game.currentPlayer].floor.push(tile)
+			game.openTiles.push(tile)
 			let index = game.players[game.currentPlayer].floor.length - 1
 			displayFloor(game.currentPlayer, tile, index)
 

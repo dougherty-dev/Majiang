@@ -76,26 +76,13 @@ export async function fz57ShuangMinggang(struct) {
 }
 
 /**
- * 58. Last of its kind (Hu juezhang, 和绝张).
+ * ✅ 58. Last of its kind (Hu juezhang, 和绝张).
  * Winning on the last (fourth) tile of its kind.
  * @param {Object} struct Game parameters.
  * @returns {Number} 0 or 4.
  */
 export async function fz58HuJuezhang(struct) {
-	const hupai = struct.game.hupai[2]
-	const players = Object.entries(struct.game.players)
-	const currentPlayer = struct.game.players[struct.game.currentPlayer]
-	const winner = struct.game.players[struct.key].door
-
-	if (!currentPlayer.drop) return 0
-
-	const drop = currentPlayer.drop.filter(item => item[2] === hupai)
-	const floor = players.map(item => item[1].floor).flat().filter(item => item[2] === hupai)
-	const melds = players.map(item => item[1].melds).flat().filter(item => item.type !== 'angang')
-		.map(item => item.meld).flat().filter(item => item[2] === hupai)
-	const door = winner.filter(item => item[2] === hupai)
-
-	const count = floor.length + melds.length + door.length + drop.length
-
-	return (count === 4) ? FZ4 : 0
+	const tiles = struct.game.openTiles.filter(item => item[2] === struct.game.hupai[2])
+	// One tile in hand, and one tile in drop or from wall. Thus, two open tiles.
+	return (tiles.length === 2) ? FZ4 : 0
 }

@@ -51,6 +51,7 @@ export async function checkPeng(game, discarded) {
 }
 
 async function peng(game, meldSet, meldType, pengPlayer) {
+	game.openTiles.push(meldSet[1], meldSet[2]) // discarded tile already in set
 	for (const paizi of meldSet) {
 		const index = game.players[pengPlayer].door.findIndex(elem => elem[0] === paizi[0])
 		if (index > -1) {

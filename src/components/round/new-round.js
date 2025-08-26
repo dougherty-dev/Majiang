@@ -24,6 +24,7 @@ import { cheat } from './test-cheat.js'
  */
 export async function newRound(game) {
 	game.tiles = shuffle(Object.assign([], TILES))
+	game.openTiles = []
 	game.hand++
 
 	if (game.winner && game.players[game.winner].wind !== 1) {

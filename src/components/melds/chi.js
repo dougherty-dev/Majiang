@@ -85,6 +85,7 @@ async function chi(game, meldSet, nextPlayer) {
 	for (const paizi of meldSet) {
 		const index = game.players[nextPlayer].door.findIndex(elem => elem[0] === paizi[0])
 		if (index > -1) {
+			game.openTiles.push(paizi)
 			game.players[nextPlayer].door.splice(index, 1)
 		}
 	}

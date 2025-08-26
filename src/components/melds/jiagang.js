@@ -61,6 +61,7 @@ async function jiagang(game, peng, tile) {
 		for (const meld of game.players[game.currentPlayer].melds) {
 			if (meld.meld[0][1] === tile[1] && meld.meld[0][7] === tile[7]) {
 				meld.meld.push(tile)
+				game.openTiles.push(tile)
 			}
 		}
 	}
