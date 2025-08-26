@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong24
+ * @description 24 番 (fan) scoring rules.
  * @property {Function} fz19QiDui 19. Seven pairs (Qi dui, 七对).
  * @property {Function} fz20QiXingBuKao 20. Greater honors and knitted tiles (Qi xing bu kao, 七星不靠).
  * @property {Function} fz21QuanShuangKe 21. All even kezi (Quan shuang ke, 全双刻).

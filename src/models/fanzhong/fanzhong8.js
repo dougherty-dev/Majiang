@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong8
+ * @description 8 番 (fan) scoring rules.
  * @property {Function} fz39Hualong 39. Mixed straight (Hualong, 花龙).
  * @property {Function} fz40Tuibudao 40. Reversible tiles (Tuibudao, 推不倒).
  * @property {Function} fz41SanSeSanTongshun 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
@@ -17,7 +18,6 @@
 
 import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
-import { lookup3 } from '../../components/lookup/lookup3.js'
 import { lookup5 } from '../../components/lookup/lookup5.js'
 
 const FZ8 = 8
@@ -36,6 +36,7 @@ export async function fz39Hualong(struct) {
 	if (!shuTypes[0].match(SHUNZI)) return 0
 	shunzi.push(shuTypes[0]) // First set given, length 3.
 
+	let sets
 	switch (shuTypes[1].length) { // Second set 3 or 5.
 	case 3:
 		shunzi.push(shuTypes[1])
@@ -52,7 +53,7 @@ export async function fz39Hualong(struct) {
 		hualong = hualong.replace(set, '')
 	}
 
-	if (hualong.length !== 3 || !hualong.match(SHUNZI)) return 0
+	if (hualong.length !== 3 || !hualong.match(SHUNZI) || !shuTypes[2].match(hualong)) return 0
 	shuTypes[2] = shuTypes[2].replace(hualong, '')
 
 	switch (shuTypes[2].length) { // Third set 3 or 6, check remainder.

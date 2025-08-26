@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong1
+ * @description 1 番 (fan) scoring rules.
  * @property {Function} fz69YibanGao 69. Pure double shunzi (Yiban gao, 一般高).
  * @property {Function} fz70XiXiangfeng 70. Mixed double shunzi (Xi xiangfeng, 喜相逢).
  * @property {Function} fz71LianLiu 71. Short straight (Lian liu, 连六).
@@ -19,6 +20,7 @@
  */
 
 import { checkPattern, tingpai } from '../../components/hu/check-type.js'
+import { KEZI } from '../../components/hu/patterns.js'
 import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
 import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
 import { lianliuLookup } from '../../components/lookup/lianliu.js'
@@ -69,12 +71,12 @@ export async function fz70XiXiangfeng(struct) {
 	let pass
 	let count = 0
 	for (const p of patterns) {
-		pass = true
 		for (const shuType of shuTypes) {
+			pass = true
 			type = shuType
 			type = type.replace(p[0], '').replace(p[1], '').replace(p[2], '')
 
-			if (type !== '' && !await checkPattern(type)) {
+			if (!(type === '' || await checkPattern(type))) {
 				pass = false
 				continue
 			}
@@ -123,22 +125,33 @@ export async function fz72LaoshaoFu(struct) {
 }
 
 /**
- * 73. Terminal kezi (Yao jiu ke, 幺九刻).
- * Single kezi (gangzi) of ones, nines, or a wind.
+ * ✅ 73. Terminal kezi (Yao jiu ke, 幺九刻).
+ * Single kezi (gangzi) of ones, nines, or winds.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 1.
+ * @returns {Number} 0–4, one per terminal kezi.
  */
 export async function fz73YaoJiuKe(struct) {
-	const kezi = struct.game.players[struct.key].hu.kezi
-	const gangzi = struct.game.players[struct.key].hu.gangzi
-	struct.keziGangzi = [...kezi, ...gangzi]
+	let count = struct.allTypes14.filter(item => item[0] === 'f')
+		.map(item => item[1].match(KEZI)).filter(item => item).flat().length
 
-	const types = struct.keziGangzi
-		.map(item => [item[0], item[1][0]])
-		.filter(item => item[0] !== 'j')
-		.filter(item => item[0] === 'f' || item[1] === '1' || item[1] === '9')
+	const shu = struct.shuTypes14.map(item => item[1]).filter(item => item.length > 2)
 
-	return types.length * FZ1
+	for (const shuType of shu) {
+		let type = shuType
+		const kezi = type.match(/111|999/g) ?? []
+
+		for (const set of kezi) {
+			let previousType = type
+			type = type.replace(set, '')
+			if (checkPattern(type)) {
+				count++
+			} else {
+				type = previousType
+			}
+		}
+	}
+
+	return count * FZ1
 }
 
 /**

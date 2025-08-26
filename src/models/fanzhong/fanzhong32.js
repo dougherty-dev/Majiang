@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong32
+ * @description 32 番 (fan) scoring rules.
  * @property {Function} fz16YiSeSiBuGao 16. Four shifted shunzi (Yi se si bu gao, 一色四步高).
  * @property {Function} fz17SanGang 17. Three gangs (San gang, 三杠).
  * @property {Function} fz18HunYaoJiu 18. Non-pure terminals (Hun yao jiu, 混幺九).

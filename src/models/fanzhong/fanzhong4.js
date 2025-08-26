@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong4
+ * @description 4 番 (fan) scoring rules.
  * @property {Function} fz55QuanDaiYao 55. Outside hand (Quan dai yao, 全带幺).
  * @property {Function} fz56BuQiuRen 56. Fully concealed hand (Bu qiu ren, 不求人).
  * @property {Function} fz57ShuangMinggang 57. Two melded gangs (Shuang minggang, 双明杠).

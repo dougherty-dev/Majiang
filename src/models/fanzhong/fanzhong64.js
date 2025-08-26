@@ -3,7 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong64
- * @description Rules definitions for 64 fan.
+ * @description 64 番 (fan) scoring rules.
  * @property {Function} fz8QingYaoJiu 8. Pure terminals (Qing yao jiu, 清幺九).
  * @property {Function} fz9XiaoSiXi 9. Little four winds (Xiao si xi, 小四喜).
  * @property {Function} fz10XiaoSanYuan 10. Little three dragons (Xiao san yuan, 小三元).

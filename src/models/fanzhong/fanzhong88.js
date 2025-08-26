@@ -3,7 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong88
- * @description Rules definitions for 88 fan.
+ * @description 88 番 (fan) scoring rules.
  * @property {Function} fz1DaSiXi 1. Big four winds (Da si xi, 大四喜).
  * @property {Function} fz2DaSanYuan 2. Big three dragons (Da san yuan, 大三元).
  * @property {Function} fz3LyYise 3. All green (Lü yise, 绿一色).

@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong12
+ * @description 12 番 (fan) scoring rules.
  * @property {Function} fz34QuanBuKao 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
  * @property {Function} fz35ZuheLong 35. Knitted straight (Zuhe long, 组合龙).
  * @property {Function} fz36DaYuWu 36. Upper four (Da yu wu, 大于五).

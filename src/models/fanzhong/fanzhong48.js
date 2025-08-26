@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong48
+ * @description 48 番 (fan) scoring rules.
  * @property {Function} fz14YiSeSiTongshun 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
  * @property {Function} fz15YiSeSiJieGao 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
  */

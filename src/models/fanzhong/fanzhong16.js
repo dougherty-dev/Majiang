@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong16
+ * @description 16 番 (fan) scoring rules.
  * @property {Function} fz28QingLong 28. Pure straight (Qing long, 清龙).
  * @property {Function} fz29SanSeShuangLongHui 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
  * @property {Function} fz30YiSeSanBuGao 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
@@ -180,7 +181,7 @@ export async function fz33SanAnke(struct) {
 	if (types14.map(item => item[1]).flat().length < 3) return 0 // 11123 false positive
 
 	let sets = []
-	const melds = struct.chiMelds;
+	const melds = struct.chiMelds
 	const types = struct.allTypes14.filter(item => item)
 	for (const type of types) {
 		if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type[1].length)) {

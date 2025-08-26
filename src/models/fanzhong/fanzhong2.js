@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong2
+ * @description 2 番 (fan) scoring rules.
  * @property {Function} fz59Jianke 59. Dragon kezi (Jianke, 箭刻).
  * @property {Function} fz60Quanfengke 60. Prevalent wind (Quanfengke, 圈风刻).
  * @property {Function} fz61Menfengke 61. Seat wind (Menfengke, 门风刻).
@@ -129,8 +130,7 @@ export async function fz65ShuangTongke(struct) {
 
 	let shuangTonke
 	let shuTypes = struct.shuTypes14.map(item => item[1])
-	for (const candidate of candidates) {
-		// Remove kezi, check remainder
+	for (const candidate of candidates) { // Remove kezi, check remainder
 		shuangTonke = true
 
 		for (const shuType of shuTypes) {

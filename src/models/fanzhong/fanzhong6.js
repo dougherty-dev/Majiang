@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong6
+ * @description 6 番 (fan) scoring rules.
  * @property {Function} fz49PengpengHu 49. All kezi (Pengpeng hu, 碰碰和).
  * @property {Function} fz50HunYiSe 50. Half flush (Hun yi se, 混一色).
  * @property {Function} fz51SanSeSanBuGao 51. Mixed shifted shunzi (San se san bu gao, 三色三步高).
