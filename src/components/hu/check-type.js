@@ -39,7 +39,7 @@ const lookup = {
  * @param {string} type Principal numerical representation of a tile type.
  * @param {string} lookupKey Lookup table name.
  * @param {Object} player The player object.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function checkType(key, type, lookupKey, player) {
 	if (!(type in lookup[lookupKey])) return false
@@ -103,7 +103,7 @@ export async function checkType(key, type, lookupKey, player) {
 /**
  * Determine if waiting for a single possible tile.
  * @param {number} seq Type sequence.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function tingpai(seq) {
 	const index = `lookup${seq.length + 1}`
@@ -125,7 +125,7 @@ export async function tingpai(seq) {
 /**
  * Match set against lookup pattern.
  * @param {Object} type 
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function checkPattern(type) {
 	if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {

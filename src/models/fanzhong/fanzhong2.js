@@ -26,7 +26,7 @@ const FZ2 = 2
  * ✅ 59. Dragon kezi (Jianke, 箭刻).
  * Single kezi (gangzi) of dragon tiles.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz59Jianke(struct) {
 	return (struct.jianTypes.match(/1{3,4}|2{3,4}|3{3,4}/g)) ? FZ2 : 0
@@ -36,7 +36,7 @@ export async function fz59Jianke(struct) {
  * ✅ 60. Prevalent wind (Quanfengke, 圈风刻).
  * Kezi (gangzi) of wind tile corresponding to the prevalent wind.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz60Quanfengke(struct) {
 	const regex = new RegExp(`${struct.game.prevailingWind}{3,4}`, 'g')
@@ -48,7 +48,7 @@ export async function fz60Quanfengke(struct) {
  * ✅ 61. Seat wind (Menfengke, 门风刻).
  * Kezi (gangzi) of wind tile corresponding to the seat wind.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz61Menfengke(struct) {
 	const regex = new RegExp(`${struct.game.players[struct.key].wind}{3,4}`, 'g')
@@ -60,10 +60,10 @@ export async function fz61Menfengke(struct) {
  * ✅ 62. Concealed hand (Menqian qing, 门前清).
  * All tiles are concealed, on board or on hand, winning by a discarded tile.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz62MenqianQing(struct) {
-	const dianhu = struct.game.players[struct.key].hu.dianhu
+	const dianhu = struct.game.players[struct.key].dianhu
 	const melds = struct.game.players[struct.key].melds
 	const allConcealed = melds.filter(item => item.type !== 'angang').length === 0
 
@@ -74,7 +74,7 @@ export async function fz62MenqianQing(struct) {
  * ✅ 63. All shunzi (Pinghu, 平和).
  * Four shunzi and a suited pair.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz63Pinghu(struct) {
 	if (
@@ -97,7 +97,7 @@ export async function fz63Pinghu(struct) {
  * ✅ 64. Tile hog (Si gui yi, 四归一).
  * Four shunzi and a suited pair.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz64SiGuiYi(struct) {
 	const gangValues = struct.game.players[struct.key].melds
@@ -118,7 +118,7 @@ export async function fz64SiGuiYi(struct) {
  * ✅ 65. Double kezi (Shuang tongke, 双同刻).
  * Two kezi (gangzi) of the same value in different suits.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz65ShuangTongke(struct) {
 	const types = struct.shuTypes14.filter(item => item[1])
@@ -152,7 +152,7 @@ export async function fz65ShuangTongke(struct) {
  * 66. Two concealed kezi (Shuang anke, 双暗刻).
  * Two concealed kezi (gangzi), on hand or melded (angang).
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz66ShuangAnke(struct) {
 	// defunct until reimplemented
@@ -163,7 +163,7 @@ export async function fz66ShuangAnke(struct) {
  * ✅ 67. Concealed gang (Angang, 暗杠).
  * Self-drawn gang concealed on board.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz67Angang(struct) {
 	return (struct.angangMelds.length === 1) ? FZ2 : 0
@@ -173,7 +173,7 @@ export async function fz67Angang(struct) {
  * ✅ 68. All simples (Duanyao, 断幺).
  * Hand without terminals (1, 9, honors).
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 2.
+ * @returns {Promise<Number>} 0 or 2.
  */
 export async function fz68Duanyao(struct) {
 	const shuTypes = struct.shuTypes.map(item => item[1]).join('')

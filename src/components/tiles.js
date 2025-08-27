@@ -18,7 +18,7 @@ import { draw } from './round/hu.js'
  * @param {Object} tile 
  * @param {String} ext 
  * @param {Boolean} hidden 
- * @returns 
+ * @returns {Object}
  */
 export function createTile(tile, ext = '', hidden = false) {
 	if (!tile) return
@@ -59,7 +59,7 @@ export function createTile(tile, ext = '', hidden = false) {
 /**
  * Return a tile from wall, or false if no tile left.
  * @param {Object} tiles
- * @returns {Object|false}
+ * @returns {Promise<Object|false>}
  */
 export async function takeTile(tiles) {
 	if (tiles.length) {
@@ -80,7 +80,8 @@ export async function takeTile(tiles) {
  * components/play/play
  * components/checks/newTileChecks
  * components/checks/dropTileChecks
- * @param {Object} game 
+ * @param {Object} game The game parameters.
+ * @returns {Promise<boolean>}
  */
 export async function newTile(game) {
 	game.gangshangKaihua = false
@@ -134,7 +135,7 @@ export async function newTile(game) {
 
 /**
  * Inital replacement of flower tiles, for all players.
- * @param {Object} game 
+ * @param {Object} game The game parameters.
  */
 export async function replaceFlowers(game) {
 	let tileCopy

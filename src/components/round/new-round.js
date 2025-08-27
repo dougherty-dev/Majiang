@@ -16,15 +16,34 @@ import { displayPrevailingWind, displaySeatWinds } from '../display/winds.js'
 import { displayDoors } from '../display/door.js'
 import { gameOver } from './game-over.js'
 import { cheat } from './test-cheat.js'
+import { ALLPLAYERS } from '../../models/constants.js'
+import Hu from '../../models/hu.js'
 
 /**
  * Prepare new round. Set winds, rotate players.
  * @param {Object} game The game parameters.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function newRound(game) {
+	for (const index of ALLPLAYERS) {
+		game.players[index].tingpai = null
+		game.players[index].discarded = null
+		game.players[index].door = []
+		game.players[index].melds = []
+		game.players[index].flowers = []
+		game.players[index].floor = []
+		game.players[index].drop = []
+		game.players[index].sets = []
+		game.players[index].zimo = false
+		game.players[index].dianhu = false
+		game.players[index].shisanyao = false
+		game.players[index].qidui = false
+		game.players[index].hu = new Hu().hu
+	}
+
 	game.tiles = shuffle(Object.assign([], TILES))
 	game.openTiles = []
+	game.hupai = null
 	game.hand++
 
 	if (game.winner && game.players[game.winner].wind !== 1) {
@@ -51,8 +70,9 @@ export async function newRound(game) {
 	displayPrevailingWind(game.prevailingWind)
 
 	game.currentPlayer = zhuangjiaBanker(game.players)
-	game.winner = null
-	game.draw = null
+	game.winner = false
+	game.draw = false
+	game.qianggang = false
 
 	const cheatOn = false
 	if (cheatOn) {

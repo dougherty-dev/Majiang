@@ -25,11 +25,10 @@ export async function initGame(game) {
 		currentPlayer: null,
 		tiles: [],
 		openTiles: [],
+		hupai: [],
 		sorted: false,
 		draw: false,
 		winner: false,
-		hupai: null,
-		tingpai: null,
 		qianggang: false,
 		drop: [null, null],
 		players: new Players().players

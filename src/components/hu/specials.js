@@ -18,7 +18,7 @@ import { DUIZI, KEZI } from './patterns.js'
  * Determine if winning by a special hand.
  * @param {Object} player The player object.
  * @param {Array} door The tiles at hand.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function checkSpecial(player, door) {
 	return (
@@ -34,7 +34,7 @@ export async function checkSpecial(player, door) {
  * This hand has no melds, door always has 14 tiles.
  * @param {Object} player The player object.
  * @param {Array} door The tiles at hand.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 async function sevenPairs(player, door) {
 	let pairs = 0
@@ -48,7 +48,7 @@ async function sevenPairs(player, door) {
 
 	if (pairs !== 7) return false
 
-	player.hu.qidui = true
+	player.qidui = true
 	player.hu.pairs = pairs
 	for (const [index, tile] of Object.entries(door)) {
 		if (index % 2 !== 0) continue
@@ -63,10 +63,10 @@ async function sevenPairs(player, door) {
  * 13 orphans. One each of ones, nines, and honor tiles, plus additional pair tile.
  * This hand has no melds, door always has 14 tiles.
  * @param {Object} player The player object.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 async function orphans(player) {
-	const values = Object.values(player.hu.types).filter(item => item !== '')
+	const values = Object.values(player.hu.types).filter(item => item)
 
 	if (
 		values.length === 5 &&
@@ -76,7 +76,7 @@ async function orphans(player) {
 		player.hu.types.f.match(/1{1,2}2{1,2}3{1,2}4{1,2}/g) &&
 		player.hu.types.j.match(/1{1,2}2{1,2}3{1,2}/g)
 	) {
-		player.hu.shisanyao = true
+		player.shisanyao = true
 		return true
 	}
 
@@ -87,7 +87,7 @@ async function orphans(player) {
  * Knitted tiles with honors, greater or lesser.
  * This hand has no melds, door always has 14 tiles.
  * @param {Object} player The player object.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 async function knittedHonors(player) {
 	const types = Object.entries(player.hu.types)
@@ -137,7 +137,7 @@ async function knittedHonors(player) {
  * Three special shunzi 1-4-7, 2-5-8, and 3-6-9 in different suits.
  * Allows for one regular meld.
  * @param {Object} player The player object.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 async function knittedStraight(player) {
 	const types = Object.entries(player.hu.types)

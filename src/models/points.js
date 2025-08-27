@@ -13,10 +13,8 @@
  * @property {Function} applyRule Call actual fanzhong rule, add new exclusions.
  */
 
-const EXTRAPOINTS = 8
-
 import { TYPES } from '../components/hu/patterns.js'
-import { ALLPLAYERS } from './constants.js'
+import { ALLPLAYERS, EXTRAPOINTS } from './constants.js'
 import { fz69YibanGao, fz70XiXiangfeng, fz71LianLiu, fz72LaoshaoFu, fz73YaoJiuKe, fz74Minggang,
 	fz75QueYiMen, fz76WuZi, fz77Bianzhang, fz78Kanzhang, fz79DandiaoJiang, fz80Zimo, fz81Huapai }
 	from './fanzhong/fanzhong1.js'
@@ -63,9 +61,7 @@ export default class Points {
 		this.setupFanzhong()
 	}
 
-	/**
-	 * Common structures for lexical analysis of patterns.
-	 */
+	// Common structures for lexical analysis of patterns.
 	setupTypes() {
 		this.struct.types = Object.assign({}, TYPES)
 		this.struct.types14 = Object.assign({}, TYPES)
@@ -90,13 +86,10 @@ export default class Points {
 		}
 	}
 
-	/**
-	 * Common structures for player.
-	 * Unreliable, should retire.
-	 */
+	// Common structures for player. Unreliable, should be retired.
 	setupHu() {
 		const hu = this.struct.game.players[this.struct.key].hu
-		hu.values = Object.values(this.struct.types).filter(item => item !== '')
+		hu.values = Object.values(this.struct.types).filter(item => item)
 
 		hu.allMelds = Object.assign([], [
 			...hu.duizi,
@@ -106,9 +99,7 @@ export default class Points {
 		])
 	}
 
-	/**
-	 * Common structures used in fanzhong rules definitions.
-	 */
+	// Common structures used in fanzhong rules definitions.
 	setupCommon() {
 		this.struct.allTypes = Object.entries(this.struct.types)
 		this.struct.allTypes14 = Object.entries(this.struct.types14)
@@ -163,7 +154,7 @@ export default class Points {
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, [57, 74, 76]],
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, [29, 49, 55, 63, 73]],
 			// 24 fan
-			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, [79]],
+			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, [21, 22, 29, 49, 63, 63, 79]],
 			'20': ['七星不靠', 'Qi xing bu kao', 'Greater honors and knitted tiles', fz20QiXingBuKao, 0, [52]],
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, [29, 49, 63, 68]],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, [76]],
@@ -236,9 +227,7 @@ export default class Points {
 		}
 	}
 
-	/**
-	 * Distribution of points and extra points from losers to winner.
-	 */
+	// Distribution of points and extra points from losers to winner.
 	sumPoints(game, key) {
 		const players = ALLPLAYERS.filter(item => item !== key)
 
@@ -260,9 +249,7 @@ export default class Points {
 		}
 	}
 
-	/**
-	 * Iterate over fanzhong data matrix.
-	 */
+	// Iterate over fanzhong data matrix.
 	async fanPoints() {
 		for await (const key of Object.keys(this.fanzhong)) {
 			if (key === '43' || key === '81' || this.struct.exclude.includes(parseInt(key))) continue
@@ -277,9 +264,7 @@ export default class Points {
 		await this.applyRule('81')
 	}
 
-	/**
-	 * Call actual fanzhong rule, add new exclusions.
-	 */
+	// Call actual fanzhong rule, add new exclusions.
 	async applyRule(key) {
 		const fz = this.fanzhong[key]
 		const points = await fz[3](this.struct)

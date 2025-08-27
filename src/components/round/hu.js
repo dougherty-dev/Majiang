@@ -30,7 +30,7 @@ export async function draw(game) {
  * Announce and display potentially winning hand.
  * @param {Object} game The game parameters.
  * @param {*} key Winning player.
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
 export async function hu(game, key) {
 	// Collect tiles for point analysis.
@@ -43,7 +43,7 @@ export async function hu(game, key) {
 
 	tiles = [...tiles, ...game.players[key].door]
 
-	if (game.players[key].hu.dianhu) {
+	if (game.players[key].dianhu) {
 		const tile = game.players[game.currentPlayer].drop
 		tiles.push(tile)
 	}

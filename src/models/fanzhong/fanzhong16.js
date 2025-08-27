@@ -23,7 +23,7 @@ const FZ16 = 16
  * ✅ 28. Pure straight (Qing long, 清龙).
  * Three shunzi 123, 456, 789 in the same suit.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz28QingLong(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
@@ -40,7 +40,7 @@ export async function fz28QingLong(struct) {
  * ✅ 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
  * Two suited shunzi each of 1-2-3 and 7-8-9, and a pair of fives in the third suit.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz29SanSeShuangLongHui(struct) {
 	const shuanglong = struct.shuTypes.filter(item => item[1] === '123789').length
@@ -53,7 +53,7 @@ export async function fz29SanSeShuangLongHui(struct) {
  * ✅ 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
  * Three suited shunzi shifted up either 1 or 2 in value, but not both.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz30YiSeSanBuGao(struct) {
 	const shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
@@ -102,7 +102,7 @@ export async function fz30YiSeSanBuGao(struct) {
  * ✅ 31. All fives (Quan dai wu, 全带五).
  * All shunzi, kezi (gangzi) and duizi containing a five.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz31QuanDaiWu(struct) {
 	if (struct.hasZi) return 0
@@ -137,7 +137,7 @@ export async function fz31QuanDaiWu(struct) {
  * ✅ 32. Triple kezi (San tongke, 三同刻).
  * Three kezi (gangzi) of the same value.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
 	const types = struct.shuTypes14.filter(item => item[1])
@@ -172,7 +172,7 @@ export async function fz32SanTongke(struct) {
  * 33. Three concealed kezi (San anke, 三暗刻).
  * Three kezi (gangzi), on hand or melded (angang).
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 16.
+ * @returns {Promise<Number>} 0 or 16.
  */
 export async function fz33SanAnke(struct) {
 	if (struct.openMelds.length > 1) return 0
@@ -218,9 +218,9 @@ export async function fz33SanAnke(struct) {
 	const shunzi = sets.filter(item => item[1].match(SHUNZI)).flat()
 	const kezi = sets.filter(item => item[1].match(KEZI))
 
-	if (pair.length !== 2 || shunzi.length !== 2 || kezi.length !== 3) return 0
+	if (pair.length !== 2 || kezi.length < 3) return 0
 
-	if (struct.game.players[struct.key].hu.dianhu) {
+	if (struct.game.players[struct.key].dianhu) {
 		const drop = struct.game.drop
 
 		if (

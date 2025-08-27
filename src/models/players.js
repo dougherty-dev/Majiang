@@ -12,15 +12,19 @@ class Player {
 		this.player = {
 			points: 0,
 			wind: null,
+			turn: false,
 			tingpai: false,
 			discarded: false,
-			turn: false,
 			door: [],
 			melds: [],
 			flowers: [],
 			floor: [],
 			drop: [],
 			sets: [],
+			zimo: false,
+			dianhu: false,
+			shisanyao: false,
+			qidui: false,
 			hu: new Hu().hu
 		}
 	}

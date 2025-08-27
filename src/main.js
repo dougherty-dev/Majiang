@@ -7,8 +7,6 @@
  * Instantiate the Majiang class.
  */
 
-import Majiang from './models/majiang.js'
-
 import Router from './router.js'
 import Navigation from './navigation.js'
 
@@ -16,6 +14,8 @@ import HomeView from './views/home-view.js'
 import NotFoundView from './views/not-found-view.js'
 import BoardView from './views/board-view.js'
 import RulesView from './views/rules-view.js'
+
+import Majiang from './models/majiang.js'
 
 customElements.define('router-outlet', Router)
 customElements.define('navigation-outlet', Navigation)

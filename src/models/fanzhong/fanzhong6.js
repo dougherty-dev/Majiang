@@ -12,7 +12,7 @@
  * @property {Function} fz54ShuangJianke 54. Two dragons kezi (Shuang jianke, 双箭刻).
  */
 
-import { SHUNZI } from '../../components/hu/patterns.js'
+import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
 import { keziLookup } from '../../components/lookup/kezi.js'
 import { lookup5 } from '../../components/lookup/lookup5.js'
 import { lookup6 } from '../../components/lookup/lookup6.js'
@@ -23,10 +23,13 @@ const FZ6 = 6
  * ✅ 49. All kezi (Pengpeng hu, 碰碰和).
  * Four kezi (gangzi) and a pair.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz49PengpengHu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item.length > 2)
+	const kezi = types.map(item => item.match(KEZI)).flat()
+
+	if (kezi.length < 4) return 0
 
 	for (const type of types) {
 		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {
@@ -41,7 +44,7 @@ export async function fz49PengpengHu(struct) {
  * ✅ 50. Half flush (Hun yi se, 混一色).
  * All tiles in one single suit and honors.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz50HunYiSe(struct) {
 	const shuTypes = struct.shuTypes.filter(item => item[1])
@@ -53,7 +56,7 @@ export async function fz50HunYiSe(struct) {
  * ✅ 51. Mixed shifted shunzi (San se san bu gao, 三色三步高).
  * One shunzi in each suit, consecutively shifted up in value.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz51SanSeSanBuGao(struct) {
 	const shuTypes = struct.shuTypes14.filter(item => item[1])
@@ -110,7 +113,7 @@ export async function fz51SanSeSanBuGao(struct) {
  * ✅ 52. All types (Wu men ji, 五门齐).
  * Each of the five sets consisting of a different type.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz52WuMenJi(struct) {
 	const types = struct.allTypes.filter(item => item[1])
@@ -122,10 +125,10 @@ export async function fz52WuMenJi(struct) {
  * ✅ 53. Melded hand (Quan qiu ren, 全求人).
  * Every set, including the last pair, completed by melding from discarded tiles.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz53QuanQiuRen(struct) {
-	const dianhu = struct.game.players[struct.key].hu.dianhu
+	const dianhu = struct.game.players[struct.key].dianhu
 	const melds = struct.game.players[struct.key].melds.length
 
 	return (melds === 4 && dianhu) ? FZ6 : 0
@@ -135,7 +138,7 @@ export async function fz53QuanQiuRen(struct) {
  * ✅ 54. Two dragons kezi (Shuang jianke, 双箭刻).
  * Two kezi (gangzi) of dragon tiles.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 6.
+ * @returns {Promise<Number>} 0 or 6.
  */
 export async function fz54ShuangJianke(struct) {
 	const pattern = /1{3,4}2{3,4}|1{3,4}3{3,4}|2{3,4}3{3,4}/g

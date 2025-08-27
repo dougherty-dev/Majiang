@@ -7,7 +7,7 @@
  * @property {Function} displayResults Display results of hand (draw or win).
  */
 
-import { ALLPLAYERS, HUMANPLAYER, MAJIANGAVATAR } from '../../models/constants.js'
+import { HUMANPLAYER, MAJIANGAVATAR } from '../../models/constants.js'
 import { createElement } from '../elements.js'
 import { newRound } from './new-round.js'
 import { delay, sortTiles, sound } from '../helpers.js'
@@ -17,7 +17,6 @@ import { revealDoors } from '../display/door.js'
 import { revealMelds } from '../display/melds.js'
 import { play } from '../play.js'
 import { createTile } from '../tiles.js'
-import Hu from '../../models/hu.js'
 
 /**
  * Announce draw or win. List applicable fan rules with scores, and total points.
@@ -109,18 +108,6 @@ export async function displayResults(game, key, tiles, points) {
 	})
 
 	if (resultsOverlay) resultsOverlay.remove()
-
-	// Prepare new round.
-	for (const index of ALLPLAYERS) {
-		game.players[index].tingpai = null
-		game.players[index].discarded = null
-		game.players[index].door = []
-		game.players[index].melds = []
-		game.players[index].flowers = []
-		game.players[index].floor = []
-		game.players[index].drop = null
-		game.players[index].hu = new Hu().hu
-	}
 
 	displayRound(game.round, game.rotation, game.hand)
 

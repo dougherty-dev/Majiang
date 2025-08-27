@@ -15,7 +15,7 @@ const FZ32 = 32
  * ✅ 16. Four shifted shunzi (Yi se si bu gao, 一色四步高).
  * Four shunzi in the same suit, shifted up one or two in value for each shunzi.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 32.
+ * @returns {Promise<Number>} 0 or 32.
  */
 export async function fz16YiSeSiBuGao(struct) {
 	if (struct.nonchiMelds.length) return 0
@@ -42,7 +42,7 @@ export async function fz16YiSeSiBuGao(struct) {
  * ✅ 17. Three gangs (San gang, 三杠).
  * Exactly three gangs amounts to 17 tiles.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 32.
+ * @returns {Promise<Number>} 0 or 32.
  */
 export async function fz17SanGang(struct) {
 	return (struct.tiles.length === 17) ? FZ32 : 0
@@ -52,7 +52,7 @@ export async function fz17SanGang(struct) {
  * ✅ 18. Non-pure terminals (Hun yao jiu, 混幺九).
  * Kezi (gangzi) and a single duizi of ones and/or nines, and honors.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 32.
+ * @returns {Promise<Number>} 0 or 32.
  */
 export async function fz18HunYaoJiu(struct) {
 	if (!struct.hasZi || struct.chiMelds.length) return 0

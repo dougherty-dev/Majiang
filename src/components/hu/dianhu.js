@@ -17,14 +17,14 @@ export async function checkDianhu(game, tile, key) {
 		Array.from(arr, (_, index) => arr[(index + position) % arr.length])
 
 	for (const index of rotate(players, key - 1)) {
-		let player = game.players[index]
+		const player = game.players[index]
 
 		const door = Object.assign([], player.door)
 		door.push(tile)
 		sortTiles(door)
 
 		if (await checkHu(player, door)) {
-			player.hu.dianhu = true
+			player.dianhu = true
 			game.hupai = tile
 			game.winner = index
 			if (await hu(game, index)) return true

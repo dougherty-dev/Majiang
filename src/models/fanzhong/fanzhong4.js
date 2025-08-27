@@ -19,7 +19,7 @@ const FZ2 = 2
  * ✅ 55. Outside hand (Quan dai yao, 全带幺).
  * Terminals included in every set.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 4.
+ * @returns {Promise<Number>} 0 or 4.
  * 19. Qi dui covered in 18. Hun yao jiu, with 55 excluded.
  */
 export async function fz55QuanDaiYao(struct) {
@@ -54,12 +54,12 @@ export async function fz55QuanDaiYao(struct) {
  * ✅ 56. Fully concealed hand (Bu qiu ren, 不求人).
  * Hand with no melds, must win by self-draw.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 4.
+ * @returns {Promise<Number>} 0 or 4.
  */
 export async function fz56BuQiuRen(struct) {
 	return (
 		struct.game.players[struct.key].melds.length === 0 &&
-		struct.game.zimo
+		struct.game.players[struct.key].zimo
 	) ? FZ4 : 0
 }
 
@@ -67,7 +67,7 @@ export async function fz56BuQiuRen(struct) {
  * ✅ 57. Two melded gangs (Shuang minggang, 双明杠).
  * Two melded open gang. Angang plus minggang gives six points.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0, 4 or 6.
+ * @returns {Promise<Number>} 0, 4 or 6.
  */
 export async function fz57ShuangMinggang(struct) {
 	if (struct.angangMelds.length === 1 && struct.gangMelds.length === 1) return FZ4 + FZ2
@@ -79,7 +79,7 @@ export async function fz57ShuangMinggang(struct) {
  * ✅ 58. Last of its kind (Hu juezhang, 和绝张).
  * Winning on the last (fourth) tile of its kind.
  * @param {Object} struct Game parameters.
- * @returns {Number} 0 or 4.
+ * @returns {Promise<Number>} 0 or 4.
  */
 export async function fz58HuJuezhang(struct) {
 	const tiles = struct.game.openTiles.filter(item => item[2] === struct.game.hupai[2])

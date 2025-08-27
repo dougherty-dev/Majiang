@@ -78,8 +78,13 @@
 }
 
 @keyframes come-down {
-	0% { transform: translateY(-4rem) scale(5); }
-	100% { transform: translateY(0) scale(1); }
+	0% {
+		transform: translateY(-4rem) scale(5);
+	}
+
+	100% {
+		transform: translateY(0) scale(1);
+	}
 }
 
 .dragleft {

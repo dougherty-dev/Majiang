@@ -16,7 +16,7 @@ import Hu from '../../models/hu.js'
  * The exact nature of the hu will be decided later, for now just confirm a winning pattern.
  * @param {Object} player Potential winner.
  * @param {Object} door Remaining tiles at hand.
- * @returns Boolean
+ * @returns {Promise<boolean>}
  */
 export async function checkHu(player, door) {
 	player.hu = new Hu().hu
@@ -47,7 +47,7 @@ export async function checkHu(player, door) {
 	}
 
 	// Regular hands.
-	const types = Object.entries(player.hu.types).filter(item => item[1] !== '')
+	const types = Object.entries(player.hu.types).filter(item => item[1])
 	for await (const [key, type] of types) {
 		if (
 			[1, 4, 7, 10, 13].includes(type.length) ||
