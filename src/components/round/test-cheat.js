@@ -98,7 +98,7 @@ export async function cheat(game) {
 	// const tiles = ['bing1', 'bing2', 'bing3', 'tiao7', 'tiao7', 'tiao7', 'tiao7', 'wan8', 'wan8', 'wan8', 'wan8', 'tiao2', 'tiao3'] // 48
 	// const tiles = ['bing9', 'bing9', 'bing9', 'tiao1', 'tiao1', 'tiao1', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'wan9', 'wan9'] // 49
 	// const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'bing2'] // 49
-	const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'wan4'] // 49
+	// const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'wan4'] // 49
 	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao6', 'tiao6', 'tiao6', 'tiao8', 'tiao8', 'tiao8', 'zi5', 'zi5', 'zi1', 'zi1'] // 50
 
 	// 6 fan
@@ -123,6 +123,11 @@ export async function cheat(game) {
 	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'bing2'] // 71
 	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'tiao1', 'tiao2', 'tiao3', 'tiao7', 'tiao8', 'tiao9', 'zi7'] // 72
 	// const tiles = ['bing9', 'bing9', 'bing9', 'bing1', 'bing1', 'bing1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'zi1', 'wan2'] // 73 幺九刻
+	// const tiles = ['bing9', 'bing9', 'bing9', 'bing1', 'bing1', 'bing1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan1', 'wan2'] // 77 边张
+	// const tiles = ['wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan1', 'wan2'] // 77 边张
+	// const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan8', 'wan9'] // 77 边张
+	// const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan8', 'wan7'] // 77 边张 neg
+	const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan7', 'wan9'] // 78 坎张
 
 	for (const tile of tiles) {
 		game.players[4].door.push(game.tiles.splice(game.tiles.findIndex(item => item[2] === tile), 1)[0])

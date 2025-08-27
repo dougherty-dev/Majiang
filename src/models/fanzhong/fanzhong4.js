@@ -82,7 +82,17 @@ export async function fz57ShuangMinggang(struct) {
  * @returns {Promise<Number>} 0 or 4.
  */
 export async function fz58HuJuezhang(struct) {
-	const tiles = struct.game.openTiles.filter(item => item[2] === struct.game.hupai[2])
-	// One tile in hand, and one tile in drop or from wall. Thus, two open tiles.
-	return (tiles.length === 2) ? FZ4 : 0
+	// Hupai = discard or self-draw, 1 tile
+	const hupai = struct.game.hupai
+
+	// Same tiles on floor or in medled sets.
+	const tiles = struct.game.openTiles.filter(item => item[2] === hupai[2])
+
+	// Same tiles in door. Don’t count hupai twice for zimo.
+	let door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].zimo) door.pop()
+
+	const find = door.filter(item => item[7] === hupai[7] && item[1] === hupai[1])
+
+	return (tiles.length + find.length === 3) ? FZ4 : 0
 }

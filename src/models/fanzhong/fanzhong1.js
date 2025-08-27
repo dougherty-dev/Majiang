@@ -31,19 +31,20 @@ const FZ1 = 1
  * ✅ 69. Pure double shunzi (Yiban gao, 一般高).
  * Containing two identical shunzi.
  * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 1.
+ * @returns {Promise<Number>} 0, 1 or 2. Can occur twice in a hand.
  */
 export async function fz69YibanGao(struct) {
 	if (struct.nonchiMelds.length > 2) return 0
 
+	let count = 0
 	const types = struct.shuTypes14.map(item => item[1]).filter(item => item)
 	for (const type of types) {
 		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
-			if (type in doubleShunziLookup[`doubleShunzi${type.length}`]) return FZ1
+			if (type in doubleShunziLookup[`doubleShunzi${type.length}`]) count++
 		}
 	}
 
-	return 0
+	return count * FZ1
 }
 
 /**
@@ -92,36 +93,38 @@ export async function fz70XiXiangfeng(struct) {
  * ✅ 71. Short straight (Lian liu, 连六).
  * Two shunzi in the same suit making six consecutive values.
  * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 1.
+ * @returns {Promise<Number>} 0, 1 or 2. Can occur twice in a hand.
  */
 export async function fz71LianLiu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
 
+	let count = 0
 	for (const type of types) {
 		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
-			if (type in lianliuLookup[`lianliu${type.length}`]) return FZ1
+			if (type in lianliuLookup[`lianliu${type.length}`]) count++
 		}
 	}
 
-	return 0
+	return count * FZ1
 }
 
 /**
  * ✅ 72. Two terminal shunzi (Laoshao fu, 老少副).
- * Two shunzi 1-2-3 and 6-7-8 in the same suit.
+ * Two shunzi 1-2-3 and 7-8-9 in the same suit.
  * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 1.
+ * @returns {Promise<Number>} 0, 1 or 2. Can occur twice in a hand.
  */
 export async function fz72LaoshaoFu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
 
+	let count = 0
 	for (const type of types) {
 		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
-			if (type in laoshaofuLookup[`laoshaofu${type.length}`]) return FZ1
+			if (type in laoshaofuLookup[`laoshaofu${type.length}`]) count++
 		}
 	}
 
-	return 0
+	return count * FZ1
 }
 
 /**
@@ -190,40 +193,41 @@ export async function fz76WuZi(struct) {
 }
 
 /**
- * 77. Edge wait (Bianzhang, 边张).
+ * ✅ 77. Edge wait (Bianzhang, 边张).
  * Exclusively waiting for a 3 to form a shunzi 1-2-3, or for a 7 to form a shunzi 7-8-9.
  * @param {Object} struct Game parameters.
  * @returns {Promise<Number>} 0 or 1.
  */
 export async function fz77Bianzhang(struct) {
+	// Winning tile, discarded or self-drawn.
 	const hupai = struct.game.hupai
-	const shunzi = struct.game.players[struct.key].hu.shunzi
-		.filter(item => item[0] === hupai[7])
+	if (![3, 7].includes(hupai[1])) return 0
 
-	let triple = []
-	switch (hupai[1]) {
-	case 3:
-		triple = shunzi.filter(item => item[1][2] === '3')
-		break
-	case 7:
-		triple = shunzi.filter(item => item[1][0] === '7')
-	}
-
-	if (triple.length === 0) return 0
-
-	const door = Object.assign([], struct.game.players[struct.key].door)
+	// Collect tiles at hand, minus zimo tile.
+	let door = Object.assign([], struct.game.players[struct.key].door)
 	if (struct.game.players[struct.key].zimo) door.pop()
-	if (door.length === 1) return 0
 
-	const inc = door.map(item => item[1])
+	const inc = (hupai[1] === 3) ? -1 : 1
 
-	switch (hupai[1]) {
-	case 3:
-		if (!inc.includes(1) || !inc.includes(2)) return 0
-		break
-	case 7:
-		if (!inc.includes(8) || !inc.includes(9)) return 0
-	}
+	// Find hupai ± 1, and remove it.
+	let find = door.find(item => item[7] === hupai[7] && item[1] === hupai[1] + inc)
+	if (!find) return 0
+	let index = door.indexOf(find)
+	door.splice(index, 1)
+
+	// Find hupai ± 2, and remove it.
+	find = door.find(item => item[7] === hupai[7] && item[1] === hupai[1] + 2 * inc)
+	if (!find) return 0
+	index = door.indexOf(find)
+	door.splice(index, 1)
+
+	// Probe remaining pattern, if ok hupai forms a shunzi.
+	const pattern = door.filter(item => item[7] === hupai[7]).map(item => item[1]).join('')
+	if (!await checkPattern(pattern)) return 0
+
+	// Check if another tile could have made a winning hand.
+	door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].zimo) door.pop()
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
@@ -232,25 +236,39 @@ export async function fz77Bianzhang(struct) {
 }
 
 /**
- * 78. Closed wait (Kanzhang, 坎张).
+ * ✅ 78. Closed wait (Kanzhang, 坎张).
  * Exclusively waiting to form a shunzi from the middle value.
  * @param {Object} struct Game parameters.
  * @returns {Promise<Number>} 0 or 1.
  */
 export async function fz78Kanzhang(struct) {
+	// Winning tile, discarded or self-drawn.
 	const hupai = struct.game.hupai
-	const shunzi = struct.game.players[struct.key].hu.shunzi
-		.filter(item => item[0] === hupai[7])
+	if ([1, 9].includes(hupai[1])) return 0
 
-	const triple = shunzi.filter(item => item[1][1] == hupai[1])
-	if (triple.length === 0) return 0
-
-	const door = Object.assign([], struct.game.players[struct.key].door)
+	// Collect tiles at hand, minus zimo tile.
+	let door = Object.assign([], struct.game.players[struct.key].door)
 	if (struct.game.players[struct.key].zimo) door.pop()
-	if (door.length === 1) return 0
 
-	const inc = door.map(item => item[1])
-	if (!inc.includes(hupai[1] - 1) || !door.includes(hupai[1] + 1)) return 0
+	// Find hupai + 1, and remove it.
+	let find = door.find(item => item[7] === hupai[7] && item[1] === hupai[1] + 1)
+	if (!find) return 0
+	let index = door.indexOf(find)
+	door.splice(index, 1)
+
+	// Find hupai - 1, and remove it.
+	find = door.find(item => item[7] === hupai[7] && item[1] === hupai[1] - 1)
+	if (!find) return 0
+	index = door.indexOf(find)
+	door.splice(index, 1)
+
+	// Probe remaining pattern, if ok hupai forms a shunzi.
+	const pattern = door.filter(item => item[7] === hupai[7]).map(item => item[1]).join('')
+	if (!await checkPattern(pattern)) return 0
+
+	// Check if another tile could have made a winning hand.
+	door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].zimo) door.pop()
 
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
@@ -259,7 +277,7 @@ export async function fz78Kanzhang(struct) {
 }
 
 /**
- * 79. Single wait (Dandiao jiang, 单调将).
+ * ✅ 79. Single wait (Dandiao jiang, 单调将).
  * Exclusively waiting for winning tile to form a pair.
  * @param {Object} struct Game parameters.
  * @returns {Promise<Number>} 0 or 1.

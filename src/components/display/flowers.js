@@ -3,12 +3,19 @@
 /**
  * @author Niklas Dougherty
  * @module components/display/flowers
+ * @description Display functions pertaining to flower tiles.
+ * @property {Function} displayFlowers Display all flower tiles for each player.
+ * @property {Function} displayFlower Display a single added flower.
  */
 
 import { createTile } from '../tiles.js'
 import { delay, sound } from '../helpers.js'
 import { displayRemoveItem } from './display.js'
 
+/**
+ * Display all flower tiles for each player at the beginning of the game.
+ * @param {Object} players The players structure.
+ */
 export function displayFlowers(players) {
 	for (const [key, player] of Object.entries(players)) {
 		displayRemoveItem('flowers', key)
@@ -22,6 +29,13 @@ export function displayFlowers(players) {
 	}
 }
 
+/**
+ * Display a single added flower.
+ * @param {number} key Player number.
+ * @param {Object} tile The tile.
+ * @param {boolean} interactive Whether to animate (not in the initial setup)
+ * @returns 
+ */
 export async function  displayFlower(key, tile, interactive = true) {
 	const flowers = document.getElementById('flowers' + key)
 	if (!flowers) return

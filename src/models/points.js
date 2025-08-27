@@ -151,7 +151,7 @@ export default class Points {
 			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, [16, 23, 24, 29, 49, 63]],
 			// 32 fan
 			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, [18, 21, 30, 49, 66, 71, 72]],
-			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, [57, 74, 76]],
+			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, [57, 71, 74, 76]],
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, [29, 49, 55, 63, 73]],
 			// 24 fan
 			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, [21, 22, 29, 49, 63, 63, 79]],
@@ -159,7 +159,7 @@ export default class Points {
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, [29, 49, 63, 68]],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, [76]],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, [24, 30, 33, 49, 65, 66, 69]],
-			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, [23, 29, 63]],
+			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, [23, 29, 63, 71]],
 			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, [36, 76]],
 			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, [68]],
 			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, [37, 76]],
@@ -168,8 +168,8 @@ export default class Points {
 			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, [49, 63, 70, 72, 76]],
 			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, [49]],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, [68]],
-			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, [65]],
-			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, []],
+			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, [65, 71]],
+			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, [71]],
 			// 12 fan
 			'34': ['全不靠', 'Quan bu kao', 'Lesser honors and knitted tiles', fz34QuanBuKao, 0, [49, 52, 62]],
 			'35': ['组合龙', 'Zuhe long', 'Knitted straight', fz35ZuheLong, 0, []],

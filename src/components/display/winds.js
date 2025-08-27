@@ -3,12 +3,20 @@
 /**
  * @author Niklas Dougherty
  * @module components/display/winds
+ * @description Display functions pertaining to winds.
+ * @property {Function} displayPrevailingWind Mark prevailing wind icon with relevant class.
+ * @property {Function} displaySeatWinds Display the current seat wind for each player.
+ * @property {Function} avatar Display overlay with avatar list.
  */
 
 import { ALLPLAYERS } from '../../models/constants.js'
 import { WINDS } from '../../models/tiles.js'
 import { createElement } from '../elements.js'
 
+/**
+ * Mark prevailing wind icon with relevant class.
+ * @param {number} prevailingWind Wind number.
+ */
 export function displayPrevailingWind(prevailingWind) {
 	for (const key of ALLPLAYERS) {
 		const prevailing = document.getElementById('prevailing' + key)
@@ -21,6 +29,12 @@ export function displayPrevailingWind(prevailingWind) {
 	}
 }
 
+/**
+ * Display the current seat wind for each player.
+ * @param {Object} players The players structure.
+ * @param {*} prevailingWind Wind number.
+ * @returns 
+ */
 export function displaySeatWinds(players, prevailingWind) {
 	for (const [key, player] of Object.entries(players)) {
 		const seat = document.getElementById('seat' + key)
@@ -48,6 +62,9 @@ export function displaySeatWinds(players, prevailingWind) {
 	document.getElementById('seatwind4').addEventListener('click', avatar)
 }
 
+/**
+ * Display overlay with avatar list.
+ */
 async function avatar() {
 	const avatarOverlay = createElement('div', ['avatar-overlay'])
 	const avatarContents = createElement('div', ['avatar-contents'])

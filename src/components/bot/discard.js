@@ -3,12 +3,22 @@
 /**
  * @author Niklas Dougherty
  * @module components/bot/discard
+ * @description Algorithms for computer players.
+ * @property {Function} botDiscard Simple and efficient keep and discard scheme for bots.
  */
 
 import { displayDiscarded } from '../display/tiles.js'
 import { sortTiles, sound } from '../helpers.js'
 import { TYPES, DUIZI, KEZI, HALFSHUNZI } from '../hu/patterns.js'
 
+/**
+ * Simple and efficient keep and discard scheme for bots.
+ * Bots will peng and chi everything, in order to win on melded hand (53 全求人), 6 fan.
+ * Zimo yields an additional fan, and the actual patterns will usually add to the score.
+ * Bots will keep pairs and triplets, and also almost completed straights (12, 45, etc.).
+ * Bots will discard everything else, starting with honors.
+ * @param {Object} game The game parameters.
+ */
 export async function botDiscard(game) {
 	const types = Object.assign([], TYPES)
 	const door = game.players[game.currentPlayer].door

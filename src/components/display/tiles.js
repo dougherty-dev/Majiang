@@ -3,10 +3,19 @@
 /**
  * @author Niklas Dougherty
  * @module components/display/tiles
+ * @description Display functions pertaining tiles.
+ * @property {Function} hiliteToggle Find and hilite all similar (open) tiles on the board.
+ * @property {Function} displayHiliteTiles Initiate hiliting.
+ * @property {Function} displayTileCount Display number of tiles left in wall.
+ * @property {Function} displayDiscarded Display the discarded tile in the drop zone.
  */
 
 import { createTile } from '../tiles.js'
 
+/**
+ * Find and hilite all similar (open) tiles on the board.
+ * @param {string} target DOM node ID.
+ */
 function hiliteToggle(target) {
 	toggle(target, 'mouseover')
 	toggle(target, 'mouseout')
@@ -40,6 +49,9 @@ function hiliteToggle(target) {
 	}
 }
 
+/**
+ * Initiate hiliting.
+ */
 export function displayHiliteTiles() {
 	const board = document.getElementById('majiang-board')
 	if (!board) return
@@ -47,6 +59,10 @@ export function displayHiliteTiles() {
 	hiliteToggle(board)
 }
 
+/**
+ * Display number of tiles left in wall.
+ * @param {number} tileCount 
+ */
 export function displayTileCount(tileCount) {
 	const elem = document.getElementById('tiles')
 	if (!elem) return
@@ -54,6 +70,12 @@ export function displayTileCount(tileCount) {
 	elem.textContent = tileCount
 }
 
+/**
+ * Display the discarded tile in the drop zone.
+ * @param {number} key Player number.
+ * @param {Object} tile The tile.
+ * @returns 
+ */
 export function displayDiscarded(key, tile) {
 	const control = document.getElementById('control-drop' + key)
 	if (!control) return
