@@ -3,10 +3,16 @@
 /**
  * @author Niklas Dougherty
  * @class models/Players
+ * @description The Players class.
  */
 
 import Hu from './hu.js'
 
+/**
+ * @class Player
+ * @description Individual player object definition.
+ * @typedef {object} player The player object.
+ */
 class Player {
 	constructor() {
 		this.player = {
@@ -25,11 +31,20 @@ class Player {
 			dianhu: false,
 			shisanyao: false,
 			qidui: false,
+			knitted: false,
+			lesserHonors: false,
+			greaterHonors: false,
+			knittedStraight: false,
 			hu: new Hu().hu
 		}
 	}
 }
 
+/**
+ * @class Players
+ * @description Set of four players.
+ * @typedef {object} players The players object.
+ */
 export default class Players {
 	constructor() {
 		this.players = {

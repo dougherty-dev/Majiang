@@ -4,7 +4,7 @@
  * @author Niklas Dougherty
  * @module components/round/results
  * @description Display results.
- * @property {Function} displayResults Display results of hand (draw or win).
+ * @property {function} displayResults Display results of hand (draw or win).
  */
 
 import { HUMANPLAYER, MAJIANGAVATAR } from '../../models/constants.js'
@@ -20,7 +20,7 @@ import { createTile } from '../tiles.js'
 
 /**
  * Announce draw or win. List applicable fan rules with scores, and total points.
- * @param {Object} game The game parameters.
+ * @param {object} game The game parameters.
  * @param {number} key Winning player index (1–4).
  * @param {Array} tiles All 14–18 tiles of the winning hand.
  * @param {number} points The combined score for the winning hand.

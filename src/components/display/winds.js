@@ -4,9 +4,9 @@
  * @author Niklas Dougherty
  * @module components/display/winds
  * @description Display functions pertaining to winds.
- * @property {Function} displayPrevailingWind Mark prevailing wind icon with relevant class.
- * @property {Function} displaySeatWinds Display the current seat wind for each player.
- * @property {Function} avatar Display overlay with avatar list.
+ * @property {function} displayPrevailingWind Mark prevailing wind icon with relevant class.
+ * @property {function} displaySeatWinds Display the current seat wind for each player.
+ * @property {function} avatar Display overlay with avatar list.
  */
 
 import { ALLPLAYERS } from '../../models/constants.js'
@@ -31,7 +31,7 @@ export function displayPrevailingWind(prevailingWind) {
 
 /**
  * Display the current seat wind for each player.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  * @param {*} prevailingWind Wind number.
  * @returns 
  */

@@ -3,9 +3,9 @@
 /**
  * @author Niklas Dougherty
  * @module router
- * @property {Function} connectedCallback Render view.
- * @property {Function} resolveRoute Determine route by hash.
- * @property {Function} render Render view.
+ * @property {function} connectedCallback Render view.
+ * @property {function} resolveRoute Determine route by hash.
+ * @property {function} render Render view.
  */
 
 export default class Router extends HTMLElement {

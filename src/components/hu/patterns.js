@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module components/hu/patterns
+ * @description Common regexp patterns.
  */
 
 export const TYPES = {b: '', t: '', w: '', f: '', j: ''}

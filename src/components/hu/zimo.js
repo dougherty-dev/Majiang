@@ -10,6 +10,7 @@ import { checkHu } from './hu.js'
 
 export async function checkZimo(game) {
 	const player = game.players[game.currentPlayer]
+	player.zimo = false
 
 	const door = Object.assign([], player.door)
 	const tile = door.at(-1)

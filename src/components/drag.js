@@ -3,11 +3,18 @@
 /**
  * @author Niklas Dougherty
  * @module components/drag
+ * @description Drag and drop for tiles, modal drag.
+ * @property {function} enableDrag Enable drag for tiles in door.
+ * @property {function} modalDrag Enable drag on modal overlays.
  */
 
 import { sortTiles } from './helpers.js'
 import { displayDoor } from './display/door.js'
 
+/**
+ * Enable drag for tiles in door.
+ * @param {object} game The game parameters.
+ */
 export function enableDrag(game) {
 	const humanPlayer = 4
 	const door = document.getElementById('door' + humanPlayer)
@@ -82,6 +89,11 @@ export function enableDrag(game) {
 	})
 }
 
+/**
+ * Enable drag on modal overlays.
+ * @param {HTMLElement} overlay The overlay.
+ * @param {HTMLElement} contents The contents to drag.
+ */
 export function modalDrag(overlay, contents) {
 	let dragging = false
 	let offsetX, offsetY

@@ -3,6 +3,9 @@
 /**
  * @author Niklas Dougherty
  * @module components/checks
+ * @description Probe actions on new tile and discard tile.
+ * @property {function} newTileChecks Checks on new tile.
+ * @property {function} dropTileChecks Checks on discarded tile.
  */
 
 import { newTile } from './tiles.js'
@@ -14,6 +17,12 @@ import { checkAngang } from './melds/angang.js'
 import { checkZimo } from './hu/zimo.js'
 import { checkDianhu } from './hu/dianhu.js'
 
+/**
+ * Checks on new tile.
+ * @param {object} game The game parameters.
+ * @param {number} key Player number.
+ * @returns {promise<boolean>}
+ */
 export async function newTileChecks(game, key) {
 	if (await checkZimo(game)) {
 		return await hu(game, key)
@@ -37,6 +46,13 @@ export async function newTileChecks(game, key) {
 	return false
 }
 
+/**
+ * Checks on discarded tile.
+ * @param {object} game The game parameters.
+ * @param {object} tile The discarded tile.
+ * @param {number} key Player number.
+ * @returns {promise<boolean>}
+ */
 export async function dropTileChecks(game, tile, key) {
 	if (await checkDianhu(game, tile, key)) return true
 

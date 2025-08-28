@@ -4,26 +4,25 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong16
  * @description 16 番 (fan) scoring rules.
- * @property {Function} fz28QingLong 28. Pure straight (Qing long, 清龙).
- * @property {Function} fz29SanSeShuangLongHui 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
- * @property {Function} fz30YiSeSanBuGao 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
- * @property {Function} fz31QuanDaiWu 31. All fives (Quan dai wu, 全带五).
- * @property {Function} fz32SanTongke 32. Triple kezi (San tongke, 三同刻).
- * @property {Function} fz33SanAnke 33. Three concealed kezi (San anke, 三暗刻).
+ * @property {function} fz28QingLong 28. Pure straight (Qing long, 清龙).
+ * @property {function} fz29SanSeShuangLongHui 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
+ * @property {function} fz30YiSeSanBuGao 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
+ * @property {function} fz31QuanDaiWu 31. All fives (Quan dai wu, 全带五).
+ * @property {function} fz32SanTongke 32. Triple kezi (San tongke, 三同刻).
+ * @property {function} fz33SanAnke 33. Three concealed kezi (San anke, 三暗刻).
  */
 
 import { checkPattern } from '../../components/hu/check-type.js'
-import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
+import { KEZI, TYPES } from '../../components/hu/patterns.js'
 import { qinglongLookup } from '../../components/lookup/qinglong.js'
-import { sanankeLookup } from '../../components/lookup/san-anke.js'
 
 const FZ16 = 16
 
 /**
  * ✅ 28. Pure straight (Qing long, 清龙).
  * Three shunzi 123, 456, 789 in the same suit.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz28QingLong(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
@@ -39,8 +38,8 @@ export async function fz28QingLong(struct) {
 /**
  * ✅ 29. Three-suited terminal shunzi (San se shuang long hui, 三色双龙会).
  * Two suited shunzi each of 1-2-3 and 7-8-9, and a pair of fives in the third suit.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz29SanSeShuangLongHui(struct) {
 	const shuanglong = struct.shuTypes.filter(item => item[1] === '123789').length
@@ -52,8 +51,8 @@ export async function fz29SanSeShuangLongHui(struct) {
 /**
  * ✅ 30. Pure shifted shunzi (Yi se san bu gao, 一色三步高).
  * Three suited shunzi shifted up either 1 or 2 in value, but not both.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz30YiSeSanBuGao(struct) {
 	const shuTypes = struct.shuTypes14.filter(item => item[1].length >= 9)
@@ -101,8 +100,8 @@ export async function fz30YiSeSanBuGao(struct) {
 /**
  * ✅ 31. All fives (Quan dai wu, 全带五).
  * All shunzi, kezi (gangzi) and duizi containing a five.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz31QuanDaiWu(struct) {
 	if (struct.hasZi) return 0
@@ -136,8 +135,8 @@ export async function fz31QuanDaiWu(struct) {
 /**
  * ✅ 32. Triple kezi (San tongke, 三同刻).
  * Three kezi (gangzi) of the same value.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
 	const types = struct.shuTypes14.filter(item => item[1])
@@ -169,71 +168,46 @@ export async function fz32SanTongke(struct) {
 }
 
 /**
- * 33. Three concealed kezi (San anke, 三暗刻).
+ * ✅ 33. Three concealed kezi (San anke, 三暗刻).
  * Three kezi (gangzi), on hand or melded (angang).
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 16.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 16.
  */
 export async function fz33SanAnke(struct) {
-	if (struct.openMelds.length > 1) return 0
+	struct.concealedKezi = struct.angangMelds.length
+	const hupai = struct.game.hupai
 
-	const types14 = struct.allTypes14.map(item => [item[0], item[1].match(KEZI)]).filter(item => item[1])
-	if (types14.map(item => item[1]).flat().length < 3) return 0 // 11123 false positive
+	let door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].dianhu) door.push(hupai)
 
-	let sets = []
-	const melds = struct.chiMelds
-	const types = struct.allTypes14.filter(item => item)
+	let types = Object.assign({}, TYPES)
+	for (const tile of door) {
+		types[tile[7]] += tile[1]
+	}
+
+	types = Object.entries(types).filter(item => item[1])
 	for (const type of types) {
-		if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type[1].length)) {
-			const lookup = sanankeLookup[`sananke${type[1].length}`]
-			if (!(type[1] in lookup)) return 0
+		type[1] = type[1].split('').sort().join('')
+	}
 
-			let candidates = lookup[type[1]]
-			// Rare edge cases with two shunzi alternatives, to be implemented later
-			// if (melds.length && candidates.length > 1) { // check meld alternatives
-			// 	const chi = melds.map(item => item.meld).filter(item => item[0][7] === type[0])
-			// 		.map(item => `${item[0][1]}${item[1][1]}${item[2][1]}`)
-			// 	console.log(chi)
-			// 	for (const candidate of candidates) {
-			// 		for (const set of candidate) {
-			// 			console.log(set, chi[0]) // to be done
-			// 			if (set === chi[0]) {
-			// 				sets.push([type[0], set])
-			// 			}
-			// 		}
-			// 	}
-			// } else {
-			// 	for (const candidate of candidates[0]) {
-			// 		sets.push([type[0], candidate])
-			// 	}
-			// }
+	for (const type of types) {
+		let currentType = type
 
-			for (const candidate of candidates[0]) {
-				sets.push([type[0], candidate])
+		const kezi = currentType[1].match(KEZI) ?? []
+
+		for (const set of kezi) {
+			let previousType = currentType
+			currentType[1] = currentType[1].replace(set, '')
+			if (await checkPattern(currentType[1])) {
+				// Discarded tile forming a kezi is not concealed.
+				if (!(type[0] === hupai[7] && kezi[0][0] == hupai[1])) {
+					struct.concealedKezi++
+				}
+			} else {
+				currentType = previousType
 			}
 		}
 	}
 
-	const pair = sets.filter(item => item[1].length === 2).flat()
-	const shunzi = sets.filter(item => item[1].match(SHUNZI)).flat()
-	const kezi = sets.filter(item => item[1].match(KEZI))
-
-	if (pair.length !== 2 || kezi.length < 3) return 0
-
-	if (struct.game.players[struct.key].dianhu) {
-		const drop = struct.game.drop
-
-		if (
-			drop.length && !( // hupai not in pair/shunzi but in kezi
-				(drop[0] === pair[0] && pair[1].includes(drop[1])) ||
-				(!melds.length && drop[0] === shunzi[0] && shunzi[1].includes(drop[1]))
-			)
-		) return 0
-	}
-
-	if (!struct.derivedSets.length) {
-		struct.derivedSets = sets
-	}
-
-	return FZ16
+	return (struct.concealedKezi === 3) ? FZ16 : 0
 }

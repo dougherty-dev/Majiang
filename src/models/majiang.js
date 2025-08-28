@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @class models/Majiang
+ * @description The Majiang class.
  */
 
 import { fetchGame, saveGame } from '../components/gameio.js'
@@ -10,11 +11,12 @@ import { newGame } from '../components/round/new-game.js'
 import { play } from '../components/play.js'
 
 /**
- * @class Majiang. The main class.
- * @property {Function} hashListen Listen for hash change.
- * @property {Function} hashLocator Resume or start a new game.
- * @property {Function} playListen Hash change on button click from main page.
- * @typedef {Object} game The game data.
+ * @class Majiang
+ * @description Top level flow of action.
+ * @property {function} hashListen Listen for hash change.
+ * @property {function} hashLocator Resume or start a new game.
+ * @property {function} playListen Hash change on button click from main page.
+ * @typedef {object} game The game data.
  */
 export default class Majiang {
 	constructor() {

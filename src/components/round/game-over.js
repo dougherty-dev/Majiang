@@ -3,12 +3,18 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/game-over
+ * @description Announce game over and present the winner.
+ * @property {function} gameOver Display an overlay with game data.
  */
 
 import { MAJIANGAVATAR } from '../../models/constants.js'
 import { createElement } from '../elements.js'
 import { newGame } from './new-game.js'
 
+/**
+ * Display an overlay with game data.
+ * @param {object} game The game parameters.
+ */
 export async function gameOver(game) {
 	const board = document.getElementById('majiang-board')
 

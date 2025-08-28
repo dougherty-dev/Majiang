@@ -4,13 +4,13 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong88
  * @description 88 番 (fan) scoring rules.
- * @property {Function} fz1DaSiXi 1. Big four winds (Da si xi, 大四喜).
- * @property {Function} fz2DaSanYuan 2. Big three dragons (Da san yuan, 大三元).
- * @property {Function} fz3LyYise 3. All green (Lü yise, 绿一色).
- * @property {Function} fz4JiuLianBaodeng 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
- * @property {Function} fz5SiGang 5. Four gangs (Si gang, 四杠).
- * @property {Function} fz6LianQiDui 6. Seven shifted pairs (Lian qi dui, 连七对).
- * @property {Function} fz7ShisanYao 7. Thirteen orphans (Shisan yao, 十三幺).
+ * @property {function} fz1DaSiXi 1. Big four winds (Da si xi, 大四喜).
+ * @property {function} fz2DaSanYuan 2. Big three dragons (Da san yuan, 大三元).
+ * @property {function} fz3LyYise 3. All green (Lü yise, 绿一色).
+ * @property {function} fz4JiuLianBaodeng 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
+ * @property {function} fz5SiGang 5. Four gangs (Si gang, 四杠).
+ * @property {function} fz6LianQiDui 6. Seven shifted pairs (Lian qi dui, 连七对).
+ * @property {function} fz7ShisanYao 7. Thirteen orphans (Shisan yao, 十三幺).
  */
 
 import { sortTiles } from '../../components/helpers.js'
@@ -21,8 +21,8 @@ const FZ88 = 88
 /**
  * ✅ 1. Big four winds (Da si xi, 大四喜).
  * Four kezi/gangzi with winds, and an arbitrary pair.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz1DaSiXi(struct) {
 	return (struct.fengTypes.match(/1{3,4}2{3,4}3{3,4}4{3,4}/g)) ? FZ88 : 0
@@ -31,8 +31,8 @@ export async function fz1DaSiXi(struct) {
 /**
  * ✅ 2. Big three dragons (Da san yuan, 大三元).
  * Three kezi/gangzi with dragons, an additional arbitrary shunzi/kezi, and an additional pair.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz2DaSanYuan(struct) {
 	return (struct.jianTypes.match(/1{3,4}2{3,4}3{3,4}/g)) ? FZ88 : 0
@@ -41,8 +41,8 @@ export async function fz2DaSanYuan(struct) {
 /**
  * ✅ 3. All green (Lü yise, 绿一色).
  * Four regular melds and a pair consisting of bamboo 23468 and optionally green dragon.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz3LyYise(struct) {
 	return (
@@ -55,8 +55,8 @@ export async function fz3LyYise(struct) {
 /**
  * ✅ 4. Nine gates (Jiu lian baodeng, 九莲宝灯).
  * Suited sequence 1112345678999 at hand, waiting for any additional tile in the suit.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz4JiuLianBaodeng(struct) {
 	if (!struct.qingyise) return 0
@@ -72,8 +72,8 @@ export async function fz4JiuLianBaodeng(struct) {
 /**
  * ✅ 5. Four gangs (Si gang, 四杠).
  * Four open or concealed gangs.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz5SiGang(struct) {
 	return (struct.tiles.length === 18) ? FZ88 : 0
@@ -82,8 +82,8 @@ export async function fz5SiGang(struct) {
 /**
  * ✅ 6. Seven shifted pairs (Lian qi dui, 连七对).
  * Sequence of seven pairs shifted up one in value, e.g. 33445566778899
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz6LianQiDui(struct) {
 	const types = struct.shuTypes14.filter(item => item[1].length === 14)
@@ -98,8 +98,8 @@ export async function fz6LianQiDui(struct) {
 /**
  * ✅ 7. Thirteen orphans (Shisan yao, 十三幺).
  * All suited 1s and 9s, one each of honors, plus an additional tile of the same kind.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 88.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 88.
  */
 export async function fz7ShisanYao(struct) {
 	return (struct.game.players[struct.key].shisanyao) ? FZ88 : 0

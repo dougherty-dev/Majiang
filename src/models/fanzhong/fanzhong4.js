@@ -4,10 +4,10 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong4
  * @description 4 番 (fan) scoring rules.
- * @property {Function} fz55QuanDaiYao 55. Outside hand (Quan dai yao, 全带幺).
- * @property {Function} fz56BuQiuRen 56. Fully concealed hand (Bu qiu ren, 不求人).
- * @property {Function} fz57ShuangMinggang 57. Two melded gangs (Shuang minggang, 双明杠).
- * @property {Function} fz58HuJuezhang 58. Last of its kind (Hu juezhang, 和绝张).
+ * @property {function} fz55QuanDaiYao 55. Outside hand (Quan dai yao, 全带幺).
+ * @property {function} fz56BuQiuRen 56. Fully concealed hand (Bu qiu ren, 不求人).
+ * @property {function} fz57ShuangMinggang 57. Two melded gangs (Shuang minggang, 双明杠).
+ * @property {function} fz58HuJuezhang 58. Last of its kind (Hu juezhang, 和绝张).
  */
 
 import { SHU } from '../tiles.js'
@@ -18,8 +18,8 @@ const FZ2 = 2
 /**
  * ✅ 55. Outside hand (Quan dai yao, 全带幺).
  * Terminals included in every set.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 4.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 4.
  * 19. Qi dui covered in 18. Hun yao jiu, with 55 excluded.
  */
 export async function fz55QuanDaiYao(struct) {
@@ -53,8 +53,8 @@ export async function fz55QuanDaiYao(struct) {
 /**
  * ✅ 56. Fully concealed hand (Bu qiu ren, 不求人).
  * Hand with no melds, must win by self-draw.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 4.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 4.
  */
 export async function fz56BuQiuRen(struct) {
 	return (
@@ -66,8 +66,8 @@ export async function fz56BuQiuRen(struct) {
 /**
  * ✅ 57. Two melded gangs (Shuang minggang, 双明杠).
  * Two melded open gang. Angang plus minggang gives six points.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0, 4 or 6.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0, 4 or 6.
  */
 export async function fz57ShuangMinggang(struct) {
 	if (struct.angangMelds.length === 1 && struct.gangMelds.length === 1) return FZ4 + FZ2
@@ -78,8 +78,8 @@ export async function fz57ShuangMinggang(struct) {
 /**
  * ✅ 58. Last of its kind (Hu juezhang, 和绝张).
  * Winning on the last (fourth) tile of its kind.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 4.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 4.
  */
 export async function fz58HuJuezhang(struct) {
 	// Hupai = discard or self-draw, 1 tile

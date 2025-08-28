@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/observers/observe-new-tile
+ * @description Listen for and act on DOM changes in drop zone.
+ * @property {function} observeDrop MutationObserver for discarded tile.
  */
 
 import { ALLPLAYERS } from '../../models/constants.js'
@@ -15,9 +17,8 @@ import { newTile } from '../tiles.js'
 import { dropTileChecks } from '../checks.js'
 
 /**
- * 
- * @param {Object} game
- * @description MutationObserver for discarded tile.
+ * MutationObserver for discarded tile.
+ * @param {object} game The game parameters.
  */
 export function observeDrop(game) {
 	const options = { childList: true }
@@ -30,34 +31,35 @@ export function observeDrop(game) {
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			if (!drop.firstChild) return // no tile
 
-			// remove dropped tile from door, set latest drop tile
+			// Remove dropped tile from door, set latest drop tile.
 			let tile = game.players[key].drop
 			if (tile === undefined) return
 			game.drop = [tile[7], tile[1]]
 
-			// update door, change status to finally discarded
+			// Update door, change status to finally discarded.
 			displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 			game.players[game.currentPlayer].discarded = true
 
+			// Player will chi, peng, gang or gang discarded tile?
 			if (await dropTileChecks(game, tile, key)) return
 			await delay(1000)
 
-			// remove tile from drop zone
+			// Remove tile from drop zone.
 			displayRemoveItem('control-drop', game.currentPlayer)
 
-			// put tile on floor
+			// Put tile on floor.
 			game.players[game.currentPlayer].floor.push(tile)
 			game.openTiles.push(tile)
 			let index = game.players[game.currentPlayer].floor.length - 1
 			displayFloor(game.currentPlayer, tile, index)
 
-			// rotate player
+			// Rotate players.
 			game.currentPlayer = modIncrease(game.currentPlayer)
 
-			// save game state for resumption
+			// Save game state for resumption when discard is completed.
 			await saveGame(game)
 
-			// take a new tile for next player, trigger observeNewTile
+			// Take a new tile for next player, trigger observeNewTile.
 			newTile(game)
 		}
 

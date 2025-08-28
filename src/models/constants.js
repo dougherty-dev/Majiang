@@ -3,6 +3,7 @@
 /**
  * @author Niklas Dougherty
  * @module models/constants
+ * @description Common constants.
  */
 
 export const HUMANPLAYER = 4

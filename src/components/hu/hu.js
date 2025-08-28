@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/hu/hu
+ * @description Check validity of tiles at hand for possible hu.
+ * @property {function} checkHu Check if any player forms a winning pattern.
  */
 
 import { TYPES } from './patterns.js'
@@ -11,12 +13,12 @@ import { checkSpecial } from './specials.js'
 import Hu from '../../models/hu.js'
 
 /**
- * @description Check validity of _remaining_ tiles at hand for possible hu.
+ * Check validity of _remaining_ tiles at hand for possible hu.
  * Melds are valid by default. Special hands do not have melds.
  * The exact nature of the hu will be decided later, for now just confirm a winning pattern.
- * @param {Object} player Potential winner.
- * @param {Object} door Remaining tiles at hand.
- * @returns {Promise<boolean>}
+ * @param {object} player Potential winner.
+ * @param {object} door Remaining tiles at hand.
+ * @returns {promise<boolean>}
  */
 export async function checkHu(player, door) {
 	player.hu = new Hu().hu

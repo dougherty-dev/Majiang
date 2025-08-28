@@ -4,13 +4,13 @@
  * @author Niklas Dougherty
  * @class models/points
  * @description The Points class. Calculate points according to the 81 standard rules.
- * @property {Function} setupTypes Common structures for lexical analysis of patterns.
- * @property {Function} setupHu Common structures for player.
- * @property {Function} setupCommon Common structures used in fanzhong rules definitions.
- * @property {Function} setupFanzhong Fanzhong data matrix.
- * @property {Function} sumPoints Distribution of points and extra points from losers to winner.
- * @property {Function} fanPoints Iterate over fanzhong data matrix.
- * @property {Function} applyRule Call actual fanzhong rule, add new exclusions.
+ * @property {function} setupTypes Common structures for lexical analysis of patterns.
+ * @property {function} setupHu Common structures for player.
+ * @property {function} setupCommon Common structures used in fanzhong rules definitions.
+ * @property {function} setupFanzhong Fanzhong data matrix.
+ * @property {function} sumPoints Distribution of points and extra points from losers to winner.
+ * @property {function} fanPoints Iterate over fanzhong data matrix.
+ * @property {function} applyRule Call actual fanzhong rule, add new exclusions.
  */
 
 import { TYPES } from '../components/hu/patterns.js'
@@ -41,7 +41,9 @@ import { fz1DaSiXi, fz2DaSanYuan, fz3LyYise, fz4JiuLianBaodeng, fz5SiGang, fz6Li
 import { FENG, JIAN, SHU, TIAO } from './tiles.js'
 
 /**
- * The Points class. Calculate points according to the 81 standard rules.
+ * @class Points
+ * @description The Points class. Calculate points according to the 81 standard rules.
+ * @typedef {object} struct The points object.
  */
 export default class Points {
 	constructor(game, key, tiles) {
@@ -159,14 +161,14 @@ export default class Points {
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, [29, 49, 63, 68]],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, [76]],
 			'23': ['一色三同顺', 'Yi se san tongshun', 'Pure triple shunzi', fz23YiSeSanTongshun, 0, [24, 30, 33, 49, 65, 66, 69]],
-			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, [23, 29, 63, 71]],
+			'24': ['一色三节高', 'Yi se san jie gao', 'Pure shifted kezi', fz24YiSeSanJieGao, 0, [23, 29, 63, 69, 71]],
 			'25': ['全大', 'Quan da', 'Upper tiles', fz25QuanDa, 0, [36, 76]],
 			'26': ['全中', 'Quan zhong', 'Middle tiles', fz26QuanZhong, 0, [68]],
 			'27': ['全小', 'Quan xiao', 'Lower tiles', fz27QuanXiao, 0, [37, 76]],
 			// 16 fan
-			'28': ['清龙', 'Qing long', 'Pure straight', fz28QingLong, 0, [49, 71, 72]],
-			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, [49, 63, 70, 72, 76]],
-			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, [49]],
+			'28': ['清龙', 'Qing long', 'Pure straight', fz28QingLong, 0, [32, 33, 38, 42, 49, 71, 72]],
+			'29': ['三色双龙会', 'San se shuang long hui', 'Three-suited terminal shunzi', fz29SanSeShuangLongHui, 0, [32, 33, 38, 42, 49, 63, 70, 72, 76]],
+			'30': ['一色三步高', 'Yi se san bu gao', 'Pure shifted shunzi', fz30YiSeSanBuGao, 0, [32, 33, 38, 42, 49]],
 			'31': ['全带五', 'Quan dai wu', 'All fives', fz31QuanDaiWu, 0, [68]],
 			'32': ['三同刻', 'San tongke', 'Triple kezi', fz32SanTongke, 0, [65, 71]],
 			'33': ['三暗刻', 'San anke', 'Three concealed kezi', fz33SanAnke, 0, [71]],

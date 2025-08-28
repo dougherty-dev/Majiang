@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/observers/observe-new-tile
+ * @description Listen for and act on DOM changes in bot player’s door.
+ * @property {function} observeNewTile MutationObserver for discarded tile.
  */
 
 import { AIPLAYERS } from '../../models/constants.js'
@@ -11,9 +13,8 @@ import { delay } from '../helpers.js'
 import { botDiscard } from '../bot/discard.js'
 
 /**
- * 
- * @param {Object} game
- * @description MutationObserver for new tile.
+ * MutationObserver for new tile. Bots only, human action is interactive.
+ * @param {object} game The game parameters.
  */
 export function observeNewTile(game) {
 	const options = { childList: true }
@@ -26,9 +27,11 @@ export function observeNewTile(game) {
 		let callback = async (mutationList, observer) => { // eslint-disable-line
 			if (!door.lastChild || !door.lastChild.classList.contains('tile-divider')) return
 
+			// Player can zimo, jiagang, angang?
 			if (await newTileChecks(game, key)) return
 			await delay(1000)
 
+			// Discard a suitable tile.
 			await botDiscard(game)
 		}
 

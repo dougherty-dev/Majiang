@@ -4,7 +4,7 @@
  * @author Niklas Dougherty
  * @module components/round/new-round
  * @description Prepare new round.
- * @property {Function} newRound Set winds, rotate players.
+ * @property {function} newRound Set winds, rotate players.
  */
 
 import { TILES } from '../../models/tiles.js'
@@ -21,8 +21,8 @@ import Hu from '../../models/hu.js'
 
 /**
  * Prepare new round. Set winds, rotate players.
- * @param {Object} game The game parameters.
- * @returns {Promise<boolean>}
+ * @param {object} game The game parameters.
+ * @returns {promise<boolean>}
  */
 export async function newRound(game) {
 	for (const index of ALLPLAYERS) {
@@ -38,6 +38,10 @@ export async function newRound(game) {
 		game.players[index].dianhu = false
 		game.players[index].shisanyao = false
 		game.players[index].qidui = false
+		game.players[index].knitted = false
+		game.players[index].lesserHonors = false
+		game.players[index].greaterHonors = false
+		game.players[index].knittedStraight = false
 		game.players[index].hu = new Hu().hu
 	}
 

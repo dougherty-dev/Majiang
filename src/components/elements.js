@@ -3,9 +3,17 @@
 /**
  * @author Niklas Dougherty
  * @module components/elements
- * @property {Function} createElement Create a DOM element.
+ * @property {function} createElement Create a DOM element.
  */
 
+/**
+ * Create a DOM element.
+ * @param {string} elem The HTML element to create.
+ * @param {object} classList Array of classes to apply to the element.
+ * @param {string} content Text content of element.
+ * @param {string} id ID to apply to the element.
+ * @returns {HTMLElement}
+ */
 export function createElement(elem, classList = '', content = '', id = '') {
 	const element = document.createElement(elem)
 

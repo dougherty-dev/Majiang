@@ -4,11 +4,11 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong12
  * @description 12 番 (fan) scoring rules.
- * @property {Function} fz34QuanBuKao 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
- * @property {Function} fz35ZuheLong 35. Knitted straight (Zuhe long, 组合龙).
- * @property {Function} fz36DaYuWu 36. Upper four (Da yu wu, 大于五).
- * @property {Function} fz37XiaoYuWu 37. Lower four (Xiao yu wu, 小于五).
- * @property {Function} fz38SanFengKe 38. Big three winds (San feng ke, 三风刻).
+ * @property {function} fz34QuanBuKao 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
+ * @property {function} fz35ZuheLong 35. Knitted straight (Zuhe long, 组合龙).
+ * @property {function} fz36DaYuWu 36. Upper four (Da yu wu, 大于五).
+ * @property {function} fz37XiaoYuWu 37. Lower four (Xiao yu wu, 小于五).
+ * @property {function} fz38SanFengKe 38. Big three winds (San feng ke, 三风刻).
  */
 
 const FZ12 = 12
@@ -16,32 +16,32 @@ const FZ12 = 12
 /**
  * ✅ 34. Lesser honors and knitted tiles (Quan bu kao, 全不靠).
  * Three full or partial shunzi 147, 258, 369 in different suits, plus at most one each of honors.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 12.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 12.
  */
 export async function fz34QuanBuKao(struct) {
-	const hu = struct.game.players[struct.key].hu
+	const player = struct.game.players[struct.key]
 
-	return (hu.isKnitted && hu.isLesserHonors) ? FZ12 : 0
+	return (player.knitted && player.lesserHonors) ? FZ12 : 0
 }
 
 /**
  * ✅ 35. Knitted straight (Zuhe long, 组合龙).
  * Three special shunzi 147, 258, 369 in different suits.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 12.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 12.
  */
 export async function fz35ZuheLong(struct) {
-	const hu = struct.game.players[struct.key].hu
+	const player = struct.game.players[struct.key]
 
-	return (hu.isKnittedStraight) ? FZ12 : 0
+	return (player.knittedStraight) ? FZ12 : 0
 }
 
 /**
  * ✅ 36. Upper four (Da yu wu, 大于五).
  * All tiles valued 6–9.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 12.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 12.
  */
 export async function fz36DaYuWu(struct) {
 	const upper = struct.shuTiles.filter(item => item[1] > 5)
@@ -52,8 +52,8 @@ export async function fz36DaYuWu(struct) {
 /**
  * ✅ 37. Lower four (Xiao yu wu, 小于五).
  * All tiles valued 1–4.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 12.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 12.
  */
 export async function fz37XiaoYuWu(struct) {
 	const lower = struct.shuTiles.filter(item => item[1] < 5)
@@ -64,8 +64,8 @@ export async function fz37XiaoYuWu(struct) {
 /**
  * ✅ 38. Big three winds (San feng ke, 三风刻).
  * Kezi (gangzi) of three winds.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 12.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 12.
  */
 export async function fz38SanFengKe(struct) {
 	const pattern = new RegExp([

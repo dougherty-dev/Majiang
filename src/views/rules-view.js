@@ -3,7 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module views/rules-view
- * @property {Function} connectedCallback Render view.
+ * @description HTML structure of rules page.
+ * @property {function} connectedCallback Render view.
  */
 
 import { sound } from '../components/helpers.js'

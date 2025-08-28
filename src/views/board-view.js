@@ -3,7 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module views/board-view
- * @property {Function} connectedCallback Render view.
+ * @description HTML structure of board.
+ * @property {function} connectedCallback Render view.
  */
 
 export default class BoardView extends HTMLElement {

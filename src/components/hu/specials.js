@@ -4,10 +4,10 @@
  * @author Niklas Dougherty
  * @module components/hu/specials
  * @description Determine if winning by a special hand.
- * @property {Function} sevenPairs Seven pairs of any kind.
- * @property {Function} orphans One each of 1s, 9s, and honors, plus additional pair tile.
- * @property {Function} knittedHonors Knitted tiles with honors, greater or lesser.
- * @property {Function} knittedStraight Special shunzi 147, 258, and 369 in different suits.
+ * @property {function} sevenPairs Seven pairs of any kind.
+ * @property {function} orphans One each of 1s, 9s, and honors, plus additional pair tile.
+ * @property {function} knittedHonors Knitted tiles with honors, greater or lesser.
+ * @property {function} knittedStraight Special shunzi 147, 258, and 369 in different suits.
  */
 
 import { SHU, ZI } from '../../models/tiles.js'
@@ -16,9 +16,9 @@ import { DUIZI, KEZI } from './patterns.js'
 
 /**
  * Determine if winning by a special hand.
- * @param {Object} player The player object.
+ * @param {object} player The player object.
  * @param {Array} door The tiles at hand.
- * @returns {Promise<boolean>}
+ * @returns {promise<boolean>}
  */
 export async function checkSpecial(player, door) {
 	return (
@@ -32,11 +32,13 @@ export async function checkSpecial(player, door) {
 /**
  * Seven pairs of any kind.
  * This hand has no melds, door always has 14 tiles.
- * @param {Object} player The player object.
+ * @param {object} player The player object.
  * @param {Array} door The tiles at hand.
- * @returns {Promise<boolean>}
+ * @returns {promise<boolean>}
  */
 async function sevenPairs(player, door) {
+	player.qidui = false
+
 	let pairs = 0
 
 	for (const type of Object.entries(player.hu.types)) {
@@ -62,10 +64,12 @@ async function sevenPairs(player, door) {
 /**
  * 13 orphans. One each of ones, nines, and honor tiles, plus additional pair tile.
  * This hand has no melds, door always has 14 tiles.
- * @param {Object} player The player object.
- * @returns {Promise<boolean>}
+ * @param {object} player The player object.
+ * @returns {promise<boolean>}
  */
 async function orphans(player) {
+	player.shisanyao = false
+
 	const values = Object.values(player.hu.types).filter(item => item)
 
 	if (
@@ -86,10 +90,14 @@ async function orphans(player) {
 /**
  * Knitted tiles with honors, greater or lesser.
  * This hand has no melds, door always has 14 tiles.
- * @param {Object} player The player object.
- * @returns {Promise<boolean>}
+ * @param {object} player The player object.
+ * @returns {promise<boolean>}
  */
 async function knittedHonors(player) {
+	player.knitted = false
+	player.lesserHonors = false
+	player.greaterHonors = false
+
 	const types = Object.entries(player.hu.types)
 	const shu = types.filter(item => SHU.includes(item[0])).map(item => `${item[1]}`)
 
@@ -102,7 +110,7 @@ async function knittedHonors(player) {
 		['3', '6', '9', '36', '39', '69', '369']
 	]
 
-	const isKnitted = shu.length === 3 && (
+	const knitted = shu.length === 3 && (
 		(kni[0].includes(shu[0]) && kni[1].includes(shu[1]) && kni[2].includes(shu[2])) ||
 		(kni[0].includes(shu[0]) && kni[1].includes(shu[2]) && kni[2].includes(shu[1])) ||
 		(kni[0].includes(shu[1]) && kni[1].includes(shu[0]) && kni[2].includes(shu[2])) ||
@@ -111,11 +119,11 @@ async function knittedHonors(player) {
 		(kni[0].includes(shu[2]) && kni[1].includes(shu[1]) && kni[2].includes(shu[0]))
 	)
 
-	const isGreaterHonors = zi.length === 2 && zi[0] === '1234' && zi[1] === '123'
+	const greaterHonors = zi.length === 2 && zi[0] === '1234' && zi[1] === '123'
 
-	if (isKnitted && isGreaterHonors) {
-		player.hu.isKnitted = true
-		player.hu.isGreaterHonors = true
+	if (knitted && greaterHonors) {
+		player.knitted = true
+		player.greaterHonors = true
 		return true
 	}
 
@@ -124,11 +132,11 @@ async function knittedHonors(player) {
 		['1', '2', '3', '12', '13', '23', '123'],
 	]
 
-	const isLesserHonors = zi.length === 2 && honors[0].includes(zi[0]) && honors[1].includes(zi[1])
+	const lesserHonors = zi.length === 2 && honors[0].includes(zi[0]) && honors[1].includes(zi[1])
 
-	if (isKnitted && isLesserHonors) {
-		player.hu.isKnitted = true
-		player.hu.isLesserHonors = true
+	if (knitted && lesserHonors) {
+		player.knitted = true
+		player.lesserHonors = true
 		return true
 	}
 }
@@ -136,10 +144,12 @@ async function knittedHonors(player) {
 /**
  * Three special shunzi 1-4-7, 2-5-8, and 3-6-9 in different suits.
  * Allows for one regular meld.
- * @param {Object} player The player object.
- * @returns {Promise<boolean>}
+ * @param {object} player The player object.
+ * @returns {promise<boolean>}
  */
 async function knittedStraight(player) {
+	player.knittedStraight = false
+
 	const types = Object.entries(player.hu.types)
 	const flowers = types.filter(item => SHU.includes(item[0]))
 
@@ -198,7 +208,7 @@ async function knittedStraight(player) {
 		player.allMelds.length + player.melds.length === 5 &&
 		player.melds.length <= 1
 	) {
-		player.hu.isKnittedStraight = true
+		player.knittedStraight = true
 		return true
 	}
 

@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/new-game
+ * @description Initialize and play game.
+ * @property {function} initGame Setup game.
  */
 
 import { VERSION } from '../config.js'
@@ -10,9 +12,12 @@ import { randInt } from './helpers.js'
 import { determineSeatWinds } from '../models/winds.js'
 import { newRound } from '../components/round/new-round.js'
 import { play } from './play.js'
-
 import Players from '../models/players.js'
 
+/**
+ * Setup game.
+ * @param {object} game The game parameters.
+ */
 export async function initGame(game) {
 	game = {
 		version: VERSION,

@@ -4,10 +4,10 @@
  * @author Niklas Dougherty
  * @module components/display/tiles
  * @description Display functions pertaining tiles.
- * @property {Function} hiliteToggle Find and hilite all similar (open) tiles on the board.
- * @property {Function} displayHiliteTiles Initiate hiliting.
- * @property {Function} displayTileCount Display number of tiles left in wall.
- * @property {Function} displayDiscarded Display the discarded tile in the drop zone.
+ * @property {function} hiliteToggle Find and hilite all similar (open) tiles on the board.
+ * @property {function} displayHiliteTiles Initiate hiliting.
+ * @property {function} displayTileCount Display number of tiles left in wall.
+ * @property {function} displayDiscarded Display the discarded tile in the drop zone.
  */
 
 import { createTile } from '../tiles.js'
@@ -73,7 +73,7 @@ export function displayTileCount(tileCount) {
 /**
  * Display the discarded tile in the drop zone.
  * @param {number} key Player number.
- * @param {Object} tile The tile.
+ * @param {object} tile The tile.
  * @returns 
  */
 export function displayDiscarded(key, tile) {

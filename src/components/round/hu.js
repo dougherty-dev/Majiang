@@ -3,9 +3,9 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/results
- * @description Announce draw or hu (win).
- * @property {Function} draw No tiles left. Declare draw and replay hand.
- * @property {Function} hu Announce and display potentially winning hand.
+ * @description Announce draw or hu (win) of hand.
+ * @property {function} draw No tiles left. Declare draw and replay hand.
+ * @property {function} hu Announce and display potentially winning hand.
  */
 
 import { EXITFAN } from '../../models/constants.js'
@@ -18,7 +18,7 @@ import { displayResults } from './results.js'
 
 /**
  * No tiles left. Declare draw and replay hand.
- * @param {Object} game The game parameters.
+ * @param {object} game The game parameters.
  */
 export async function draw(game) {
 	game.winner = false
@@ -28,9 +28,9 @@ export async function draw(game) {
 
 /**
  * Announce and display potentially winning hand.
- * @param {Object} game The game parameters.
+ * @param {object} game The game parameters.
  * @param {*} key Winning player.
- * @returns {Promise<boolean>}
+ * @returns {promise<boolean>}
  */
 export async function hu(game, key) {
 	// Collect tiles for point analysis.
@@ -96,12 +96,14 @@ export async function hu(game, key) {
 		huOverlay.appendChild(huContents)
 		board.appendChild(huOverlay)
 
+		// Accept hu, prepare new hand.
 		ok.addEventListener('click', async() => {
 			sound('snd/hule.m4a')
 			if (huOverlay) huOverlay.remove()
 			await displayResults(game, key, tiles, points)
 		}, { once: true })
 
+		// Dismiss hu, continue hand.
 		await new Promise(resolve => {
 			button.addEventListener('click', () => {
 				resolve()

@@ -4,9 +4,9 @@
  * @author Niklas Dougherty
  * @module components/display/melds
  * @description Display functions pertaining to melded tiles.
- * @property {Function} displayMelds Display all melds for all players.
- * @property {Function} displayMeld Display melds (chi, peng, gang, angang) for player.
- * @property {Function} revealMelds Reveal all melds at end of hand.
+ * @property {function} displayMelds Display all melds for all players.
+ * @property {function} displayMeld Display melds (chi, peng, gang, angang) for player.
+ * @property {function} revealMelds Reveal all melds at end of hand.
  */
 
 import { createElement } from '../elements.js'
@@ -16,7 +16,7 @@ import { HUMANPLAYER } from '../../models/constants.js'
 
 /**
  * Display all melds for all players.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function displayMelds(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -27,7 +27,7 @@ export function displayMelds(players) {
 /**
  * Display melds (chi, peng, gang, angang) for player.
  * @param {number} key Player number.
- * @param {Object} player The player structure.
+ * @param {object} player The player structure.
  * @param {boolean} reveal Whether to reveal tiles.
  */
 export async function displayMeld(key, player, reveal = false) {
@@ -75,7 +75,7 @@ export async function displayMeld(key, player, reveal = false) {
 
 /**
  * Reveal all melds at end of hand.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function revealMelds(players) {
 	for (const [key, player] of Object.entries(players)) {

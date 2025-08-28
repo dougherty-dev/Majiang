@@ -3,6 +3,11 @@
 /**
  * @author Niklas Dougherty
  * @module components/melds/chi
+ * @description Actions when opportunity to meld a shunzi.
+ * @property {function} checkChi Probe if a shunzi can be formed from discarded tile.
+ * @property {function} chi Move shunzi tiles from door and drop zone to melded set.
+ * @property {function} AIChiHandling Bot handling of shunzi, will always chi.
+ * @property {function} humanChiHandling Human player interactive handling of shunzi.
  */
 
 import { SHU } from '../../models/tiles.js'
@@ -15,6 +20,12 @@ import { modalDrag } from '../drag.js'
 import { createElement } from '../elements.js'
 import { botDiscard } from '../bot/discard.js'
 
+/**
+ * Probe if a shunzi can be formed from discarded tile, and what to do with it.
+ * @param {object} game The game parameters.
+ * @param {object} tile The tile potentially forming a shunzi.
+ * @returns {promise<boolean>}
+ */
 export async function checkChi(game, tile) {
 	const nextPlayer = modIncrease(game.currentPlayer)
 	if (game.players[nextPlayer].door.length < 4) return false
@@ -81,6 +92,12 @@ export async function checkChi(game, tile) {
 	return await AIChiHandling(game, meldTiles, nextPlayer)
 }
 
+/**
+ * Move shunzi tiles from door and drop zone to melded set, update displayed melds.
+ * @param {object} game The game parameters.
+ * @param {object} meldSet The gangzi array of tiles.
+ * @param {number} nextPlayer Player number melding the shunzi, next after current player.
+ */
 async function chi(game, meldSet, nextPlayer) {
 	for (const paizi of meldSet) {
 		const index = game.players[nextPlayer].door.findIndex(elem => elem[0] === paizi[0])
@@ -102,15 +119,21 @@ async function chi(game, meldSet, nextPlayer) {
 
 	displayMeld(nextPlayer, game.players[nextPlayer])
 
-	// rotate player
+	// Rotate players.
 	game.players[game.currentPlayer].turn = false
 	game.currentPlayer = modIncrease(game.currentPlayer)
 	game.players[game.currentPlayer].turn = true
 	await delay(1000)
 }
 
+/**
+ * Bot handling of shunzi, will always chi.
+ * @param {object} game The game parameters.
+ * @param {object} meldTiles One or more arrays of shunzi tiles.
+ * @param {number} nextPlayer Player number melding the shunzi, next after current player.
+ * @returns {promise<true>}
+ */
 async function AIChiHandling(game, meldTiles, nextPlayer) {
-	// bots will just eat for now
 	const meldSet = meldTiles[0]
 	await delay(1000)
 	await chi(game, meldSet, nextPlayer)
@@ -119,6 +142,13 @@ async function AIChiHandling(game, meldTiles, nextPlayer) {
 	return true
 }
 
+/**
+ * Human player interactive handling of shunzi.
+ * @param {object} game The game parameters.
+ * @param {object} meldTiles One or more arrays of shunzi tiles.
+ * @param {number} nextPlayer Player number melding the shunzi, next after current player.
+ * @returns {promise<boolean>}
+ */
 async function humanChiHandling(game, meldTiles, nextPlayer) {
 	const board = document.getElementById('majiang-board')
 
@@ -129,6 +159,7 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 	const h1 = createElement('h1', '', '吃 Chi')
 	meldContents.append(button, h1)
 
+	// Accept shunzi.
 	for (const meldSet of meldTiles) {
 		const paragraph = createElement('p', ['meld-set'])
 		for (const paizi of meldSet) {
@@ -157,6 +188,7 @@ async function humanChiHandling(game, meldTiles, nextPlayer) {
 	meldOverlay.appendChild(meldContents)
 	board.appendChild(meldOverlay)
 
+	// Dismiss shunzi.
 	await new Promise(resolve => {
 		button.addEventListener('click', async() => { resolve() }, {once: true})
 	})

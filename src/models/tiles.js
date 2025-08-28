@@ -3,6 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module models/tiles
+ * @description Tile definitions.
+ * @property {function} quadruple Quadruple a tile set.
  */
 
 import { ALLPLAYERS } from './constants.js'
@@ -15,6 +17,12 @@ export const FENG = 'f'
 export const JIAN = 'j'
 export const ZI = [FENG, JIAN]
 
+/**
+ * Quadruple a tile set.
+ * @param {object} set Set to quadruple.
+ * @param {number} start Where to begin ID counting.
+ * @returns {object} The extended tile set.
+ */
 function quadruple(set, start) {
 	let newSet = []
 	for (const [key, item] of Object.entries(set)) {

@@ -4,14 +4,14 @@
  * @author Niklas Dougherty
  * @module components/display/display
  * @description Various display functions.
- * @property {Function} displayPoints Paints the current points for all players.
- * @property {Function} displayRemoveItem Helper to clear contents from DOM elements.
- * @property {Function} killNode Stripping and cloning a node, killing event listeners.
- * @property {Function} displayClearBoard Clear the entire board of tiles.
- * @property {Function} displaySetAvatar Display the chosen avatar for human player.
- * @property {Function} layoutGame Draw everything on the board after setup.
- * @property {Function} displayExit Display hint required fan points for exit.
- * @property {Function} fadeOut Helper: fade out and remove exit point hint.
+ * @property {function} displayPoints Paints the current points for all players.
+ * @property {function} displayRemoveItem Helper to clear contents from DOM elements.
+ * @property {function} killNode Stripping and cloning a node, killing event listeners.
+ * @property {function} displayClearBoard Clear the entire board of tiles.
+ * @property {function} displaySetAvatar Display the chosen avatar for human player.
+ * @property {function} layoutGame Draw everything on the board after setup.
+ * @property {function} displayExit Display hint required fan points for exit.
+ * @property {function} fadeOut Helper: fade out and remove exit point hint.
  */
 
 import { ALLPLAYERS, MAJIANGAVATAR } from '../../models/constants.js'
@@ -26,7 +26,7 @@ import { sound } from '../helpers.js'
 
 /**
  * Paints the current points for all players.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function displayPoints(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -93,7 +93,7 @@ export async function displaySetAvatar() {
 
 /**
  * Draw everything on the board after setup.
- * @param {Object} game The game parameters.
+ * @param {object} game The game parameters.
  */
 export async function layoutGame(game) {
 	if (!game) return
@@ -132,7 +132,7 @@ export async function displayExit(points, required) {
  * Helper: fade out and remove exit point hint.
  * @param {string} element DOM node.
  * @param {number} durationInMs Time in milliseconds.
- * @returns {Promise}
+ * @returns {promise}
  */
 async function fadeOut(element, durationInMs) {
 	return new Promise((resolve) => {

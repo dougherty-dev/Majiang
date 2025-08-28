@@ -4,16 +4,16 @@
  * @author Niklas Dougherty
  * @module components/display/floor
  * @description Display functions pertaining to the floor.
- * @property {Function} displayFloors Display tiles on floor for all players.
- * @property {Function} displayFloor Lay out a discarded tile for individual player.
- * @property {Function} displayRound Display information about round, rotation and hand.
+ * @property {function} displayFloors Display tiles on floor for all players.
+ * @property {function} displayFloor Lay out a discarded tile for individual player.
+ * @property {function} displayRound Display information about round, rotation and hand.
  */
 
 import { createTile } from '../tiles.js'
 
 /**
  * Display tiles on floor for all players.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function displayFloors(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -26,7 +26,7 @@ export function displayFloors(players) {
 /**
  * Lay out a discarded tile for individual player, with a break at every six tiles.
  * @param {number} key Player number.
- * @param {Object} tile The tile.
+ * @param {object} tile The tile.
  * @param {number} index Order in the sequence of discarded tiles.
  * @returns 
  */

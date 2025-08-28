@@ -4,9 +4,9 @@
  * @author Niklas Dougherty
  * @module components/hu/check-type
  * @description Match hand combinations against lookup tables.
- * @property {Function} checkType Find winning set of melds.
- * @property {Function} tingpai Determine if waiting for a single possible tile.
- * @property {Function} checkPattern Match set against lookup pattern.
+ * @property {function} checkType Find winning set of melds.
+ * @property {function} tingpai Determine if waiting for a single possible tile.
+ * @property {function} checkPattern Match set against lookup pattern.
  */
 
 import { KEZI, SHUNZI } from './patterns.js'
@@ -38,8 +38,8 @@ const lookup = {
  * @param {number} key Player index.
  * @param {string} type Principal numerical representation of a tile type.
  * @param {string} lookupKey Lookup table name.
- * @param {Object} player The player object.
- * @returns {Promise<boolean>}
+ * @param {object} player The player object.
+ * @returns {promise<boolean>}
  */
 export async function checkType(key, type, lookupKey, player) {
 	if (!(type in lookup[lookupKey])) return false
@@ -103,7 +103,7 @@ export async function checkType(key, type, lookupKey, player) {
 /**
  * Determine if waiting for a single possible tile.
  * @param {number} seq Type sequence.
- * @returns {Promise<boolean>}
+ * @returns {promise<boolean>}
  */
 export async function tingpai(seq) {
 	const index = `lookup${seq.length + 1}`
@@ -124,8 +124,8 @@ export async function tingpai(seq) {
 
 /**
  * Match set against lookup pattern.
- * @param {Object} type 
- * @returns {Promise<boolean>}
+ * @param {object} type 
+ * @returns {promise<boolean>}
  */
 export async function checkPattern(type) {
 	if ([2, 3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {

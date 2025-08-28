@@ -4,8 +4,8 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong48
  * @description 48 番 (fan) scoring rules.
- * @property {Function} fz14YiSeSiTongshun 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
- * @property {Function} fz15YiSeSiJieGao 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
+ * @property {function} fz14YiSeSiTongshun 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
+ * @property {function} fz15YiSeSiJieGao 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
  */
 
 const FZ48 = 48
@@ -13,8 +13,8 @@ const FZ48 = 48
 /**
  * ✅ 14. Quadruple shunzi (Yi se si tongshun, 一色四同顺).
  * Four identical shunzi, in the same suit, with the same values.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 48.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 48.
  */
 export async function fz14YiSeSiTongshun(struct) {
 	if (struct.nonchiMelds.length) return 0
@@ -32,8 +32,8 @@ export async function fz14YiSeSiTongshun(struct) {
 /**
  * ✅ 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
  * Four kezi in the same suit, shifted up one in value for each kezi.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 48.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 48.
  */
 export async function fz15YiSeSiJieGao(struct) {
 	if (struct.chiMelds.length) return 0

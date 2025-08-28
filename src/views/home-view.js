@@ -3,7 +3,8 @@
 /**
  * @author Niklas Dougherty
  * @module views/home-view
- * @property {Function} connectedCallback Render view.
+ * @description HTML structure of home page.
+ * @property {function} connectedCallback Render view.
  */
 
 export default class HomeView extends HTMLElement {

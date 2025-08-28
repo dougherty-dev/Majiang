@@ -4,10 +4,10 @@
  * @author Niklas Dougherty
  * @module components/display/door
  * @description Display functions pertaining to the players’ doors (hands).
- * @property {Function} displayDoors Display all players’ doors.
- * @property {Function} displayDoor Display an individual player’s door.
- * @property {Function} displayAddToDoor Display a fresh tile taken from the wall.
- * @property {Function} revealDoors Reveal all tiles at the end of a played hand.
+ * @property {function} displayDoors Display all players’ doors.
+ * @property {function} displayDoor Display an individual player’s door.
+ * @property {function} displayAddToDoor Display a fresh tile taken from the wall.
+ * @property {function} revealDoors Reveal all tiles at the end of a played hand.
  */
 
 import { createTile } from '../tiles.js'
@@ -15,7 +15,7 @@ import { displayRemoveItem } from './display.js'
 
 /**
  * Display all players’ doors.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function displayDoors(players) {
 	for (const [key, player] of Object.entries(players)) {
@@ -26,7 +26,7 @@ export function displayDoors(players) {
 /**
  * Display an individual player’s door.
  * @param {number} key Player number.
- * @param {Object} player The player structure.
+ * @param {object} player The player structure.
  */
 export async function displayDoor(key, player) {
 	const door = document.getElementById('door' + key)
@@ -42,7 +42,7 @@ export async function displayDoor(key, player) {
 /**
  * Display a fresh tile taken from the wall.
  * @param {number} key Player number.
- * @param {Object} tile The tile.
+ * @param {object} tile The tile.
  */
 export function displayAddToDoor(key, tile) {
 	const door = document.getElementById('door' + key)
@@ -55,7 +55,7 @@ export function displayAddToDoor(key, tile) {
 
 /**
  * Reveal all tiles at the end of a played hand.
- * @param {Object} players The players structure.
+ * @param {object} players The players structure.
  */
 export function revealDoors(players) {
 	for (const [key, player] of Object.entries(players)) {

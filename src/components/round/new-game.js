@@ -3,12 +3,17 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/new-game
+ * @description Overlay and listener for a new game.
+ * @property {function} newGame Wait for user starting a new game.
  */
 
 import { createElement } from '../elements.js'
 import { saveGame } from '../gameio.js'
 import { initGame } from '../init-game.js'
 
+/**
+ * Wait for user starting a new game.
+ */
 export async function newGame() {
 	const control = document.getElementById('control-counter')
 
@@ -20,7 +25,6 @@ export async function newGame() {
 
 	newGameOverlay.appendChild(newGameContents)
 	control.appendChild(newGameOverlay)
-
 
 	await new Promise(resolve => {
 		button.addEventListener('click', async() => {

@@ -3,8 +3,14 @@
 /**
  * @author Niklas Dougherty
  * @class models/Hu
+ * @description The Hu class.
  */
 
+/**
+ * @class Hu
+ * @description Temporary object used when checking winning hand.
+ * @typedef {object} hu The hu object.
+ */
 export default class Hu {
 	constructor() {
 		this.hu = {

@@ -4,12 +4,12 @@
  * @author Niklas Dougherty
  * @module models/fanzhong/fanzhong64
  * @description 64 番 (fan) scoring rules.
- * @property {Function} fz8QingYaoJiu 8. Pure terminals (Qing yao jiu, 清幺九).
- * @property {Function} fz9XiaoSiXi 9. Little four winds (Xiao si xi, 小四喜).
- * @property {Function} fz10XiaoSanYuan 10. Little three dragons (Xiao san yuan, 小三元).
- * @property {Function} fz11ZiYiSe 11. All honors (Zi yi se, 字一色).
- * @property {Function} fz12SiAnke 12. Four concealed kezi (Si anke, 四暗刻).
- * @property {Function} fz13YiSeShuangLongHui 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
+ * @property {function} fz8QingYaoJiu 8. Pure terminals (Qing yao jiu, 清幺九).
+ * @property {function} fz9XiaoSiXi 9. Little four winds (Xiao si xi, 小四喜).
+ * @property {function} fz10XiaoSanYuan 10. Little three dragons (Xiao san yuan, 小三元).
+ * @property {function} fz11ZiYiSe 11. All honors (Zi yi se, 字一色).
+ * @property {function} fz12SiAnke 12. Four concealed kezi (Si anke, 四暗刻).
+ * @property {function} fz13YiSeShuangLongHui 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
  */
 
 import { DUIZI, KEZI } from '../../components/hu/patterns.js'
@@ -20,8 +20,8 @@ const FZ64 = 64
 /**
  * ✅ 8. Pure terminals (Qing yao jiu, 清幺九).
  * Suited kezi of 1s and 9s only.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz8QingYaoJiu(struct) {
 	const types = struct.shuTypes.map(item => item[1]).join('')
@@ -32,8 +32,8 @@ export async function fz8QingYaoJiu(struct) {
 /**
  * ✅ 9. Little four winds (Xiao si xi, 小四喜).
  * Three kezi/gangzi and a pair with winds, and an arbitrary shunzi/kezi/gangzi.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz9XiaoSiXi(struct) {
 	const pattern = new RegExp([
@@ -49,8 +49,8 @@ export async function fz9XiaoSiXi(struct) {
 /**
  * ✅ 10. Little three dragons (Xiao san yuan, 小三元).
  * Two kezi/gangzi and a pair with dragons, and an additional arbitrary kezi/shunzi.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz10XiaoSanYuan(struct) {
 	const pattern = new RegExp([
@@ -65,8 +65,8 @@ export async function fz10XiaoSanYuan(struct) {
 /**
  * ✅ 11. All honors (Zi yi se, 字一色).
  * All melds are kezi/gangzi of winds and dragons.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz11ZiYiSe(struct) {
 	return (struct.hasShu) ? 0 : FZ64
@@ -75,8 +75,8 @@ export async function fz11ZiYiSe(struct) {
 /**
  * ✅ 12. Four concealed kezi (Si anke, 四暗刻).
  * All melds are concealed kezi/gangzi, either on hand or as melded angang.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz12SiAnke(struct) {
 	if (struct.openMelds.length) return 0
@@ -110,8 +110,8 @@ export async function fz12SiAnke(struct) {
 /**
  * ✅ 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
  * All melds in one suit, with two shunzi 123 and 789 each, and a pair 55.
- * @param {Object} struct Game parameters.
- * @returns {Promise<Number>} 0 or 64.
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 64.
  */
 export async function fz13YiSeShuangLongHui(struct) {
 	const types = struct.shuTypes.filter(item => item[1] === '11223355778899')

@@ -3,133 +3,148 @@
 /**
  * @author Niklas Dougherty
  * @module components/round/test-cheat
+ * @description Manual testing of hands.
+ * @property {function} cheat Manually test hands by assigning tiles to human player.
  */
 
 import { sortTiles } from '../helpers.js'
 
 /**
  * Manually test hands by assigning tiles to human player.
- * @param {Object} game The game parameters.
+ * @param {object} game The game parameters.
  */
 export async function cheat(game) {
+	let t
+
 	// 88 fan
-	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi4', 'zi2', 'zi4', 'zi4', 'bing8'] // 1
-	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi4', 'zi2', 'zi4', 'zi4', 'zi1'] // 1
-	// const tiles = ['zi5', 'zi5', 'zi5', 'zi6', 'zi6', 'zi6', 'tiao1', 'tiao2', 'tiao3', 'zi7', 'zi7', 'zi7', 'bing8'] // 2
-	// const tiles = ['tiao8', 'tiao8', 'tiao8', 'tiao2', 'tiao3', 'tiao4', 'tiao2', 'tiao3', 'tiao4', 'zi6', 'zi6', 'tiao2', 'tiao3'] // 3
-	// const tiles = ['tiao8', 'tiao8', 'tiao8', 'tiao2', 'tiao3', 'tiao4', 'tiao2', 'tiao3', 'tiao4', 'zi7', 'zi7', 'tiao2', 'tiao3'] // 3 neg
-	// const tiles = ['tiao8', 'tiao8', 'tiao8', 'tiao2', 'tiao3', 'tiao4', 'tiao2', 'tiao3', 'tiao4', 'tiao6', 'tiao6', 'tiao2', 'tiao3'] // 3
-	// const tiles = ['wan1', 'wan1', 'wan1', 'wan2', 'wan3', 'wan4', 'wan5', 'wan6', 'wan7', 'wan8', 'wan9', 'wan9', 'wan9'] // 4
-	// const tiles = ['zi5', 'zi5', 'zi5', 'zi5', 'wan3', 'wan3', 'wan3', 'bing2', 'bing2', 'bing2', 'bing2', 'tiao1', 'tiao1'] // 5
-	// const tiles = ['bing2', 'bing2', 'bing3', 'bing3', 'bing5', 'bing5', 'bing4', 'bing4', 'bing7', 'bing6', 'bing6', 'bing8', 'bing7'] // 6
-	// const tiles = ['bing1', 'bing9', 'tiao1', 'tiao9', 'wan9', 'wan1', 'zi1', 'zi2', 'zi3', 'zi4', 'zi5', 'zi6', 'zi7'] // 7
+	// t = ['z1', 'z1', 'z1', 'z3', 'z3', 'z3', 'z2', 'z2', 'z4', 'z2', 'z4', 'z4', 'b8'] // 1 大四喜
+	// t = ['z1', 'z1', 'z1', 'z3', 'z3', 'z3', 'z2', 'z2', 'z4', 'z2', 'z4', 'z4', 'z1'] // 1 大四喜
+	// t = ['z5', 'z5', 'z5', 'z6', 'z6', 'z6', 't1', 't2', 't3', 'z7', 'z7', 'z7', 'b8'] // 2 大三元
+	// t = ['t8', 't8', 't8', 't2', 't3', 't4', 't2', 't3', 't4', 'z6', 'z6', 't2', 't3'] // 3 绿一色
+	// t = ['t8', 't8', 't8', 't2', 't3', 't4', 't2', 't3', 't4', 'z7', 'z7', 't2', 't3'] // 3 绿一色 neg
+	// t = ['t8', 't8', 't8', 't2', 't3', 't4', 't2', 't3', 't4', 't6', 't6', 't2', 't3'] // 3 绿一色
+	// t = ['w1', 'w1', 'w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8', 'w9', 'w9', 'w9'] // 4 九莲宝灯
+	// t = ['z5', 'z5', 'z5', 'z5', 'w3', 'w3', 'w3', 'b2', 'b2', 'b2', 'b2', 't1', 't1'] // 5 四杠
+	// t = ['b2', 'b2', 'b3', 'b3', 'b5', 'b5', 'b4', 'b4', 'b7', 'b6', 'b6', 'b8', 'b7'] // 6 连七对
+	// t = ['b1', 'b9', 't1', 't9', 'w9', 'w1', 'z1', 'z2', 'z3', 'z4', 'z5', 'z6', 'z7'] // 7 十三幺
 
 	// 64 fan
-	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing1'] // 8
-	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'bing9', 'bing9', 'bing9', 'wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'bing1', 'bing2'] // 8 neg
-	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi4', 'zi2', 'zi4', 'bing7', 'bing8'] // 9
-	// const tiles = ['zi5', 'zi5', 'zi5', 'zi6', 'zi6', 'zi6', 'tiao1', 'tiao2', 'tiao3', 'zi7', 'zi7', 'bing7', 'bing8'] // 10
-	// const tiles = ['zi1', 'zi1', 'zi1', 'zi3', 'zi3', 'zi3', 'zi2', 'zi2', 'zi2', 'zi5', 'zi5', 'zi6', 'zi6'] // 11
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing9', 'bing9', 'bing9', 'wan5', 'wan5', 'wan5', 'zi7', 'zi7', 'zi7', 'tiao3'] // 12
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing5', 'bing5', 'bing7', 'bing8', 'bing9', 'bing7', 'bing8'] // 13
+	// t = ['t1', 't1', 't1', 'b9', 'b9', 'b9', 'w9', 'w9', 'w9', 'w1', 'w1', 'b1', 'b1'] // 8 清幺九
+	// t = ['t1', 't1', 't1', 'b9', 'b9', 'b9', 'w9', 'w9', 'w9', 'w1', 'w1', 'b1', 'b2'] // 8 清幺九 neg
+	// t = ['z1', 'z1', 'z1', 'z3', 'z3', 'z3', 'z2', 'z2', 'z4', 'z2', 'z4', 'b7', 'b8'] // 9 小四喜
+	// t = ['z5', 'z5', 'z5', 'z6', 'z6', 'z6', 't1', 't2', 't3', 'z7', 'z7', 'b7', 'b8'] // 10 小三元
+	// t = ['z1', 'z1', 'z1', 'z3', 'z3', 'z3', 'z2', 'z2', 'z2', 'z5', 'z5', 'z6', 'z6'] // 11 字一色
+	// t = ['b2', 'b2', 'b2', 'b9', 'b9', 'b9', 'w5', 'w5', 'w5', 'z7', 'z7', 'z7', 't3'] // 12 四暗刻
+	// t = ['b1', 'b2', 'b3', 'b1', 'b2', 'b3', 'b5', 'b5', 'b7', 'b8', 'b9', 'b7', 'b8'] // 13 一色双龙会
 
 	// 48 fan
-	// const tiles = ['wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'bing2'] // 14
-	// const tiles = ['wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan8'] // 14
-	// const tiles = ['wan4', 'wan5', 'wan6', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan5', 'wan6', 'wan7', 'wan8'] // 14 neg
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan6', 'wan6', 'wan6', 'wan7', 'wan7', 'wan7', 'wan8', 'wan8', 'wan8', 'bing2'] // 15
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan6', 'wan6', 'wan6', 'wan7', 'wan7', 'wan7', 'wan8', 'wan8', 'wan8', 'wan1'] // 15
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan6', 'wan6', 'wan6', 'wan7', 'wan7', 'wan7', 'wan8', 'wan8', 'wan8', 'wan6'] // 15
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan6', 'wan6', 'wan6', 'wan7', 'wan7', 'wan7', 'wan9', 'wan9', 'wan9', 'bing2'] // 15 neg
+	// t = ['w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'b2'] // 14 一色四同顺
+	// t = ['w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w8'] // 14一色四同顺
+	// t = ['w4', 'w5', 'w6', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w5', 'w6', 'w7', 'w8'] // 14 一色四同顺 neg
+	// t = ['w5', 'w5', 'w5', 'w6', 'w6', 'w6', 'w7', 'w7', 'w7', 'w8', 'w8', 'w8', 'b2'] // 15 一色四节高
+	// t = ['w5', 'w5', 'w5', 'w6', 'w6', 'w6', 'w7', 'w7', 'w7', 'w8', 'w8', 'w8', 'w1'] // 15 一色四节高
+	// t = ['w5', 'w5', 'w5', 'w6', 'w6', 'w6', 'w7', 'w7', 'w7', 'w8', 'w8', 'w8', 'w6'] // 15 一色四节高
+	// t = ['w5', 'w5', 'w5', 'w6', 'w6', 'w6', 'w7', 'w7', 'w7', 'w9', 'w9', 'w9', 'b2'] // 15 一色四节高 neg
 
 	// 32 fan
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5', 'tiao6', 'bing2'] // 16
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5', 'tiao6', 'tiao8'] // 16
-	// const tiles = ['zi5', 'zi5', 'zi5', 'zi5', 'wan3', 'wan3', 'wan3', 'bing2', 'bing2', 'bing2', 'bing2', 'wan3', 'tiao3'] // 17
-	// const tiles = ['bing1', 'bing1', 'bing1', 'bing9', 'bing9', 'bing9', 'tiao9', 'tiao9', 'tiao9', 'wan9', 'wan9', 'wan9', 'zi7'] // 18
+	// t = ['t1', 't2', 't3', 't2', 't3', 't4', 't3', 't4', 't5', 't4', 't5', 't6', 'b2'] // 16 一色四步高
+	// t = ['t1', 't2', 't3', 't2', 't3', 't4', 't3', 't4', 't5', 't4', 't5', 't6', 't8'] // 16 一色四步高
+	// t = ['z5', 'z5', 'z5', 'z5', 'w3', 'w3', 'w3', 'b2', 'b2', 'b2', 'b2', 'w3', 't3'] // 17 三杠
+	// t = ['b1', 'b1', 'b1', 'b9', 'b9', 'b9', 't9', 't9', 't9', 'w9', 'w9', 'w9', 'z7'] // 18 混幺九
 
 	// 24 fan
-	// const tiles = ['bing1', 'bing1', 'bing5', 'bing5', 'tiao4', 'tiao4', 'tiao7', 'tiao7', 'wan5', 'wan5', 'zi1', 'zi1', 'zi6'] // 19
-	// const tiles = ['bing1', 'bing4', 'bing7', 'tiao2', 'tiao5', 'wan6', 'zi1', 'zi2', 'zi3', 'zi4', 'zi5', 'zi6', 'zi7'] // 20
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing8', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao6', 'wan2', 'wan2', 'wan2', 'wan8'] // 21
-	// const tiles = ['bing1', 'bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao6', 'wan2', 'wan2', 'wan2', 'wan8'] // 21 neg
-	// const tiles = ['bing2', 'bing2', 'bing4', 'bing4', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao8', 'tiao8', 'wan2', 'wan2', 'wan4'] // 21 neg
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao4', 'tiao5', 'tiao5', 'tiao5', 'tiao5', 'tiao6', 'tiao7', 'tiao9'] // 22
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'tiao1', 'tiao1', 'tiao1', 'zi2'] // 23 neg
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing1', 'bing2', 'bing3', 'bing2', 'bing3', 'bing4', 'bing5'] // 23
-	// const tiles = ['bing4', 'bing5', 'bing6', 'bing4', 'bing5', 'bing6', 'bing4', 'bing5', 'bing6', 'bing3', 'bing4', 'bing5', 'wan7'] // 23
-	// const tiles = ['tiao2', 'tiao3', 'tiao4', 'wan3', 'wan3', 'wan3', 'wan4', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'zi3'] // 23
-	// const tiles = ['bing1', 'bing2', 'bing3', 'wan3', 'wan3', 'wan3', 'wan4', 'wan4', 'wan4', 'wan5', 'wan5', 'zi1', 'zi3'] // 24
-	// const tiles = ['bing9', 'bing9', 'bing9', 'tiao7', 'tiao7', 'tiao8', 'tiao9', 'wan8', 'wan8', 'wan8', 'wan9', 'wan9', 'wan9'] // 25
-	// const tiles = ['bing4', 'bing5', 'bing6', 'tiao4', 'tiao4', 'tiao4', 'tiao5', 'tiao5', 'tiao5', 'wan4', 'wan4', 'wan4', 'wan6'] // 26
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing3', 'bing3', 'tiao1', 'tiao2', 'tiao3', 'tiao3', 'tiao3', 'tiao3', 'wan3', 'wan3'] // 27
+	// t = ['b1', 'b1', 'b5', 'b5', 't4', 't4', 't7', 't7', 'w5', 'w5', 'z1', 'z1', 'z6'] // 19 七对
+	// t = ['b1', 'b4', 'b7', 't2', 't5', 'w6', 'z1', 'z2', 'z3', 'z4', 'z5', 'z6', 'z7'] // 20 七星不靠
+	// t = ['b2', 'b2', 'b2', 'b8', 'b8', 'b8', 't6', 't6', 't6', 'w2', 'w2', 'w2', 'w8'] // 21 全双刻
+	// t = ['b1', 'b1', 'b1', 'b8', 'b8', 'b8', 't6', 't6', 't6', 'w2', 'w2', 'w2', 'w8'] // 21 全双刻 neg
+	// t = ['b2', 'b2', 'b4', 'b4', 'b8', 'b8', 't6', 't6', 't8', 't8', 'w2', 'w2', 'w4'] // 21 全双刻 neg
+	// t = ['t1', 't2', 't3', 't4', 't4', 't4', 't5', 't5', 't5', 't5', 't6', 't7', 't9'] // 22 清一色
+	// t = ['b1', 'b2', 'b3', 'b1', 'b2', 'b3', 'b1', 'b2', 'b3', 'b2', 'b3', 'b4', 'b5'] // 23 一色三同顺
+	// t = ['b4', 'b5', 'b6', 'b4', 'b5', 'b6', 'b4', 'b5', 'b6', 'b3', 'b4', 'b5', 'w7'] // 23 一色三同顺
+	// t = ['t2', 't3', 't4', 'w3', 'w3', 'w3', 'w4', 'w4', 'w4', 'w5', 'w5', 'w5', 'z3'] // 23 一色三同顺
+	// t = ['b1', 'b2', 'b3', 'b1', 'b2', 'b3', 'b1', 'b2', 'b3', 't1', 't1', 't1', 'z2'] // 23 一色三同顺 neg
+	// t = ['b1', 'b2', 'b3', 'w3', 'w3', 'w3', 'w4', 'w4', 'w4', 'w5', 'w5', 'z1', 'z3'] // 24 一色三节高
+	// t = ['b9', 'b9', 'b9', 't7', 't7', 't8', 't9', 'w8', 'w8', 'w8', 'w9', 'w9', 'w9'] // 25 全大
+	// t = ['b4', 'b5', 'b6', 't4', 't4', 't4', 't5', 't5', 't5', 'w4', 'w4', 'w4', 'w6'] // 26 全中
+	// t = ['b1', 'b2', 'b3', 'b3', 'b3', 't1', 't2', 't3', 't3', 't3', 't3', 'w3', 'w3'] // 27 全小
 
 	// 16 fan
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'wan4', 'wan5', 'zi1', 'zi1'] // 28
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'tiao5', 'tiao5', 'tiao1', 'tiao1'] // 28
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'tiao5'] // 28
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'tiao1', 'tiao2', 'tiao3', 'wan5'] // 29
-	// const tiles = ['bing1', 'bing1', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
-	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao4', 'tiao5', 'tiao6', 'tiao6', 'tiao7'] // 30
-	// const tiles = ['tiao1', 'tiao1', 'tiao1', 'tiao9', 'tiao9', 'tiao2', 'tiao3', 'tiao4', 'tiao3', 'tiao4', 'tiao5', 'tiao4', 'tiao5'] // 30
-	// const tiles = ['bing4', 'bing5', 'bing6', 'bing5', 'bing6', 'bing7', 'tiao5', 'tiao5', 'tiao5', 'wan3', 'wan4', 'wan5', 'wan5'] // 31
-	// const tiles = ['bing2', 'bing2', 'bing2', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan2', 'wan2', 'zi7', 'zi7', 'wan5', 'wan6'] // 32
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'wan6', 'wan6', 'wan6', 'zi3', 'zi3', 'zi3', 'zi5'] // 33
-	// const tiles = ['bing3', 'bing3', 'bing4', 'bing4', 'bing4', 'bing5', 'bing5', 'bing5', 'zi1', 'bing6', 'bing7', 'bing7', 'bing7'] // 33 (33 444 555 777 567, chi 5, wait 7)
+	// t = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 'w4', 'w5', 'z1', 'z1'] // 28 清龙
+	// t = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't5', 't5', 't1', 't1'] // 28 清龙
+	// t = ['t1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't1', 't2', 't3', 't5'] // 28 清龙
+	// t = ['b1', 'b2', 'b3', 'b7', 'b8', 'b9', 't7', 't8', 't9', 't1', 't2', 't3', 'w5'] // 29 三色双龙会
+	// t = ['b1', 'b1', 'b8', 'b8', 'b8', 't2', 't3', 't4', 't4', 't5', 't6', 't6', 't7'] // 30 一色三步高
+	// t = ['t1', 't1', 't1', 't9', 't9', 't2', 't3', 't4', 't4', 't5', 't6', 't6', 't7'] // 30 一色三步高
+	// t = ['t1', 't1', 't1', 't9', 't9', 't2', 't3', 't4', 't3', 't4', 't5', 't4', 't5'] // 30 一色三步高
+	// t = ['b4', 'b5', 'b6', 'b5', 'b6', 'b7', 't5', 't5', 't5', 'w3', 'w4', 'w5', 'w5'] // 31 全带五
+	// t = ['b2', 'b2', 'b2', 't2', 't2', 't2', 'w2', 'w2', 'w2', 'z7', 'z7', 'w5', 'w6'] // 32 三同刻
+	t = ['b2', 'b3', 'b8', 'b8', 'b8', 'w6', 'w6', 'w6', 'z3', 'z3', 'z3', 'z5', 'z5'] // 33 三暗刻
+	// t = ['b3', 'b3', 'b4', 'b4', 'b4', 'b5', 'b5', 'b5', 'z1', 'b6', 'b7', 'b7', 'b7'] // 33 (33 444 555 777 567, chi 5, wait 7)
 
 	// 12 fan
-	// const tiles = ['bing1', 'bing4', 'bing7', 'tiao5', 'tiao8', 'wan3', 'wan6', 'wan9', 'zi3', 'zi4', 'zi5', 'zi6', 'zi7'] // 34
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing1', 'bing4', 'bing7', 'tiao2', 'tiao5', 'tiao8', 'wan3', 'wan6', 'wan9', 'wan9'] // 35
-	// const tiles = ['zi5', 'bing2', 'bing2', 'bing1', 'bing4', 'bing7', 'tiao2', 'tiao5', 'tiao8', 'wan3', 'wan6', 'wan9', 'zi5'] // 35
-	// const tiles = ['bing6', 'bing7', 'bing8', 'bing9', 'bing9', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'wan6', 'wan6', 'wan6', 'wan8'] // 36
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing4', 'bing4', 'tiao2', 'tiao3', 'tiao4', 'wan1', 'wan1', 'wan1', 'wan4', 'wan4'] // 37
-	// const tiles = ['bing2', 'bing2', 'bing4', 'bing4', 'wan2', 'wan2', 'tiao2', 'tiao2', 'wan4', 'wan4', 'tiao4', 'tiao4', 'wan3'] // 37
-	// const tiles = ['bing8', 'bing8', 'tiao7', 'tiao8', 'tiao9', 'zi2', 'zi2', 'zi2', 'zi3', 'zi3', 'zi3', 'zi4', 'zi4'] // 38
+	// t = ['b1', 'b4', 'b7', 't5', 't8', 'w3', 'w6', 'w9', 'z3', 'z4', 'z5', 'z6', 'z7'] // 34 全不靠
+	// t = ['b1', 'b2', 'b3', 'b1', 'b4', 'b7', 't2', 't5', 't8', 'w3', 'w6', 'w9', 'w9'] // 35 组合龙
+	// t = ['z5', 'b2', 'b2', 'b1', 'b4', 'b7', 't2', 't5', 't8', 'w3', 'w6', 'w9', 'z5'] // 35 组合龙
+	// t = ['b6', 'b7', 'b8', 'b9', 'b9', 'b9', 't7', 't8', 't9', 'w6', 'w6', 'w6', 'w8'] // 36 大于五
+	// t = ['b1', 'b2', 'b3', 'b4', 'b4', 't2', 't3', 't4', 'w1', 'w1', 'w1', 'w4', 'w4'] // 37 小于五
+	// t = ['b2', 'b2', 'b4', 'b4', 'w2', 'w2', 't2', 't2', 'w4', 'w4', 't4', 't4', 'w3'] // 37 小于五
+	// t = ['b8', 'b8', 't7', 't8', 't9', 'z2', 'z2', 'z2', 'z3', 'z3', 'z3', 'z4', 'z4'] // 38 三风刻
 
 	// 8 fan
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao4', 'tiao5', 'tiao6', 'wan7', 'wan8', 'wan9', 'zi6'] // 39
-	//const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao2', 'tiao2', 'tiao4', 'tiao5', 'tiao6', 'zi7'] // 40
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing8', 'bing8', 'bing8', 'tiao2', 'tiao2', 'tiao2', 'tiao4', 'tiao5', 'tiao6', 'zi6'] // 40 neg
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing6', 'bing7', 'bing8', 'tiao6', 'tiao7', 'tiao8', 'wan6', 'wan7', 'wan8', 'zi7'] // 41
-	// const tiles = ['bing2', 'bing3', 'bing9', 'bing6', 'bing7', 'bing8', 'tiao6', 'tiao7', 'tiao8', 'wan6', 'wan7', 'wan8', 'bing9'] // 41
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing6', 'bing7', 'bing8', 'tiao6', 'tiao7', 'tiao8', 'wan5', 'wan6', 'wan7', 'zi7'] // 41 neg
-	// const tiles = ['bing2', 'bing2', 'bing8', 'bing8', 'bing8', 'tiao6', 'tiao6', 'tiao6', 'wan7', 'wan7', 'wan7', 'tiao7', 'tiao8'] // 42
-	// const tiles = ['bing1', 'bing2', 'bing3', 'tiao7', 'tiao7', 'tiao7', 'zi4', 'zi4', 'wan8', 'wan8', 'wan8', 'tiao2', 'tiao3'] // 43
-	// const tiles = ['bing1', 'bing2', 'bing3', 'tiao7', 'tiao7', 'tiao7', 'tiao7', 'wan8', 'wan8', 'wan8', 'wan8', 'tiao2', 'tiao3'] // 48
-	// const tiles = ['bing9', 'bing9', 'bing9', 'tiao1', 'tiao1', 'tiao1', 'wan4', 'wan4', 'wan5', 'wan5', 'wan5', 'wan9', 'wan9'] // 49
-	// const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'bing2'] // 49
-	// const tiles = ['tiao7', 'tiao7', 'tiao7', 'wan2', 'wan2', 'wan2', 'wan3', 'wan3', 'wan3', 'zi6', 'zi6', 'zi6', 'wan4'] // 49
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'tiao6', 'tiao6', 'tiao6', 'tiao8', 'tiao8', 'tiao8', 'zi5', 'zi5', 'zi1', 'zi1'] // 50
+	// t = ['b1', 'b2', 'b3', 'b8', 'b8', 'b8', 't4', 't5', 't6', 'w7', 'w8', 'w9', 'z6'] // 39 花龙
+	// t = ['b1', 'b2', 'b3', 'b8', 'b8', 'b8', 't2', 't2', 't2', 't4', 't5', 't6', 'z7'] // 40 推不倒
+	// t = ['b1', 'b2', 'b3', 'b8', 'b8', 'b8', 't2', 't2', 't2', 't4', 't5', 't6', 'z6'] // 40 推不倒 neg
+	// t = ['b2', 'b2', 'b2', 'b6', 'b7', 'b8', 't6', 't7', 't8', 'w6', 'w7', 'w8', 'z7'] // 41 三色三同顺
+	// t = ['b2', 'b3', 'b9', 'b6', 'b7', 'b8', 't6', 't7', 't8', 'w6', 'w7', 'w8', 'b9'] // 41 三色三同顺
+	// t = ['b2', 'b2', 'b2', 'b6', 'b7', 'b8', 't6', 't7', 't8', 'w5', 'w6', 'w7', 'z7'] // 41 三色三同顺 neg
+	// t = ['b2', 'b2', 'b8', 'b8', 'b8', 't6', 't6', 't6', 'w7', 'w7', 'w7', 't7', 't8'] // 42 三色三节高
+	// t = ['b1', 'b2', 'b3', 't7', 't7', 't7', 'z4', 'z4', 'w8', 'w8', 'w8', 't2', 't3'] // 43 无番和
+	// t = ['b1', 'b2', 'b3', 't7', 't7', 't7', 't7', 'w8', 'w8', 'w8', 'w8', 't2', 't3'] // 48 双暗杠
 
 	// 6 fan
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'bing2', 'bing3', 'bing4', 'wan3', 'wan4', 'wan5', 'wan7', 'wan8', 'wan9', 'zi1'] // 51
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'bing2', 'bing3', 'bing4', 'wan3', 'wan4', 'wan5', 'wan7', 'wan7', 'wan7', 'bing3'] // 51
-	// const tiles = ['tiao1', 'tiao2', 'tiao3', 'bing2', 'bing3', 'bing4', 'wan3', 'wan4', 'wan5', 'zi7', 'zi7', 'zi2', 'zi2'] // 51
-	// const tiles = ['bing7', 'bing8', 'bing9', 'tiao8', 'tiao8', 'tiao8', 'wan5', 'wan6', 'wan7', 'zi1', 'zi1', 'zi7', 'zi7'] // 52
-	// const tiles = ['bing8', 'bing8', 'bing9', 'bing9', 'bing9', 'wan6', 'wan7', 'zi1', 'zi1', 'zi1', 'zi7', 'zi7', 'zi7'] // 54
-	// const tiles = ['bing1', 'bing2', 'bing3', 'bing9', 'bing9', 'bing9', 'tiao1', 'tiao2', 'tiao3', 'zi3', 'zi3', 'zi6', 'zi6'] // 55
-	// const tiles = ['bing1', 'bing1', 'bing9', 'bing9', 'wan9', 'wan9', 'tiao1', 'tiao1', 'zi5', 'zi3', 'zi3', 'tiao9', 'tiao9'] // 55 qidui
+	// t = ['b9', 'b9', 'b9', 't1', 't1', 't1', 'w4', 'w4', 'w5', 'w5', 'w5', 'w9', 'w9'] // 49 碰碰和
+	// t = ['t7', 't7', 't7', 'w2', 'w2', 'w2', 'w3', 'w3', 'w3', 'z6', 'z6', 'z6', 'b2'] // 49 碰碰和
+	// t = ['t7', 't7', 't7', 'w2', 'w2', 'w2', 'w3', 'w3', 'w3', 'z6', 'z6', 'z6', 'w4'] // 49 碰碰和
+	// t = ['t1', 't2', 't3', 't6', 't6', 't6', 't8', 't8', 't8', 'z5', 'z5', 'z1', 'z1'] // 50 混一色
+	// t = ['t1', 't2', 't3', 'b2', 'b3', 'b4', 'w3', 'w4', 'w5', 'w7', 'w8', 'w9', 'z1'] // 51 三色三步高
+	// t = ['t1', 't2', 't3', 'b2', 'b3', 'b4', 'w3', 'w4', 'w5', 'w7', 'w7', 'w7', 'b3'] // 51 三色三步高
+	// t = ['t1', 't2', 't3', 'b2', 'b3', 'b4', 'w3', 'w4', 'w5', 'z7', 'z7', 'z2', 'z2'] // 51 三色三步高
+	// t = ['b7', 'b8', 'b9', 't8', 't8', 't8', 'w5', 'w6', 'w7', 'z1', 'z1', 'z7', 'z7'] // 52 五门齐
+	// t = ['b8', 'b8', 'b9', 'b9', 'b9', 'w6', 'w7', 'z1', 'z1', 'z1', 'z7', 'z7', 'z7'] // 54 双箭刻
+
+	// 4 fan
+	// t = ['b1', 'b2', 'b3', 'b9', 'b9', 'b9', 't1', 't2', 't3', 'z3', 'z3', 'z6', 'z6'] // 55 全带幺
+	// t = ['b1', 'b1', 'b9', 'b9', 'w9', 'w9', 't1', 't1', 'z5', 'z3', 'z3', 't9', 't9'] // 55 全带幺 qidui
+	// t = ['b1', 'b1', 'b1', 'w9', 'w9', 'w9', 't1', 't2', 't3', 'z3', 'z3', 't7', 't8'] // 57 双明杠
 
 	// 2 fan
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing2', 'bing3', 'bing4', 'tiao3', 'tiao4', 'tiao5', 'wan5', 'wan5', 'wan2', 'wan3'] // 64
-	// const tiles = ['bing2', 'bing2', 'bing2', 'bing4', 'bing4', 'bing4', 'tiao4', 'tiao4', 'tiao4', 'wan5', 'wan5', 'wan3', 'wan3'] // 65
+	// t = ['b2', 'b2', 'b2', 'b2', 'b3', 'b4', 't3', 't4', 't5', 'w5', 'w5', 'w2', 'w3'] // 64 四归一
+	// t = ['b2', 'b2', 'b2', 'b4', 'b4', 'b4', 't4', 't4', 't4', 'w5', 'w5', 'w3', 'w3'] // 65 双同刻
 
 	// 1 fan
-	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'tiao3', 'tiao3', 'tiao3', 'wan5', 'wan5', 'wan2', 'wan3'] // 69
-	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'bing1', 'bing1', 'bing1', 'bing5', 'bing5', 'bing2', 'bing3'] // 69
-	// const tiles = ['bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'tiao2', 'tiao2', 'tiao2', 'wan2', 'wan3', 'zi2', 'zi2'] // 70
-	// const tiles = ['bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'zi2'] // 70
-	// const tiles = ['bing7', 'bing8', 'bing9', 'tiao7', 'tiao8', 'tiao9', 'bing2', 'bing3', 'bing4', 'tiao2', 'tiao3', 'tiao4', 'wan2'] // 70
-	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'tiao2', 'tiao3', 'tiao4', 'tiao5', 'tiao6', 'tiao7', 'bing2'] // 71
-	// const tiles = ['bing7', 'bing8', 'bing9', 'bing7', 'bing8', 'bing9', 'tiao1', 'tiao2', 'tiao3', 'tiao7', 'tiao8', 'tiao9', 'zi7'] // 72
-	// const tiles = ['bing9', 'bing9', 'bing9', 'bing1', 'bing1', 'bing1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'zi1', 'wan2'] // 73 幺九刻
-	// const tiles = ['bing9', 'bing9', 'bing9', 'bing1', 'bing1', 'bing1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan1', 'wan2'] // 77 边张
-	// const tiles = ['wan9', 'wan9', 'wan9', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan1', 'wan2'] // 77 边张
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan8', 'wan9'] // 77 边张
-	// const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan8', 'wan7'] // 77 边张 neg
-	const tiles = ['wan5', 'wan5', 'wan5', 'wan1', 'wan1', 'wan1', 'tiao3', 'tiao3', 'tiao3', 'zi1', 'zi1', 'wan7', 'wan9'] // 78 坎张
+	// t = ['b7', 'b8', 'b9', 'b7', 'b8', 'b9', 't3', 't3', 't3', 'w5', 'w5', 'w2', 'w3'] // 69 一般高
+	// t = ['b7', 'b8', 'b9', 'b7', 'b8', 'b9', 'b1', 'b1', 'b1', 'b5', 'b5', 'b2', 'b3'] // 69 一般高
+	// t = ['b7', 'b8', 'b9', 't7', 't8', 't9', 't2', 't2', 't2', 'w2', 'w3', 'z2', 'z2'] // 70 喜相逢
+	// t = ['b7', 'b8', 'b9', 't7', 't8', 't9', 'b7', 'b8', 'b9', 't7', 't8', 't9', 'z2'] // 70 喜相逢
+	// t = ['b7', 'b8', 'b9', 't7', 't8', 't9', 'b2', 'b3', 'b4', 't2', 't3', 't4', 'w2'] // 70 喜相逢
+	// t = ['b7', 'b8', 'b9', 'b7', 'b8', 'b9', 't2', 't3', 't4', 't5', 't6', 't7', 'b2'] // 71 连六
+	// t = ['b7', 'b8', 'b9', 'b7', 'b8', 'b9', 't1', 't2', 't3', 't7', 't8', 't9', 'z7'] // 72 老少副
+	// t = ['b9', 'b9', 'b9', 'b1', 'b1', 'b1', 't3', 't3', 't3', 'z1', 'z1', 'z1', 'w2'] // 73 幺九刻
+	// t = ['b9', 'b9', 'b9', 'b1', 'b1', 'b1', 't3', 't3', 't3', 'z1', 'z1', 'w1', 'w2'] // 77 边张
+	// t = ['w9', 'w9', 'w9', 'w1', 'w1', 'w1', 't3', 't3', 't3', 'z1', 'z1', 'w1', 'w2'] // 77 边张
+	// t = ['w5', 'w5', 'w5', 'w1', 'w1', 'w1', 't3', 't3', 't3', 'z1', 'z1', 'w8', 'w9'] // 77 边张
+	// t = ['w5', 'w5', 'w5', 'w1', 'w1', 'w1', 't3', 't3', 't3', 'z1', 'z1', 'w8', 'w7'] // 77 边张 neg
+	// t = ['w5', 'w5', 'w5', 'w1', 'w1', 'w1', 't3', 't3', 't3', 'z1', 'z1', 'w7', 'w9'] // 78 坎张
 
-	for (const tile of tiles) {
+	const types = {
+		b: 'bing',
+		t: 'tiao',
+		w: 'wan',
+		z: 'zi'
+	}
+
+	for (let tile of t) {
+		tile = types[tile[0]] + tile[1]
 		game.players[4].door.push(game.tiles.splice(game.tiles.findIndex(item => item[2] === tile), 1)[0])
 	}
 
