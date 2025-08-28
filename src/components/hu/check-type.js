@@ -11,27 +11,7 @@
 
 import { KEZI, SHUNZI } from './patterns.js'
 import { ZI } from '../../models/tiles.js'
-import { lookup2 } from '../lookup/lookup2.js'
-import { lookup3 } from '../lookup/lookup3.js'
-import { lookup5 } from '../lookup/lookup5.js'
-import { lookup6 } from '../lookup/lookup6.js'
-import { lookup8 } from '../lookup/lookup8.js'
-import { lookup9 } from '../lookup/lookup9.js'
-import { lookup11 } from '../lookup/lookup11.js'
-import { lookup12 } from '../lookup/lookup12.js'
-import { lookup14 } from '../lookup/lookup14.js'
-
-const lookup = {
-	lookup2: lookup2,
-	lookup3: lookup3,
-	lookup5: lookup5,
-	lookup6: lookup6,
-	lookup8: lookup8,
-	lookup9: lookup9,
-	lookup11: lookup11,
-	lookup12: lookup12,
-	lookup14: lookup14
-}
+import { lookup } from '../lookup/lookup.js'
 
 /**
  * Find winning set of melds.
@@ -53,8 +33,8 @@ export async function checkType(key, type, lookupKey, player) {
 	// DRY
 	if (meldsets.length > 1) {
 		for (const melds of meldsets) {
-			let huPairs = player.hu.pairs
-			let huMelds = player.hu.melds
+			let huPairs = player.noPairs
+			let huMelds = player.noMelds
 
 			for (const meld of melds) {
 				switch (meld.length) {
@@ -81,16 +61,13 @@ export async function checkType(key, type, lookupKey, player) {
 	for (const meld of maxMelds) {
 		switch (meld.length) {
 		case 2:
-			player.hu.duizi.push([key, meld])
-			player.hu.pairs++
+			player.noPairs++
 			break
 		case 3:
 			if (!ZI.includes(key) && meld.match(SHUNZI)) {
-				player.hu.shunzi.push([key, meld])
-				player.hu.melds++
+				player.noMelds++
 			} else if (meld.match(KEZI)) {
-				player.hu.kezi.push([key, meld])
-				player.hu.melds++
+				player.noMelds++
 			}
 
 			break

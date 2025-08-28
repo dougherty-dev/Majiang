@@ -58,7 +58,6 @@ export default class Points {
 		}
 
 		this.setupTypes()
-		this.setupHu()
 		this.setupCommon()
 		this.setupFanzhong()
 	}
@@ -86,19 +85,6 @@ export default class Points {
 			this.struct.types[type[0]] = this.struct.types[type[0]].split('').sort().join('')
 			this.struct.types14[type[0]] = this.struct.types14[type[0]].split('').sort().join('')
 		}
-	}
-
-	// Common structures for player. Unreliable, should be retired.
-	setupHu() {
-		const hu = this.struct.game.players[this.struct.key].hu
-		hu.values = Object.values(this.struct.types).filter(item => item)
-
-		hu.allMelds = Object.assign([], [
-			...hu.duizi,
-			...hu.shunzi,
-			...hu.kezi,
-			...hu.gangzi
-		])
 	}
 
 	// Common structures used in fanzhong rules definitions.

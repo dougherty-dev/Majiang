@@ -18,7 +18,7 @@
 
 import { checkPattern } from '../../components/hu/check-type.js'
 import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
-import { lookup5 } from '../../components/lookup/lookup5.js'
+import { lookup5 } from '../../components/lookup/lookup.js'
 
 const FZ8 = 8
 
@@ -174,10 +174,13 @@ export async function fz45HaidiLaoyue(struct) {
 	return (dianhu && tileCount === 0) ? FZ8 : 0
 }
 
-// 46. Out with replacement tile (Gangshang kaihua, 杠上开花)
-// PROBLEMATIC?
+/**
+ * ✅ 46. Out with replacement tile (Gangshang kaihua, 杠上开花).
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 8.
+ */
 export async function fz46GangshangKaihua(struct) {
-	return (struct.game.gangshangKaihua) ? FZ8 : 0
+	return (struct.game.players[struct.key].gangshangKaihua === 2) ? FZ8 : 0
 }
 
 // 47. Robbing the gang (Qiangganghu, 抢杠和)

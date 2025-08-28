@@ -71,6 +71,7 @@ async function angang(game, meldSet) {
 	}
 
 	sound('snd/gang.m4a')
+	game.players[game.currentPlayer].gangshangKaihua = 1 // Set potential.
 	displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 
 	game.players[game.currentPlayer].melds.push({

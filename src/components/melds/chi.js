@@ -120,9 +120,7 @@ async function chi(game, meldSet, nextPlayer) {
 	displayMeld(nextPlayer, game.players[nextPlayer])
 
 	// Rotate players.
-	game.players[game.currentPlayer].turn = false
 	game.currentPlayer = modIncrease(game.currentPlayer)
-	game.players[game.currentPlayer].turn = true
 	await delay(1000)
 }
 

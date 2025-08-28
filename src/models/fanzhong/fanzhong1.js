@@ -24,6 +24,7 @@ import { KEZI } from '../../components/hu/patterns.js'
 import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
 import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
 import { lianliuLookup } from '../../components/lookup/lianliu.js'
+import { ZI } from '../tiles.js'
 
 const FZ1 = 1
 
@@ -299,7 +300,11 @@ export async function fz79DandiaoJiang(struct) {
 
 	// Probe remaining pattern, if ok hupai forms a pair.
 	const pattern = door.filter(item => item[7] === hupai[7]).map(item => item[1]).join('')
+
 	if (!await checkPattern(pattern)) return 0
+
+	// If hupai is wind or honor, and it forms a pair, it can’t form anything else.
+	if (ZI.includes(hupai[7])) return FZ1
 
 	// Check if another tile could have made a winning hand.
 	door = Object.assign([], struct.game.players[struct.key].door)
@@ -308,7 +313,7 @@ export async function fz79DandiaoJiang(struct) {
 	const seq = door.filter(item => item[7] === hupai[7]).map(item => item[1])
 	if (![1, 2, 4, 5, 7, 8, 10, 11, 13].includes(seq.length)) return 0
 
-	return (await tingpai(seq)) ? FZ1 : 0
+	return (seq.length === 0 || await tingpai(seq)) ? FZ1 : 0
 }
 
 /**

@@ -10,7 +10,24 @@
 import { TYPES } from './patterns.js'
 import { checkType } from './check-type.js'
 import { checkSpecial } from './specials.js'
-import Hu from '../../models/hu.js'
+
+/**
+ * Reset vars for player.
+ * @param {object} player The player structure.
+ */
+export async function resetPlayerVars(player) {
+	player.noMelds = player.melds.length
+	player.noPairs = 0
+
+	player.qidui = false
+	player.shisanyao = false
+	player.knitted = false
+	player.lesserHonors = false
+	player.greaterHonors = false
+	player.knittedStraight = false
+	player.dianhu = false
+	player.zimo = false
+}
 
 /**
  * Check validity of _remaining_ tiles at hand for possible hu.
@@ -21,35 +38,15 @@ import Hu from '../../models/hu.js'
  * @returns {promise<boolean>}
  */
 export async function checkHu(player, door) {
-	player.hu = new Hu().hu
-	player.hu.melds = player.melds.length
+	await resetPlayerVars(player)
 
-	// Collect melds.
-	for (const meld of player.melds) {
-		const set = [meld.meld[0][7], meld.meld.map(item => item[1]).join('')]
-
-		switch (meld.type) {
-		case 'peng':
-			player.hu.kezi.push(set)
-			break
-		case 'gang':
-		case 'angang':
-			player.hu.gangzi.push(set)
-			break
-		case 'chi':
-			player.hu.shunzi.push(set)
-			break
-		}
-	}
-
-	player.hu.types = Object.assign({}, TYPES)
-
+	player.types = Object.assign({}, TYPES)
 	for (const tile of door) {
-		player.hu.types[tile[7]] += tile[1]
+		player.types[tile[7]] += tile[1]
 	}
 
 	// Regular hands.
-	const types = Object.entries(player.hu.types).filter(item => item[1])
+	const types = Object.entries(player.types).filter(item => item[1])
 	for await (const [key, type] of types) {
 		if (
 			[1, 4, 7, 10, 13].includes(type.length) ||
@@ -57,8 +54,8 @@ export async function checkHu(player, door) {
 		) break
 	}
 
-	if (player.hu.pairs === 1 && player.hu.melds === 4) return true
+	if (player.noPairs === 1 && player.noMelds === 4) return true
 
 	// Special hands.
-	return checkSpecial(player, door)
+	return checkSpecial(player)
 }

@@ -6,36 +6,33 @@
  * @description The Players class.
  */
 
-import Hu from './hu.js'
-
 /**
  * @class Player
  * @description Individual player object definition.
  * @typedef {object} player The player object.
  */
-class Player {
-	constructor() {
+export class Player {
+	constructor(points = 0, wind = null) {
 		this.player = {
-			points: 0,
-			wind: null,
-			turn: false,
-			tingpai: false,
-			discarded: false,
+			points: points,
+			wind: wind,
 			door: [],
 			melds: [],
 			flowers: [],
 			floor: [],
 			drop: [],
-			sets: [],
 			zimo: false,
 			dianhu: false,
+			noPairs: null,
+			noMelds: null,
+			types: {},
 			shisanyao: false,
 			qidui: false,
 			knitted: false,
 			lesserHonors: false,
 			greaterHonors: false,
 			knittedStraight: false,
-			hu: new Hu().hu
+			gangshangKaihua: 0
 		}
 	}
 }
@@ -45,7 +42,7 @@ class Player {
  * @description Set of four players.
  * @typedef {object} players The players object.
  */
-export default class Players {
+export class Players {
 	constructor() {
 		this.players = {
 			'1': new Player().player,	// east

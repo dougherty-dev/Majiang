@@ -90,7 +90,6 @@ export async function botDiscard(game) {
 	}
 
 	displayDiscarded(game.currentPlayer, door.at(index))
-	game.players[game.currentPlayer].discarded = true
 	game.players[game.currentPlayer].drop = door.at(index)
 	door.splice(index, 1)
 	sound('snd/clack.m4a')

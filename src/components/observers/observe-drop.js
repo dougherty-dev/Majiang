@@ -36,9 +36,8 @@ export function observeDrop(game) {
 			if (tile === undefined) return
 			game.drop = [tile[7], tile[1]]
 
-			// Update door, change status to finally discarded.
+			// Update door.
 			displayDoor(game.currentPlayer, game.players[game.currentPlayer])
-			game.players[game.currentPlayer].discarded = true
 
 			// Player will chi, peng, gang or gang discarded tile?
 			if (await dropTileChecks(game, tile, key)) return

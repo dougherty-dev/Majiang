@@ -105,6 +105,8 @@ export async function fz23YiSeSanTongshun(struct) {
  */
  
 export async function fz24YiSeSanJieGao(struct) {
+	if (struct.nonchiMelds.length > 1) return 0
+
 	const shuTypes = struct.shuTypes14.filter(item => item[1])
 
 	const melds = struct.game.players[struct.key].melds

@@ -17,7 +17,7 @@ import { displayDoors } from '../display/door.js'
 import { gameOver } from './game-over.js'
 import { cheat } from './test-cheat.js'
 import { ALLPLAYERS } from '../../models/constants.js'
-import Hu from '../../models/hu.js'
+import { Player } from '../../models/players.js'
 
 /**
  * Prepare new round. Set winds, rotate players.
@@ -25,24 +25,10 @@ import Hu from '../../models/hu.js'
  * @returns {promise<boolean>}
  */
 export async function newRound(game) {
+	// Recycle players, but keep points and winds.
 	for (const index of ALLPLAYERS) {
-		game.players[index].tingpai = null
-		game.players[index].discarded = null
-		game.players[index].door = []
-		game.players[index].melds = []
-		game.players[index].flowers = []
-		game.players[index].floor = []
-		game.players[index].drop = []
-		game.players[index].sets = []
-		game.players[index].zimo = false
-		game.players[index].dianhu = false
-		game.players[index].shisanyao = false
-		game.players[index].qidui = false
-		game.players[index].knitted = false
-		game.players[index].lesserHonors = false
-		game.players[index].greaterHonors = false
-		game.players[index].knittedStraight = false
-		game.players[index].hu = new Hu().hu
+		const p = game.players[index]
+		game.players[index] = new Player(p.points, p.wind).player
 	}
 
 	game.tiles = shuffle(Object.assign([], TILES))
@@ -76,7 +62,6 @@ export async function newRound(game) {
 	game.currentPlayer = zhuangjiaBanker(game.players)
 	game.winner = false
 	game.draw = false
-	game.qianggang = false
 
 	const cheatOn = false
 	if (cheatOn) {

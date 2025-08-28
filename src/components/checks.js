@@ -30,16 +30,14 @@ export async function newTileChecks(game, key) {
 
 	const tile = await checkJiagang(game)
 	if (tile) {
-		/**
-		 * Check for qianggang.
-		 */
+		// Check for qianggang.
 		if (await checkDianhu(game, tile, key)) return true
 
 		return await newTile(game)
 	}
 
 	if (await checkAngang(game)) {
-		game.gangshangKaihua = true
+		game.players[game.currentPlayer].gangshangKaihua = 1
 		return await newTile(game)
 	}
 
@@ -58,7 +56,7 @@ export async function dropTileChecks(game, tile, key) {
 
 	switch (await checkPeng(game, tile)) {
 	case 'gang':
-		game.gangshangKaihua = true
+		game.players[game.currentPlayer].gangshangKaihua = 1
 		return await newTile(game)
 	case 'peng':
 		return true

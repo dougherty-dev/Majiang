@@ -88,8 +88,6 @@ export async function takeTile(tiles) {
  * @returns {promise<boolean>}
  */
 export async function newTile(game) {
-	game.gangshangKaihua = false
-
 	let tile = await takeTile(game.tiles)
 	let tileCopy
 
@@ -97,8 +95,8 @@ export async function newTile(game) {
 
 	// Replace flower tiles, as long as there are tiles. Otherwise claim draw.
 	while (HUAPAI.some(obj => JSON.stringify(obj) === JSON.stringify(tile))) {
-		game.gangshangKaihua = false
 		tileCopy = tile
+		game.players[game.currentPlayer].gangshangKaihua = 0
 
 		if (game.tiles.length === 0) {
 			await displayFlower(game.currentPlayer, tileCopy)
@@ -148,7 +146,6 @@ export async function replaceFlowers(game) {
 			while (HUAPAI.includes(tile)) {
 				if (!playing) return
 
-				game.gangshangKaihua = false
 				tileCopy = tile
 				player.flowers.push(tile)
 
@@ -219,7 +216,6 @@ export function	handleTiles(game, door) {
 		// Discard clicked tile.
 		game.players[game.currentPlayer].drop = chosen
 		game.players[game.currentPlayer].door.splice(index, 1)
-		game.players[game.currentPlayer].discarded = true
 
 		// Display discarded tile.
 		displayDiscarded(game.currentPlayer, chosen)

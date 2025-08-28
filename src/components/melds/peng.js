@@ -78,6 +78,10 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 	}
 
 	sound(`snd/${meldType}.m4a`)
+	if (meldType === 'gang') { // Set potential.
+		game.players[game.currentPlayer].gangshangKaihua = 1
+	}
+
 	displayDoor(pengPlayer, game.players[pengPlayer])
 	displayRemoveItem('control-drop', game.currentPlayer)
 
@@ -90,9 +94,7 @@ async function peng(game, meldSet, meldType, pengPlayer) {
 	displayMeld(pengPlayer, game.players[pengPlayer])
 
 	// Rotate players.
-	game.players[game.currentPlayer].turn = false
 	game.currentPlayer = pengPlayer
-	game.players[game.currentPlayer].turn = true
 	await delay(1000)
 }
 

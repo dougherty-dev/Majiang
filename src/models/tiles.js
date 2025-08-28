@@ -92,7 +92,7 @@ export const HUAPAI = [
 ]
 
 export const BEIMIAN = [
-	[null, null,'beimian', 'beimian', '背面', '🀫', 'beimian']
+	[null, null, 'beimian', 'beimian', '背面', '🀫', 'beimian']
 ]
 
 export const TILES = [...BINGZI, ...TIAOZI, ...WANZI, ...ZIPAI, ...HUAPAI]

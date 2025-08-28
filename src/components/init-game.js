@@ -12,7 +12,7 @@ import { randInt } from './helpers.js'
 import { determineSeatWinds } from '../models/winds.js'
 import { newRound } from '../components/round/new-round.js'
 import { play } from './play.js'
-import Players from '../models/players.js'
+import { Players } from '../models/players.js'
 
 /**
  * Setup game.
@@ -21,7 +21,6 @@ import Players from '../models/players.js'
 export async function initGame(game) {
 	game = {
 		version: VERSION,
-		active: true,
 		round: 1,
 		rotation: 1,
 		hand: 0,
@@ -34,7 +33,6 @@ export async function initGame(game) {
 		sorted: false,
 		draw: false,
 		winner: false,
-		qianggang: false,
 		drop: [null, null],
 		players: new Players().players
 	}

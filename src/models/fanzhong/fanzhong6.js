@@ -14,8 +14,7 @@
 
 import { KEZI, SHUNZI } from '../../components/hu/patterns.js'
 import { keziLookup } from '../../components/lookup/kezi.js'
-import { lookup5 } from '../../components/lookup/lookup5.js'
-import { lookup6 } from '../../components/lookup/lookup6.js'
+import { lookup5, lookup6 } from '../../components/lookup/lookup.js'
 
 const FZ6 = 6
 

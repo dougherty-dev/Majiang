@@ -10,10 +10,10 @@
 import { ALLPLAYERS } from '../../models/constants.js'
 import { sortTiles } from '../helpers.js'
 import { hu } from '../round/hu.js'
-import { checkHu } from './hu.js'
+import { checkHu, resetPlayerVars } from './hu.js'
 
 /**
- * 
+ * Decide whether player wins by taking discarded tile.
  * @param {object} game The game parameters.
  * @param {object} tile The discarded tile.
  * @param {number} key Discarding player number.
@@ -39,6 +39,8 @@ export async function checkDianhu(game, tile, key) {
 			game.winner = index
 			if (await hu(game, index)) return true
 		}
+
+		await resetPlayerVars(player)
 	}
 
 	return false

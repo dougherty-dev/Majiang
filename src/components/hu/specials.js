@@ -20,9 +20,9 @@ import { DUIZI, KEZI } from './patterns.js'
  * @param {Array} door The tiles at hand.
  * @returns {promise<boolean>}
  */
-export async function checkSpecial(player, door) {
+export async function checkSpecial(player) {
 	return (
-		await sevenPairs(player, door) ||
+		await sevenPairs(player) ||
 		await orphans(player) ||
 		await knittedHonors(player) ||
 		await knittedStraight(player)
@@ -36,12 +36,10 @@ export async function checkSpecial(player, door) {
  * @param {Array} door The tiles at hand.
  * @returns {promise<boolean>}
  */
-async function sevenPairs(player, door) {
-	player.qidui = false
-
+async function sevenPairs(player) {
 	let pairs = 0
 
-	for (const type of Object.entries(player.hu.types)) {
+	for (const type of Object.entries(player.types)) {
 		if (type[1] && !type[1].match(KEZI)) {
 			const pair = type[1].match(DUIZI)
 			if (pair) pairs += pair.length
@@ -51,12 +49,7 @@ async function sevenPairs(player, door) {
 	if (pairs !== 7) return false
 
 	player.qidui = true
-	player.hu.pairs = pairs
-	for (const [index, tile] of Object.entries(door)) {
-		if (index % 2 !== 0) continue
-		const set = [tile[7], `${tile[1]}${tile[1]}`]
-		player.hu.duizi.push(set)
-	}
+	player.noPairs = pairs
 
 	return true
 }
@@ -68,17 +61,15 @@ async function sevenPairs(player, door) {
  * @returns {promise<boolean>}
  */
 async function orphans(player) {
-	player.shisanyao = false
-
-	const values = Object.values(player.hu.types).filter(item => item)
+	const values = Object.values(player.types).filter(item => item)
 
 	if (
 		values.length === 5 &&
-		player.hu.types.b.match(/1{1,2}9{1,2}/g) &&
-		player.hu.types.t.match(/1{1,2}9{1,2}/g) &&
-		player.hu.types.w.match(/1{1,2}9{1,2}/g) &&
-		player.hu.types.f.match(/1{1,2}2{1,2}3{1,2}4{1,2}/g) &&
-		player.hu.types.j.match(/1{1,2}2{1,2}3{1,2}/g)
+		player.types.b.match(/1{1,2}9{1,2}/g) &&
+		player.types.t.match(/1{1,2}9{1,2}/g) &&
+		player.types.w.match(/1{1,2}9{1,2}/g) &&
+		player.types.f.match(/1{1,2}2{1,2}3{1,2}4{1,2}/g) &&
+		player.types.j.match(/1{1,2}2{1,2}3{1,2}/g)
 	) {
 		player.shisanyao = true
 		return true
@@ -94,11 +85,7 @@ async function orphans(player) {
  * @returns {promise<boolean>}
  */
 async function knittedHonors(player) {
-	player.knitted = false
-	player.lesserHonors = false
-	player.greaterHonors = false
-
-	const types = Object.entries(player.hu.types)
+	const types = Object.entries(player.types)
 	const shu = types.filter(item => SHU.includes(item[0])).map(item => `${item[1]}`)
 
 	if (shu.length < 3) return false
@@ -148,9 +135,7 @@ async function knittedHonors(player) {
  * @returns {promise<boolean>}
  */
 async function knittedStraight(player) {
-	player.knittedStraight = false
-
-	const types = Object.entries(player.hu.types)
+	const types = Object.entries(player.types)
 	const flowers = types.filter(item => SHU.includes(item[0]))
 
 	if (flowers.length < 3) return false
@@ -182,11 +167,11 @@ async function knittedStraight(player) {
 
 	if (melds.length < 3) return false
 
-	player.allMelds = []
+	let allMelds = []
 	for (const [key, group] of Object.entries(melds)) {
 		for (const arr of group) {
 			for (const meld of arr) {
-				player.allMelds.push(SHU[key] + meld)
+				allMelds.push(SHU[key] + meld)
 			}
 		}
 	}
@@ -198,14 +183,14 @@ async function knittedStraight(player) {
 			(meld[1].length === 2 && meld[1].match(DUIZI)) ||
 			(meld[1].length === 3 && meld[1].match(KEZI))
 		) {
-			player.allMelds.push(meld[0] + meld[1])
+			allMelds.push(meld[0] + meld[1])
 		} else {
 			return false
 		}
 	}
 
 	if (
-		player.allMelds.length + player.melds.length === 5 &&
+		allMelds.length + player.melds.length === 5 &&
 		player.melds.length <= 1
 	) {
 		player.knittedStraight = true

@@ -2,7 +2,7 @@
 
 /**
  * @author Niklas Dougherty
- * @module components/hu/knitted8
+ * @module components/hu/knitted
  */
 
 // 1 meld

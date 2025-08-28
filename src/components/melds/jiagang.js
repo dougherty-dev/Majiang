@@ -83,6 +83,7 @@ async function jiagang(game, peng, tile) {
 	}
 
 	sound('snd/gang.m4a')
+	game.players[game.currentPlayer].gangshangKaihua = 1 // Set potential.
 	displayDoor(game.currentPlayer, game.players[game.currentPlayer])
 
 	game.players[game.currentPlayer].melds[peng].type = 'gang'
