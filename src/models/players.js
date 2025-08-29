@@ -32,7 +32,8 @@ export class Player {
 			lesserHonors: false,
 			greaterHonors: false,
 			knittedStraight: false,
-			gangshangKaihua: 0
+			gangshangKaihua: 0,
+			qianggang: false
 		}
 	}
 }

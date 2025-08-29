@@ -101,7 +101,6 @@ export async function fz23YiSeSanTongshun(struct) {
  * Kezi in the same suit, shifted up one in value for each set.
  * @param {object} struct Game parameters.
  * @returns {promise<number>} 0 or 24.
- * 23. Pure triple shunzi takes precedence unless melds are present (same sorted pattern).
  */
  
 export async function fz24YiSeSanJieGao(struct) {

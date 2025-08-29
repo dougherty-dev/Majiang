@@ -8,6 +8,8 @@
  * @property {function} fz15YiSeSiJieGao 15. Four pure shifted kezi (Yi se si jie gao, 一色四节高).
  */
 
+import { checkPattern } from '../../components/hu/check-type.js'
+
 const FZ48 = 48
 
 /**
@@ -19,14 +21,22 @@ const FZ48 = 48
 export async function fz14YiSeSiTongshun(struct) {
 	if (struct.nonchiMelds.length) return 0
 
-	const pattern = new RegExp([
+	const patterns = [
 		'111122223333', '222233334444', '333344445555', '444455556666',
 		'555566667777', '666677778888', '777788889999'
-	].join('|'), 'g')
+	]
 
-	const types = struct.shuTypes14.filter(item => item[1].match(pattern))
+	const pattern = new RegExp(patterns.join('|'), 'g')
 
-	return (types.length) ? FZ48 : 0
+	let types = struct.shuTypes14.filter(item => item[1].match(pattern))
+	if (types.length === 0) return 0
+	types = types[0][1]
+
+	for (let i = 1; i <= 9; i++) {
+		types = types.replace(`${i}${i}${i}${i}`, '')
+	}
+
+	return (await checkPattern(types)) ? FZ48 : 0
 }
 
 /**

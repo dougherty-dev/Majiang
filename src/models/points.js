@@ -125,7 +125,7 @@ export default class Points {
 			'3': ['绿一色', 'Lü yise', 'All green', fz3LyYise, 0, [50]],
 			'4': ['九莲宝灯', 'Jiu lian baodeng', 'Nine gates', fz4JiuLianBaodeng, 0, [5, 8, 11, 12, 13, 14, 15, 16, 18, 21, 22, 49, 62, 29, 63, 73]],
 			'5': ['四杠', 'Si gang', 'Four gangs', fz5SiGang, 0, [13, 14, 16, 17, 29, 49, 57, 63, 74, 79]],
-			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, [8, 11, 12, 13, 14, 15, 16, 18, 19, 21, 22, 29, 49, 63, 63, 79]],
+			'6': ['连七对', 'Lian qi dui', 'Seven shifted pairs', fz6LianQiDui, 0, [8, 11, 12, 13, 14, 15, 16, 18, 19, 21, 22, 29, 49, 63, 63, 69, 70, 71, 72, 77, 78, 79]],
 			'7': ['十三幺', 'Shisan yao', 'Thirteen orphans', fz7ShisanYao, 0, [8, 11, 12, 13, 14, 15, 16, 18, 21, 29, 49, 52, 56, 62, 63, 79]],
 			// 64 fan
 			'8': ['清幺九', 'Qing yao jiu', 'Pure terminals', fz8QingYaoJiu, 0, [13, 14, 16, 18, 29, 32, 49, 55, 63, 65, 73, 76]],
@@ -135,14 +135,14 @@ export default class Points {
 			'12': ['四暗刻', 'Si anke', 'Four concealed kezi', fz12SiAnke, 0, [13, 14, 16, 23, 29, 33, 49, 56, 62, 63]],
 			'13': ['一色双龙会', 'Yi se shuang long hui', 'Pure terminal shunzi', fz13YiSeShuangLongHui, 0, [15, 18, 19, 21, 22, 49, 63, 69, 72, 76]],
 			// 48 fan
-			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, [15, 18, 21, 24, 49, 63, 64, 69]],
+			'14': ['一色四同顺', 'Yi se si tongshun', 'Quadruple shunzi', fz14YiSeSiTongshun, 0, [15, 17, 18, 21, 24, 24, 32, 33, 38, 42, 49, 63, 64, 69]],
 			'15': ['一色四节高', 'Yi se si jie gao', 'Four pure shifted kezi', fz15YiSeSiJieGao, 0, [16, 23, 24, 29, 49, 63]],
 			// 32 fan
 			'16': ['一色四步高', 'Yi se si bu gao', 'Four shifted shunzi', fz16YiSeSiBuGao, 0, [18, 21, 30, 49, 66, 71, 72]],
 			'17': ['三杠', 'San gang', 'Three gangs', fz17SanGang, 0, [57, 71, 74, 76]],
 			'18': ['混幺九', 'Hun yao jiu', 'Non-pure terminals', fz18HunYaoJiu, 0, [29, 49, 55, 63, 73]],
 			// 24 fan
-			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, [21, 22, 29, 49, 63, 63, 79]],
+			'19': ['七对', 'Qi dui', 'Seven pairs', fz19QiDui, 0, [21, 22, 23, 28, 29, 30, 39, 41, 49, 51, 63, 69, 70, 71, 72, 77, 78, 79]],
 			'20': ['七星不靠', 'Qi xing bu kao', 'Greater honors and knitted tiles', fz20QiXingBuKao, 0, [52]],
 			'21': ['全双刻', 'Quan shuang ke', 'All even kezi', fz21QuanShuangKe, 0, [29, 49, 63, 68]],
 			'22': ['清一色', 'Qing yi se', 'Full flush', fz22QingYiSe, 0, [76]],

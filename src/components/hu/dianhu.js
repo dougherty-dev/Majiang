@@ -19,7 +19,7 @@ import { checkHu, resetPlayerVars } from './hu.js'
  * @param {number} key Discarding player number.
  * @returns {promise<boolean>}
  */
-export async function checkDianhu(game, tile, key) {
+export async function checkDianhu(game, tile, key, qianggang = false) {
 	const players = ALLPLAYERS.filter(item => item !== key)
 
 	const rotate = (arr, position) =>
@@ -37,7 +37,10 @@ export async function checkDianhu(game, tile, key) {
 			player.dianhu = true
 			game.hupai = tile
 			game.winner = index
-			if (await hu(game, index)) return true
+			if (await hu(game, index)) {
+				if (qianggang) player.qianggang = true
+				return true
+			}
 		}
 
 		await resetPlayerVars(player)

@@ -183,10 +183,13 @@ export async function fz46GangshangKaihua(struct) {
 	return (struct.game.players[struct.key].gangshangKaihua === 2) ? FZ8 : 0
 }
 
-// 47. Robbing the gang (Qiangganghu, 抢杠和)
-// PROBLEMATIC
+/**
+ * ✅ 47. Robbing the gang (Qiangganghu, 抢杠和).
+ * @param {object} struct Game parameters.
+ * @returns {promise<number>} 0 or 8.
+ */
 export async function fz47Qiangganghu(struct) {
-	return (struct.game.qianggang) ? FZ8 : 0
+	return (struct.game.players[struct.key].qianggang) ? FZ8 : 0
 }
 
 /**

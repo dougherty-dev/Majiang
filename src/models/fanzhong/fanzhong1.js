@@ -24,6 +24,7 @@ import { KEZI } from '../../components/hu/patterns.js'
 import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
 import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
 import { lianliuLookup } from '../../components/lookup/lianliu.js'
+import { qinglongLookup } from '../../components/lookup/qinglong.js'
 import { ZI } from '../tiles.js'
 
 const FZ1 = 1
@@ -142,12 +143,29 @@ export async function fz73YaoJiuKe(struct) {
 
 	for (const shuType of shu) {
 		let type = shuType
+
+		// Qinglong special case
+		if ([9, 11, 12, 14].includes(type.length)) {
+			if (type in qinglongLookup[`qinglong${type.length}`]) {
+				let temp = type
+				for (let i = 1; i <= 9; i++) {
+					temp = temp.replace(`${i}`, '')
+				}
+
+				if (await checkPattern(temp)) {
+					const kezi = temp.match(/111|999/g) ?? []
+					if (kezi.length === 0) return 0
+				}
+			}
+		}
+
 		const kezi = type.match(/111|999/g) ?? []
 
 		for (const set of kezi) {
 			let previousType = type
 			type = type.replace(set, '')
-			if (checkPattern(type)) {
+
+			if (await checkPattern(type)) {
 				count++
 			} else {
 				type = previousType

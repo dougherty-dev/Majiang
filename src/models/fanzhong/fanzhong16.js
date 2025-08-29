@@ -87,6 +87,8 @@ export async function fz30YiSeSanBuGao(struct) {
 
 	const pattern = patterns[`${digits[0]}${digits.at(-1)}`]
 
+	if (!pattern) return 0
+
 	// Remove shunzi, check remainder
 	for (const digit of pattern.split('')) {
 		types = types.replace(digit, '')
@@ -200,7 +202,7 @@ export async function fz33SanAnke(struct) {
 			currentType[1] = currentType[1].replace(set, '')
 			if (await checkPattern(currentType[1])) {
 				// Discarded tile forming a kezi is not concealed.
-				if (!(type[0] === hupai[7] && kezi[0][0] == hupai[1])) {
+				if (!(type[0] === hupai[7] && set[0] == hupai[1])) {
 					struct.concealedKezi++
 				}
 			} else {

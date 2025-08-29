@@ -27,6 +27,7 @@ export async function resetPlayerVars(player) {
 	player.knittedStraight = false
 	player.dianhu = false
 	player.zimo = false
+	player.qianggang = false
 }
 
 /**

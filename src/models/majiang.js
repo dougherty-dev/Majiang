@@ -63,6 +63,6 @@ export default class Majiang {
 				saveGame(this.game)
 				location.hash = '#'
 			}
-		}, { once: true })
+		})
 	}
 }

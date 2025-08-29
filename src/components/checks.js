@@ -31,7 +31,7 @@ export async function newTileChecks(game, key) {
 	const tile = await checkJiagang(game)
 	if (tile) {
 		// Check for qianggang.
-		if (await checkDianhu(game, tile, key)) return true
+		if (await checkDianhu(game, tile, key, true)) return true
 
 		return await newTile(game)
 	}

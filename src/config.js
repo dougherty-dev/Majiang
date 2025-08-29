@@ -5,4 +5,4 @@
  * @module config
  */
 
-export const VERSION = '0.9.30'
+export const VERSION = '1.0.0'
