@@ -12,8 +12,8 @@
  * @property {function} fz13YiSeShuangLongHui 13. Pure terminal shunzi (Yi se shuang long hui, 一色双龙会).
  */
 
-import { DUIZI, KEZI } from '../../components/hu/patterns.js'
-import { keziLookup } from '../../components/lookup/kezi.js'
+import { checkPattern } from '../../components/hu/check-type.js'
+import { KEZI, TYPES } from '../../components/hu/patterns.js'
 
 const FZ64 = 64
 
@@ -79,32 +79,41 @@ export async function fz11ZiYiSe(struct) {
  * @returns {promise<number>} 0 or 64.
  */
 export async function fz12SiAnke(struct) {
-	if (struct.openMelds.length) return 0
+	struct.concealedKezi = struct.angangMelds.length
+	const hupai = struct.game.hupai
 
-	const types14 = struct.allTypes14.map(item => [item[0], item[1].match(KEZI)]).filter(item => item[1])
-	if (types14.map(item => item[1]).flat().length !== 4) return 0
+	let door = Object.assign([], struct.game.players[struct.key].door)
+	if (struct.game.players[struct.key].dianhu) door.push(hupai)
 
-	const types = Object.assign(struct.allTypes14.filter(item => item[1].length > 2))
+	let types = Object.assign({}, TYPES)
+	for (const tile of door) {
+		types[tile[7]] += tile[1]
+	}
+
+	types = Object.entries(types).filter(item => item[1])
 	for (const type of types) {
-		if (!keziLookup[`kezi${type[1].length}`][type[1]]) return 0
+		type[1] = type[1].split('').sort().join('')
 	}
 
-	if (struct.game.players[struct.key].dianhu) {
-		const drop = struct.game.drop
-		const pair = Object.assign(struct.allTypes14.filter(item => item[1].length === 2)).flat()
+	for (const type of types) {
+		let currentType = type
+		const kezi = currentType[1].match(KEZI) ?? []
 
-		if (
-			drop.length && pair.length &&
-			(drop[0] !== pair[0] || !pair[1].includes(drop[1])) // hupai not in pair but in kezi
-		) return 0
+		for (const set of kezi) {
+			let previousType = currentType
+			currentType[1] = currentType[1].replace(set, '')
+			if (await checkPattern(currentType[1])) {
+				// Discarded tile forming a kezi is not concealed.
+				if (!(type[0] === hupai[7] && set[0] == hupai[1])) {
+					struct.concealedKezi++
+				}
+			} else {
+				currentType = previousType
+			}
+		}
 	}
 
-	if (!struct.derivedSets.length) {
-		struct.derivedSets = struct.allTypes14
-			.map(item => [item[0], item[1].match(KEZI) || item[1].match(DUIZI)])
-	}
-
-	return FZ64
+	return (struct.concealedKezi === 4) ? FZ64 : 0
 }
 
 /**

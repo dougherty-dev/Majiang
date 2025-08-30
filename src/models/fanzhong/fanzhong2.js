@@ -16,8 +16,7 @@
  * @property {function} fz68Duanyao 68. All simples (Duanyao, 断幺).
  */
 
-import { checkPattern } from '../../components/hu/check-type.js'
-import { GANGZI, KEZI } from '../../components/hu/patterns.js'
+import { GANGZI } from '../../components/hu/patterns.js'
 import { shunziLookup } from '../../components/lookup/shunzi.js'
 
 const FZ2 = 2
@@ -121,31 +120,8 @@ export async function fz64SiGuiYi(struct) {
  * @returns {promise<number>} 0 or 2.
  */
 export async function fz65ShuangTongke(struct) {
-	const types = struct.shuTypes14.filter(item => item[1])
-		.map(item => item[1].match(KEZI))
-		.filter(item => item).flat()
-
-	const candidates = [...new Set(types)]
-	if (candidates.length + 1 > types.length) return 0
-
-	let shuangTonke
-	let shuTypes = struct.shuTypes14.map(item => item[1])
-	for (const candidate of candidates) { // Remove kezi, check remainder
-		shuangTonke = true
-
-		for (const shuType of shuTypes) {
-			let type = shuType
-			for (const digit of candidate.split('')) {
-				type = type.replace(digit, '')
-			}
-
-			shuangTonke = await checkPattern(type)
-		}
-
-		if (shuangTonke) return FZ2
-	}
-
-	return 0
+	if (struct.tongke === 4) return 2 * FZ2
+	if (struct.tongke === 2) return FZ2
 }
 
 /**

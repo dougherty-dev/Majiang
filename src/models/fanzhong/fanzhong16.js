@@ -13,7 +13,7 @@
  */
 
 import { checkPattern } from '../../components/hu/check-type.js'
-import { KEZI, TYPES } from '../../components/hu/patterns.js'
+import { KEZI } from '../../components/hu/patterns.js'
 import { qinglongLookup } from '../../components/lookup/qinglong.js'
 
 const FZ16 = 16
@@ -59,7 +59,7 @@ export async function fz30YiSeSanBuGao(struct) {
 	if (!shuTypes.length) return 0
 	let types = shuTypes[0][1]
 
-	const shifted = new RegExp ([
+	const shifted = new RegExp([
 		'1{1,}2{2,}3{3,}4{2,}5{1,}',
 		'2{1,}3{2,}4{3,}5{2,}6{1,}',
 		'3{1,}4{2,}5{3,}6{2,}7{1,}',
@@ -123,7 +123,7 @@ export async function fz31QuanDaiWu(struct) {
 		'444555566667', '445555666677', '455556666777', '555566667777',
 	]
 
-	const types =  struct.shuTypes14.filter(item => patterns.includes(item[1]))
+	const types = struct.shuTypes14.filter(item => patterns.includes(item[1]))
 	if (types.length !== struct.shuTypes14.length) return 0
 
 	const melds = struct.game.players[struct.key].melds
@@ -141,32 +141,40 @@ export async function fz31QuanDaiWu(struct) {
  * @returns {promise<number>} 0 or 16.
  */
 export async function fz32SanTongke(struct) {
+	struct.tongke = 0
+
 	const types = struct.shuTypes14.filter(item => item[1])
-		.map(item => item[1].match(KEZI))
-		.filter(item => item).flat()
+		.map(item => [item[0], item[1], item[1].match(KEZI)])
+		.filter(item => item[2])
 
-	const candidates = [...new Set(types)]
-	if (candidates.length + 2 > types.length) return 0
+	const kezi = types.map(item => item[2]).flat()
 
-	let santongke
-	const shuTypes = struct.shuTypes14.map(item => item[1])
-	for (const candidate of candidates) {
-		// Remove kezi, check remainder
-		santongke = true
-
-		for (const shuType of shuTypes) {
-			let type = shuType
-			for (const digit of candidate.split('')) {
-				type = type.replace(digit, '')
-			}
-
-			santongke = await checkPattern(type)
-		}
-
-		if (santongke) return FZ16
+	const freq = {}
+	for (const elem of kezi) {
+		freq[elem] = (freq[elem] || 0) + 1
 	}
 
-	return 0
+	const candidates = []
+	for (const item of Object.entries(freq)) {
+		if (item[1] >= 2) {
+			candidates.push(item[0])
+		}
+	}
+
+	if (candidates.length === 0) return 0
+
+	for (const type of types) {
+		for (const candidate of candidates) {
+			let pattern = type[1]
+	
+			if (!pattern.includes(candidate)) continue
+
+			pattern = pattern.replace(candidate, '')
+			if (await checkPattern(pattern)) struct.tongke++
+		}
+	}
+
+	return (struct.tongke === 3) ? FZ16 : 0
 }
 
 /**
@@ -176,40 +184,5 @@ export async function fz32SanTongke(struct) {
  * @returns {promise<number>} 0 or 16.
  */
 export async function fz33SanAnke(struct) {
-	struct.concealedKezi = struct.angangMelds.length
-	const hupai = struct.game.hupai
-
-	let door = Object.assign([], struct.game.players[struct.key].door)
-	if (struct.game.players[struct.key].dianhu) door.push(hupai)
-
-	let types = Object.assign({}, TYPES)
-	for (const tile of door) {
-		types[tile[7]] += tile[1]
-	}
-
-	types = Object.entries(types).filter(item => item[1])
-	for (const type of types) {
-		type[1] = type[1].split('').sort().join('')
-	}
-
-	for (const type of types) {
-		let currentType = type
-
-		const kezi = currentType[1].match(KEZI) ?? []
-
-		for (const set of kezi) {
-			let previousType = currentType
-			currentType[1] = currentType[1].replace(set, '')
-			if (await checkPattern(currentType[1])) {
-				// Discarded tile forming a kezi is not concealed.
-				if (!(type[0] === hupai[7] && set[0] == hupai[1])) {
-					struct.concealedKezi++
-				}
-			} else {
-				currentType = previousType
-			}
-		}
-	}
-
 	return (struct.concealedKezi === 3) ? FZ16 : 0
 }
