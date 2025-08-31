@@ -83,21 +83,23 @@ export async function fz40Tuibudao(struct) {
 }
 
 /**
- * (✅) 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
+ * ✅ 41. Mixed triple shunzi (San se san tongshun, 三色三同顺).
  * Three equal shunzi in each suit.
  * @param {object} struct Game parameters.
  * @returns {promise<number>} 0 or 8.
  */
 export async function fz41SanSeSanTongshun(struct) {
-	const shuTypes = struct.shuTypes14.filter(item => item[1] !== '')
+	const shuTypes = struct.shuTypes14.filter(item => item[1])
 	if (shuTypes.length < 3) return 0
 
 	let sorted = shuTypes.map(item => item[1]).sort((a, b) => a.length - b.length)
 
+	// Three shunzi in three suits means shortest set has length 3, and is in fact a shunzi.
+	// Three shunzi equals nine tiles, remaining five can be arranged as 5 or 2 + 3.
 	const shunzi = sorted[0].match(SHUNZI)
 	if (!shunzi) return 0
 
-	// Remove shunzi, check remainder
+	// Remove shunzi, check remainder.
 	for (const digit of shunzi[0].split('')) {
 		if (!sorted[1].includes(digit) || !sorted[2].includes(digit)) return 0
 		sorted[1] = sorted[1].replace(digit, '')
@@ -112,7 +114,7 @@ export async function fz41SanSeSanTongshun(struct) {
 }
 
 /**
- * (✅) 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
+ * ✅ 42. Mixed shifted kezi (San se san jie gao, 三色三节高).
  * Three kezi (gangzi) in each suit, shifted upwards in value.
  * @param {object} struct Game parameters.
  * @returns {promise<number>} 0 or 8.

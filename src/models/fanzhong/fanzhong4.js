@@ -85,7 +85,7 @@ export async function fz58HuJuezhang(struct) {
 	// Hupai = discard or self-draw, 1 tile
 	const hupai = struct.game.hupai
 
-	// Same tiles on floor or in medled sets.
+	// Same tiles on floor or in melded sets.
 	const tiles = struct.game.openTiles.filter(item => item[2] === hupai[2])
 
 	// Same tiles in door. Don’t count hupai twice for zimo.

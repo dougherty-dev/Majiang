@@ -28,7 +28,7 @@ export async function fz49PengpengHu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item.length > 2)
 	const kezi = types.map(item => item.match(KEZI)).flat()
 
-	if (kezi.length < 4) return 0
+	if (kezi.length < 4) return 0 // Not sufficient, 11112223334444 => 11 123 123 234 444
 
 	for (const type of types) {
 		if ([3, 5, 6, 8, 9, 11, 12, 14].includes(type.length)) {

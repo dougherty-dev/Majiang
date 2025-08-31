@@ -21,8 +21,6 @@
 
 import { checkPattern, tingpai } from '../../components/hu/check-type.js'
 import { KEZI } from '../../components/hu/patterns.js'
-import { doubleShunziLookup } from '../../components/lookup/double-shunzi.js'
-import { laoshaofuLookup } from '../../components/lookup/laoshaofu.js'
 import { lianliuLookup } from '../../components/lookup/lianliu.js'
 import { qinglongLookup } from '../../components/lookup/qinglong.js'
 import { ZI } from '../tiles.js'
@@ -38,11 +36,31 @@ const FZ1 = 1
 export async function fz69YibanGao(struct) {
 	if (struct.nonchiMelds.length > 2) return 0
 
-	let count = 0
 	const types = struct.shuTypes14.map(item => item[1]).filter(item => item)
+
+	const shunzi = new RegExp([
+		'1{2,}2{2,}3{2,}', '2{2,}3{2,}4{2,}', '3{2,}4{2,}5{2,}', '4{2,}5{2,}6{2,}',
+		'5{2,}6{2,}7{2,}', '6{2,}7{2,}8{2,}', '7{2,}8{2,}9{2,}'
+	].join('|'), 'g')
+
+	let count = 0
+
 	for (const type of types) {
-		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
-			if (type in doubleShunziLookup[`doubleShunzi${type.length}`]) count++
+		let pattern = type
+
+		for (const set of pattern.match(shunzi) ?? []) {
+			const original = pattern
+			const chars = [...new Set(set.split(''))]
+
+			for (const c of chars) { // Remove double shunzi
+				pattern = pattern.replace(c, '').replace(c, '')
+			}
+
+			if (await checkPattern(pattern)) {
+				count++
+			} else {
+				pattern = original
+			}
 		}
 	}
 
@@ -120,9 +138,16 @@ export async function fz72LaoshaoFu(struct) {
 	const types = struct.allTypes14.map(item => item[1]).filter(item => item)
 
 	let count = 0
+
 	for (const type of types) {
-		if ([6, 8, 9, 11, 12, 14].includes(type.length)) {
-			if (type in laoshaofuLookup[`laoshaofu${type.length}`]) count++
+		let laoshaofu = type
+
+		while (laoshaofu.match(/1+2+3+7+8+9+/)) {
+			for (const i of [1, 2, 3, 7, 8, 9]) { // Remove laoshaofu
+				laoshaofu = laoshaofu.replace(`${i}`, '')
+			}
+
+			if (await checkPattern(laoshaofu)) count++
 		}
 	}
 
