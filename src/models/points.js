@@ -5,7 +5,6 @@
  * @class models/points
  * @description The Points class. Calculate points according to the 81 standard rules.
  * @property {function} setupTypes Common structures for lexical analysis of patterns.
- * @property {function} setupHu Common structures for player.
  * @property {function} setupCommon Common structures used in fanzhong rules definitions.
  * @property {function} setupFanzhong Fanzhong data matrix.
  * @property {function} sumPoints Distribution of points and extra points from losers to winner.

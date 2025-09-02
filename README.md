@@ -20,7 +20,7 @@ The classical Chinese game Majiang (麻将) is here implemented as a single play
 
 New to Majiang? Just tag along and see what’s happening, then read the rules (conforming to Standard Majiang, or 国标麻将 *guoji majiang*). You’ll quickly pick up the basics. The hard part is recognizing the winning combinations.
 
-Bots are currently not very intelligent, but nevertheless employ a simple and surprisingly efficient strategy. They will probably beat you, inless you’re lucky.
+Bots are currently not very intelligent, but nevertheless employ a simple and surprisingly efficient strategy. They will probably beat you.
 
 [Tiles](https://commons.wikimedia.org/wiki/Category:SVG_Planar_illustrations_of_Mahjong_tiles) by 碧海风 (CC-BY-SA-4.0).
 
