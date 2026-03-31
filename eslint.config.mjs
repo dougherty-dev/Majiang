@@ -19,7 +19,4 @@ export default [
 			'space-before-function-paren': ['error', 'never']
 		}
 	},
-	{
-		ignores: ['.build/']
-	}
 ]

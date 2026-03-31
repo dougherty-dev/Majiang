@@ -33,7 +33,7 @@ export async function newRound(game) {
 
 	game.tiles = shuffle(Object.assign([], TILES))
 	game.openTiles = []
-	game.hupai = null
+	game.hupai = []
 	game.hand++
 
 	if (game.winner && game.players[game.winner].wind !== 1) {
