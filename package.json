@@ -22,7 +22,7 @@
     "postcss": "^8.5.6",
     "sass": "^1.89.2",
     "stylelint": "^16.23.0",
-    "stylelint-config-sass-guidelines": "^12.1.0",
+    "stylelint-config-sass-guidelines": "^13.0.0",
     "stylelint-config-standard": "^39.0.0"
   }
 }
